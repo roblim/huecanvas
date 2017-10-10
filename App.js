@@ -1,9 +1,14 @@
 import React from 'react';
+<<<<<<< HEAD
 import { StyleSheet, Text, View, Button } from 'react-native';
 import jsHue from "jshue";
 
 
 const hue = jsHue();
+=======
+import { StyleSheet, Text, View } from 'react-native';
+import LightIndexContainer from './components/light_index/light_index_container.js';
+>>>>>>> 366bced33797808f33c71fc84b2b8bec2c11ec25
 
 export default class App extends React.Component {
 
@@ -26,10 +31,14 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+<<<<<<< HEAD
         <Button onPress={() => this.getBridges()}
                 title="discover"
           />
         <Text>Hello</ Text>
+=======
+        <LightIndexContainer />
+>>>>>>> 366bced33797808f33c71fc84b2b8bec2c11ec25
       </View>
     );
   }
