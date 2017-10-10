@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 const mapStateToProps = (state, ownProps) => {
 	let room = { name: "" }
 	let shouldRender = false;
-	if (ownProps.match.path === "/rooms/new") {
+	if (ownProps.navigation.state.params === "/rooms/new") {
 		shouldRender = true;
 	} else if (ownProps.match.path === "/rooms/:roomId/edit") {
 			room = state.entities.rooms[ownProps.match.params.roomId];
