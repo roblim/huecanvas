@@ -1,2 +1,1 @@
-const jsHue = require("jsHue");
-const api =jsHue();
+export const jshue = require("jshue");

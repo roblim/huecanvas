@@ -3,12 +3,17 @@ import { StyleSheet, Text, View } from 'react-native';
 
 
 class RoomsIndexItem extends Component{
-  constructor(){
-
+  constructor(props){
+    super(props);
+    this.state={
+    };
   }
-
   render(){
-
+    return(
+      <View>
+        Rooms is Working
+      </View>
+    );
   }
 }
 

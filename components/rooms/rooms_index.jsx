@@ -2,15 +2,15 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 
-class RoomsIndexItem extends Component{
-  constructor(){
+class RoomsIndex extends Component{
 
-  }
 
   render(){
-
+    return(
+      <View>Rooms Container</View>
+    );
   }
 }
 
 
-export default RoomsIndexItem;
+export default RoomsIndex;
