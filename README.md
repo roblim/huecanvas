@@ -72,7 +72,7 @@ Hue Canvas is a mobile application that allows users to connect their Phillips h
         }
       }
     },
-    rooms {
+    rooms: {
       2: {
         id: 2,
         name: "Daddy's Room"
