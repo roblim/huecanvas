@@ -1,2 +1,2 @@
-const HueApi = require("node-hue-api").HueApi;
-export const api = new HueApi();
+const jsHue = require("jsHue");
+const api =jsHue();
