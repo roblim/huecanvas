@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import entities from "./scenes_reducer";
+import scenes from "./scenes_reducer";
+import bridges from "./discover_reducer";
 
 export default combineReducers({
- entities;
+  scenes,
+  bridges
 });
-
-export default RootReducer;

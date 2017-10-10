@@ -1,18 +1,17 @@
 import React from "react";
 import { Text } from "react-native";
 
-class SceneIndex extends React.Component {
+class Discover extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
+
   }
 
   render() {
     return (
-      <Text>Scene!</ Text>
+      <Text>discover!</Text>
     )
   }
-
 }
 
-export default SceneIndex;
+export default Discover;
