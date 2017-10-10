@@ -3,9 +3,16 @@ import Discover from "./discover";
 import { fetchBridges } from "../../actions/discover_actions";
 
 const mapStateToProps = (state) => {
-  return {
-    bridges: Object.keys(state.scenes).map((id) => state.bridges[id])
+  if (state.bridges) {
+    return {
+      bridges: Object.keys(state.bridges).map((id) => state.bridges[id])
+    }
+  } else {
+    return {
+      bridges: []
+    }
   }
+
 }
 
 const mapDispatchToProps = (dispatch) => ({

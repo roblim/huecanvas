@@ -12,7 +12,7 @@ export default class Root extends React.Component {
 			<View>
 				<Text>This is a test</Text>
           <SceneIndexContainer />
-
+          <DiscoverContainer />
 			</View>
     );
   }

@@ -7,6 +7,10 @@ class Discover extends React.Component {
 
   }
 
+  componentDidMount() {
+    this.props.fetchBridges();
+  }
+
   render() {
     return (
       <Text>discover!</Text>
