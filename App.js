@@ -2,12 +2,15 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Root from './components/root';
 import configureStore from './store/store';
+import { Provider } from 'react-redux';
 
 export default class App extends React.Component {
   render() {
     let store = configureStore()
     return (
-      <Root store={store} />
+      <Provider store={store}>
+        <Root />
+      </Provider>
     );
   }
 }
