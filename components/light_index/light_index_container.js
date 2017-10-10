@@ -1,12 +1,22 @@
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
-import { Text } from 'react-native';
-import jsHue from 'jsHue';
+import React from 'react';
+import { Text, View } from 'react-native';
+import jsHue from 'jshue';
 
-export default class LightIndexContainer extends Component {
+export default class LightIndexContainer extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+  }
+
   render() {
     return (
+      <View>
       <Text>Hello world!</Text>
+      <Text></Text>
+      </View>
     );
   }
 }
