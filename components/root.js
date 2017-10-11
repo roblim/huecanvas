@@ -4,13 +4,13 @@ import {
   StackNavigator,
 } from 'react-navigation';
 
-import LightIndexContainer from './light_index/light_index_container.js';
+import TestComponent from './light_index/test_component.js';
 
 export default class Root extends React.Component {
   render() {
     return (
 			<View style={styles.container}>
-        <LightIndexContainer/>
+        <TestComponent/>
 			</View>
     );
   }
