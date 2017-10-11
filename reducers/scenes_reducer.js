@@ -7,11 +7,8 @@ const ScenesReducer = (oldState = {}, action) => {
     case RECEIVE_ALL_SCENES:
       return merge({}, action.scenes);
     case RECEIVE_SCENE:
-<<<<<<< HEAD
       return merge({}, oldState, {[action.scene.id]: action.scene});
-=======
       return merge({}, oldState, {[action.scene.id], action.scene});
->>>>>>> master
     case REMOVE_SCENE:
       let newState = merge({}, oldState);
       delete newState[action.scene.id];
