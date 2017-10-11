@@ -10,6 +10,11 @@ class SceneIndex extends React.Component {
     }
     this.setScene = this.setScene.bind(this);
     this.renderItem = this.renderItem.bind(this);
+
+    console.log(this.state.currentScene);
+
+    console.log(props.scenes[this.state.currentScene][this.state.currentScene].name);
+
   }
 
   renderItem(scene) {
@@ -34,7 +39,9 @@ class SceneIndex extends React.Component {
           data={this.props.scenes}
           renderItem={this.renderItem}
           />
-        <Text>Current Scene: {this.state.currentScene}</Text>
+        <Text style={{fontSize: 20, color: "white", backgroundColor: "maroon", marginBottom: 100}}>
+          Current Scene: {this.props.scenes[this.state.currentScene][this.state.currentScene].name}
+        </Text>
       </ View>
 
     )
