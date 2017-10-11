@@ -1,20 +1,28 @@
 import React from "react";
-import { View, Text, ListView } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import SceneIndexItem from "./scene_index_item";
 
 class SceneIndex extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props);
+  }
+
+  renderItem(scene) {
+    return (
+      <SceneIndexItem item={scene} />
+    )
   }
 
   render() {
     return (
       <View>
-        <ListView
-          dataSource={this.props.scenes}
-          renderRow={(scene) => <SceneIndexItem scene={scene} />}
+        <FlatList
+          data={this.props.scenes}
+          renderItem={this.renderItem}
           />
       </ View>
+
     )
   }
 

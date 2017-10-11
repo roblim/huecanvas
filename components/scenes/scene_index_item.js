@@ -2,9 +2,13 @@ import React from "react";
 import { Text, View } from "react-native";
 
 const SceneIndexItem = (props) => {
+  console.log(props);
   return (
-    <Text>Here in list</ Text>
+    <View style={styles.container}>
+    <Text>{props.scene.name}</ Text>
+    </ View>
   )
+
 }
 
 export default SceneIndexItem;

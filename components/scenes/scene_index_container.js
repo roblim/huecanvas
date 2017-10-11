@@ -9,7 +9,11 @@ if (state.scenes) {
     }
   } else {
     return {
-      scenes: {}
+      scenes: [
+        {
+          name: "no scenes :("
+        }
+      ]
     }
   }
 
