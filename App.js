@@ -32,18 +32,14 @@ export default class App extends React.Component {
       <Provider store={store}>
         <Root />
         <SceneIndexContainer />
-      </Provider>
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-      <View style={styles.container}>
-        <Button onPress={() => this.getBridges()}
+      
+        <View style={styles.container}>
+          <Button onPress={() => this.getBridges()}
                 title="discover"
           />
-        <Text>Hello</ Text>
-      </View>
+          <Text>Hello</ Text>
+        </View>
+      </Provider>
     );
   }
 }
