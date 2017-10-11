@@ -6,14 +6,18 @@ import RoomsIndexItem from './rooms_index_item';
 class RoomsIndex extends Component{
   constructor(props){
     super(props);
+    this.state={
 
+    };
   }
 
   componentDidMount(){
     this.props.fetchRooms();
-    console.log(this.props);
+
+
   }
   render(){
+        console.log("Rooms", this.props);
     return(
       <View>
         <Text>Rooms Container Yay</Text>
