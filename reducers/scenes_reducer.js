@@ -1,4 +1,4 @@
-import { RECEIVE_ALL_SCENES, RECEIVE_SCENE, REMOVE_SCENE } from "/scene_actions";
+import { RECEIVE_ALL_SCENES, RECEIVE_SCENE, REMOVE_SCENE } from "../actions/scene_actions";
 import { merge } from "lodash";
 
 const ScenesReducer = (oldState = {}, action) => {
@@ -7,7 +7,11 @@ const ScenesReducer = (oldState = {}, action) => {
     case RECEIVE_ALL_SCENES:
       return merge({}, action.scenes);
     case RECEIVE_SCENE:
+<<<<<<< HEAD
       return merge({}, oldState, {[action.scene.id], action.scene});
+=======
+      return merge({}, oldState, {[action.post.id]: action.post});
+>>>>>>> bridge-discovery
     case REMOVE_SCENE:
       let newState = merge({}, oldState);
       delete newState[action.scene.id];

@@ -1,15 +1,20 @@
 import React from "react";
-import { Text } from "react-native";
+import { View, Text, ListView } from "react-native";
+import SceneIndexItem from "./scene_index_item";
 
 class SceneIndex extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
   }
 
   render() {
     return (
-      <Text>Hello</ Text>
+      <View>
+        <ListView
+          dataSource={this.props.scenes}
+          renderRow={(scene) => <SceneIndexItem scene={scene} />}
+          />
+      </ View>
     )
   }
 
