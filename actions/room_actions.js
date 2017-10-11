@@ -12,7 +12,7 @@ export const receiveRoom = room => ({
 
 export const receiveRooms = rooms => ({
 	type: RECEIVE_ROOMS,
-	rooms
+	rooms: rooms
 });
 
 export const removeRoom = room => ({
@@ -26,9 +26,10 @@ export const receiveRoomErrors = errors => ({
 });
 
 export const fetchRooms = () => dispatch => (
-	APIUtil.fetchRooms().then(rooms => (
-		dispatch(receiveRooms(rooms))
-	), err => (
+	APIUtil.fetchRooms().then(rooms => {
+		console.log(rooms);
+		return dispatch(receiveRooms(rooms))
+	}, err => (
 		dispatch(receiveRoomErrors(err.responseJSON))
 	))
 );

@@ -7,6 +7,8 @@ import { AsyncStorage } from 'react-native';
 import * as roomsActions from './actions/room_actions'
 import * as APIUtil from './util/rooms_api_util'
 
+let store = configureStore()
+
 export default class App extends React.Component {
   constructor() {
     super();
@@ -23,9 +25,9 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.rooms = APIUtil.fetchRooms().then(res => {
-      roomsActions.receiveRooms(res)
-      console.log(res);
+    APIUtil.fetchRooms().then(res => {
+      // console.log(res);
+      return store.dispatch(roomsActions.receiveRooms(res))
     //   this.setState({res})
       // console.log('State', this.state);
     })
@@ -34,9 +36,9 @@ export default class App extends React.Component {
   }
 
   render() {
-    let store = configureStore()
+
     // console.log('API UTIL', APIUtil);
-    console.log(store.getState());
+    // console.log(store.getState());
     return (
       <Provider store={store}>
         <Root />

@@ -17,7 +17,7 @@ export const fetchRooms = () => {
 	.then(ks => {
 		return ks.map(k => {
 			// let item = AsyncStorage.getItem(k)
-			return AsyncStorage.getItem(k).then(res => res)
+			return AsyncStorage.getItem(k)
 			// console.log(k);
 		})
 	})
