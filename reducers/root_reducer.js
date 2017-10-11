@@ -8,3 +8,14 @@ const RootReducer = combineReducers({
 });
 
 export default RootReducer;
+
+// {
+//   entities: {
+//     ...
+//   },
+//   admin: {
+//     bridge: (bridge object),
+//     user: (user object),
+//     bridgeIP: (bridge ip address)
+//   }
+// }

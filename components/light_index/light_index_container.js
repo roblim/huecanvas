@@ -6,16 +6,22 @@ import { Text,
 				 Button,
 			   TouchableHighlight } from 'react-native';
 import jsHue from 'jshue';
+import { blinkLight } from '../../util/light_api_util';
 
-const username = {
-	"success": {
-		"username": "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o"
-	}
+const Hue = jsHue();
+const Bridge = Hue.bridge('192.168.1.234');
+const User = Bridge.user("VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o");
+
+const state = {
+  entities: {
+    lights: User.getLights().then(r => console.log(r))
+  },
+  admin: {
+    bridge: Bridge,
+    user: User,
+    bridgeIP: '192.168.1.234'
+  }
 };
-
-// const bridgeIp = '192.168.1.234';
-//
-// const hue = jsHue();
 
 export default class LightIndexContainer extends React.Component {
   constructor(props) {
@@ -29,23 +35,20 @@ export default class LightIndexContainer extends React.Component {
     this.state = {
       lights: this.lights
     }
-    this.blinkLight = this.blinkLight.bind(this);
 		this.setLightOff = this.setLightOff.bind(this);
 		this.setLightOn = this.setLightOn.bind(this);
   }
 
   componentDidMount() {
-    // this.blinkLight(8);
-  }
-
-  blinkLight() {
-    let lightId = 8;
-    this.user.setLightState(
-      lightId,
-      {
-        alert: 'select'
-      }
-    ).then(data => console.log(data));
+		let hue = jsHue();
+		hue.discover().then(bridges => {
+    if(bridges.length === 0) {
+        console.log('No bridges found. :(');
+    }
+    else {
+        bridges.forEach(b => console.log('Bridge found at IP address %s.', b.internalipaddress));
+    }
+	}).catch(e => console.log('Error finding bridges', e));
   }
 
 	setLightOff() {
@@ -96,7 +99,7 @@ export default class LightIndexContainer extends React.Component {
 			<View>
       <TouchableHighlight
 				style={styles.container}
-        onPress={this.blinkLight}
+        onPress={blinkLight.bind(null, state, 8)}
         >
         <Text style={styles.welcome}>Blink</Text>
       </TouchableHighlight>
