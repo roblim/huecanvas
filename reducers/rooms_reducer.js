@@ -12,7 +12,9 @@ const RoomsReducer = (state = {}, action) => {
 
 	switch (action.type) {
 		case RECEIVE_ROOMS:
-			return action.rooms;
+			console.log(action);
+			action.rooms.map(room => newState[room.id] = room)
+			return newState;
 		case RECEIVE_ROOM:
 			newState[action.room.id] = action.room
 			return newState
