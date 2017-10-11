@@ -26,7 +26,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     APIUtil.fetchRooms().then(res => {
-      console.log(res);
+      // console.log(res);
       return store.dispatch(roomsActions.receiveRooms(res));
     //   this.setState({res})
     });

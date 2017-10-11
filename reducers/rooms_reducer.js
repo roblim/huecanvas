@@ -18,10 +18,10 @@ const RoomsReducer = (state = {}, action) => {
 			// console.log(rooms);
 			action.rooms.map(room => {
 				// let newroom = Promise.resolve(room)
-				console.log(Promise.resolve(room));
+				// console.log(Promise.resolve(room));
 				return newState[room.id] = room
 			})
-			console.log(newState);
+			// console.log(newState);
 			return newState;
 		case RECEIVE_ROOM:
 			newState[action.room.id] = action.room

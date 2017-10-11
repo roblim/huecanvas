@@ -11,6 +11,7 @@ class RoomsIndex extends Component{
 
   componentDidMount(){
     this.props.fetchRooms();
+    console.log(this.props);
   }
   render(){
     return(
