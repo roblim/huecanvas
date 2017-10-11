@@ -8,14 +8,22 @@ class SceneIndex extends React.Component {
     this.state = {
       currentScene: 0
     }
-    console.log();
+    this.setScene = this.setScene.bind(this);
+    this.renderItem = this.renderItem.bind(this);
   }
 
   renderItem(scene) {
     return (
       <SceneIndexItem item={scene}
+                      setScene={this.setScene}
                       />
     )
+  }
+
+  setScene(id) {
+    console.log("click heard");
+    this.setState({currentScene: id})
+    console.log(this.state);
   }
 
   render() {
@@ -26,6 +34,7 @@ class SceneIndex extends React.Component {
           data={this.props.scenes}
           renderItem={this.renderItem}
           />
+        <Text>Current Scene: {this.state.currentScene}</Text>
       </ View>
 
     )
