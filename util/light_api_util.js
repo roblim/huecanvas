@@ -23,7 +23,8 @@ export const blinkLight = (user, lightId) => {
   user.setLightState(
     lightId,
     { alert: 'select'}
-  ).then(data => console.log(data[0].success));
+  ).then(data => console.log(Object.values(data[0].success)[0]));
+  user.getLight(8).then(data => console.log(data));
 };
 
 export const setLightOff = (user, lightId) => {
@@ -32,7 +33,7 @@ export const setLightOff = (user, lightId) => {
     {
       on: false
     }
-  ).then(data => console.log(data));
+  ).then(data => console.log(Object.values(data[0].success)[0]));
 };
 
 export const setLightOn = (user, lightId) => {
@@ -41,34 +42,36 @@ export const setLightOn = (user, lightId) => {
     {
       on: true
     }
-  ).then(data => console.log(data));
+  ).then(data => console.log(Object.values(data[0].success)[0]));
 };
 
-export const setBrightness = (user, lightId, brightness) => {
+export const setBri = (user, lightId, brightness) => {
   user.setLightState(
     lightId,
     {
       bri: brightness
     }
-  ).then(data => console.log(data));
+  ).then(data => console.log(Object.values(data[0].success)[0]));
 };
 
-export const incBrightness = (user, lightId, inc) => {
+export const incBri = (user, lightId, inc) => {
+  user.getLight(8).then(data => console.log(data));
   user.setLightState(
     lightId,
     {
       bri_inc: inc
     }
-  ).then(data => console.log(data));
+  ).then(data => console.log(Object.values(data[0].success)[0]));
+  user.getLight(8).then(data => console.log(data));
 };
 
-export const decBrightness = (user, lightId, dec) => {
+export const decBri = (user, lightId, dec) => {
   user.setLightState(
     lightId,
     {
       bri_inc: (-1 * dec)
     }
-  ).then(data => console.log(data));
+  ).then(data => console.log(Object.values(data[0].success)[0]));
 };
 
 export const setAllLightsOff = (user) => {
@@ -77,7 +80,7 @@ export const setAllLightsOff = (user) => {
     {
       on: false
     }
-  ).then(data => console.log(data));
+  ).then(data => console.log(Object.values(data[0].success)[0]));
 
   // let lights = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
   // lights.forEach(light => setLightOff(user, light));
@@ -89,7 +92,7 @@ export const setAllLightsOn = (user) => {
     {
       on: true
     }
-  ).then(data => console.log(data));
+  ).then(data => console.log(Object.values(data[0].success)[0]));
 
   // let lights = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
   // lights.forEach(light => setLightOn(user, light));
@@ -124,5 +127,16 @@ export const setLightColor = (user, lightId, rgbObject) => {
       bri: Math.round(xY.bri * 255),
       xy: [xY.x, xY.y]
     }
-  ).then(data => console.log(data));
+  ).then(data => console.log({ xy: Object.assign({}, data[0].success, data[1].success)['/lights/8/state/xy'],
+                               bri: Object.assign({}, data[0].success, data[1].success)['/lights/8/state/bri']
+                             }));
+};
+
+export const setMiredTemperature = (user, lightId, temp) => {
+  user.setLightState(
+    lightId,
+    {
+      ct: temp,
+    }
+  ).then(data => console.log(Object.values(data[0].success)[0]));
 };
