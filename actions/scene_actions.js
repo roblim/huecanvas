@@ -9,7 +9,11 @@ export const fetchScenes = () => dispatch => (
 );
 
 export const fetchScene = (id) => dispatch => (
+<<<<<<< HEAD
   ApiUtil.getScene(id).then((scene) => dispatch(receiveScene(scene)))
+=======
+  ApiUtil.getScene(id).then(scene => dispatch(receiveScene(scene)))
+>>>>>>> bridge-discovery
 );
 
 export const deleteScene = (id) => dispatch => (
