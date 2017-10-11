@@ -1,21 +1,13 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import RoomIndex from './rooms_index';
+import { connect } from 'react-redux';
+import { fetchRooms } from '../../actions/room_actions';
 
+const mapStateToProps = state =>({
+  rooms: state.rooms
+});
 
-class RoomsIndex extends Component{
-  constructor(props){
-    super(props);
-    this.state={
-    };
-  }
-  render(){
-    return(
-      <View>
-        <Text>Rooms is Working</Text>
-      </View>
-    );
-  }
-}
+const mapDispatchToProps = dispatch =>({
+  fetchRooms: () => dispatch(fetchRooms())
+});
 
-
-export default RoomsIndex;
+export default connect(mapStateToProps, mapDispatchToProps)(RoomIndex);

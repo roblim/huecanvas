@@ -11,7 +11,7 @@ class RoomsIndexItem extends Component{
   render(){
     return(
       <View>
-        Rooms is Working
+        <Text>Rooms is Working</Text>
       </View>
     );
   }

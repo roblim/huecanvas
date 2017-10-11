@@ -19,6 +19,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "babel-preset-react-native": "^4.0.0",
     "expo": "^21.0.0",
     "jshue": "^2.1.1",
     "node-hue-api": "^2.4.2",
