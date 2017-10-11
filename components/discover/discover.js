@@ -18,10 +18,10 @@ class Discover extends React.Component {
 
   render() {
     return (
-      <View style={styles.box}>
-        <Text>Discover page</Text>
-        <Image source={require("../../docs/icons/icon_pack_v2.02/Push-link/PDF/pushlink_bridgev1.pdf")}
-                style={{width: 100, height: 100}}
+      <View style={{flex: 1}}>
+        <Text>Press the button on top of your Hue Bridge</Text>
+        <Image source={require("../../docs/icons/icon_pack_v2.02/Push-link/PDF/pushlink_bridgev2-1.png")}
+                style={{width: 150, height: 150}}
           />
       </ View>
     )
@@ -30,7 +30,8 @@ class Discover extends React.Component {
 
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: "grey"
+    backgroundColor: "rgba(255, 255, 255, .6)",
+
   }
 })
 export default Discover;
