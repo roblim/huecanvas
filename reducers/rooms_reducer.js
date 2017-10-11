@@ -14,17 +14,28 @@ const RoomsReducer = (state = {}, action) => {
 		case RECEIVE_ROOMS:
 			console.log(state);
 			console.log(action);
+			// action.rooms.forEach(room => {
+			// 	let resolvedRooms = Promise.resolve(room)
+			// 	resolvedRooms.then(room => newState[JSON.parse(room).id] = JSON.parse(room))
+			// })
 			action.rooms.forEach(room => {
-				let newRoom = Promise.resolve(room)
-				newRoom.then(room => newState[JSON.parse(room).id] = JSON.parse(room))
+				newState[room.id] = room
 			})
 			console.log(newState);
 			return newState;
 		case RECEIVE_ROOM:
+			console.log(state);
+			console.log(action);
+			// let resolvedRoom = Promise.resolve(action.room)
+			// resolvedRoom.then(room => newState[JSON.parse(room).id] = JSON.parse(room))
 			newState[action.room.id] = action.room
+			console.log(newState);
 			return newState
 		case REMOVE_ROOM:
-			delete newState[action.room.id]
+			console.log(state);
+			console.log(action);
+			delete newState[action.roomId]
+			console.log(newState);
 			return newState
 		default:
 			return state;

@@ -1,31 +1,17 @@
 import { AsyncStorage } from 'react-native'
 
-// const getAll = function() {
-// 		Promise.all(AsyncStorage.getAllKeys()
-// 		.then(ks => {
-// 			return ks.map(k => {
-// 				AsyncStorage.getItem(k)
-// 				// console.log(k);
-// 			})
-// 		})
-// 	)
-// }
-
-
 export const fetchRooms = () => {
 	return (AsyncStorage.getAllKeys()
 	.then(ks => {
-		return ks.map(k => {
-			// let item = AsyncStorage.getItem(k)
-			return AsyncStorage.getItem(k)
-			// console.log(k);
+		let result = [];
+		ks.forEach(k => {
+			let resolved = Promise.resolve(AsyncStorage.getItem(k))
+			resolved.then(res => result.push(JSON.parse(res)))
 		})
+		console.log(result[1]);
+		return result;
 	})
-)//.then(rooms => {
-	// 	console.log(rooms);
-	// 	rooms.map(room => result.room.id = room)
-	// })
-	// console.log(items);
+)
 };
 
 export const fetchRoom = id => (
@@ -33,8 +19,8 @@ export const fetchRoom = id => (
 );
 
 export const createRoom = room => {
-	let roomId = room.id
-  return AsyncStorage.setItem(`${roomId}`, JSON.stringify(room));
+	// console.log(roomId);
+  return AsyncStorage.setItem(`${room.id}`, JSON.stringify(room));
 };
 
 export const updateRoom = room => (

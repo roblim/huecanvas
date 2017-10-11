@@ -21,18 +21,19 @@ export default class App extends React.Component {
     // AsyncStorage.setItem('2', JSON.stringify({id: '2', name: 'Dining Room'}))
     // AsyncStorage.setItem('3', JSON.stringify({id: '3', name: 'Family Room'}))
     // AsyncStorage.setItem('4', JSON.stringify({id: '4', name: 'Great Room'}))
-    // roomsActions.fetchRooms()
+    return store.dispatch(roomsActions.fetchRooms());
+    // return store.dispatch(roomsActions.createRoom({id: 1, name: 'Daddys Room'}));
   }
 
   componentDidMount() {
-    APIUtil.fetchRooms().then(res => {
+    // APIUtil.fetchRooms().then(res => {
       // console.log(res);
-      return store.dispatch(roomsActions.receiveRooms(res))
+      // return store.dispatch(roomsActions.receiveRooms(res))
     //   this.setState({res})
       // console.log('State', this.state);
-    })
-    // roomsActions.createRoom({id: 1, name: 'Daddys Room'});
+    // })
     // console.log(this.rooms);
+    // return store.dispatch(roomsActions.deleteRoom(1))
   }
 
   render() {
