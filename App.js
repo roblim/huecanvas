@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import jsHue from "jshue";
 import SceneIndexContainer from "./components/scenes/scene_index_container";
-import { StyleSheet, Text, View } from 'react-native';
 import Root from './components/root';
 import configureStore from './store/store';
 import { Provider } from 'react-redux';
