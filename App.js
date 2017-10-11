@@ -1,15 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import LightIndexContainer from './components/light_index/light_index_container.js';
-import RoomsIndexContainer from './components/rooms/rooms_index_container.js';
+import Root from './components/root';
+import configureStore from './store/store';
+import { Provider } from 'react-redux';
+
 
 export default class App extends React.Component {
   render() {
+    let store = configureStore();
     return (
-      <View style={styles.container}>
-        <LightIndexContainer />
-        <RoomsIndexContainer/>
-      </View>
+      <Provider store={store}>
+        <Root />
+      </Provider>
     );
   }
 }
