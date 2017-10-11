@@ -6,11 +6,15 @@ import { Text,
 				 Button,
 			   TouchableHighlight } from 'react-native';
 import jsHue from 'jshue';
-import { blinkLight } from '../../util/light_api_util';
+import { blinkLight, setLightOff, setLightOn } from '../../util/light_api_util';
 
+const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
+const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
+const appAcademyIP = '192.168.1.234';
+const homeIP = '10.1.10.67'
 const Hue = jsHue();
-const Bridge = Hue.bridge('192.168.1.234');
-const User = Bridge.user("VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o");
+const Bridge = Hue.bridge(homeIP);
+const User = Bridge.user(homeHue);
 
 const state = {
   entities: {
@@ -19,24 +23,14 @@ const state = {
   admin: {
     bridge: Bridge,
     user: User,
-    bridgeIP: '192.168.1.234'
+    bridgeIP: homeIP
   }
 };
 
 export default class LightIndexContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.hue = jsHue();
-    this.bridge = this.hue.bridge('192.168.1.234');
-    this.user = this.bridge.user("VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o");
-    this.lights = this.user.getLights().then(r => console.log(r));
-    this.bridgeIp = '192.168.1.234';
 
-    this.state = {
-      lights: this.lights
-    }
-		this.setLightOff = this.setLightOff.bind(this);
-		this.setLightOn = this.setLightOn.bind(this);
   }
 
   componentDidMount() {
@@ -51,69 +45,46 @@ export default class LightIndexContainer extends React.Component {
 	}).catch(e => console.log('Error finding bridges', e));
   }
 
-	setLightOff() {
-		let lightId = 8;
-		this.user.setLightState(
-			lightId,
-			{
-				on: false
-			}
-		).then(data => console.log(data));
-	}
+	// setLightOff() {
+	// 	let lightId = 8;
+	// 	this.user.setLightState(
+	// 		lightId,
+	// 		{
+	// 			on: false
+	// 		}
+	// 	).then(data => console.log(data));
+	// }
 
-	setLightOn() {
-		let lightId = 8;
-		this.user.setLightState(
-			lightId,
-			{
-				on: true
-			}
-		).then(data => console.log(data));
-	}
-
-  sleep (time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
-  }
-
-  blink() {
-    for (let i = 0; i < 1000; i++) {
-      let status;
-      (i % 2 !== 0) ? (status = true) : (status = false);
-      this.sleep(10000).then(() =>
-        this.user.setLightState(
-          8,
-          {
-            on: status,
-            transitiontime: 0
-          }
-        )
-      );
-    }
-  }
-
-  test() {
-  }
+	// setLightOn() {
+	// 	let lightId = 8;
+	// 	this.user.setLightState(
+	// 		lightId,
+	// 		{
+	// 			on: true
+	// 		}
+	// 	).then(data => console.log(data));
+	// }
 
   render() {
     return (
 			<View>
       <TouchableHighlight
 				style={styles.container}
-        onPress={blinkLight.bind(null, state, 8)}
+        onPress={blinkLight.bind(null, state.admin.user, 2)}
         >
         <Text style={styles.welcome}>Blink</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
 				style={styles.container}
-        onPress={this.setLightOn}
+        onPress={setLightOn.bind(null, state.admin.user, 2)}
         >
         <Text style={styles.welcome}>On</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
 				style={styles.container}
-        onPress={this.setLightOff}
+        onPress={setLightOff.bind(null, state.admin.user, 2)}
         >
         <Text style={styles.welcome}>Off</Text>
       </TouchableHighlight>

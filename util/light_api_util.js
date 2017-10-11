@@ -1,8 +1,12 @@
 import jsHue from 'jshue';
 
+const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
+const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
+const appAcademyIP = '192.168.1.234';
+const homeIP = '10.1.10.67'
 const Hue = jsHue();
-const Bridge = Hue.bridge('192.168.1.234');
-const User = Bridge.user("VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o");
+const Bridge = Hue.bridge(homeIP);
+const User = Bridge.user(homeHue);
 
 const state = {
   entities: {
@@ -11,13 +15,31 @@ const state = {
   admin: {
     bridge: Bridge,
     user: User,
-    bridgeIP: '192.168.1.234'
+    bridgeIP: homeIP
   }
 };
 
-export const blinkLight = (state, lightId) => {
-  state.admin.user.setLightState(
+export const blinkLight = (user, lightId) => {
+  user.setLightState(
     lightId,
     { alert: 'select'}
+  ).then(data => console.log(data));
+};
+
+export const setLightOff = (user, lightId) => {
+  user.setLightState(
+    lightId,
+    {
+      on: false
+    }
+  ).then(data => console.log(data));
+};
+
+export const setLightOn = (user, lightId) => {
+  user.setLightState(
+    lightId,
+    {
+      on: true
+    }
   ).then(data => console.log(data));
 };
