@@ -12,14 +12,11 @@ const RoomsReducer = (state = {}, action) => {
 
 	switch (action.type) {
 		case RECEIVE_ROOMS:
-			// console.log(state);
-			// console.log(action);
-			// let rooms = Promise.resolve(action.rooms)
-			// console.log(rooms);
-			action.rooms.map(room => {
-				// let newroom = Promise.resolve(room)
-				console.log(Promise.resolve(room));
-				return newState[room.id] = room
+			console.log(state);
+			console.log(action);
+			action.rooms.forEach(room => {
+				let newRoom = Promise.resolve(room)
+				newRoom.then(room => newState[JSON.parse(room).id] = JSON.parse(room))
 			})
 			console.log(newState);
 			return newState;
