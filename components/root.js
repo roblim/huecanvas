@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Modal, Button } from 'react-native';
+import { View, Text, Button } from 'react-native';
+import Modal from "react-native-modal";
 import {
   StackNavigator,
 } from 'react-navigation';
@@ -11,48 +12,41 @@ export default class Root extends React.Component {
     super(props);
 
     this.state = {
-      animationType: "none",
-      transparent: false,
-      modalVisible: true
+      isModalVisible: false
+
     }
 
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
-  openModal() {
-    this.setState({modalVisible: true})
+  showModal() {
+    this.setState({ isModalVisible: true })
   }
 
-  closeModal() {
-    this.setState({modalVisible: false})
+  hideModal() {
+    this.setState({ isModalVisible: false })
   }
+
 
   render() {
     return (
-			<View>
+			<View style={{flex: 1}}>
 				<Text>This is a test</Text>
           <SceneIndexContainer />
-          <Button onPress={this.openModal()}
+          <Button onPress={this.showModal}
                   title="open"
             />
+          <Modal
+            isVisible={this.state.isModalVisible}
+            >
+            <Button onPress={this.hideModal}
+              title="close"
+              />
+            <DiscoverContainer />
+            </ Modal>
 
 			</View>
     );
   }
 }
-
-
-
-
-// <Modal
-//   animationType={this.state.animationType}
-//   transparent={this.state.transparent}
-//   modalVisible={this.state.modalVisible}
-//   >
-//   <Button onPress={this.closeModal()}
-//     title="close"
-//     />
-//   <DiscoverContainer />
-//   </ Modal>

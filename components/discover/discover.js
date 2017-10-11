@@ -7,9 +7,9 @@ class Discover extends React.Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  // componentDidMount() {
-  //   this.props.fetchBridges();
-  // }
+  componentDidMount() {
+    this.props.fetchBridges();
+  }
 
   handleClick() {
     let bridges = this.props.fetchBridges();
