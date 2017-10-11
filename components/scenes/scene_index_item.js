@@ -5,7 +5,6 @@ class SceneIndexItem extends React.Component {
 
   constructor(props) {
     super(props);
-    this.setScene = this.setScene.bind(this);
 
     console.log(props.item.index);
 
@@ -13,13 +12,16 @@ class SceneIndexItem extends React.Component {
       currentScene: 0
     }
 
+    console.log(this.state);
     this.id = this.props.item.index;
 
+    this.setScene = this.setScene.bind(this);
   }
 
   setScene() {
     console.log("click heard");
-    this.setState({currentScene: this.props.item.item.id})
+    this.setState({currentScene: this.id})
+    console.log(this.state);
   }
 
   render() {
@@ -28,7 +30,7 @@ class SceneIndexItem extends React.Component {
       <View style={{backgroundColor: "cyan"}}>
       <Button style={{color: "magenta"}}
               title={`set ${this.props.item.item[this.id].name}`}
-              onPress={() => this.setScene}
+              onPress={() => this.setScene()}
        />
       </ View>
     )
