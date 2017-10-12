@@ -51,9 +51,9 @@ const admin = (user) => {
   bridgeIP
 }
 
-const receiveUsername = (username) => {
+const receiveUsername = (user) => {
   type: RECEIVE_USERNAME,
-  username
+  user
 }
 
 const receiveBridge = (bridge) => {
