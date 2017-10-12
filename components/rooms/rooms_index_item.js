@@ -8,8 +8,8 @@ class RoomsIndexItem extends Component{
   }
   render(){
     return(
-      <View style={styles.container}>
-        <Text style={styles.text}>Rooms is Working</Text>
+      <View>
+        <Text>Rooms is Working</Text>
       </View>
     );
   }
