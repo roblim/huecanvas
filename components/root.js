@@ -58,6 +58,8 @@ export default class Root extends React.Component {
               />
             <DiscoverContainer />
             </ Modal>
+            <LightIndexContainer />
+            <TestComponent />
 			</View>
     );
   }

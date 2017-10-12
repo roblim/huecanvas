@@ -6,7 +6,7 @@ import {
         increaseBrightness,
         decreaseBrightness
       } from '../../actions/light_actions';
-import { blinkLight } from '../../util/light_api_util';
+import { blinkLight } from '../../util/lights_util';
 import { selectLights } from '../../reducers/selectors';
 import LightIndex from './light_index';
 

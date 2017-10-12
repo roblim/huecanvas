@@ -3,11 +3,15 @@ import * as APIUtil from "../util/lights_util";
 export const RECEIVE_ALL_BRIDGES = "RECEIVE_ALL_BRIDGES";
 export const RECEIVE_ALL_LIGHTS = "RECEIVE_ALL_LIGHTS";
 
+
+const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
+const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
+const appAcademyIP = '192.168.1.234';
+const homeIP = '10.1.10.67'
+
 let hue = jsHue();
-
-var bridge = hue.bridge("10.1.10.67");
-
-var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW";
+var bridge = hue.bridge(appAcademyIP);
+var username = appAcademyHue;
 
 console.log('New username:', username);
 

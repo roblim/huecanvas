@@ -7,10 +7,9 @@ import {
         decBrightness,
         setAllLightsOff,
         setAllLightsOn,
-        rgbToXY,
         setLightColor,
         setLightTemperature
-      } from '../util/light_api_util';
+      } from '../util/lights_util';
 
 export const RECEIVE_LIGHT_STATE = 'RECEIVE_LIGHT_STATE';
 

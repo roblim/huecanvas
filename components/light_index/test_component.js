@@ -15,15 +15,15 @@ import { blinkLight,
 			   setAllLightsOff,
 			 	 setAllLightsOn,
 			 	 setLightColor,
-			   setMiredTemperature } from '../../util/light_api_util';
+			   setMiredTemperature } from '../../util/lights_util';
 
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
 const homeIP = '10.1.10.67'
 const Hue = jsHue();
-const Bridge = Hue.bridge(homeIP);
-const User = Bridge.user(homeHue);
+const Bridge = Hue.bridge(appAcademyIP);
+const User = Bridge.user(appAcademyHue);
 
 const state = {
   entities: {
@@ -60,21 +60,21 @@ export default class TestComponent extends React.Component {
 			<View style={{}}>
       <TouchableHighlight
 				style={styles.container}
-        onPress={blinkLight.bind(null, state.admin.user, 2)}
+        onPress={blinkLight.bind(null, state.admin.user, 8)}
         >
         <Text style={styles.welcome}>Blink</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
 				style={styles.container}
-        onPress={setLightOn.bind(null, state.admin.user, 2)}
+        onPress={setLightOn.bind(null, state.admin.user, 8)}
         >
         <Text style={styles.welcome}>On</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
 				style={styles.container}
-        onPress={setLightOff.bind(null, state.admin.user, 2)}
+        onPress={setLightOff.bind(null, state.admin.user, 8)}
         >
         <Text style={styles.welcome}>Off</Text>
       </TouchableHighlight>

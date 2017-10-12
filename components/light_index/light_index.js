@@ -13,7 +13,7 @@ class LightIndex extends React.Component {
 
   render() {
     return(
-      <View>
+      <View style={styles.container}>
         {this.props.lights.map((light, idx) => (
           <LightIndexItem light={light}
                           key={`light-${idx}`}
@@ -28,3 +28,28 @@ class LightIndex extends React.Component {
 }
 
 export default LightIndex;
+
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    justifyContent: 'center',
+		alignContent: 'center',
+		flexWrap: 'wrap',
+    alignItems: 'center',
+    backgroundColor: 'pink',
+    width: 90,
+    height: 90,
+		borderRadius: 45
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+		color: 'teal',
+		fontWeight: 'bold'
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
