@@ -32,6 +32,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
+        <View>
         <Root />
         <SceneIndexContainer />
 
@@ -41,6 +42,7 @@ export default class App extends React.Component {
           />
           <Text>Hello</ Text>
         </View>
+      </View>
       </Provider>
     );
   }
