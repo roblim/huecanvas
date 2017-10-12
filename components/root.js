@@ -4,7 +4,7 @@ import Modal from "react-native-modal";
 import {
   StackNavigator,
 } from 'react-navigation';
-import SceneIndexContainer from "./scenes/scene_index_container";
+import SceneFooter from "./scenes/scene_footer";
 import DiscoverContainer from "./discover/discover_container";
 
 import TestComponent from './light_index/test_component.js';
@@ -38,6 +38,7 @@ export default class Root extends React.Component {
     return (
 			<View style={{flex: 1}}>
 				<Text>This is the root page</ Text>
+          <SceneFooter />
           <Button onPress={this.showModal}
                   title="click for all lights"
             />
