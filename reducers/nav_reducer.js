@@ -1,13 +1,25 @@
-import AppNavigator from '../util/nav_config_util'
+import TabNavigator from '../components/navigator'
 
-const initialState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams('RoomNew'));
-
-const navReducer = (state = {}, action) => {
-	console.log(AppNavigator);
-  const nextState = AppNavigator.router.getStateForAction(action, state);
-
-  // Simply return the original `state` if `nextState` is null or undefined.
-  return nextState || state;
+const INITIAL_STATE = {
+	index: 1,
+    routes: [
+        { key: 'InitA', routeName: 'Home' },
+        { key: 'InitB', routeName: 'RoomsNew' },
+        // { key: 'InitC', routeName: '/rooms/edit' }
+    ]
+	// return TabNavigator.router.getStateForAction(TabNavigator.router.getActionForPathAndParams('Home'));
 };
 
-export default navReducer
+
+
+export default function navigation(state = INITIAL_STATE, action) {
+    switch (action.type) {
+            case 'login':
+                return AppNavigator.router.getStateForAction(NavigationActions.back(), state);
+            case 'Home':
+            case 'RoomsNew':
+            case 'logout':
+                return AppNavigator.router.getStateForAction(action, state);
+        }
+    return state;
+}

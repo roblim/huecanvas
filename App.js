@@ -2,10 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import jsHue from "jshue";
 import SceneIndexContainer from "./components/scenes/scene_index_container";
-import Root from './components/root';
+import AppContainer from './components/app_container';
 import configureStore from './store/store';
 import { Provider } from 'react-redux';
 import LightIndexContainer from './components/light_index/light_index_container.js';
+
+import TabNavigator from './components/navigator';
+import { addNavigationHelpers } from 'react-navigation';
 
 let store = configureStore()
 
@@ -26,17 +29,17 @@ export default class App extends React.Component {
     else {
         bridges.forEach(b => console.log('Bridge found at IP address %s.', b.internalipaddress));
     }
-}).catch(e => console.log('Error finding bridges', e));
+  }).catch(e => console.log('Error finding bridges', e));
   }
 
   render() {
     return (
       <Provider store={store}>
         <View>
-        <Root />
-        <SceneIndexContainer />
+          <AppContainer />
+          <SceneIndexContainer />
 
-        <View style={styles.container}>
+          <View style={styles.container}>
           <Button onPress={() => this.getBridges()}
                 title="discover"
           />
