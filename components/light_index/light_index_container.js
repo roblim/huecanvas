@@ -4,7 +4,11 @@ import {
         turnLightOn,
         changeBrightness,
         increaseBrightness,
-        decreaseBrightness
+        decreaseBrightness,
+        turnAllLightsOff,
+        turnAllLightsOn,
+        changeColor,
+        changeTemperature
       } from '../../actions/light_actions';
 import { blinkLight } from '../../util/lights_util';
 import { selectLights } from '../../reducers/selectors';
@@ -17,7 +21,40 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   blinkLight: blinkLight,
-  turnLightOff: (user, lightId) => dispatch(turnLightOff(user, lightId))
+  turnLightOn: (user, lightId) => dispatch(turnLightOn(user, lightId)),
+  turnLightOff: (user, lightId) => dispatch(turnLightOff(user, lightId)),
+  turnAllLightsOff: user => dispatch(turnAllLightsOff(user)),
+  turnAllLightsOn: user => dispatch(turnAllLightsOn(user)),
+  changeBrightness: (user, lightId, brightness) =>
+    dispatch(changeBrightness(
+      user,
+      lightId,
+      brightness
+    )),
+  increaseBrightness: (user, lightId, increment) =>
+    dispatch(increaseBrightness(
+      user,
+      lightId,
+      increment
+    )),
+  decreaseBrightness: (user, lightId, decrement) =>
+    dispatch(decreaseBrightness(
+      user,
+      lightId,
+      decrement
+    )),
+  changeColor: (user, lightId, rgbObject) =>
+    dispatch(changeColor(
+      user,
+      lightId,
+      rgbObject
+    )),
+  changeTemperature: (user, lightId, miredTemp) =>
+    dispatch(changeTemperature(
+      user,
+      lightId,
+      miredTemp
+    )),
 });
 
 const LightIndexContainer = connect(

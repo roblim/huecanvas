@@ -9,7 +9,16 @@ class LightIndexItem extends React.Component {
   constructor(props) {
     super(props)
 
+		this.blinkLight = this.props.blinkLight.bind(this);
+		this.turnLightOn = this.props.turnLightOn.bind(this);
 		this.turnLightOff = this.props.turnLightOff.bind(this);
+		this.turnAllLightsOff = this.props.turnAllLightsOff.bind(this);
+		this.turnAllLightsOn = this.props.turnAllLightsOn.bind(this);
+		this.changeBrightness = this.props.changeBrightness.bind(this);
+		this.increaseBrightness = this.props.increaseBrightness.bind(this);
+		this.decreaseBrightness = this.props.decreaseBrightness.bind(this);
+		this.changeColor = this.props.changeColor.bind(this);
+		this.changeTemperature = this.props.changeTemperature.bind(this);
   }
 
   render() {
@@ -18,7 +27,7 @@ class LightIndexItem extends React.Component {
     return(
       <TouchableHighlight
 				style={styles.container}
-        onPress={() => this.turnLightOff(user, light.lightId)}
+        onPress={() => this.blinkLight(user, light.lightId)}
         >
         <Text style={styles.welcome}>{light.name}</Text>
       </TouchableHighlight>

@@ -19,6 +19,14 @@ class LightIndex extends React.Component {
                           key={`light-${idx}`}
                           blinkLight={this.props.blinkLight}
                           turnLightOff={this.props.turnLightOff}
+													turnLightOn={this.props.turnLightOn}
+													turnAllLightsOff={this.props.turnAllLightsOff}
+													turnAllLightsOn={this.props.turnAllLightsOn}
+													changeBrightness={this.props.changeBrightness}
+													increaseBrightness={this.props.increaseBrightness}
+													decreaseBrightness={this.props.decreaseBrightness}
+													changeColor={this.props.changeColor}
+													changeTemperature={this.props.changeTemperature}
                           user={this.props.user} />
         )
       )}

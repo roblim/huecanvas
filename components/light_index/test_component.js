@@ -79,6 +79,27 @@ export default class TestComponent extends React.Component {
         <Text style={styles.welcome}>Off</Text>
       </TouchableHighlight>
 
+			<TouchableHighlight
+				style={styles.container}
+			  onPress={setAllLightsOn.bind(null, state.admin.user)}
+			  >
+			  <Text style={styles.welcome}>All On</Text>
+			</TouchableHighlight>
+
+			<TouchableHighlight
+				style={styles.container}
+			  onPress={setAllLightsOff.bind(null, state.admin.user)}
+			  >
+			  <Text style={styles.welcome}>All Off</Text>
+			</TouchableHighlight>
+
+			<TouchableHighlight
+				style={styles.container}
+			  onPress={setLightColor.bind(null, state.admin.user, 8, { red: 150, green: 223, blue: 50 })}
+			  >
+			  <Text style={styles.welcome}>Set Color</Text>
+			</TouchableHighlight>
+
 			</View>
     );
   }
@@ -130,19 +151,8 @@ const styles = StyleSheet.create({
 //   <Text style={styles.welcome}>Set Bri</Text>
 // </TouchableHighlight>
 //
-// <TouchableHighlight
-// 	style={styles.container}
-//   onPress={setAllLightsOn.bind(null, state.admin.user)}
-//   >
-//   <Text style={styles.welcome}>All On</Text>
-// </TouchableHighlight>
 //
-// <TouchableHighlight
-// 	style={styles.container}
-//   onPress={setAllLightsOff.bind(null, state.admin.user)}
-//   >
-//   <Text style={styles.welcome}>All Off</Text>
-// </TouchableHighlight>
+
 //
 // <TouchableHighlight
 // 	style={styles.container}
