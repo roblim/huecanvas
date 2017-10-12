@@ -17,17 +17,26 @@ export default class App extends React.Component {
 
   componentWillMount() {
     // AsyncStorage.clear()
+    // AsyncStorage.setItem("rooms", "{}")
     // AsyncStorage.setItem('1', JSON.stringify({id: '1', name: 'Living Room'}))
     // AsyncStorage.setItem('2', JSON.stringify({id: '2', name: 'Dining Room'}))
     // AsyncStorage.setItem('3', JSON.stringify({id: '3', name: 'Family Room'}))
     // AsyncStorage.setItem('4', JSON.stringify({id: '4', name: 'Great Room'}))
-    return store.dispatch(roomsActions.fetchRooms());
-    // return store.dispatch(roomsActions.createRoom({id: 1, name: 'Daddys Room'}));
+    // store.dispatch(roomsActions.fetchRooms());
+    // store.dispatch(roomsActions.fetchRooms());
+    // store.dispatch(roomsActions.createRoom({id: 1, name: 'Daddys Room'}));
+    // store.dispatch(roomsActions.createRoom({id: '1', name: 'Living Room'}));
+    // store.dispatch(roomsActions.createRoom({id: '2', name: 'Dining Room'}));
+    // store.dispatch(roomsActions.createRoom({id: '3', name: 'Family Room'}));
+    // store.dispatch(roomsActions.createRoom({id: '4', name: 'Great Room'}));
   }
 
   componentDidMount() {
-    // APIUtil.fetchRooms().then(res => {
-      // console.log(res);
+    store.dispatch(roomsActions.fetchRooms());
+    // console.log(rooms);
+    APIUtil.fetchRooms().then(res => {
+      console.log("Util Res", res);
+    })
       // return store.dispatch(roomsActions.receiveRooms(res))
     //   this.setState({res})
       // console.log('State', this.state);
