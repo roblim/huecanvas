@@ -30,8 +30,6 @@ export default class Root extends React.Component {
     this.setState({ isModalVisible: false })
   }
 
-
-
   render() {
     return (
 			<View style={{flex: 1}}>

@@ -14,4 +14,5 @@ const DiscoverReducer = (oldState = {}, action) => {
   }
 }
 
+
 export default DiscoverReducer;

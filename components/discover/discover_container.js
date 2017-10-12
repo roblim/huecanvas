@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
 
 }
 
+
 const mapDispatchToProps = (dispatch) => ({
   fetchBridges: () => dispatch(fetchBridges()),
   fetchLights: () => dispatch(fetchLights())

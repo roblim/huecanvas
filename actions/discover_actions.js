@@ -1,6 +1,5 @@
 import jsHue from "jshue";
 import * as APIUtil from "../util/lights_util";
-
 export const RECEIVE_ALL_BRIDGES = "RECEIVE_ALL_BRIDGES";
 export const RECEIVE_ALL_LIGHTS = "RECEIVE_ALL_LIGHTS";
 

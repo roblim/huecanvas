@@ -5,6 +5,7 @@ import createLoggerMiddleware from 'redux-logger';
 
 const middlewares = [thunk, createLoggerMiddleware];
 
+
 const configureStore = (preloadedState = {}) => (
   createStore(
     RootReducer,
