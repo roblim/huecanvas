@@ -2,7 +2,6 @@ import jsHue from "jshue";
 import jsHueAPI from "jshue";
 
 let hue = jsHue();
-let api = jsHueAPI();
 let bridge_ip;
 
 export const discover = () => hue.discover(
@@ -38,3 +37,5 @@ bridge.createUser('foo application', function(data) {
 });
 // instantiate user object with username
 export const user = bridge.user(username);
+
+console.log(username);

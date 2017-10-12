@@ -10,12 +10,21 @@ let hue = jsHue();
 
 var bridge = APIUtil.bridge;
 let bridgeIP = APIUtil.bridgeIP;
-let user = APIUtil.user;
-console.log(user);
+let username;
+
+//
+// bridge.createUser('HueCanvas', function(data) {
+//     // extract bridge-generated username from returned data
+//     username = data[0].success.username;
+//     console.log('New username:', username);
+//
+// });
+console.log(username);
+username = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o"; // @app academy
+let user = bridge.user(username);
 console.log(bridgeIP);
 
 // var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW"; @robs place
-// var username = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o"; // @app academy
 
 // console.log('New username:', username);
 
@@ -26,8 +35,6 @@ export const fetchBridges = () => dispatch => {
     console.log('There has been a problem with your fetch operation: ' + error.message);
   });
 }
-
-console.log(user);
 
 export const getUser = () => dispatch => {
   // APIUtil.userName().then((userName) => user = dispatch(receiveUsername(bridge.user(userName))))
@@ -44,7 +51,6 @@ const receiveAllBridges = (bridges) => ({
 })
 
 const receiveAllLights = (lights) => {
-  console.log(lights);
   return {
   type: RECEIVE_ALL_LIGHTS,
   lights
