@@ -6,6 +6,7 @@ const mapStateToProps = (state) => {
   return {
     scenes: Object.keys(state.scenes).map((id) => state.scenes[id])
   }
+
 }
 
 const mapDispatchToProps = (dispatch) => ({

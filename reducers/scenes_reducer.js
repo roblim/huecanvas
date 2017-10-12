@@ -1,4 +1,4 @@
-import { RECEIVE_ALL_SCENES, RECEIVE_SCENE, REMOVE_SCENE } from "/scene_actions";
+import { RECEIVE_ALL_SCENES, RECEIVE_SCENE, REMOVE_SCENE } from "../actions/scene_actions";
 import { merge } from "lodash";
 
 const ScenesReducer = (oldState = {}, action) => {
