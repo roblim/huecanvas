@@ -8,12 +8,13 @@ class Discover extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchBridges();
+    this.props.fetchLights();
   }
 
   handleClick() {
-    let bridges = this.props.fetchBridges();
-    console.log(bridges);
+    let lights = this.props.fetchLights();
+    lights();
+    console.log(lights);
   }
 
   render() {

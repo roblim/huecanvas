@@ -1,11 +1,12 @@
 import { connect } from "react-redux";
 import Discover from "./discover";
-import { fetchBridges } from "../../actions/discover_actions";
+import { fetchBridges, fetchLights } from "../../actions/discover_actions";
 
 const mapStateToProps = (state) => {
   if (state.bridges) {
     return {
-      bridges: Object.keys(state.bridges).map((id) => state.bridges[id])
+      bridges: Object.keys(state.bridges).map((id) => state.bridges[id]),
+      lights: Object.keys(state.lights).map((id) => state.lights[id])
     }
   } else {
     return {
@@ -16,7 +17,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchBridges: () => dispatch(fetchBridges())
+  fetchBridges: () => dispatch(fetchBridges()),
+  fetchLights: () => dispatch(fetchLights())
 })
 
 export default connect(
