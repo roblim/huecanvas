@@ -8,6 +8,8 @@ class Discover extends React.Component {
   }
 
   componentDidMount() {
+    this.props.fetchBridges();
+    this.props.getUser();
   }
 
   // handleClick() {
@@ -18,8 +20,6 @@ class Discover extends React.Component {
   // }
 
   handleClick() {
-    this.props.fetchBridges();
-    this.props.getUser();
 
   }
 

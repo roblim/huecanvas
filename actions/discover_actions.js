@@ -10,6 +10,7 @@ let hue = jsHue();
 
 var bridge = APIUtil.bridge;
 let bridgeIP = APIUtil.bridgeIP;
+let user = APIUtil.user;
 console.log(bridgeIP);
 
 // var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW"; @robs place
@@ -19,13 +20,17 @@ console.log(bridgeIP);
 
 // var user = bridge.user(username);
 
-let user;
 export const fetchBridges = () => dispatch => {
-  APIUtil.discover().then((bridges) => dispatch(receiveBridge(bridge)))
+  APIUtil.discover().then((bridges) => dispatch(receiveBridge(bridge))).catch(function(error) {
+    console.log('There has been a problem with your fetch operation: ' + error.message);
+  });
 }
 
+console.log(user);
+
 export const getUser = () => dispatch => {
-  APIUtil.userName().then((userName) => user = dispatch(receiveUsername(bridge.user(userName))))
+  // APIUtil.userName().then((userName) => user = dispatch(receiveUsername(bridge.user(userName))))
+  dispatch(receiveUsername(user))
 }
 
 export const fetchLights = () => dispatch => {

@@ -5,7 +5,7 @@ let hue = jsHue();
 let api = jsHueAPI();
 let bridge_ip;
 
-hue.discover(
+export const discover = () => hue.discover(
     function(bridges) {
         if(bridges.length === 0) {
             bridge_ip = "dook";
@@ -23,16 +23,18 @@ hue.discover(
     }
 );
 
-console.log(bridge_ip);
 
 export const bridgeIP = '192.168.1.234';
+export const bridge = hue.bridge(bridgeIP);
 
-export const bridge = hue.bridge(bridge_ip)
-console.log(bridge);
+let username;
+// create user account (requires link button to be pressed)
+bridge.createUser('foo application', function(data) {
+    // extract bridge-generated username from returned data
+    username = data[0].success.username;
 
-let data = {"devicetype": "HueCanvas#admin"}
-let test;
+    console.log('New username:', username);
 
-export const userName = () => bridge.createUser("HueCanvas#admin").then((user) => {
-  test = user;
 });
+// instantiate user object with username
+export const user = bridge.user(username);
