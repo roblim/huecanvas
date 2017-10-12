@@ -8,15 +8,32 @@ class SceneFooter extends React.Component {
     super(props);
 
     this.state = {
-      modalIsOpen
+      modalIsOpen: false
     }
+
+    this.openModal = this.openModal.bind(this);
+
+  }
+
+  openModal() {
+    this.setState({modalIsOpen: true})
   }
 
   render() {
-    return {
+    return (
       <View style={styles.container}>
-        <Button onPress={}>
+        <Button onPress={this.openModal}
+                title="button"
+          />
       </View>
-    }
+    )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "red"
+  }
+})
+
+export default SceneFooter;
