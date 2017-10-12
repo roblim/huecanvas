@@ -10,7 +10,11 @@ const LightReducer = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_ALL_LIGHTS:
-      return merge({}, action.lights);
+      let newState = merge({}, state);
+      let lights = action.lights;
+      let lightIds = Object.keys(lights);
+      lightIds.forEach(id => lights[id]['lightId'] = id);
+      return merge({}, newState, lights);
     case RECEIVE_LIGHT_STATE:
       let newLightState = merge({},
                                state[action.lightId].state,
