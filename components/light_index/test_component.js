@@ -60,21 +60,21 @@ export default class TestComponent extends React.Component {
 			<View style={{}}>
       <TouchableHighlight
 				style={styles.container}
-        onPress={blinkLight.bind(null, state.admin.user, 2)}
+        onPress={blinkLight.bind(null, state.admin.user, 12)}
         >
         <Text style={styles.welcome}>Blink</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
 				style={styles.container}
-        onPress={setLightOn.bind(null, state.admin.user, 2)}
+        onPress={setLightOn.bind(null, state.admin.user, 12)}
         >
         <Text style={styles.welcome}>On</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
 				style={styles.container}
-        onPress={setLightOff.bind(null, state.admin.user, 2)}
+        onPress={setLightOff.bind(null, state.admin.user, 12)}
         >
         <Text style={styles.welcome}>Off</Text>
       </TouchableHighlight>
