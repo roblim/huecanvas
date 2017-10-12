@@ -6,8 +6,6 @@ export const RECEIVE_ALL_LIGHTS = "RECEIVE_ALL_LIGHTS";
 export const RECEIVE_BRIDGE = "RECEIVE_BRIDGE";
 export const RECEIVE_USERNAME = "RECEIVE_USERNAME";
 
-let hue = jsHue();
-
 var bridge = APIUtil.bridge;
 let bridgeIP = APIUtil.bridgeIP;
 let username;

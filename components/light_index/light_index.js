@@ -1,5 +1,5 @@
 import React from 'react';
-import LightIndexItem from './light_index_item';
+import LightIndexItemContainer from './light_index_item_container';
 import { Text,
 				 View,
 				 StyleSheet,
@@ -12,14 +12,15 @@ class LightIndex extends React.Component {
   }
 
   render() {
+		if (this.props.lights.length < 1) { return null;}
     return(
-      <View>
-        {this.props.lights.map((light, idx) => (
-          <LightIndexItem light={light}
-                          key={`light-${idx}`}
-                          blinkLight={this.props.blinkLight}
-                          turnLightOff={this.props.turnLightOff}
-                          user={this.props.user} />
+      <View style={{paddingTop: 50}}>
+        {this.props.lights.map((light, idx) =>
+				(
+          <LightIndexItemContainer
+						light={light}
+            key={`light-${idx}`}
+          />
         )
       )}
       </View>
@@ -28,3 +29,29 @@ class LightIndex extends React.Component {
 }
 
 export default LightIndex;
+
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+		paddingTop: 50,
+    justifyContent: 'center',
+		alignContent: 'center',
+		flexWrap: 'wrap',
+    alignItems: 'center',
+    backgroundColor: 'pink',
+    width: 90,
+    height: 90,
+		borderRadius: 45
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+		color: 'teal',
+		fontWeight: 'bold'
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
