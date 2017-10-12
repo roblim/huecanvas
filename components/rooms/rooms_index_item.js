@@ -10,7 +10,7 @@ class RoomsIndexItem extends Component{
 
   handlePress(){
     return(
-      <RoomsForm></RoomsForm>
+      <Text>ROOM SHOW</Text>
     );
   }
   render(){
