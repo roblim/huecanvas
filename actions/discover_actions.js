@@ -11,6 +11,7 @@ let hue = jsHue();
 var bridge = APIUtil.bridge;
 let bridgeIP = APIUtil.bridgeIP;
 let user = APIUtil.user;
+console.log(user);
 console.log(bridgeIP);
 
 // var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW"; @robs place
