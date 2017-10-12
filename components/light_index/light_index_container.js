@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // import { connect } from 'react-redux';
 // import React, { Component } from 'react';
 // import { Text } from 'react-native';
@@ -11,7 +10,6 @@
 //     );
 //   }
 // }
-=======
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { Text } from 'react-native';
@@ -24,4 +22,3 @@ export default class LightIndexContainer extends Component {
     );
   }
 }
->>>>>>> 0245ab93a2e52a36935bdf0fb04793b279936271

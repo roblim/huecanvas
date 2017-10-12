@@ -7,7 +7,8 @@ let hue = jsHue();
 
 var bridge = hue.bridge("10.1.10.67");
 
-var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW";
+// var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW"; @robs place
+var username = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o"; // @app academy
 
 console.log('New username:', username);
 
