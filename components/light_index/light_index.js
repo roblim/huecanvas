@@ -1,5 +1,5 @@
 import React from 'react';
-import LightIndexItem from './light_index_item';
+import LightIndexItemContainer from './light_index_item_container';
 import { Text,
 				 View,
 				 StyleSheet,
@@ -14,20 +14,12 @@ class LightIndex extends React.Component {
   render() {
     return(
       <View style={styles.container}>
-        {this.props.lights.map((light, idx) => (
-          <LightIndexItem light={light}
-                          key={`light-${idx}`}
-                          blinkLight={this.props.blinkLight}
-                          turnLightOff={this.props.turnLightOff}
-													turnLightOn={this.props.turnLightOn}
-													turnAllLightsOff={this.props.turnAllLightsOff}
-													turnAllLightsOn={this.props.turnAllLightsOn}
-													changeBrightness={this.props.changeBrightness}
-													increaseBrightness={this.props.increaseBrightness}
-													decreaseBrightness={this.props.decreaseBrightness}
-													changeColor={this.props.changeColor}
-													changeTemperature={this.props.changeTemperature}
-                          user={this.props.user} />
+        {this.props.lights.map((light, idx) =>
+				(
+          <LightIndexItemContainer
+						light={light}
+            key={`light-${idx}`}
+          />
         )
       )}
       </View>

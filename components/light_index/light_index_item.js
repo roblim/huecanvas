@@ -27,7 +27,7 @@ class LightIndexItem extends React.Component {
     return(
       <TouchableHighlight
 				style={styles.container}
-        onPress={() => this.blinkLight(user, light.lightId)}
+        onPress={() => this.turnLightOn(user, light.lightId)}
         >
         <Text style={styles.welcome}>{light.name}</Text>
       </TouchableHighlight>
