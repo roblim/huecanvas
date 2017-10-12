@@ -19,11 +19,7 @@ let username;
 //     console.log('New username:', username);
 //
 // });
-console.log(username);
 
-bridge.createUser(`HueCanvas#iPad${Math.random * 100}`).then((data) => username = data)
-
-console.log(username);
 // username = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o"; // @app academy
 let user = bridge.user(username);
 
@@ -41,7 +37,12 @@ export const fetchBridges = () => dispatch => {
 
 export const getUser = () => dispatch => {
   // APIUtil.userName().then((userName) => user = dispatch(receiveUsername(bridge.user(userName))))
-  dispatch(receiveUsername(user))
+  console.log("here");
+  bridge.createUser(`HueCanvas#iPad${Math.random * 100}`)
+  .then((data) => dispatch(receiveUsername(data[0].success.username)))
+  .catch(function(error) {
+    console.log('There has been a problem with your fetch operation: ' + error.message);
+  })
 }
 
 export const fetchLights = () => dispatch => {
@@ -58,13 +59,6 @@ const receiveAllLights = (lights) => {
   type: RECEIVE_ALL_LIGHTS,
   lights
 }}
-
-const admin = (user) => {
-  type: ADMIN,
-  bridge,
-  user,
-  bridgeIP
-}
 
 const receiveUsername = (user) => {
   type: RECEIVE_USERNAME,

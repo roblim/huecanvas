@@ -8,9 +8,9 @@ class Discover extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.getUser();
+    this.props.getUser();
     // this.props.fetchBridges();
-    this.props.fetchLights();
+    // this.props.fetchLights();
   }
 
   // handleClick() {

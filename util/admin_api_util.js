@@ -34,5 +34,3 @@ bridge.createUser('foo application', function(data) {
 
 });
 export const user = bridge.user(username);
-
-console.log(username);
