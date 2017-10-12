@@ -13,7 +13,6 @@ var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW";
 
 console.log('New username:', username);
 
-    // instantiate user object with username
 var user = bridge.user(username);
 
 export const fetchBridges = () => dispatch => {
