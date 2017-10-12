@@ -12,12 +12,12 @@ export const receiveRoom = room => ({
 
 export const receiveRooms = rooms => ({
 	type: RECEIVE_ROOMS,
-	rooms: rooms
+	rooms
 });
 
-export const removeRoom = roomId => ({
+export const removeRoom = room => ({
 	type: REMOVE_ROOM,
-	roomId
+	room
 });
 
 export const receiveRoomErrors = errors => ({

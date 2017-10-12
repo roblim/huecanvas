@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
 import {
   StackNavigator,
 } from 'react-navigation';
 import SceneFooter from "./scenes/scene_footer";
 import DiscoverContainer from "./discover/discover_container";
+
+import TestComponent from './light_index/test_component.js';
+import LightIndexContainer from './light_index/light_index_container';
 
 export default class Root extends React.Component {
   constructor(props) {
@@ -30,8 +33,7 @@ export default class Root extends React.Component {
     this.setState({ isModalVisible: false })
   }
 
-
-
+  // <SceneIndexContainer />
   render() {
     return (
 			<View style={{flex: 1}}>
@@ -57,7 +59,26 @@ export default class Root extends React.Component {
               />
             <DiscoverContainer />
             </ Modal>
-          </ View>
-    )
+			</View>
+    );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
