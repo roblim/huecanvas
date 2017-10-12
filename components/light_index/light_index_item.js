@@ -12,12 +12,14 @@ class LightIndexItem extends React.Component {
 
   render() {
     const { user } = this.props;
+		const { lightId } = this.props;
+		const { light } = this.props;
     return(
       <TouchableHighlight
 				style={styles.container}
-        onPress={this.props.turnLightOff.bind(this, user, this.props.light.lightId)}
+        onPress={this.props.turnLightOff.bind(this, user, lightId)}
         >
-        <Text style={styles.welcome}>{this.props.light.name}</Text>
+        <Text style={styles.welcome}>{light.name}</Text>
       </TouchableHighlight>
     )
   }
