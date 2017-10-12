@@ -38,7 +38,7 @@ export default class Root extends React.Component {
 				<Text>This is the root page</ Text>
           <SceneIndexContainer />
           <Button onPress={this.showModal}
-                  title="Find your bridge"
+                  title="click for all lights"
             />
           <Modal
             style={{

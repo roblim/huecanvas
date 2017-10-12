@@ -22,7 +22,7 @@ class Discover extends React.Component {
       <View style={{flex: 1}}>
         <Text>Press the button on top of your Hue Bridge</Text>
         <Image source={require("../../docs/icons/icon_pack_v2.02/Push-link/PDF/pushlink_bridgev2-1.png")}
-                style={{width: 150, height: 150}}
+                style={{width: 200, height: 200}}
           />
       </ View>
     )
