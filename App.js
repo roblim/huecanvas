@@ -6,10 +6,9 @@ import Root from './components/root';
 import configureStore from './store/store';
 import { Provider } from 'react-redux';
 
-export default class App extends React.Component {
-
+let store = configureStore();
+export default class App extends React.Component {  
   render() {
-    let store = configureStore();
     return (
       <View style={styles.container}>
       <Provider store={store}>
