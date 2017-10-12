@@ -9,7 +9,11 @@ export const fetchScenes = () => dispatch => (
 );
 
 export const fetchScene = (id) => dispatch => (
+<<<<<<< HEAD
   ApiUtil.getScene(id).then(scene => dispatch(receiveScene(scene)))
+=======
+  ApiUtil.getScene(id).then((scene) => dispatch(receiveScene(scene)))
+>>>>>>> 0245ab93a2e52a36935bdf0fb04793b279936271
 );
 
 export const deleteScene = (id) => dispatch => (
