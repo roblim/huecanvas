@@ -16,8 +16,8 @@ import LightIndexItem from './light_index_item';
 
 const mapStateToProps = (state, ownProps) => ({
   user: state.admin.user,
-  lights: selectLights(state),
-  lightId: ownProps.lightId
+  light: ownProps.light,
+  lights: selectLights(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

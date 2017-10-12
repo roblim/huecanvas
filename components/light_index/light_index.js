@@ -12,8 +12,9 @@ class LightIndex extends React.Component {
   }
 
   render() {
+		if (this.props.lights.length < 1) { return null;}
     return(
-      <View style={styles.container}>
+      <View style={{paddingTop: 50}}>
         {this.props.lights.map((light, idx) =>
 				(
           <LightIndexItemContainer
@@ -32,6 +33,7 @@ export default LightIndex;
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
+		paddingTop: 50,
     justifyContent: 'center',
 		alignContent: 'center',
 		flexWrap: 'wrap',

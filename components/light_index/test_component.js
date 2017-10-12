@@ -57,7 +57,7 @@ export default class TestComponent extends React.Component {
 
   render() {
     return (
-			<View style={{}}>
+			<View style={{flexDirection: 'row', position: 'absolute', top: 500, left: 0}}>
       <TouchableHighlight
 				style={styles.container}
         onPress={blinkLight.bind(null, state.admin.user, 8)}
@@ -100,6 +100,20 @@ export default class TestComponent extends React.Component {
 			  <Text style={styles.welcome}>Set Color</Text>
 			</TouchableHighlight>
 
+			<TouchableHighlight
+				style={styles.container}
+			  onPress={incBri.bind(null, state.admin.user, 8, 25)}
+			  >
+			  <Text style={styles.welcome}>Brighter</Text>
+			</TouchableHighlight>
+
+			<TouchableHighlight
+				style={styles.container}
+			  onPress={decBri.bind(null, state.admin.user, 8, 25)}
+			  >
+			  <Text style={styles.welcome}>Dimmer</Text>
+			</TouchableHighlight>
+
 			</View>
     );
   }
@@ -130,19 +144,7 @@ const styles = StyleSheet.create({
 });
 
 
-// <TouchableHighlight
-// 	style={styles.container}
-//   onPress={incBri.bind(null, state.admin.user, 8, 25)}
-//   >
-//   <Text style={styles.welcome}>Brighter</Text>
-// </TouchableHighlight>
-//
-// <TouchableHighlight
-// 	style={styles.container}
-//   onPress={decBri.bind(null, state.admin.user, 8, 25)}
-//   >
-//   <Text style={styles.welcome}>Dimmer</Text>
-// </TouchableHighlight>
+
 //
 // <TouchableHighlight
 // 	style={styles.container}
