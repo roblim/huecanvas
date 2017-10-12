@@ -7,8 +7,6 @@ const DiscoverReducer = (oldState = {}, action) => {
   switch (action.type) {
     case RECEIVE_ALL_BRIDGES:
       return merge({}, action.bridges);
-    case RECEIVE_ALL_LIGHTS:
-      return merge({}, action.lights)
     default:
       return oldState;
   }
