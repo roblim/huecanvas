@@ -6,15 +6,14 @@ import {
 } from 'react-navigation';
 import SceneIndexContainer from "./scenes/scene_index_container";
 import DiscoverContainer from "./discover/discover_container";
-
+import RoomsIndexContainer from './rooms/rooms_index_container';
 import TestComponent from './light_index/test_component.js';
 import LightIndexContainer from './light_index/light_index_container';
+
 
 export default class Root extends React.Component {
   constructor(props) {
     super(props);
-
-    console.log(props);
 
     this.state = {
       isModalVisible: false
@@ -33,31 +32,12 @@ export default class Root extends React.Component {
     this.setState({ isModalVisible: false });
   }
 
+
   // <SceneIndexContainer />
   render() {
     return (
-			<View style={{flex: 1}}>
-				<Text>This is the root page</ Text>
-          <Button onPress={this.showModal}
-                  title="click for all lights"
-            />
-          <Modal
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              margin: "auto"
-
-            }}
-            isVisible={this.state.isModalVisible}
-            backdropColor="rgb(255, 255, 255)"
-
-            >
-            <Button onPress={this.hideModal}
-              title="close"
-              />
-            <DiscoverContainer />
-            </ Modal>
+			<View style={styles.container}>
+				<RoomsIndexContainer/>
 			</View>
     );
   }

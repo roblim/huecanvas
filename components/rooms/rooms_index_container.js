@@ -1,4 +1,4 @@
-import RoomIndex from './rooms_index';
+import RoomsIndex from './rooms_index';
 import { connect } from 'react-redux';
 import { fetchRooms, createRoom, fetchRoom } from '../../actions/room_actions';
 import { fetchLights } from '../../actions/discover_actions';
@@ -15,4 +15,4 @@ const mapDispatchToProps = dispatch =>({
   fetchLights: ()=> dispatch(fetchLights())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RoomIndex);
+export default connect(mapStateToProps, mapDispatchToProps)(RoomsIndex);

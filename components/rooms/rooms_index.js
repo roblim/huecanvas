@@ -1,51 +1,61 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableHighlight, Button } from 'react-native';
 import RoomsIndexItem from './rooms_index_item';
 import { AsyncStorage } from 'react-native';
 
 class RoomsIndex extends Component{
   constructor(props){
     super(props);
-    //fake until this.props.rooms is working
-    this.state={
-      rooms:{
-        1:{
-          id: 0,
-          name: "Living Room"
-        },
-        2:{
-          id: 1,
-          name: "Family Room"
-        },
-        3:{
-          id: 2,
-          name: "Bedroom"
-        }
-      }
-    };
+    this.state={};
+    this.renderRooms = this.renderRooms.bind(this);
+    this.renderLights = this.renderLights.bind(this);
+}
+
+  componentWillMount(){
+    this.props.fetchRooms();
+    this.props.fetchLights();
   }
 
-  componentDidMount(){
-    this.props.fetchRooms();
-    // this.setState({
-    //   rooms: this.props.rooms
-    // });
+  renderRooms(){
+    const rooms = this.props.rooms;
+    const roomLights = this.props.lights;
+    return(
+      <View>
+        {
+          Object.values(rooms).map(room =>(
+            <View style={styles.container} key={room.id}>
+              <RoomsIndexItem room={room} lights={roomLights}/>
+            </View>
+          ))
+        }
+      </View>
+    );
+  }
+
+  renderLights(){
+    const lights = this.props.lights;
+    return(
+      <View>
+        {
+          Object.values(lights).map(light =>(
+            <View style={styles.container} key={light.id}>
+              <Button title={light.name}></Button>
+            </View>
+          ))
+        }
+      </View>
+    );
+
   }
   render(){
-    const rooms = this.state.rooms;
     return(
       <ScrollView>
         <Text>{`\n`}</Text>
         <Text>{`\n`}</Text>
         <Text>{`\n`}</Text>
         <Text>{`\n`}</Text>
-        {
-          Object.values(rooms).map(room =>(
-            <View style={styles.container}>
-              <RoomsIndexItem room={room}/>
-            </View>
-          ))
-        }
+        {this.renderRooms()}
+        {this.renderLights()}
       </ScrollView>
 
     );
