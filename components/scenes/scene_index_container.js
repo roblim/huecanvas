@@ -4,8 +4,9 @@ import { fetchScenes, fetchScene, deleteScene, createScene } from "../../actions
 
 const mapStateToProps = (state) => {
   return {
-    // scenes: Object.keys(state.scenes).map((id) => state.scenes[id])
+    scenes: Object.keys(state.scenes).map((id) => state.scenes[id])
   }
+
 }
 
 const mapDispatchToProps = (dispatch) => ({

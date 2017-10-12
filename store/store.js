@@ -12,6 +12,8 @@ const Bridge = Hue.bridge(homeIP);
 const User = Bridge.user(homeHue);
 const Lights = User.getLights().then(data => data);
 
+const middlewares = [thunk, createLoggerMiddleware];
+
 let testStore = {
   entities: {
     lights:
