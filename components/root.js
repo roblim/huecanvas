@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
 import {
   StackNavigator,
@@ -33,11 +33,11 @@ export default class Root extends React.Component {
     this.setState({ isModalVisible: false })
   }
 
+  // <SceneIndexContainer />
   render() {
     return (
 			<View style={{flex: 1}}>
 				<Text>This is the root page</ Text>
-          <SceneIndexContainer />
           <Button onPress={this.showModal}
                   title="click for all lights"
             />

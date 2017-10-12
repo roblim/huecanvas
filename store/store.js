@@ -2,6 +2,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import RootReducer from '../reducers/root_reducer';
 import jsHue from 'jshue';
+import createLoggerMiddleware from 'redux-logger';
+
+const middlewares = [thunk, createLoggerMiddleware];
 
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
@@ -12,7 +15,16 @@ const Bridge = Hue.bridge(homeIP);
 const User = Bridge.user(homeHue);
 const Lights = User.getLights().then(data => data);
 
-const middlewares = [thunk, createLoggerMiddleware];
+
+const configureStore = (preloadedState = testStore) => (
+  createStore(
+    RootReducer,
+    preloadedState,
+    applyMiddleware(...middlewares)
+  )
+);
+
+export default configureStore;
 
 let testStore = {
   entities: {
@@ -50,16 +62,6 @@ let testStore = {
     bridgeIP: homeIP
   }
 }
-
-const configureStore = (preloadedState = testStore) => (
-  createStore(
-    RootReducer,
-    preloadedState,
-    applyMiddleware(thunk)
-  )
-);
-
-export default configureStore;
 
 // { 2: {
 //   manufacturername:"Philips"
