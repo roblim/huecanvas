@@ -8,32 +8,20 @@ const Hue = jsHue();
 const Bridge = Hue.bridge(homeIP);
 const User = Bridge.user(homeHue);
 
-const state = {
-  entities: {
-    lights: User.getLights().then(r => console.log(r))
-  },
-  admin: {
-    bridge: Bridge,
-    user: User,
-    bridgeIP: homeIP
-  }
-};
-
 export const blinkLight = (user, lightId) => {
   user.setLightState(
     lightId,
     { alert: 'select'}
   ).then(data => console.log(Object.values(data[0].success)[0]));
-  user.getLight(8).then(data => console.log(data));
 };
 
 export const setLightOff = (user, lightId) => {
-  user.setLightState(
+  return user.setLightState(
     lightId,
     {
       on: false
     }
-  ).then(data => console.log(Object.values(data[0].success)[0]));
+  );
 };
 
 export const setLightOn = (user, lightId) => {

@@ -5,12 +5,14 @@ import {
 } from 'react-navigation';
 
 import TestComponent from './light_index/test_component.js';
+import LightIndexContainer from './light_index/light_index_container';
 
 export default class Root extends React.Component {
   render() {
     return (
 			<View style={styles.container}>
-        <TestComponent/>
+        <LightIndexContainer />
+        <TestComponent />
 			</View>
     );
   }
