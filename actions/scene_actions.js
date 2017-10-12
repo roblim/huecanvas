@@ -9,7 +9,7 @@ export const fetchScenes = () => dispatch => (
 );
 
 export const fetchScene = (id) => dispatch => (
-  ApiUtil.getScene(id).then((scene) => dispatch(receiveScene(scene)))
+  ApiUtil.getScene(id).then(scene => dispatch(receiveScene(scene)))
 );
 
 export const deleteScene = (id) => dispatch => (

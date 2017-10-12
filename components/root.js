@@ -1,17 +1,83 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import RoomsIndexContainer from './rooms/rooms_index_container';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import Modal from "react-native-modal";
 import {
   StackNavigator,
 } from 'react-navigation';
+import SceneIndexContainer from "./scenes/scene_index_container";
+import DiscoverContainer from "./discover/discover_container";
+
+import TestComponent from './light_index/test_component.js';
+import LightIndexContainer from './light_index/light_index_container';
 
 export default class Root extends React.Component {
+  constructor(props) {
+    super(props);
+
+    console.log(props);
+
+    this.state = {
+      isModalVisible: false
+
+    };
+
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+  }
+
+  showModal() {
+    this.setState({ isModalVisible: true });
+  }
+
+  hideModal() {
+    this.setState({ isModalVisible: false });
+  }
+
+  // <SceneIndexContainer />
   render() {
     return (
-			<View>
-				<Text>This is a test</Text>
-        <RoomsIndexContainer/>
+			<View style={{flex: 1}}>
+				<Text>This is the root page</ Text>
+          <Button onPress={this.showModal}
+                  title="click for all lights"
+            />
+          <Modal
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "auto"
+
+            }}
+            isVisible={this.state.isModalVisible}
+            backdropColor="rgb(255, 255, 255)"
+
+            >
+            <Button onPress={this.hideModal}
+              title="close"
+              />
+            <DiscoverContainer />
+            </ Modal>
 			</View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
