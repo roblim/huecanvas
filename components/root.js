@@ -1,5 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
 import { View, Text, Button } from 'react-native';
 import Modal from "react-native-modal";
 import {
@@ -58,19 +57,6 @@ export default class Root extends React.Component {
               />
             <DiscoverContainer />
             </ Modal>
-
-=======
-import { View, Text } from 'react-native';
-import {
-  StackNavigator,
-} from 'react-navigation';
-
-export default class Root extends React.Component {
-  render() {
-    return (
-			<View>
-				<Text>This is a test</Text>
->>>>>>> 0245ab93a2e52a36935bdf0fb04793b279936271
 			</View>
     );
   }
