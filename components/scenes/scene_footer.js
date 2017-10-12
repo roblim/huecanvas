@@ -11,6 +11,7 @@ class SceneFooter extends React.Component {
   render() {
     return {
       <View style={styles.container}>
+        <Button onPress={}>
       </View>
     }
   }

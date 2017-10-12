@@ -15,7 +15,6 @@ export default class App extends React.Component {
       <Provider store={store}>
          <Root />
         </ Provider>
-        <Text>Hello</ Text>
       </View>
     );
   }
