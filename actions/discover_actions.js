@@ -6,17 +6,6 @@ export const RECEIVE_ALL_LIGHTS = "RECEIVE_ALL_LIGHTS";
 export const RECEIVE_BRIDGE = "RECEIVE_BRIDGE";
 export const RECEIVE_USERNAME = "RECEIVE_USERNAME";
 
-
-<<<<<<< HEAD
-const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
-const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
-const appAcademyIP = '192.168.1.234';
-const homeIP = '10.1.10.67'
-
-let hue = jsHue();
-var bridge = hue.bridge(appAcademyIP);
-var username = appAcademyHue;
-=======
 var bridge = APIUtil.bridge;
 let bridgeIP = APIUtil.bridgeIP;
 let username;
@@ -34,7 +23,6 @@ let user = bridge.user(username);
 console.log(bridgeIP);
 
 // var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW"; @robs place
->>>>>>> master
 
 // console.log('New username:', username);
 

@@ -1,7 +1,6 @@
 import { RECEIVE_ALL_BRIDGES, RECEIVE_ALL_LIGHTS } from "../actions/discover_actions";
 import { merge } from "lodash";
 
-
 const DiscoverReducer = (oldState = {}, action) => {
   Object.freeze(oldState);
   switch (action.type) {
@@ -11,6 +10,5 @@ const DiscoverReducer = (oldState = {}, action) => {
       return oldState;
   }
 }
-
 
 export default DiscoverReducer;
