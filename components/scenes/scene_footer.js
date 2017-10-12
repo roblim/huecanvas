@@ -5,7 +5,11 @@ import SceneIndex from "./scene_index";
 
 class SceneFooter extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.state = {
+      modalIsOpen
+    }
   }
 
   render() {

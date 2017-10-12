@@ -1,7 +1,19 @@
+// // import { connect } from 'react-redux';
+// // import React, { Component } from 'react';
+// // import { Text } from 'react-native';
+// // import jsHue from 'jsHue';
+// //
+// // export default class LightIndexContainer extends Component {
+// //   render() {
+// //     return (
+// //       <Text>Hello world!</Text>
+// //     );
+// //   }
+// // }
 // import { connect } from 'react-redux';
 // import React, { Component } from 'react';
 // import { Text } from 'react-native';
-// import jsHue from 'jsHue';
+// import jsHue from 'jshue';
 //
 // export default class LightIndexContainer extends Component {
 //   render() {
@@ -10,15 +22,3 @@
 //     );
 //   }
 // }
-import { connect } from 'react-redux';
-import React, { Component } from 'react';
-import { Text } from 'react-native';
-import jsHue from 'jshue';
-
-export default class LightIndexContainer extends Component {
-  render() {
-    return (
-      <Text>Hello world!</Text>
-    );
-  }
-}

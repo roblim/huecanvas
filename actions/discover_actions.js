@@ -28,6 +28,7 @@ const receiveAllBridges = (bridges) => ({
 })
 
 const receiveAllLights = (lights) => {
+  console.log(lights);
   return {
   type: RECEIVE_ALL_LIGHTS,
   lights
