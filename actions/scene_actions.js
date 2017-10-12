@@ -7,14 +7,14 @@ export const REMOVE_SCENE = "REMOVE_SCENE";
 export const fetchScenes = () => dispatch => (
   ApiUtil.getScenes().then((scenes) => dispatch(receiveAllScenes(scenes)))
 );
-// 
-// export const fetchScene = (id) => dispatch => (
-//   ApiUtil.getScene(id).then(scene => dispatch(receiveScene((scene)))
-// );
-//
-// export const deleteScene = (id) => dispatch => (
-//   ApiUtil.deleteScene(id).then((scene) => dispatch(removeScene(scene)))
-// );
+
+export const fetchScene = (id) => dispatch => (
+  ApiUtil.getScene(id).then((scene) => dispatch(receiveScene(scene)))
+);
+
+export const deleteScene = (id) => dispatch => (
+  ApiUtil.deleteScene(id).then((scene) => dispatch(removeScene(scene)))
+);
 
 export const createScene = (scene) => dispatch => (
   ApiUtil.createScene(scene).then((scene) => dispatch(createScene(scene)))
