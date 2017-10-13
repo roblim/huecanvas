@@ -5,8 +5,7 @@ const INITIAL_STATE = {
     routes: [
         { key: 'InitA', routeName: 'roomsNew' },
         { key: 'InitB', routeName: 'home' },
-        { key: 'InitC', routeName: 'roomsEdit' }
-    ]
+        { key: 'InitC', routeName: 'roomsEdit' },    ]
 	// return TabNavigator.router.getStateForAction(TabNavigator.router.getActionForPathAndParams('Home'));
 };
 

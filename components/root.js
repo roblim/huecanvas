@@ -12,12 +12,15 @@ import LightIndexContainer from './light_index/light_index_container';
 export default class Root extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isModalVisible: false
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+  }
+
+  componentDidMount() {
+
   }
 
   showModal() {
@@ -28,22 +31,6 @@ export default class Root extends React.Component {
     this.setState({ isModalVisible: false });
   }
 
-
-  getBridges() {
-    hue.discover().then(bridges => {
-
-    if(bridges.length === 0) {
-      console.log(bridges.length);
-      return (
-        <Text>dexx</Text>
-      );
-    }
-    else {
-        bridges.forEach(b => console.log('Bridge found at IP address %s.', b.internalipaddress));
-    }
-  }).catch(e => console.log('Error finding bridges', e));
-  }
-
   // <SceneIndexContainer />
   render() {
     const { navigate } = this.props.navigation;
@@ -52,9 +39,6 @@ export default class Root extends React.Component {
   			<View style={{flex: 1}}>
   				<Text>This is the root page</Text>
             <SceneFooter />
-            <Button onPress={this.showModal}
-                    title="click for all lights"
-              />
             <Modal
               style={{
                 flex: 1,
@@ -76,13 +60,15 @@ export default class Root extends React.Component {
               <TestComponent />
   			</View>
 
-        <SceneIndexContainer />
 
         <View style={styles.container}>
-          <Button onPress={() => this.getBridges()}
+          <Button onPress={() => this.showModal}
                 title="discover"
           />
-          <Text>Hello</Text>
+        <Button onPress={this.showModal}
+          title="click for all lights"
+          />
+          <Text>Hello</ Text>
         </View>
         <View>
           <Button
@@ -101,6 +87,7 @@ export default class Root extends React.Component {
   }
 }
 
+// <SceneIndexContainer />
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
