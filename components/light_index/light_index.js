@@ -5,6 +5,7 @@ import { Text,
 				 StyleSheet,
 				 Button,
 			   TouchableHighlight } from 'react-native';
+import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
 
 class LightIndex extends React.Component {
   constructor(props) {
@@ -14,16 +15,19 @@ class LightIndex extends React.Component {
   render() {
 		if (this.props.lights.length < 1) { return null;}
     return(
-      <View style={{paddingTop: 50}}>
-        {this.props.lights.map((light, idx) =>
-				(
-          <LightIndexItemContainer
-						light={light}
-            key={`light-${idx}`}
-          />
-        )
-      )}
-      </View>
+			<View>
+	      <View style={{paddingTop: 50, height: 600, flexWrap: 'wrap', flexDirection: 'row'}}>
+	        {this.props.lights.map((light, idx) =>
+					(
+	          <LightIndexItemContainer
+							light={light}
+	            key={`light-${idx}`}
+	          />
+	        )
+	      )}
+	      </View>
+
+			</View>
     )
   }
 }

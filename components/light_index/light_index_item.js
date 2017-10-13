@@ -4,6 +4,7 @@ import { Text,
 				 StyleSheet,
 				 Button,
 			   TouchableHighlight } from 'react-native';
+import { xyToRGB } from '../../util/lights_util';
 
 class LightIndexItem extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class LightIndexItem extends React.Component {
 		const { light } = this.props;
     return(
       <TouchableHighlight
-				style={styles.container}
+				style={styles(light).container}
         onPress={() => this.turnLightOn(user, light.lightId)}
         >
         <Text style={styles.welcome}>{light.name}</Text>
@@ -35,28 +36,26 @@ class LightIndexItem extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    justifyContent: 'center',
-		flexWrap: 'wrap',
-    alignItems: 'center',
-    backgroundColor: 'pink',
-    width: 90,
-    height: 90,
-		borderRadius: 45
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-		color: 'teal',
-		fontWeight: 'bold'
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+const styles = (light) => {
+	let rgb = xyToRGB(light.state.xy, light.state.bri);
+	let { red } = rgb;
+	let { green } = rgb;
+	let { blue } = rgb;
+	return(
+		StyleSheet.create({
+			container: {
+				// flex: 1,
+				justifyContent: 'center',
+				flexWrap: 'wrap',
+				alignItems: 'center',
+				backgroundColor: `rgb(${red}, ${green}, ${blue})`,
+				width: 90,
+				height: 90,
+				borderRadius: 45
+			}
+		})
+	);
+};
+
 
 export default LightIndexItem;

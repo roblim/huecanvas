@@ -18,11 +18,11 @@ let username;
 //
 // });
 console.log(username);
-username = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o"; // @app academy
+// username = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o"; // @app academy
+username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW"; //@robs place
 let user = bridge.user(username);
 console.log(bridgeIP);
 
-// var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW"; @robs place
 
 // console.log('New username:', username);
 

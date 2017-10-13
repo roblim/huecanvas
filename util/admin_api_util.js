@@ -23,7 +23,7 @@ export const discover = () => hue.discover(
 );
 
 
-export const bridgeIP = '192.168.1.234';
+export const bridgeIP = '10.1.10.67';
 export const bridge = hue.bridge(bridgeIP);
 
 let username;
