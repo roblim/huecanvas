@@ -21,7 +21,7 @@ const mapStateToProps = (state, ownProps) => ({
   lights: selectLights(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   blinkLight: blinkLight,
   turnLightOn: (user, lightId) => dispatch(turnLightOn(user, lightId)),
   turnLightOff: (user, lightId) => dispatch(turnLightOff(user, lightId)),

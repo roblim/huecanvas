@@ -58,7 +58,7 @@ export default class TestComponent extends React.Component {
 
   render() {
     return (
-			<View style={{flexDirection: 'row', position: 'absolute', flexWrap: 'wrap', width: 500, top: 500, left: 0}}>
+			<View style={{flexDirection: 'row', flexWrap: 'wrap', width: 500, top: 500, left: 0}}>
       <TouchableHighlight
 				style={styles.container}
         onPress={blinkLight.bind(null, state.admin.user, 12)}

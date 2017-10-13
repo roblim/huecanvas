@@ -25,7 +25,7 @@ const LightReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_LIGHT_NAME:
       newState = merge({}, state);
-      newState[action.id][name] = action.name;
+      newState[action.lightId]['name'] = action.name;
       return newState;
     case TURN_ALL_LIGHTS_OFF:
       newState = merge({}, state);

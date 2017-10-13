@@ -5,6 +5,7 @@ import { Text,
 				 Button,
 			   TouchableHighlight } from 'react-native';
 import { xyToRGB } from '../../util/lights_util';
+import LightFormContainer from './light_form_container';
 
 class LightIndexItem extends React.Component {
   constructor(props) {
@@ -23,16 +24,27 @@ class LightIndexItem extends React.Component {
 		this.updateLightName = this.props.updateLightName.bind(this);
   }
 
+	form() {
+		if (this.props.light.lightId === 12) {
+			return(
+				<LightFormContainer light={this.props.light} />
+			)
+		}
+	}
+
   render() {
     const { user } = this.props;
 		const { light } = this.props;
     return(
-      <TouchableHighlight
-				style={styles(light).container}
-        onPress={() => this.updateLightName(user, light.lightId, 'Triple')}
-        >
-        <Text style={styles.welcome}>{light.name}</Text>
-      </TouchableHighlight>
+			<View>
+	      <TouchableHighlight
+					style={styles(light).container}
+	        onPress={() => this.blinkLight(user, light.lightId)}
+	        >
+	        <Text style={styles.welcome}>{light.name}</Text>
+	      </TouchableHighlight>
+				{this.form()}
+			</View>
     )
   }
 }

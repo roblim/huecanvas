@@ -35,6 +35,7 @@ export const receiveLightState = (lightId, lightState) => ({
 
 export const receiveLightName = (lightId, name) => ({
   type: RECEIVE_LIGHT_NAME,
+  lightId,
   name
 });
 

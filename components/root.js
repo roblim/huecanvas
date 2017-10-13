@@ -74,10 +74,10 @@ export default class Root extends React.Component {
               <DiscoverContainer />
               </ Modal>
 
-              <TestComponent />
   			</View>
 
         <SceneIndexContainer />
+        <LightIndexContainer />
 
         <View style={styles.container}>
           <Button onPress={() => this.getBridges()}

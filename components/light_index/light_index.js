@@ -1,5 +1,6 @@
 import React from 'react';
 import LightIndexItemContainer from './light_index_item_container';
+import TestComponent from './test_component';
 import { Text,
 				 View,
 				 StyleSheet,
@@ -11,6 +12,10 @@ class LightIndex extends React.Component {
   constructor(props) {
     super(props)
   }
+
+	componentDidMount() {
+		this.props.fetchLights();
+	}
 
   render() {
 		if (this.props.lights.length < 1) { return null;}
@@ -25,8 +30,9 @@ class LightIndex extends React.Component {
 	          />
 	        )
 	      )}
-	      </View>
+				<TestComponent />
 
+	      </View>
 			</View>
     )
   }
