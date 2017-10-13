@@ -10,21 +10,21 @@ class SceneIndex extends React.Component {
     }
     this.setScene = this.setScene.bind(this);
     this.renderItem = this.renderItem.bind(this);
-    console.log(props);
   }
 
   renderItem(scene) {
     return (
       <SceneIndexItem item={scene}
                       setScene={this.setScene}
+                      fetchScene={this.props.fetchScene}
                       />
     )
   }
 
   setScene(name) {
     console.log("click heard");
+    console.log(this.props);
     this.setState({currentScene: name})
-    console.log(this.state);
   }
 
   render() {

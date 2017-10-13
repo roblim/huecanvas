@@ -3,11 +3,12 @@ import SceneIndex from "./scene_index";
 import { fetchScenes, fetchScene, deleteScene, createScene } from "../../actions/scene_actions";
 
 const mapStateToProps = (state) => {
-  console.log(state);
   let user = state.user;
   if (state.entities.scenes) {
     return {
-      scenes: Object.keys(state.entities.scenes).map((id) => state.entities.scenes[id])
+      scenes: Object.keys(state.entities.scenes).map((id) => {
+        console.log(id);
+        state.entities.scenes[id]})
     }
   } else {
     return {
@@ -15,12 +16,11 @@ const mapStateToProps = (state) => {
     }
   }
 
-
 }
 
 const mapDispatchToProps = (dispatch) => ({
   fetchScenes: () => dispatch(fetchScenes()),
-  fetchScene: (scene) => dispatch(fetchScene(scene)),
+  fetchScene: (id) => dispatch(fetchScene(id)),
   deleteScene: (id) => dispatch(deleteScene(id)),
   createScene: (scene) => dispatch(createScene(scene))
 })
