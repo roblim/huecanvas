@@ -4,14 +4,13 @@ import { Text, Button, StyleSheet, View, Image } from "react-native";
 class Discover extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     // this.props.getUser();
     // this.props.fetchBridges();
     this.props.fetchLights();
-  }
+}
 
   // handleClick() {
   //   let lights = this.props.fetchLights();
@@ -19,10 +18,6 @@ class Discover extends React.Component {
   //   lights();
   //   bridges();
   // }
-
-  handleClick() {
-
-  }
 
   render() {
     return (

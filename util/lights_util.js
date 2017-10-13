@@ -143,3 +143,7 @@ export const setMiredTemperature = (user, lightId, temp) => {
 export const putLightName = (user, lightId, name) => {
   return user.setLight(lightId, { name });
 };
+
+export const fetchLights = () => {
+  return user.getLights()
+}

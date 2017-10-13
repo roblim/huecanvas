@@ -28,7 +28,7 @@ export const receiveRoomErrors = errors => ({
 export const fetchRooms = () => dispatch => (
 	APIUtil.fetchRooms().then(rooms => {
 		// console.log(rooms);
-		return dispatch(receiveRooms(rooms))
+		return dispatch(receiveRooms(rooms));
 	}, err => (
 		dispatch(receiveRoomErrors(err.responseJSON))
 	))
@@ -40,7 +40,7 @@ export const fetchRoom = id => dispatch => (
 	), err => (
 		dispatch(receiveRoomErrors(err.responseJSON))
 	))
-)
+);
 
 export const createRoom = room => dispatch => (
 	APIUtil.createRoom(room).then(() => (
@@ -48,7 +48,7 @@ export const createRoom = room => dispatch => (
 	), err => (
 		dispatch(receiveRoomErrors(err.responseJSON))
 	))
-)
+);
 
 export const updateRoom = room => dispatch => (
 	APIUtil.updateRoom(room).then(() => (
@@ -56,7 +56,7 @@ export const updateRoom = room => dispatch => (
 	), err => (
 		dispatch(receiveRoomErrors(err.responseJSONS))
 	))
-)
+);
 
 export const deleteRoom = id => dispatch => (
 	APIUtil.deleteRoom(id).then(() => (
@@ -64,4 +64,4 @@ export const deleteRoom = id => dispatch => (
 	), err => (
 		dispatch(receiveRoomErrors(err.responseJSON))
 	))
-)
+);

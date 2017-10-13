@@ -70,4 +70,4 @@ const LightIndexItemContainer = connect(
   mapDispatchToProps
 )(LightIndexItem);
 
-export default LightIndexItemContainer
+export default LightIndexItemContainer;
