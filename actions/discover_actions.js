@@ -5,36 +5,13 @@ export const RECEIVE_ALL_BRIDGES = "RECEIVE_ALL_BRIDGES";
 export const RECEIVE_ALL_LIGHTS = "RECEIVE_ALL_LIGHTS";
 export const RECEIVE_BRIDGE = "RECEIVE_BRIDGE";
 export const RECEIVE_USERNAME = "RECEIVE_USERNAME";
-
-var bridge = APIUtil.bridge;
-let bridgeIP = APIUtil.bridgeIP;
 let username;
 
 
-// bridge.createUser('HueCanvas', function(data) {
-//     // extract bridge-generated username from returned data
-//     console.log(data);
-//     username = data[0].success.username;
-//     console.log('New username:', username);
-//
-// });
-
-
-bridge.createUser(`HueCanvas#iPad${Math.random * 100}`).then((data) => {
-  console.log(data);
-  user = bridge.user("VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o");
+APIUtil.Bridge.createUser(`HueCanvas#iPad${Math.random * 100}`).then((data) => {
 }, (errors) => {
   console.log(errors);
 })
-
-// username = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o"; // @app academy
-// let user = bridge.user(username);
-
-// var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW"; @robs place
-
-// console.log('New username:', username);
-
-// var user = bridge.user(username);
 
 export const fetchBridges = () => dispatch => {
   APIUtil.discover().then((bridges) => dispatch(receiveBridge(bridge))).catch(function(error) {
@@ -42,17 +19,23 @@ export const fetchBridges = () => dispatch => {
   });
 }
 
-export const getUser = () => dispatch => {
-  // APIUtil.userName().then((userName) => user = dispatch(receiveUsername(bridge.user(userName))))
-   bridge.createUser(`HueCanvas#iPad${Math.random * 100}`)
-  .then((data) => dispatch(receiveUsername(data[0].success.username)))
+let user;
+
+export const createUser = () => dispatch => {
+    console.log("here");
+   APIUtil.createUser().then((data) => {
+     user = data[0].success.username;
+     dispatch(receiveUser(data[0].success.username)
+   )
+   }
+)
   .catch(function(error) {
     console.log('There has been a problem with your fetch operation: ' + error.message);
   })
 }
 
 export const fetchLights = () => dispatch => {
-  user.getLights().then((lights) => dispatch(receiveAllLights(lights)))
+  APIUtil.User.getLights().then((lights) => dispatch(receiveAllLights(lights)))
 }
 
 const receiveAllBridges = (bridges) => ({

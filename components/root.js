@@ -10,15 +10,16 @@ import LightIndexContainer from './light_index/light_index_container';
 export default class Root extends React.Component {
   constructor(props) {
     super(props);
-
-    console.log(props);
-
     this.state = {
       isModalVisible: false
     }
 
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+  }
+
+  componentDidMount() {
+
   }
 
   showModal() {
@@ -37,9 +38,6 @@ export default class Root extends React.Component {
   			<View style={{flex: 1}}>
   				<Text>This is the root page</ Text>
             <SceneFooter />
-            <Button onPress={this.showModal}
-                    title="click for all lights"
-              />
             <Modal
               style={{
                 flex: 1,
@@ -61,11 +59,13 @@ export default class Root extends React.Component {
               <TestComponent />
   			</View>
 
-        <SceneIndexContainer />
 
         <View style={styles.container}>
-          <Button onPress={() => this.getBridges()}
+          <Button onPress={() => this.showModal}
                 title="discover"
+          />
+        <Button onPress={this.showModal}
+          title="click for all lights"
           />
           <Text>Hello</ Text>
         </View>
@@ -80,6 +80,7 @@ export default class Root extends React.Component {
   }
 }
 
+// <SceneIndexContainer />
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
