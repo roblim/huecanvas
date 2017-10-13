@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableHighlight, Button, PanResponder, Animated, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableHighlight, FlatList, PanResponder, Animated, Dimensions } from 'react-native';
 import RoomsIndexItem from './rooms_index_item';
 import { AsyncStorage } from 'react-native';
 
@@ -10,17 +10,31 @@ class RoomsIndex extends Component{
       pan: new Animated.ValueXY()
     };
 
-    this.panResponder = PanResponder.create({
-      OnStartShouldSetPanResponder: ()=> true,
-      onPanResponderMove: Animated.event([null, {
-        dx:this.state.pan.x,
+    this.panResponderRoom = PanResponder.create({
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderMove: Animated.event([null,{
+        dx: this.state.pan.x,
         dy: this.state.pan.y
+    }]),
+    onPanResponderRelease: (e, gesture) => {
+
+    }
+    });
+
+    this.panResponderLight = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([null,{
+          dx: this.state.pan.x,
+          dy: this.state.pan.y
       }]),
-      onPanResponderRelease: (e, gesture)=>{
-        console.log("drag was released");
-        console.log(e);
+      onPanResponderRelease: (e, gesture) => {
+        Animated.spring(
+            this.state.pan,
+            {toValue:{x:0,y:0}}
+        ).start();
       }
     });
+
     this.renderRooms = this.renderRooms.bind(this);
     this.renderLights = this.renderLights.bind(this);
     this.renderDragArea = this.renderDragArea.bind(this);
@@ -52,8 +66,8 @@ class RoomsIndex extends Component{
 
   renderDragArea(){
     return(
-      <View>
-        <Text>Drag Here To Delete Room</Text>
+      <View style={styles.dropZone}>
+        <Text style={styles.text}>Drag Here To Delete Room</Text>
       </View>
     );
   }
@@ -62,15 +76,17 @@ class RoomsIndex extends Component{
     const rooms = this.props.rooms;
     const lights = this.props.lights;
     return(
-      <Animated.View {...this.panResponder.panHandlers} style={this.state.pan.getLayout()}>
+      <View>
         {
           Object.values(rooms).map(room =>(
-            <View style={styles.container} key={room.id}>
-              <RoomsIndexItem room={room} lights={lights} key={room.id}/>
+            <View style={styles.draggableRoom}>
+              <Animated.View {...this.panResponderRoom.panHandlers} style={[this.state.pan.getLayout(), styles.circle]} key={room.id}>
+                <RoomsIndexItem room={room} lights={lights} key={room.id}/>
+              </Animated.View>
             </View>
           ))
         }
-      </Animated.View>
+      </View>
     );
   }
 
@@ -80,9 +96,11 @@ class RoomsIndex extends Component{
       <View>
         {
           Object.values(lights).map(light =>(
-            <Animated.View {...this.panResponder.panHandlers} style={[this.state.pan.getLayout(), styles.container]} key={light.id + "light"}>
-              <Text>{light.name}</Text>
-            </Animated.View>
+            <View style={styles.draggableLight}>
+              <Animated.View {...this.panResponderLight.panHandlers} style={[this.state.pan.getLayout(), styles.circle]} key={light.id + "light"}>
+                <Text style={styles.text}>{light.name}</Text>
+              </Animated.View>
+            </View>
           ))
         }
       </View>
@@ -91,30 +109,51 @@ class RoomsIndex extends Component{
   }
   render(){
     return(
-      <ScrollView>
-        <Text>{`\n`}</Text>
-        <Text>{`\n`}</Text>
-        <Text>{`\n`}</Text>
-        <Text>{`\n`}</Text>
-        {this.renderCreateRoom()}
-        {this.renderRooms()}
-        {this.renderLights()}
+      <View style={styles.mainContainer}>
         {this.renderDragArea()}
-      </ScrollView>
+        {this.renderCreateRoom()}
+        {this.renderLights()}
+      </View>
 
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  text:{
-    color: 'blue'
-  }
+let CIRCLE_RADIUS = 36;
+let Window = Dimensions.get('window');
+let styles = StyleSheet.create({
+    mainContainer: {
+        flex    : 1,
+    },
+    dropZone    : {
+        height         : 100,
+        backgroundColor:'#2c3e50'
+    },
+    text        : {
+        marginTop   : 25,
+        marginLeft  : 5,
+        marginRight : 5,
+        textAlign   : 'center',
+        color       : '#fff'
+    },
+    draggableLight: {
+        position    : 'absolute',
+        top         : Window.height/2 - CIRCLE_RADIUS,
+        left        : Window.width/2 - CIRCLE_RADIUS,
+    },
+    draggableRoom:{
+        position    : 'absolute',
+        top         : Window.height/3 - CIRCLE_RADIUS,
+        left        : Window.width/2 - CIRCLE_RADIUS,
+        backgroundColor: '#2c3e50'
+    },
+    circle      : {
+        backgroundColor     : '#1abc9c',
+        width               : CIRCLE_RADIUS*2,
+        height              : CIRCLE_RADIUS*2,
+        borderRadius        : CIRCLE_RADIUS
+    }
 });
+
 
 export default RoomsIndex;
