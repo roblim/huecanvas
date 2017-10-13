@@ -1,7 +1,8 @@
 import merge from 'lodash/merge';
 import { RECEIVE_LIGHT_STATE,
          TURN_ALL_LIGHTS_OFF,
-         TURN_ALL_LIGHTS_ON
+         TURN_ALL_LIGHTS_ON,
+         RECEIVE_LIGHT_NAME
         } from '../actions/light_actions';
 import { RECEIVE_ALL_LIGHTS } from '../actions/discover_actions';
 
@@ -21,6 +22,10 @@ const LightReducer = (state = {}, action) => {
                                action.lightState
                              );
       newState = merge({}, state, {[action.lightId]: {state: newLightState}});
+      return newState;
+    case RECEIVE_LIGHT_NAME:
+      newState = merge({}, state);
+      newState[action.id][name] = action.name;
       return newState;
     case TURN_ALL_LIGHTS_OFF:
       newState = merge({}, state);

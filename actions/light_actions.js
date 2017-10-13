@@ -8,10 +8,12 @@ import {
         setAllLightsOff,
         setAllLightsOn,
         setLightColor,
-        setMiredTemperature
+        setMiredTemperature,
+        putLightName
       } from '../util/lights_util';
 
 export const RECEIVE_LIGHT_STATE = 'RECEIVE_LIGHT_STATE';
+export const RECEIVE_LIGHT_NAME = 'RECEIVE_LIGHT_NAME';
 export const TURN_ALL_LIGHTS_OFF = 'TURN_ALL_LIGHTS_OFF';
 export const TURN_ALL_LIGHTS_ON = 'TURN_ALL_LIGHTS_ON';
 
@@ -29,6 +31,11 @@ export const receiveLightState = (lightId, lightState) => ({
   type: RECEIVE_LIGHT_STATE,
   lightId,
   lightState
+});
+
+export const receiveLightName = (lightId, name) => ({
+  type: RECEIVE_LIGHT_NAME,
+  name
 });
 
 export const turnLightOff = (user, lightId) => dispatch => (
@@ -110,5 +117,11 @@ export const changeTemperature = (user, lightId, miredTemp) => dispatch => (
         colormode: 'ct'
       }
     ))
+  )
+);
+
+export const updateLightName = (user, lightId, name) => dispatch => (
+  putLightName(user, lightId, name).then(
+    r => dispatch(receiveLightName(lightId, Object.values(r[0].success)[0]))
   )
 );

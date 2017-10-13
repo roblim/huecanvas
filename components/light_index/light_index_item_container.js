@@ -8,7 +8,8 @@ import {
         turnAllLightsOff,
         turnAllLightsOn,
         changeColor,
-        changeTemperature
+        changeTemperature,
+        updateLightName
       } from '../../actions/light_actions';
 import { blinkLight } from '../../util/lights_util';
 import { selectLights } from '../../reducers/selectors';
@@ -55,6 +56,12 @@ const mapDispatchToProps = (dispatch) => ({
       user,
       lightId,
       miredTemp
+    )),
+  updateLightName: (user, lightId, name) =>
+    dispatch(updateLightName(
+      user,
+      lightId,
+      name
     ))
 });
 

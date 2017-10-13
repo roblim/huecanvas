@@ -20,6 +20,7 @@ class LightIndexItem extends React.Component {
 		this.decreaseBrightness = this.props.decreaseBrightness.bind(this);
 		this.changeColor = this.props.changeColor.bind(this);
 		this.changeTemperature = this.props.changeTemperature.bind(this);
+		this.updateLightName = this.props.updateLightName.bind(this);
   }
 
   render() {
@@ -28,7 +29,7 @@ class LightIndexItem extends React.Component {
     return(
       <TouchableHighlight
 				style={styles(light).container}
-        onPress={() => this.turnLightOn(user, light.lightId)}
+        onPress={() => this.updateLightName(user, light.lightId, 'Triple')}
         >
         <Text style={styles.welcome}>{light.name}</Text>
       </TouchableHighlight>

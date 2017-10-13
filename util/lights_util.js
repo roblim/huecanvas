@@ -140,6 +140,10 @@ export const setMiredTemperature = (user, lightId, temp) => {
   )
 };
 
+export const putLightName = (user, lightId, name) => {
+  return user.setLight(lightId, { name }).then(data => console.log(Object.values(data[0].success)[0]));
+};
+
 export const fetchLights = () => {
     return $.ajax({
     method: "GET",
