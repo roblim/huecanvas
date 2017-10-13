@@ -17,36 +17,10 @@ const hue = jsHue();
 
 export default class App extends React.Component {
 
-  getBridges() {
-    hue.discover().then(bridges => {
-
-    if(bridges.length === 0) {
-      console.log(bridges.length);
-      return (
-        <Text>dexx</ Text>
-      )
-        console.log('No bridges found. :(');
-    }
-    else {
-        bridges.forEach(b => console.log('Bridge found at IP address %s.', b.internalipaddress));
-    }
-  }).catch(e => console.log('Error finding bridges', e));
-  }
-
   render() {
     return (
       <Provider store={store}>
-        <View>
           <AppContainer />
-          <SceneIndexContainer />
-
-          <View style={styles.container}>
-          <Button onPress={() => this.getBridges()}
-                title="discover"
-          />
-          <Text>Hello</ Text>
-        </View>
-      </View>
     </Provider>
     );
   }
