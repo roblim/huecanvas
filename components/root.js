@@ -1,12 +1,10 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
-import {
-  StackNavigator,
-} from 'react-navigation';
-import SceneIndexContainer from "./scenes/scene_index_container";
+import SceneFooter from "./scenes/scene_footer";
 import DiscoverContainer from "./discover/discover_container";
 import RoomsIndexContainer from './rooms/rooms_index_container';
+import SceneIndexContainer from "./scenes/scene_index_container";
 import TestComponent from './light_index/test_component.js';
 import LightIndexContainer from './light_index/light_index_container';
 
@@ -17,9 +15,7 @@ export default class Root extends React.Component {
 
     this.state = {
       isModalVisible: false
-
     };
-
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
   }
@@ -33,12 +29,68 @@ export default class Root extends React.Component {
   }
 
 
+  getBridges() {
+    hue.discover().then(bridges => {
+
+    if(bridges.length === 0) {
+      console.log(bridges.length);
+      return (
+        <Text>dexx</Text>
+      );
+    }
+    else {
+        bridges.forEach(b => console.log('Bridge found at IP address %s.', b.internalipaddress));
+    }
+  }).catch(e => console.log('Error finding bridges', e));
+  }
+
   // <SceneIndexContainer />
   render() {
+    const { navigate } = this.props.navigation;
     return (
-			<View style={styles.container}>
-				<RoomsIndexContainer/>
-			</View>
+      <View>
+  			<View style={{flex: 1}}>
+  				<Text>This is the root page</Text>
+            <SceneFooter />
+            <Button onPress={this.showModal}
+                    title="click for all lights"
+              />
+            <Modal
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "auto"
+
+              }}
+              isVisible={this.state.isModalVisible}
+              backdropColor="rgb(255, 255, 255)"
+
+              >
+              <Button onPress={this.hideModal}
+                title="close"
+                />
+              <DiscoverContainer />
+              </Modal>
+
+              <TestComponent />
+  			</View>
+
+        <SceneIndexContainer />
+
+        <View style={styles.container}>
+          <Button onPress={() => this.getBridges()}
+                title="discover"
+          />
+          <Text>Hello</Text>
+        </View>
+        <View>
+          <Button
+            onPress={() => navigate('roomsEdit')}
+            title="Navigate to RoomsNew"
+          />
+      </View>
+    </View>
     );
   }
 }

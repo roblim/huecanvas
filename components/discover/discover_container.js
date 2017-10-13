@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Discover from "./discover";
-import { fetchBridges, fetchLights } from "../../actions/discover_actions";
+import { fetchBridges, fetchLights, getUser} from "../../actions/discover_actions";
 
 const mapStateToProps = (state) => {
   if (state.bridges) {
@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => ({
+  getUser: () => dispatch(getUser()),
   fetchBridges: () => dispatch(fetchBridges()),
   fetchLights: () => dispatch(fetchLights())
 })

@@ -1,21 +1,48 @@
 import jsHue from "jshue";
-import * as APIUtil from "../util/lights_util";
+import * as APIUtil from "../util/admin_api_util";
+
 export const RECEIVE_ALL_BRIDGES = "RECEIVE_ALL_BRIDGES";
 export const RECEIVE_ALL_LIGHTS = "RECEIVE_ALL_LIGHTS";
+export const RECEIVE_BRIDGE = "RECEIVE_BRIDGE";
+export const RECEIVE_USERNAME = "RECEIVE_USERNAME";
 
-let hue = jsHue();
+var bridge = APIUtil.bridge;
+let bridgeIP = APIUtil.bridgeIP;
+let username;
 
-var bridge = hue.bridge("10.1.10.67");
+//
+// bridge.createUser('HueCanvas', function(data) {
+//     // extract bridge-generated username from returned data
+//     username = data[0].success.username;
+//     console.log('New username:', username);
+//
+// });
+console.log(username);
+username = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o"; // @app academy
+let user = bridge.user(username);
+console.log(bridgeIP);
 
-var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW";
+// var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW"; @robs place
 
-console.log('New username:', username);
+// console.log('New username:', username);
 
-var user = bridge.user(username);
+// var user = bridge.user(username);
 
 export const fetchBridges = () => dispatch => {
+<<<<<<< HEAD
   hue.discover().then((bridges) => dispatch(receiveAllBridges(bridges)));
 };
+=======
+  APIUtil.discover().then((bridges) => dispatch(receiveBridge(bridge))).catch(function(error) {
+    console.log('There has been a problem with your fetch operation: ' + error.message);
+  });
+}
+
+export const getUser = () => dispatch => {
+  // APIUtil.userName().then((userName) => user = dispatch(receiveUsername(bridge.user(userName))))
+  dispatch(receiveUsername(user))
+}
+>>>>>>> 5dbd4a413c306057bade2351823711f14552131d
 
 export const fetchLights = () => dispatch => {
   user.getLights().then((lights) => dispatch(receiveAllLights(lights)));
@@ -29,4 +56,26 @@ const receiveAllBridges = (bridges) => ({
 const receiveAllLights = (lights) => ({
   type: RECEIVE_ALL_LIGHTS,
   lights
+<<<<<<< HEAD
 });
+=======
+}}
+
+const admin = (user) => {
+  type: ADMIN,
+  bridge,
+  user,
+  bridgeIP
+}
+
+const receiveUsername = (user) => {
+  type: RECEIVE_USERNAME,
+  user
+}
+
+const receiveBridge = (bridge) => {
+  type: RECEIVE_BRIDGE,
+  bridge,
+  bridgeIP
+}
+>>>>>>> 5dbd4a413c306057bade2351823711f14552131d

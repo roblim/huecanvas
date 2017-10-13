@@ -11,8 +11,8 @@ const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
 const homeIP = '10.1.10.67';
 const Hue = jsHue();
-const Bridge = Hue.bridge(homeIP);
-const User = Bridge.user(homeHue);
+const Bridge = Hue.bridge(appAcademyIP);
+const User = Bridge.user(appAcademyHue);
 const Lights = User.getLights().then(data => data);
 
 
@@ -27,35 +27,6 @@ const configureStore = (preloadedState = testStore) => (
 export default configureStore;
 
 let testStore = {
-  entities: {
-    lights:
-    {
-      2: {
-      manufacturername:"Philips",
-      modelid:"LCT007",
-      name:"Lamp Right",
-      state: {
-        alert:"none",
-        bri:254,
-        colormode:"ct",
-        ct:366,
-        effect:"none",
-        hue:14956,
-        on:true,
-        reachable:true,
-        sat:140,
-        xy:[0.4571, 0.4097]
-      },
-      swupdate: {
-        lastinstall:null,
-        state:"noupdates"
-      },
-      swversion:"5.50.1.19085",
-      type:"Extended color light",
-      uniqueid:"00:17:88:01:10:41:b2:b5-0b"
-      }
-    }
-  },
   admin: {
     bridge: Bridge,
     user: User,

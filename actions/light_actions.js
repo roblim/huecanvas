@@ -2,17 +2,18 @@ import {
         blinkLight,
         setLightOff,
         setLightOn,
-        setBrightness,
-        incBrightness,
-        decBrightness,
+        setBri,
+        incBri,
+        decBri,
         setAllLightsOff,
         setAllLightsOn,
-        rgbToXY,
         setLightColor,
-        setLightTemperature
-      } from '../util/light_api_util';
+        setMiredTemperature
+      } from '../util/lights_util';
 
 export const RECEIVE_LIGHT_STATE = 'RECEIVE_LIGHT_STATE';
+export const TURN_ALL_LIGHTS_OFF = 'TURN_ALL_LIGHTS_OFF';
+export const TURN_ALL_LIGHTS_ON = 'TURN_ALL_LIGHTS_ON';
 
 import jsHue from 'jshue';
 
@@ -43,7 +44,7 @@ export const turnLightOn = (user, lightId) => dispatch => (
   setLightOn(user, lightId).then(
     lightState => dispatch(receiveLightState(
       lightId,
-      { on: Object.values(data[0].success)[0] }
+      { on: Object.values(lightState[0].success)[0] }
     ))
   )
 );
@@ -52,7 +53,7 @@ export const changeBrightness = (user, lightId, brightness) => dispatch => (
   setBri(user, lightId, brightness).then(
     lightState => dispatch(receiveLightState(
       lightId,
-      { bri: Object.values(data[0].success)[0] }
+      { bri: Object.values(lightState[0].success)[0] }
     ))
   )
 );
@@ -61,7 +62,7 @@ export const increaseBrightness = (user, lightId, increment) => dispatch => (
   incBri(user, lightId, increment).then(
     lightState => dispatch(receiveLightState(
       lightId,
-      { bri: Object.values(data[0].success)[0] }
+      { bri: Object.values(lightState[0].success)[0] }
     ))
   )
 );
@@ -70,31 +71,44 @@ export const decreaseBrightness = (user, lightId, decrement) => dispatch => (
   decBri(user, lightId, decrement).then(
     lightState => dispatch(receiveLightState(
       lightId,
-      { bri: Object.values(data[0].success)[0] }
+      { bri: Object.values(lightState[0].success)[0] }
     ))
   )
 );
 
-// {
-  // 8: {
-  //   manufacturername: "Philips",
-  //   modelid: "LCT001",
-  //   name: "Color Bulb",
-  //   state:
-  //     {
-  //     alert: "select",
-  //     bri: 1,
-  //     colormode: "xy",
-  //     ct: 290,
-  //     effect: "none",
-  //     hue: 25600,
-  //     on: true,
-  //     reachable: true,
-  //     sat: 254,
-  //     xy: [0.409, 0.518]
-  //     },
-  //   swversion: "5.23.1.13452",
-  //   type: "Extended color light",
-  //   uniqueid: "00:17:88:01:00:ef:cf:88-0b"
-  // }
-// }
+export const turnAllLightsOff = (user) => dispatch => (
+  setAllLightsOff(user).then(
+    lightState => dispatch({ type: TURN_ALL_LIGHTS_OFF })
+  )
+);
+
+export const turnAllLightsOn = (user) => dispatch => (
+  setAllLightsOn(user).then(
+    lightState => dispatch({ type: TURN_ALL_LIGHTS_ON })
+  )
+);
+
+export const changeColor = (user, lightId, rgbObject) => dispatch => (
+  setLightColor(user, lightId, rgbObject).then(
+    lightState => dispatch(receiveLightState(
+      lightId,
+      {
+        xy: Object.values(lightState[0].success)[0],
+        bri: Object.values(lightState[1].success)[0],
+        colormode: 'xy'
+      }
+    ))
+  )
+);
+
+export const changeTemperature = (user, lightId, miredTemp) => dispatch => (
+  setMiredTemperature(user, lightId, miredTemp).then(
+    lightState => dispatch(receiveLightState(
+      lightId,
+      {
+        ct: Object.values(lightState[0].success)[0],
+        colormode: 'ct'
+      }
+    ))
+  )
+);
