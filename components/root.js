@@ -90,6 +90,12 @@ export default class Root extends React.Component {
             title="Navigate to RoomsNew"
           />
       </View>
+      <View>
+        <Button
+          onPress={() => navigate('roomsIndex')}
+          title="Navigate to RoomsIndex"
+        />
+    </View>
     </View>
     );
   }

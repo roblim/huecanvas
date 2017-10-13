@@ -10,7 +10,7 @@ class RoomsIndexItem extends Component{
 
   handlePress(){
     return(
-      <Text>ROOM SHOW</Text>
+      <Text>ROOM SHOW COMPONENT</Text>
     );
   }
   render(){
@@ -45,7 +45,4 @@ const styles = StyleSheet.create({
   text:{
     color: 'white'
   },
-  button:{
-    backgroundColor: "red"
-  }
 });
