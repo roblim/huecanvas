@@ -4,6 +4,7 @@ import { merge } from "lodash";
 
 const ScenesReducer = (oldState = {}, action) => {
   Object.freeze(oldState);
+
   switch (action.type) {
     case RECEIVE_ALL_SCENES:
       return merge({}, action.scenes);

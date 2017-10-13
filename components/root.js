@@ -74,6 +74,10 @@ export default class Root extends React.Component {
             onPress={() => navigate('roomsEdit')}
             title="Navigate to RoomsNew"
           />
+          <Button
+            onPress={() => navigate('roomTemp')}
+            title="Navigate to RoomTemp"
+          />
       </View>
     </View>
     );

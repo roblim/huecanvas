@@ -3,32 +3,18 @@ import SceneIndex from "./scene_index";
 import { fetchScenes, fetchScene, deleteScene, createScene } from "../../actions/scene_actions";
 
 const mapStateToProps = (state) => {
+  console.log(state);
   let user = state.user;
-if (state.scenes) {
+  if (state.entities.scenes) {
     return {
-      scenes: Object.keys(state.scenes).map((id) => state.scenes[id])
+      scenes: Object.keys(state.entities.scenes).map((id) => state.entities.scenes[id])
     }
   } else {
     return {
-      scenes: [
-        {0: {
-          id: 0,
-          "name": "default",
-          "lights": [],
-          "owner": user
-        }
-      },
-      {
-        1: {
-          id: 1,
-         "name": "Kathy on 1449133269486",
-         "lights": ["2", "3"],
-         "owner": "ffffffffe0341b1b376a2389376a2389"
-         }
-       }
-       ]
+      "no": "scenes"
     }
   }
+
 
 }
 
