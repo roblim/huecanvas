@@ -1,12 +1,19 @@
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
-import { Text } from 'react-native';
-import jsHue from 'jshue';
+import { selectLights } from '../../reducers/selectors';
+import LightIndex from './light_index';
 
-export default class LightIndexContainer extends Component {
-  render() {
-    return (
-      <Text>Hello world!</Text>
-    );
-  }
-}
+const mapStateToProps = (state, ownProps) => ({
+  user: state.admin.user,
+  lights: selectLights(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+
+});
+
+const LightIndexContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LightIndex);
+
+export default LightIndexContainer;

@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import jsHue from "jshue";
 import SceneIndexContainer from "./components/scenes/scene_index_container";
 import AppContainer from './components/app_container';
+import Root from './components/root';
+import DiscoverContainer from "./components/discover/discover_container";
 import configureStore from './store/store';
 import { Provider } from 'react-redux';
 import LightIndexContainer from './components/light_index/light_index_container.js';
-
+import jsHue from 'jshue'
 import TabNavigator from './components/navigator';
 import { addNavigationHelpers } from 'react-navigation';
 
@@ -46,7 +47,7 @@ export default class App extends React.Component {
           <Text>Hello</ Text>
         </View>
       </View>
-      </Provider>
+    </Provider>
     );
   }
 }
@@ -54,8 +55,18 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF'
   },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5
+  }
 });
