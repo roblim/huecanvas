@@ -10,16 +10,25 @@ var bridge = APIUtil.bridge;
 let bridgeIP = APIUtil.bridgeIP;
 let username;
 
-//
+
 // bridge.createUser('HueCanvas', function(data) {
 //     // extract bridge-generated username from returned data
+//     console.log(data);
 //     username = data[0].success.username;
 //     console.log('New username:', username);
 //
 // });
 
+
+bridge.createUser(`HueCanvas#iPad${Math.random * 100}`).then((data) => {
+  console.log(data);
+  user = bridge.user("VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o");
+}, (errors) => {
+  console.log(errors);
+})
+
 // username = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o"; // @app academy
-let user = bridge.user(username);
+// let user = bridge.user(username);
 
 // var username = "XRdYkx2QsmVe-8AX5XO0NwuDKjK1JfJrq4fYLBAW"; @robs place
 
@@ -35,8 +44,7 @@ export const fetchBridges = () => dispatch => {
 
 export const getUser = () => dispatch => {
   // APIUtil.userName().then((userName) => user = dispatch(receiveUsername(bridge.user(userName))))
-  console.log("here");
-  bridge.createUser(`HueCanvas#iPad${Math.random * 100}`)
+   bridge.createUser(`HueCanvas#iPad${Math.random * 100}`)
   .then((data) => dispatch(receiveUsername(data[0].success.username)))
   .catch(function(error) {
     console.log('There has been a problem with your fetch operation: ' + error.message);

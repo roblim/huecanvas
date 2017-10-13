@@ -1,5 +1,4 @@
 import jsHue from "jshue";
-import jsHueAPI from "jshue";
 
 let hue = jsHue();
 let bridge_ip;

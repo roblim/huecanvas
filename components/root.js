@@ -29,22 +29,6 @@ export default class Root extends React.Component {
     this.setState({ isModalVisible: false })
   }
 
-  getBridges() {
-    hue.discover().then(bridges => {
-
-    if(bridges.length === 0) {
-      console.log(bridges.length);
-      return (
-        <Text>dexx</ Text>
-      )
-        console.log('No bridges found. :(');
-    }
-    else {
-        bridges.forEach(b => console.log('Bridge found at IP address %s.', b.internalipaddress));
-    }
-  }).catch(e => console.log('Error finding bridges', e));
-  }
-
   // <SceneIndexContainer />
   render() {
     const { navigate } = this.props.navigation;
