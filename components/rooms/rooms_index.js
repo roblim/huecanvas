@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableHighlight, PanResponder, Animated, Dimensions, Button } from 'react-native';
+import { StyleSheet,
+         Text,
+         View,
+         ScrollView,
+         TouchableHighlight,
+         PanResponder,
+         Animated,
+         Dimensions,
+         Button,
+         Modal } from 'react-native';
 import RoomsIndexItem from './rooms_index_item';
 import { AsyncStorage } from 'react-native';
 import RoomFormContainer from './room_form_container';
@@ -186,19 +195,27 @@ class RoomsIndex extends Component{
 
   }
   render(){
-    return(
-      <View style={styles.mainContainer}>
-        {this.renderDragArea()}
-        {this.renderCreateRoom()}
-        {this.renderRooms()}
-        {this.renderLights()}
-        <TouchableHighlight onPress={this.resetLights}>
-          <Text>Reset</Text>
-        </TouchableHighlight>
-      </View>
+    if(this.props.rooms){
+      return(
+        <View style={styles.mainContainer}>
+          {this.renderDragArea()}
+          {this.renderCreateRoom()}
+          {this.renderRooms()}
+          {this.renderLights()}
+          <TouchableHighlight onPress={this.resetLights}>
+            <Text>Reset</Text>
+          </TouchableHighlight>
+        </View>
 
-    );
-  }
+      );
+    } else {
+      return(
+        <View style={styles.mainContainer}>
+        </View>
+      );
+
+    }}
+
 }
 
 let CIRCLE_RADIUS = 36;
