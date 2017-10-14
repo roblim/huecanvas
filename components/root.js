@@ -7,6 +7,7 @@ import RoomsIndexContainer from './rooms/rooms_index_container';
 import SceneIndexContainer from "./scenes/scene_index_container";
 import TestComponent from './light_index/test_component.js';
 import LightIndexContainer from './light_index/light_index_container';
+import * as APIUtil from '../util/rooms_api_util'
 
 
 export default class Root extends React.Component {
@@ -34,6 +35,7 @@ export default class Root extends React.Component {
   // <SceneIndexContainer />
   render() {
     const { navigate } = this.props.navigation;
+    console.log("all rooms", APIUtil.fetchRooms());
     return (
       <View>
   			<View style={{flex: 1}}>
