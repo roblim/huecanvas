@@ -101,14 +101,6 @@ class RoomsIndex extends Component{
     });
   }
 
-  // handleClickRoom(){
-  //   //Room Form
-  // }
-  //
-  // handleClickLight(){
-  //   //edit light name
-  // }
-
   renderCreateRoom(){
     const { navigate } = this.props.navigation;
     return(

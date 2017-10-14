@@ -6,24 +6,26 @@ import { StyleSheet,
          TouchableOpacity,
          PanResponder,
          Animated,
-         Dimensions} from 'react-native';
-import Modal from 'react-native-modal';
-import RoomsFormContainer from './room_form_container';
+         Dimensions,
+         Modal,
+         TouchableHighlight} from 'react-native';
+
+import RoomFormContainer from './room_form_container';
 import RoomsIndexContainer from './rooms_index_container';
 import LightIndexContainer from '../light_index/light_index_container';
-
 
 class RoomsIndexItem extends Component{
   constructor(props){
     super(props);
     this.state={
-      isModalVisible: false,
+      modalVisible: false,
+      modal2Visible: false,
       pan: new Animated.ValueXY(),
       showDraggable: this.props.showDraggable,
-      dropZoneValues: null
+      dropZoneValues: null,
+      showLight: false
     };
-    this.showModal = this.showModal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
+
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
       onPanResponderMove: Animated.event([null,{
@@ -45,26 +47,15 @@ class RoomsIndexItem extends Component{
     });
   }
 
-  showModal(){
-    this.setState({
-      isModalVisible: true
-    });
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
 
-  hideModal(){
-    this.setState({
-      isModalVisible: false
-    });
+  setModal2Visible(visible) {
+    this.setState({modal2Visible: visible});
   }
-  renderModal(){
-    return(
-      <Modal isVisible={this.state.isModalVisible}>
-        <Button onPress={()=> this.hideModal}
-                title="Close"></Button>
-        <LightIndexContainer/>
-      </Modal>
-    );
-  }
+
+
   isDropZone(gesture){
     const dz = this.props.dropZoneValues;
     return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
@@ -72,10 +63,61 @@ class RoomsIndexItem extends Component{
   render(){
     const room = this.props.room;
     const lights = this.props.lights;
+    const rooms = this.props.rooms;
     return(
-          <Animated.View {...this.panResponder.panHandlers} style={this.state.pan.getLayout()}>
-            <Button onPress={()=> this.showModal} title={room.name}/>
-          </Animated.View>
+      <View>
+        <View>
+          <Modal
+                animationType="slide"
+                transparent={false}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {alert("Modal has been closed.")}}
+                >
+            <View >
+              <View>
+                <LightIndexContainer room={room} />
+                <TouchableHighlight onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible)
+                  }}>
+                  <Text>Back</Text>
+                </TouchableHighlight>
+
+              </View>
+            </View>
+          </Modal>
+       <Modal
+             animationType="slide"
+             transparent={false}
+             visible={this.state.modal2Visible}
+             onRequestClose={() => {alert("Modal has been closed.")}}
+             >
+         <View >
+           <View>
+             <RoomFormContainer rooms={rooms} room={room}/>
+             <TouchableHighlight onPress={() => {
+               this.setModal2Visible(!this.state.modal2Visible)
+               }}>
+               <Text>Back</Text>
+             </TouchableHighlight>
+
+           </View>
+         </View>
+       </Modal>
+
+       <TouchableHighlight onPress={() => {
+         this.setModalVisible(true);
+       }}
+       onLongPress={() => {
+         this.setModal2Visible(true);
+       }}
+
+       >
+         <Text>{room.name}</Text>
+       </TouchableHighlight>
+
+     </View>
+
+      </View>
     );
   }
 }
