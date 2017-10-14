@@ -5,13 +5,17 @@ class Discover extends React.Component {
   constructor(props) {
     super(props);
 
-    
+
+  }
+
+  componentWillReceiveProps() {
+    console.log(this.props);
   }
 
   componentDidMount() {
-    // this.props.getUser();
-    // this.props.fetchBridges();
-    this.props.fetchLights();
+    this.props.fetchBridges();
+    // this.props.createUser();
+    // this.props.fetchLights();
 }
 
   // handleClick() {
