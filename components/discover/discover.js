@@ -9,8 +9,6 @@ class Discover extends React.Component {
   }
 
   componentWillReceiveProps() {
-    console.log("proops");
-    console.log(this.props);
   }
 
   componentDidMount() {

@@ -5,7 +5,6 @@ export const RECEIVE_ALL_BRIDGES = "RECEIVE_ALL_BRIDGES";
 export const RECEIVE_ALL_LIGHTS = "RECEIVE_ALL_LIGHTS";
 export const RECEIVE_BRIDGE = "RECEIVE_BRIDGE";
 export const RECEIVE_USER = "RECEIVE_USER";
-let username;
 
 let bridgeIP;
 let bridge;
@@ -21,14 +20,13 @@ export const createUser = (bridge) => dispatch => {
      if (data[0].error) {
        dispatch(receiveUser(data[0].error))
      } else {
-     user = data[0].success.username;
+     user = bridge.user(data[0].success.username);
      console.log(user);
      dispatch(receiveUser(user))
    }
    }
-)
-  .catch(function(error) {
-    console.log('There has been a problem with your fetch operation: ' + error.message);
+).catch(function(error) {
+    console.log('There has been a problem with your createUser operation: ' + error.message);
   })
 }
 
@@ -47,10 +45,10 @@ const receiveAllLights = (lights) => {
   lights
 }};
 
-const receiveUser = (user) => {
+const receiveUser = (user) => ({
   type: RECEIVE_USER,
   user
-};
+});
 
 const receiveBridge = (ip) => {
 

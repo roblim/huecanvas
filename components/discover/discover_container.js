@@ -3,7 +3,6 @@ import Discover from "./discover";
 import { fetchBridges, fetchLights, createUser } from "../../actions/discover_actions";
 
 const mapStateToProps = (state) => {
-  console.log(state);
   if (state.admin.error) {
     let error = true;
   } else {
