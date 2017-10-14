@@ -1,10 +1,10 @@
-import { RECEIVE_BRIDGE, RECEIVE_USERNAME } from "../actions/discover_actions";
+import { RECEIVE_BRIDGE, RECEIVE_USER } from "../actions/discover_actions";
 import { merge } from "lodash";
 
 export const AdminReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
-    case RECEIVE_USERNAME:
+    case RECEIVE_USER:
       return merge({}, state, action.user);
     case RECEIVE_BRIDGE:
     let bridge = action.bridge;

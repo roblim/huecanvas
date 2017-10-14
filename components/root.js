@@ -8,7 +8,7 @@ import SceneIndexContainer from "./scenes/scene_index_container";
 import TestComponent from './light_index/test_component.js';
 import LightIndexContainer from './light_index/light_index_container';
 import * as APIUtil from '../util/rooms_api_util'
-
+import { fetchBridges } from "../actions/discover_actions";
 
 export default class Root extends React.Component {
   constructor(props) {
@@ -20,8 +20,12 @@ export default class Root extends React.Component {
     this.hideModal = this.hideModal.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
 
+  }
+
+  componentDidMount() {
+    this.setState({isModalVisible: true})
   }
 
   showModal() {
@@ -63,9 +67,6 @@ export default class Root extends React.Component {
 
 
         <View style={styles.container}>
-          <Button onPress={() => this.showModal}
-                title="discover"
-          />
         <Button onPress={this.showModal}
           title="find bridge"
           />

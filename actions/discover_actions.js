@@ -4,7 +4,7 @@ import * as APIUtil from "../util/admin_api_util";
 export const RECEIVE_ALL_BRIDGES = "RECEIVE_ALL_BRIDGES";
 export const RECEIVE_ALL_LIGHTS = "RECEIVE_ALL_LIGHTS";
 export const RECEIVE_BRIDGE = "RECEIVE_BRIDGE";
-export const RECEIVE_USERNAME = "RECEIVE_USERNAME";
+export const RECEIVE_USER = "RECEIVE_USER";
 let username;
 
 let bridgeIP;
@@ -15,12 +15,16 @@ export const fetchBridges = () => dispatch => {
 };
 
 
-export const createUser = () => dispatch => {
+export const createUser = (bridge) => dispatch => {
    APIUtil.createUser(bridge).then((data) => {
+     console.log(data);
+     if (data[0].error) {
+       dispatch(receiveUser(data[0].error))
+     } else {
      user = data[0].success.username;
      console.log(user);
-     dispatch(receiveUser(data[0].success.username)
-   )
+     dispatch(receiveUser(user))
+   }
    }
 )
   .catch(function(error) {
@@ -43,8 +47,8 @@ const receiveAllLights = (lights) => {
   lights
 }};
 
-const receiveUsername = (user) => {
-  type: RECEIVE_USERNAME,
+const receiveUser = (user) => {
+  type: RECEIVE_USER,
   user
 };
 

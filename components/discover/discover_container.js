@@ -4,10 +4,18 @@ import { fetchBridges, fetchLights, createUser } from "../../actions/discover_ac
 
 const mapStateToProps = (state) => {
   console.log(state);
-  if (state.bridges) {
+  if (state.admin.error) {
+    let error = true;
+  } else {
+    error = false;
+  }
+  let bridge = state.admin.bridge;
+
+  if (state.admin.bridge) {
     return {
-      bridges: Object.keys(state.bridges).map((id) => state.bridges[id]),
-      lights: Object.keys(state.lights).map((id) => state.lights[id])
+      bridge,
+      error
+      // lights: Object.keys(state.entities.lights).map((id) => state.entitieslights[id])
     }
   } else {
     return {
@@ -19,7 +27,7 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  createUser: () => dispatch(createUser()),
+  createUser: (bridge) => dispatch(createUser(bridge)),
   fetchBridges: () => dispatch(fetchBridges()),
   fetchLights: () => dispatch(fetchLights())
 })
