@@ -23,8 +23,8 @@ const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
 const homeIP = '10.1.10.67'
 const Hue = jsHue();
-const Bridge = Hue.bridge(homeIP);
-const User = Bridge.user(homeHue);
+const Bridge = Hue.bridge(appAcademyIP);
+const User = Bridge.user(appAcademyHue);
 
 const state = {
   entities: {
@@ -61,28 +61,28 @@ export default class TestComponent extends React.Component {
 			<View style={{flexDirection: 'row', flexWrap: 'wrap', width: 500, top: 500, left: 0}}>
       <TouchableHighlight
 				style={styles.container}
-        onPress={blinkLight.bind(null, state.admin.user, 12)}
+        onPress={blinkLight.bind(null, state.admin.user, 8)}
         >
         <Text style={styles.welcome}>Blink</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
 				style={styles.container}
-        onPress={putLightName.bind(null, state.admin.user, 12, "Bloorg!")}
+        onPress={putLightName.bind(null, state.admin.user, 8, "Bloorg!")}
         >
         <Text style={styles.welcome}>Update Name</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
 				style={styles.container}
-        onPress={setLightOn.bind(null, state.admin.user, 12)}
+        onPress={setLightOn.bind(null, state.admin.user, 8)}
         >
         <Text style={styles.welcome}>On</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
 				style={styles.container}
-        onPress={setLightOff.bind(null, state.admin.user, 12)}
+        onPress={setLightOff.bind(null, state.admin.user, 8)}
         >
         <Text style={styles.welcome}>Off</Text>
       </TouchableHighlight>
@@ -103,21 +103,21 @@ export default class TestComponent extends React.Component {
 
 			<TouchableHighlight
 				style={styles.container}
-			  onPress={setLightColor.bind(null, state.admin.user, 12, { red: 150, green: 223, blue: 50 })}
+			  onPress={setLightColor.bind(null, state.admin.user, 8, { red: 150, green: 223, blue: 50 })}
 			  >
 			  <Text style={styles.welcome}>Set Color</Text>
 			</TouchableHighlight>
 
 			<TouchableHighlight
 				style={styles.container}
-			  onPress={incBri.bind(null, state.admin.user, 12, 25)}
+			  onPress={incBri.bind(null, state.admin.user, 8, 25)}
 			  >
 			  <Text style={styles.welcome}>Brighter</Text>
 			</TouchableHighlight>
 
 			<TouchableHighlight
 				style={styles.container}
-			  onPress={decBri.bind(null, state.admin.user, 12, 25)}
+			  onPress={decBri.bind(null, state.admin.user, 8, 25)}
 			  >
 			  <Text style={styles.welcome}>Dimmer</Text>
 			</TouchableHighlight>

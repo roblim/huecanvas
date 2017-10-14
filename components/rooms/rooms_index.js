@@ -120,6 +120,8 @@ class RoomsIndex extends Component{
   }
 
   renderRooms(){
+    if (!this.props.rooms) { return null; }
+
     const { navigate } = this.props.navigation;
     const rooms = this.props.rooms;
     const lights = this.props.lights;
