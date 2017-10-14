@@ -9,10 +9,10 @@ const middlewares = [thunk, createLoggerMiddleware];
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
-const homeIP = '10.1.10.67'
+const homeIP = '10.1.10.67';
 const Hue = jsHue();
-const Bridge = Hue.bridge(appAcademyIP);
-const User = Bridge.user(appAcademyHue);
+const Bridge = Hue.bridge(homeIP);
+const User = Bridge.user(homeHue);
 const Lights = User.getLights().then(data => data);
 
 
@@ -32,7 +32,7 @@ let testStore = {
     user: User,
     bridgeIP: homeIP
   }
-}
+};
 
 // { 2: {
 //   manufacturername:"Philips"

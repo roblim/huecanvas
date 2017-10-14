@@ -17,7 +17,7 @@ export const fetchBridges = () => dispatch => {
   APIUtil.discover().then((bridges) => dispatch(receiveBridge(bridge))).catch(function(error) {
     console.log('There has been a problem with your fetch operation: ' + error.message);
   });
-}
+};
 
 let user;
 
@@ -41,21 +41,21 @@ export const fetchLights = () => dispatch => {
 const receiveAllBridges = (bridges) => ({
   type: RECEIVE_ALL_BRIDGES,
   bridges
-})
+});
 
 const receiveAllLights = (lights) => {
   return {
   type: RECEIVE_ALL_LIGHTS,
   lights
-}}
+}};
 
 const receiveUsername = (user) => {
   type: RECEIVE_USERNAME,
   user
-}
+};
 
 const receiveBridge = (bridge) => {
   type: RECEIVE_BRIDGE,
   bridge,
   bridgeIP
-}
+};
