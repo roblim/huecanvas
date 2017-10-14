@@ -1,41 +1,38 @@
 import jsHue from "jshue";
-import jsHueAPI from "jshue";
 
-let hue = jsHue();
-let bridge_ip;
+const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
+const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
+const appAcademyIP = '192.168.1.234';
+const homeIP = '10.1.10.67'
+const Hue = jsHue();
+export const Bridge = Hue.bridge(appAcademyIP);
+export const User = Bridge.user(appAcademyHue);
 
-export const discover = () => hue.discover(
-    function(bridges) {
-        if(bridges.length === 0) {
-            bridge_ip = "dook";
-            console.log('No bridges found. :(');
-        }
-        else {
-            bridges.forEach(function(b) {
-                bridge_ip = b.internalipaddress;
-                console.log('Bridge found at IP address %s.', b.internalipaddress);
-            });
-        }
-    },
-    function(error) {
-        console.error(error.message);
-    }
-);
+export const discover = () => {
+  return Hue.discover()
+}
+
+export const createUser = () => {
+  console.log("here");
+  return Bridge.createUser(`HueCanvas#iPad${Math.random * 100}`);
+}
 
 
-export const bridgeIP = '192.168.1.234';
-export const bridge = hue.bridge(bridgeIP);
 
-let username;
-// create user account (requires link button to be pressed)
-bridge.createUser('foo application', function(data) {
-    // extract bridge-generated username from returned data
-    username = data[0].success.username;
-
-    console.log('New username:', username);
-
-});
-// instantiate user object with username
-export const user = bridge.user(username);
-
-console.log(username);
+// export const discover = () => hue.discover(
+//     function(bridges) {
+//         if(bridges.length === 0) {
+//             bridge_ip = "dook";
+//             console.log('No bridges found. :(');
+//         }
+//         else {
+//             bridges.forEach(function(b) {
+//                 bridge_ip = b.internalipaddress;
+//                 console.log('Bridge found at IP address %s.', b.internalipaddress);
+//             });
+//         }
+//     },
+//     function(error) {
+//         console.error(error.message);
+//     }
+// );

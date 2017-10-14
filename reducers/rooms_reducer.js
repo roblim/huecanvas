@@ -12,25 +12,25 @@ const RoomsReducer = (state = {}, action) => {
 
 	switch (action.type) {
 		case RECEIVE_ROOMS:
-			console.log(state);
-			console.log(action);
-			console.log(action.rooms);
+			// console.log(state);
+			// console.log(action);
+			// console.log(action.rooms);
 			return action.rooms;
 		case RECEIVE_ROOM:
-			console.log('oldstate', state);
-			console.log('action', action);
-			newState[action.room.id] = action.room
-			console.log('newState', newState);
-			return newState
+			// console.log('oldstate', state);
+			// console.log('action', action);
+			newState[action.room.id] = action.room;
+			// console.log('newState', newState);
+			return newState;
 		case REMOVE_ROOM:
 			console.log(state);
 			console.log(action);
-			delete newState[action.roomId]
+			delete newState[action.roomId];
 			console.log(newState);
-			return newState
+			return newState;
 		default:
 			return state;
 	}
-}
+};
 
 export default RoomsReducer;

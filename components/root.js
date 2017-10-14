@@ -3,47 +3,33 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
 import SceneFooter from "./scenes/scene_footer";
 import DiscoverContainer from "./discover/discover_container";
+import RoomsIndexContainer from './rooms/rooms_index_container';
 import SceneIndexContainer from "./scenes/scene_index_container";
 import TestComponent from './light_index/test_component.js';
 import LightIndexContainer from './light_index/light_index_container';
 import * as APIUtil from '../util/rooms_api_util'
 
+
 export default class Root extends React.Component {
   constructor(props) {
     super(props);
-
-    console.log(props);
-
     this.state = {
       isModalVisible: false
-    }
-
+    };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
   }
 
+  componentDidMount() {
+
+  }
+
   showModal() {
-    this.setState({ isModalVisible: true })
+    this.setState({ isModalVisible: true });
   }
 
   hideModal() {
-    this.setState({ isModalVisible: false })
-  }
-
-  getBridges() {
-    hue.discover().then(bridges => {
-
-    if(bridges.length === 0) {
-      console.log(bridges.length);
-      return (
-        <Text>dexx</ Text>
-      )
-        console.log('No bridges found. :(');
-    }
-    else {
-        bridges.forEach(b => console.log('Bridge found at IP address %s.', b.internalipaddress));
-    }
-  }).catch(e => console.log('Error finding bridges', e));
+    this.setState({ isModalVisible: false });
   }
 
   // <SceneIndexContainer />
@@ -53,11 +39,8 @@ export default class Root extends React.Component {
     return (
       <View>
   			<View style={{flex: 1}}>
-  				<Text>This is the root page</ Text>
+  				<Text>This is the root page</Text>
             <SceneFooter />
-            <Button onPress={this.showModal}
-                    title="click for all lights"
-              />
             <Modal
               style={{
                 flex: 1,
@@ -74,16 +57,18 @@ export default class Root extends React.Component {
                 title="close"
                 />
               <DiscoverContainer />
-              </ Modal>
+              </Modal>
 
               <TestComponent />
   			</View>
 
-        <SceneIndexContainer />
 
         <View style={styles.container}>
-          <Button onPress={() => this.getBridges()}
+          <Button onPress={() => this.showModal}
                 title="discover"
+          />
+        <Button onPress={this.showModal}
+          title="click for all lights"
           />
           <Text>Hello</ Text>
         </View>
@@ -93,16 +78,23 @@ export default class Root extends React.Component {
             title="Navigate to RoomsNew"
           />
       </View>
+      <View>
+        <Button
+          onPress={() => navigate('roomsIndex')}
+          title="Navigate to RoomsIndex"
+        />
+    </View>
     </View>
     );
   }
 }
 
+// <SceneIndexContainer />
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'stretch',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
