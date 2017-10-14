@@ -3,24 +3,15 @@ import Discover from "./discover";
 import { fetchBridges, fetchLights, createUser } from "../../actions/discover_actions";
 
 const mapStateToProps = (state) => {
-  if (state.admin.error) {
-    let error = true;
-  } else {
-    error = false;
-  }
+  console.log("state");
+  console.log(state);
   let bridge = state.admin.bridge;
-
-  if (state.admin.bridge) {
+  let user = state.admin.user;
     return {
       bridge,
-      error
+      user
       // lights: Object.keys(state.entities.lights).map((id) => state.entitieslights[id])
     }
-  } else {
-    return {
-      bridges: []
-    }
-  }
 
 }
 
@@ -28,7 +19,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   createUser: (bridge) => dispatch(createUser(bridge)),
   fetchBridges: () => dispatch(fetchBridges()),
-  fetchLights: () => dispatch(fetchLights())
+  fetchLights: (user) => dispatch(fetchLights(user))
 })
 
 export default connect(

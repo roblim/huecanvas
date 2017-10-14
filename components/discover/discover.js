@@ -8,9 +8,6 @@ class Discover extends React.Component {
     this.creatingUser = this.creatingUser.bind(this);
   }
 
-  componentWillReceiveProps() {
-  }
-
   componentDidMount() {
     this.props.fetchBridges();
     // this.props.createUser();
@@ -30,7 +27,7 @@ class Discover extends React.Component {
   }
 
   creatingUser() {
-  if (this.props.error) {
+  if (this.props.user) {
     return (
       <Button title={"authenticate!"}
               onPress={() => this.props.createUser()}
@@ -49,6 +46,8 @@ class Discover extends React.Component {
 }
 
   render() {
+    console.log("props");
+    console.log(this.props);
     return (
       <View style={{flex: 1}}>
         {() => bridgeFound()}
@@ -58,6 +57,10 @@ class Discover extends React.Component {
       <Button title={"authenticate!"}
               onPress={() => this.props.createUser(this.props.bridge)}
         />
+      <Button title={"getLights"}
+              onPress={() => this.props.fetchLights(this.props.user)}
+        />
+
       </ View>
     )
   }
