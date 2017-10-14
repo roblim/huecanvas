@@ -23,9 +23,10 @@ class LightIndexItem extends React.Component {
     super(props)
 
 		this.lightColor = xyToRGB(this.props.light.state.xy, this.props.light.state.bri);
-		this.lightColorRGB = `rgb(${this.lightColor.red},
+		this.lightColorRGB = `rgba(${this.lightColor.red},
 			 												${this.lightColor.green},
-															${this.lightColor.blue})`;
+															${this.lightColor.blue},
+															0.3)`;
 
 		this.state = {
 			modalVisible: false,
@@ -103,7 +104,7 @@ class LightIndexItem extends React.Component {
 							onPress={() => this.blinkLight(user, light.lightId)}>
 								<View style={lightColor(light).container}>
 									<Text style={{
-																color: 'grey',
+																color: '#98a4ba',
 																fontSize: 16,
 																fontWeight: 'bold',
 																textAlign: 'center'
@@ -210,7 +211,7 @@ const lightColor = (light) => {
 				justifyContent: 'center',
 				flexWrap: 'wrap',
 				alignItems: 'center',
-				backgroundColor: `rgb(${red}, ${green}, ${blue})`,
+				backgroundColor: `rgba(${red}, ${green}, ${blue}, 0.3)`,
 				width: 110,
 				height: 110,
 				borderRadius: 55,
@@ -239,7 +240,8 @@ const styles = StyleSheet.create({
 		padding: 10
 	},
 	wrapper: {
-		// flex: 1
+		// flex: 1,
+		alignSelf: 'flex-start'
 	}
 });
 
