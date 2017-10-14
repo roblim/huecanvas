@@ -30,6 +30,7 @@ class LightIndexItem extends React.Component {
 
 		this.state = {
 			modalVisible: false,
+			lastPress: 0,
 			numberActiveTouches: 0,
       moveX: 0,
       moveY: 0,
@@ -62,6 +63,21 @@ class LightIndexItem extends React.Component {
 			return(
 				<LightFormContainer light={this.props.light} />
 			)
+	}
+
+	onPress(user, lightId) {
+		return (
+			() => {
+				let delta = new Date().getTime() - this.state.lastPress;
+
+				if (delta < 1000) {
+					return null;
+				} else {
+					this.blinkLight(user, lightId)
+				}
+				this.setState({ lastPress: new Date().getTime() });
+			}
+		);
 	}
 
 	componentWillMount() {
@@ -97,7 +113,7 @@ class LightIndexItem extends React.Component {
 	          }}
 						{...this._panResponder.panHandlers}
 						style={lightColor(light).container}
-		        onPress={() => this.blinkLight(user, light.lightId)}>
+		        onPress={this.onPress(user, light.lightId)}>
 
 						<TouchableHighlight
 							style={lightColor(light).container}
