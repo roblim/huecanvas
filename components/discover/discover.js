@@ -4,20 +4,20 @@ import { Text, Button, StyleSheet, View, Image } from "react-native";
 class Discover extends React.Component {
   constructor(props) {
     super(props);
+
+
+  }
+
+  componentWillReceiveProps() {
+    console.log(this.props);
   }
 
   componentDidMount() {
-    // this.props.getUser();
-    // this.props.fetchBridges();
-    this.props.fetchLights();
+    this.props.fetchBridges();
+    // this.props.createUser();
+    // this.props.fetchLights();
 }
 
-  // handleClick() {
-  //   let lights = this.props.fetchLights();
-  //   let bridges = this.props.fetchBridges();
-  //   lights();
-  //   bridges();
-  // }
 
   render() {
     return (

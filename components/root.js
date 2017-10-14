@@ -67,7 +67,7 @@ export default class Root extends React.Component {
                 title="discover"
           />
         <Button onPress={this.showModal}
-          title="click for all lights"
+          title="find bridge"
           />
 
         </View>
@@ -75,6 +75,10 @@ export default class Root extends React.Component {
           <Button
             onPress={() => navigate('roomsEdit')}
             title="Navigate to RoomsNew"
+          />
+          <Button
+            onPress={() => navigate('roomTemp')}
+            title="Navigate to RoomTemp"
           />
       </View>
       <View>
