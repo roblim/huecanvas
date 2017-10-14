@@ -15,15 +15,16 @@ import { blinkLight,
 			   setAllLightsOff,
 			 	 setAllLightsOn,
 			 	 setLightColor,
-			   setMiredTemperature } from '../../util/lights_util';
+			   setMiredTemperature,
+			   putLightName} from '../../util/lights_util';
 
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
 const homeIP = '10.1.10.67'
 const Hue = jsHue();
-const Bridge = Hue.bridge(appAcademyIP);
-const User = Bridge.user(appAcademyHue);
+const Bridge = Hue.bridge(homeIP);
+const User = Bridge.user(homeHue);
 
 const state = {
   entities: {
@@ -57,24 +58,31 @@ export default class TestComponent extends React.Component {
 
   render() {
     return (
-			<View style={{flexDirection: 'row', position: 'absolute', top: 500, left: 0}}>
+			<View style={{flexDirection: 'row', flexWrap: 'wrap', width: 500, top: 500, left: 0}}>
       <TouchableHighlight
 				style={styles.container}
-        onPress={blinkLight.bind(null, state.admin.user, 8)}
+        onPress={blinkLight.bind(null, state.admin.user, 12)}
         >
         <Text style={styles.welcome}>Blink</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
 				style={styles.container}
-        onPress={setLightOn.bind(null, state.admin.user, 8)}
+        onPress={putLightName.bind(null, state.admin.user, 12, "Bloorg!")}
+        >
+        <Text style={styles.welcome}>Update Name</Text>
+      </TouchableHighlight>
+
+      <TouchableHighlight
+				style={styles.container}
+        onPress={setLightOn.bind(null, state.admin.user, 12)}
         >
         <Text style={styles.welcome}>On</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
 				style={styles.container}
-        onPress={setLightOff.bind(null, state.admin.user, 8)}
+        onPress={setLightOff.bind(null, state.admin.user, 12)}
         >
         <Text style={styles.welcome}>Off</Text>
       </TouchableHighlight>
@@ -95,21 +103,21 @@ export default class TestComponent extends React.Component {
 
 			<TouchableHighlight
 				style={styles.container}
-			  onPress={setLightColor.bind(null, state.admin.user, 8, { red: 150, green: 223, blue: 50 })}
+			  onPress={setLightColor.bind(null, state.admin.user, 12, { red: 150, green: 223, blue: 50 })}
 			  >
 			  <Text style={styles.welcome}>Set Color</Text>
 			</TouchableHighlight>
 
 			<TouchableHighlight
 				style={styles.container}
-			  onPress={incBri.bind(null, state.admin.user, 8, 25)}
+			  onPress={incBri.bind(null, state.admin.user, 12, 25)}
 			  >
 			  <Text style={styles.welcome}>Brighter</Text>
 			</TouchableHighlight>
 
 			<TouchableHighlight
 				style={styles.container}
-			  onPress={decBri.bind(null, state.admin.user, 8, 25)}
+			  onPress={decBri.bind(null, state.admin.user, 12, 25)}
 			  >
 			  <Text style={styles.welcome}>Dimmer</Text>
 			</TouchableHighlight>
