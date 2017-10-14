@@ -11,7 +11,9 @@ class AppContainer extends Component {
 		const navigation = addNavigationHelpers({dispatch, state: nav.navigation});
 		// using AppNavigator instead of TabNavigator in the line below will make it pop
 		// console.log(navigation);
-		return <TabNavigator navigation={navigation} />;
+		return (
+			<TabNavigator navigation={navigation} />
+		)
 	}
 }
 
