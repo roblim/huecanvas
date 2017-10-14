@@ -125,7 +125,8 @@ export const setLightColor = (user, lightId, rgbObject) => {
     lightId,
     {
       bri: Math.round(xY.bri * 255),
-      xy: [xY.x, xY.y]
+      xy: [xY.x, xY.y],
+      transitiontime: 0
     }
   )
 };
