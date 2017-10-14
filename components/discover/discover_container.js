@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
 import Discover from "./discover";
-import { fetchBridges, fetchLights, getUser} from "../../actions/discover_actions";
+import { fetchBridges, fetchLights, createUser } from "../../actions/discover_actions";
 
 const mapStateToProps = (state) => {
+  console.log(state);
   if (state.bridges) {
     return {
       bridges: Object.keys(state.bridges).map((id) => state.bridges[id]),
@@ -18,7 +19,7 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  getUser: () => dispatch(getUser()),
+  createUser: () => dispatch(createUser()),
   fetchBridges: () => dispatch(fetchBridges()),
   fetchLights: () => dispatch(fetchLights())
 })

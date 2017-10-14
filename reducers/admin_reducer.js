@@ -7,7 +7,13 @@ export const AdminReducer = (state = {}, action) => {
     case RECEIVE_USERNAME:
       return merge({}, state, action.user);
     case RECEIVE_BRIDGE:
-      return merge({}, state, action.bridge)
+    let bridge = action.bridge;
+    let bridgeIP = action.bridgeIP;
+    let newState = {
+      bridge,
+      bridgeIP
+    }
+      return merge({}, state, newState);
     default:
       return state
   }

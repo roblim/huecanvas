@@ -5,16 +5,16 @@ const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
 const homeIP = '10.1.10.67'
 const Hue = jsHue();
-export const Bridge = Hue.bridge(appAcademyIP);
-export const User = Bridge.user(appAcademyHue);
+export const Bridge = Hue.bridge(homeIP);
+export const User = Bridge.user(homeHue);
 
 export const discover = () => {
   return Hue.discover()
 }
 
-export const createUser = () => {
+export const createUser = (bridge) => {
   console.log("here");
-  return Bridge.createUser(`HueCanvas#iPad${Math.random * 100}`);
+  return bridge.createUser(`HueCanvas#iPad${Math.random * 100}`);
 }
 
 

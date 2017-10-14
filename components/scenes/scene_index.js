@@ -1,34 +1,36 @@
 import React from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Button } from "react-native";
 import SceneIndexItem from "./scene_index_item";
-
+let count = 0;
 class SceneIndex extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentScene: 0
+      currentScene: ""
     }
     this.setScene = this.setScene.bind(this);
     this.renderItem = this.renderItem.bind(this);
 
-    console.log(this.state.currentScene);
+    console.log(count+= 1);
+    console.log(props);
+  }
 
-    console.log(props.scenes[this.state.currentScene][this.state.currentScene].name);
-
+  componentWillMount() {
+    this.props.fetchScenes();
   }
 
   renderItem(scene) {
     return (
       <SceneIndexItem item={scene}
                       setScene={this.setScene}
+                      fetchScene={this.props.fetchScene}
                       />
     )
   }
 
-  setScene(id) {
+  setScene(name) {
     console.log("click heard");
-    this.setState({currentScene: id})
-    console.log(this.state);
+    this.setState({currentScene: name})
   }
 
   render() {
@@ -40,8 +42,9 @@ class SceneIndex extends React.Component {
           renderItem={this.renderItem}
           />
         <Text style={{fontSize: 20, color: "white", backgroundColor: "maroon", marginBottom: 100}}>
-          Current Scene: {this.props.scenes[this.state.currentScene][this.state.currentScene].name}
+          Current Scene: {this.state.currentScene}
         </Text>
+
       </ View>
 
     )
@@ -50,3 +53,8 @@ class SceneIndex extends React.Component {
 }
 
 export default SceneIndex;
+
+
+// <Button title="getScenes"
+//   onPress={() => this.props.fetchScenes()}
+//   />

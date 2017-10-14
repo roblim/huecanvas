@@ -5,14 +5,15 @@ import RoomFormContainer from './rooms/room_form_container';
 import RoomsIndexContainer from './rooms/rooms_index_container';
 import Root from './root';
 import NavSlidersContainer from './nav/nav_sliders_container'
-
-const { DrawerNavigator } = ReactNavigation;
+import RoomTemp from "./rooms/room_temp";
 
 const TabNavigator = StackNavigator({
 	home: {screen: Root},
 	roomsNew: {screen: RoomFormContainer},
-  // roomsEdit: {screen: RoomFormContainer},
-	roomsIndex: {screen: RoomsIndexContainer}
+  home: {screen: Root},
+  roomsEdit: {screen: RoomFormContainer},
+	roomsIndex: {screen: RoomsIndexContainer},
+	roomTemp: {screen: RoomTemp}
 }, {
   navigationOptions: {
     headerTintColor: 'white',

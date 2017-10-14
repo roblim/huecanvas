@@ -9,9 +9,18 @@ class LightForm extends React.Component {
   constructor(props) {
     super(props)
 
+    this.light = this.props.light;
+    this.user = this.props.user;
+
     this.state = {
       name: this.props.light.name
     }
+    this.handleTextChange = this.handleTextChange.bind(this);
+  }
+
+  handleTextChange(name) {
+    this.setState({ name })
+    this.props.updateLightName(this.user, this.light.lightId, name)
   }
 
   render() {
@@ -21,14 +30,9 @@ class LightForm extends React.Component {
       <View>
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={name => this.setState({ name })}
+          onChangeText={this.handleTextChange}
           value={this.state.name}
         />
-        <TouchableHighlight
-          onPress={() => this.props.updateLightName(user, light.lightId, this.state.name)}
-        >
-        <Text>Change Light Name</Text>
-        </TouchableHighlight>
       </View>
     )
   }
