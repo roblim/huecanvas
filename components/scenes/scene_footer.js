@@ -33,7 +33,7 @@ class SceneFooter extends React.Component {
             flex: 1,
             justifyContent: "center",
             margin: "auto",
-            backgroundColor: "cyan"
+            backgroundColor: "white"
 
           }}
           isVisible={this.state.modalIsOpen}
@@ -44,7 +44,7 @@ class SceneFooter extends React.Component {
             onPress={() => this.hideModal}
             title="close"
             />
-          <Text>butt</Text>
+          <Text>ScenesFooter</Text>
           </ Modal>
         <Button onPress={() => this.openModal()}
                 title="scenes"

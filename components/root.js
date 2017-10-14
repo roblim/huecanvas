@@ -67,7 +67,7 @@ export default class Root extends React.Component {
                 title="discover"
           />
         <Button onPress={this.showModal}
-          title="click for all lights"
+          title="find bridge"
           />
 
         </View>

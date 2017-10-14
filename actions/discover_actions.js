@@ -52,12 +52,6 @@ const receiveBridge = (ip) => {
 
   return {
   type: RECEIVE_BRIDGE,
-<<<<<<< HEAD
   bridge: APIUtil.Hue.bridge(ip),
   bridgeIP: `${ip}`
-}}
-=======
-  bridge,
-  bridgeIP
-};
->>>>>>> master
+}};
