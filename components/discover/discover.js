@@ -1,18 +1,47 @@
 import React from "react";
 import { Text, Button, StyleSheet, View, Image } from "react-native";
+import { AsyncStorage } from "react-native";
 
 class Discover extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      validDevice: false,
+      currUser: {},
+      userName: ""
+    }
     this.creatingUser = this.creatingUser.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchBridges();
+
+    AsyncStorage.getItem("users").then((users) => {
+      users = JSON.parse(users);
+
+      if (!!Object.keys(users)[0]) {
+        user = Object.keys(users)[0];
+        this.setState({validDevice: true});
+        this.setState({userName: user})
+        this.setState({currUser: this.props.bridge.user(user)});
+        this.props.setUser(this.props.bridge, user)
+      } else {
+        console.log("still false");
+      }
+    })
+
+    console.log(this.state);
     // this.props.createUser();
-    // this.props.fetchLights();
-}
+  }
+  // componentDidMount() {
+  //   if (this.state.validDevice) {
+  //     this.props.fetchLights(this.state.user);
+  //
+  //   } else {
+  //     console.log("unauth");
+  //   }
+  // }
 
   bridgeFound() {
     if (this.props.bridge) {
@@ -46,13 +75,10 @@ class Discover extends React.Component {
 }
 
   render() {
-    console.log("props");
-    console.log(this.props);
     return (
       <View style={{flex: 1}}>
         {() => bridgeFound()}
       {() => creatingUser()}
-
 
       <Button title={"authenticate!"}
               onPress={() => this.props.createUser(this.props.bridge)}
@@ -60,6 +86,7 @@ class Discover extends React.Component {
       <Button title={"getLights"}
               onPress={() => this.props.fetchLights(this.props.user)}
         />
+      <Text>{this.state.userName}</Text>
 
       </ View>
     )
