@@ -1,4 +1,4 @@
-import TabNavigator from '../components/navigator'
+import TabNavigator from '../components/navigator';
 
 const INITIAL_STATE = {
 	index: 1,
@@ -20,7 +20,7 @@ const navReducer = (state = INITIAL_STATE, action) => {
 };
 
 
-export default navReducer
+export default navReducer;
 
 
 // export default function navigation(state = INITIAL_STATE, action) {

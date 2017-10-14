@@ -11,8 +11,8 @@ const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
 const homeIP = '""'
 const Hue = jsHue();
-const Bridge = Hue.bridge(appAcademyIP);
-const User = Bridge.user(appAcademyHue);
+const Bridge = Hue.bridge(homeIP);
+const User = Bridge.user(homeHue);
 const Lights = User.getLights().then(data => data);
 
 
@@ -32,7 +32,7 @@ let testStore = {
     user: User,
     bridgeIP: homeIP
   }
-}
+};
 
 // { 2: {
 //   manufacturername:"Philips"

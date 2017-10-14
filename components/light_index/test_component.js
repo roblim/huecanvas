@@ -15,7 +15,8 @@ import { blinkLight,
 			   setAllLightsOff,
 			 	 setAllLightsOn,
 			 	 setLightColor,
-			   setMiredTemperature } from '../../util/lights_util';
+			   setMiredTemperature,
+			   putLightName} from '../../util/lights_util';
 
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
@@ -57,12 +58,19 @@ export default class TestComponent extends React.Component {
 
   render() {
     return (
-			<View style={{flexDirection: 'row', position: 'absolute', top: 500, left: 0}}>
+			<View style={{flexDirection: 'row', flexWrap: 'wrap', width: 500, top: 500, left: 0}}>
       <TouchableHighlight
 				style={styles.container}
         onPress={blinkLight.bind(null, state.admin.user, 8)}
         >
         <Text style={styles.welcome}>Blink</Text>
+      </TouchableHighlight>
+
+      <TouchableHighlight
+				style={styles.container}
+        onPress={putLightName.bind(null, state.admin.user, 8, "Bloorg!")}
+        >
+        <Text style={styles.welcome}>Update Name</Text>
       </TouchableHighlight>
 
       <TouchableHighlight

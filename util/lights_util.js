@@ -99,6 +99,26 @@ export const rgbToXY = (rgbObject) => {
   return { x, y, bri };
 };
 
+export const xyToRGB = (xyArr, bri) => {
+  let x = xyArr[0];
+  let y = xyArr[1];
+  let z = (1 - x - y) * 1.0;
+
+  let Y = bri / 255.0;
+  let X = (Y / y) * x;
+  let Z = (Y / y) * z;
+
+  let r =  X * 1.656492 - Y * 0.354851 - Z * 0.255038;
+  let g = -X * 0.707196 + Y * 1.655397 + Z * 0.036152;
+  let b =  X * 0.051713 - Y * 0.121364 + Z * 1.011530;
+
+  r = (r <= 0.0031308) ? 12.92 * r : (1.0 + 0.055) * Math.pow(r, (1.0 / 2.4)) - 0.055;
+  g = (g <= 0.0031308) ? 12.92 * g : (1.0 + 0.055) * Math.pow(g, (1.0 / 2.4)) - 0.055;
+  b = (b <= 0.0031308) ? 12.92 * b : (1.0 + 0.055) * Math.pow(b, (1.0 / 2.4)) - 0.055;
+
+  return { red: r * 255, green: g * 255, blue: b * 255 }
+};
+
 export const setLightColor = (user, lightId, rgbObject) => {
   let xY = rgbToXY(rgbObject);
   return user.setLightState(
@@ -118,6 +138,10 @@ export const setMiredTemperature = (user, lightId, temp) => {
       ct: temp,
     }
   )
+};
+
+export const putLightName = (user, lightId, name) => {
+  return user.setLight(lightId, { name });
 };
 
 export const fetchLights = () => {

@@ -8,11 +8,13 @@ import {
         turnAllLightsOff,
         turnAllLightsOn,
         changeColor,
-        changeTemperature
+        changeTemperature,
+        updateLightName
       } from '../../actions/light_actions';
 import { blinkLight } from '../../util/lights_util';
 import { selectLights } from '../../reducers/selectors';
 import LightIndexItem from './light_index_item';
+import Panner from './panner';
 
 const mapStateToProps = (state, ownProps) => ({
   user: state.admin.user,
@@ -20,7 +22,7 @@ const mapStateToProps = (state, ownProps) => ({
   lights: selectLights(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   blinkLight: blinkLight,
   turnLightOn: (user, lightId) => dispatch(turnLightOn(user, lightId)),
   turnLightOff: (user, lightId) => dispatch(turnLightOff(user, lightId)),
@@ -55,6 +57,12 @@ const mapDispatchToProps = (dispatch) => ({
       user,
       lightId,
       miredTemp
+    )),
+  updateLightName: (user, lightId, name) =>
+    dispatch(updateLightName(
+      user,
+      lightId,
+      name
     ))
 });
 
@@ -63,4 +71,4 @@ const LightIndexItemContainer = connect(
   mapDispatchToProps
 )(LightIndexItem);
 
-export default LightIndexItemContainer
+export default LightIndexItemContainer;
