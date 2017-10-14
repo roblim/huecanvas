@@ -22,7 +22,7 @@ import jsHue from 'jshue';
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
-const homeIP = '""'
+const homeIP = '10.1.10.67'
 const Hue = jsHue();
 const Bridge = Hue.bridge(homeIP);
 const User = Bridge.user(homeHue);
@@ -101,8 +101,8 @@ export const changeColor = (user, lightId, rgbObject) => dispatch => (
     lightState => dispatch(receiveLightState(
       lightId,
       {
-        xy: Object.values(lightState[0].success)[0],
-        bri: Object.values(lightState[1].success)[0],
+        xy: Object.values(lightState[1].success)[0],
+        bri: Object.values(lightState[2].success)[0],
         colormode: 'xy'
       }
     ))
