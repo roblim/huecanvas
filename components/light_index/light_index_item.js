@@ -91,7 +91,10 @@ class LightIndexItem extends React.Component {
 	onColorChange(color) {
 	    this.setState({ color });
 			let rgbObject = this.hexToRgbA(fromHsv(color)).rgbObject;
-			this.changeColor(this.user, this.light.lightId, rgbObject);
+			let time = new Date().getTime();
+			if (time % 5 === 0) {
+				this.changeColor(this.user, this.light.lightId, rgbObject)
+			}
 	  }
 
 	onColorSelected(color) {
@@ -188,7 +191,7 @@ class LightIndexItem extends React.Component {
 		         	<View style={styles.modalContent}>
 								<View style={{flex: 1, padding: 15, backgroundColor: '#212021'}}>
 									<Text style={{color: 'white'}}>React Native Color Picker - Controlled</Text>
-									<TriangleColorPicker
+									<ColorPicker
 										oldColor={this.state.oldColor}
 										color={this.state.color}
 										onColorChange={this.onColorChange}
