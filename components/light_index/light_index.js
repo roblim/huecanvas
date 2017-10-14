@@ -7,6 +7,7 @@ import { Text,
 				 Button,
 			   TouchableHighlight } from 'react-native';
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
+import PanResponderExample from './panner';
 
 class LightIndex extends React.Component {
   constructor(props) {
@@ -30,8 +31,7 @@ class LightIndex extends React.Component {
 	          />
 	        )
 	      )}
-				<TestComponent />
-
+				<PanResponderExample />
 	      </View>
 			</View>
     )

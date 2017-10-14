@@ -92,6 +92,7 @@ class RoomsIndex extends Component{
   }
 
   renderRooms(){
+    if (!this.props.rooms) { return null; }
     const rooms = this.props.rooms;
     const lights = this.props.lights;
     return(

@@ -11,8 +11,8 @@ const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
 const homeIP = '10.1.10.67';
 const Hue = jsHue();
-const Bridge = Hue.bridge(homeIP);
-const User = Bridge.user(homeHue);
+const Bridge = Hue.bridge(appAcademyIP);
+const User = Bridge.user(appAcademyHue);
 const Lights = User.getLights().then(data => data);
 
 

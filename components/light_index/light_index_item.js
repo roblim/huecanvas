@@ -3,13 +3,19 @@ import { Text,
 				 View,
 				 StyleSheet,
 				 Button,
-			   TouchableHighlight } from 'react-native';
+			   TouchableHighlight,
+			   Modal } from 'react-native';
 import { xyToRGB } from '../../util/lights_util';
 import LightFormContainer from './light_form_container';
+import PanResponderExample from './panner';
 
 class LightIndexItem extends React.Component {
   constructor(props) {
     super(props)
+
+		this.state = {
+			modalVisible: false
+		}
 
 		this.blinkLight = this.props.blinkLight.bind(this);
 		this.turnLightOn = this.props.turnLightOn.bind(this);
@@ -24,12 +30,14 @@ class LightIndexItem extends React.Component {
 		this.updateLightName = this.props.updateLightName.bind(this);
   }
 
+	setModalVisible(visible) {
+			this.setState({modalVisible: visible});
+		}
+
 	form() {
-		if (this.props.light.lightId === 12) {
 			return(
 				<LightFormContainer light={this.props.light} />
 			)
-		}
 	}
 
   render() {
@@ -38,18 +46,46 @@ class LightIndexItem extends React.Component {
     return(
 			<View>
 	      <TouchableHighlight
-					style={styles(light).container}
+					style={lightColor(light).container}
 	        onPress={() => this.blinkLight(user, light.lightId)}
+					onLongPress={() => this.setModalVisible(true)}
 	        >
-	        <Text style={styles.welcome}>{light.name}</Text>
+					<Text style={{
+												color: 'white',
+												fontSize: 16,
+												fontWeight: 'bold'
+											}}>{this.props.light.name}</Text>
 	      </TouchableHighlight>
-				{this.form()}
+
+				<View>
+	        <Modal
+	          animationType="fade"
+	          transparent={true}
+	          visible={this.state.modalVisible}
+	          onRequestClose={() => {alert("Modal has been closed.")}}
+
+	          >
+	         <View style={styles.modalContainer}>
+	          <View style={styles.modalContent}>
+							{this.form()}
+
+	            <TouchableHighlight onPress={() => {
+	              this.setModalVisible(!this.state.modalVisible)
+	            }}>
+	              <Text>Hide Modal</Text>
+	            </TouchableHighlight>
+
+	          </View>
+	         </View>
+	        </Modal>
+
+      </View>
 			</View>
     )
   }
 }
 
-const styles = (light) => {
+const lightColor = (light) => {
 	let rgb = xyToRGB(light.state.xy, light.state.bri);
 	let { red } = rgb;
 	let { green } = rgb;
@@ -62,13 +98,28 @@ const styles = (light) => {
 				flexWrap: 'wrap',
 				alignItems: 'center',
 				backgroundColor: `rgb(${red}, ${green}, ${blue})`,
-				width: 90,
-				height: 90,
-				borderRadius: 45
+				width: 110,
+				height: 110,
+				borderRadius: 55,
 			}
 		})
 	);
 };
 
+const styles = StyleSheet.create({
+	modalContainer: {
+		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	modalContent: {
+		width: 200,
+		height: 100,
+		backgroundColor: 'white',
+		borderRadius: 5,
+		padding: 10
+	}
+});
 
-export default LightIndexItem;
+export default LightIndexItem
