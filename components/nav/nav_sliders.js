@@ -1,31 +1,45 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { Text,
+				 View,
+				 StyleSheet,
+				 Switch } from 'react-native';
+import Slider from "react-native-slider";
 
-export default class NavSliders extends React.Component {
+class NavSliders extends React.Component {
+  constructor(props) {
+    super(props)
+		this.turnAllLightsOff = this.props.turnAllLightsOff.bind(this);
+		this.turnAllLightsOn = this.props.turnAllLightsOn.bind(this);
+		this.state = { sliderVal: .2 }
+  }
 
-	render() {
-		console.log("TEEEEEEEEEESSSSSSSSSSSSSTTTTTTTTTTTTTTT");
-		return (<Text style={styles.test}>TEST</Text>)
+	componentWillMount() {
+		this.props.fetchLights()
 	}
 
+  render() {
+    return (
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'stretch', flex: 1 }}>
+        <View>
+					<Slider
+						style={{flex: 1, marginRight: 20}}
+						trackStyle={{width: 255, height: 20}}
+						thumbTouchSize={{width: 40, height: 40}}
+						thumbStyle={{width: 30, height: 30, borderRadius: 100, backgroundColor: '#d9d9da'}}
+						minimumTrackTintColor={'#9fc5f8'}
+						minimumValue={0}
+						maximumValue={255}
+						step={1}
+				 value={this.state.sliderVal}
+				 onValueChange={value => this.setState({ sliderVal: value })}
+			 />
+			 <Text>
+				 Value: {this.state.value}
+			 </Text>
+        </View>
+      </View>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  test: {
-    // flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
-		color: 'white'
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+export default NavSliders;

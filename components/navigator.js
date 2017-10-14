@@ -4,14 +4,14 @@ import {StackNavigator} from 'react-navigation';
 import RoomFormContainer from './rooms/room_form_container';
 import RoomsIndexContainer from './rooms/rooms_index_container';
 import Root from './root';
-import NavSliders from './nav/nav_sliders'
+import NavSlidersContainer from './nav/nav_sliders_container'
 
-const { TabNavigator: Tabs } = ReactNavigation;
+const { DrawerNavigator } = ReactNavigation;
 
 const TabNavigator = StackNavigator({
+	home: {screen: Root},
 	roomsNew: {screen: RoomFormContainer},
-  home: {screen: Root},
-  roomsEdit: {screen: RoomFormContainer},
+  // roomsEdit: {screen: RoomFormContainer},
 	roomsIndex: {screen: RoomsIndexContainer}
 }, {
   navigationOptions: {
@@ -19,7 +19,7 @@ const TabNavigator = StackNavigator({
 		headerStyle: {
 			backgroundColor: 'black',
 		},
-		headerRight: (<NavSliders />)
+		headerRight: (<NavSlidersContainer />)
   },
 });
 
