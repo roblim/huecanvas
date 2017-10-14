@@ -1,27 +1,47 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
-import RoomsForm from './room_form';
+import { StyleSheet, Text, View, Button, TouchableOpacity, PanResponder, Animated, Dimensions } from 'react-native';
+import RoomsFormContainer from './room_form_container';
+
 
 class RoomsIndexItem extends Component{
   constructor(props){
     super(props);
-    this.handlePress = this.handlePress.bind(this);
+    this.state={
+      pan: new Animated.ValueXY(),
+      showDraggable: this.props.showDraggable,
+      dropZoneValues: null
+    };
+    this.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: ()=> true,
+      onPanResponderMove: Animated.event([null,{
+        dx: this.state.pan.x,
+        dy: this.state.pan.y
+      }]),
+      onPanResponderRelease: (e, gesture) =>{
+        if(this.isDropZone(gesture)){
+          this.setState({
+            showDraggable: false
+          });
+        } else {
+          Animated.spring(
+            this.state.pan,
+            {toValue:{x:0,y:0}}
+          ).start();
+        }
+      }
+    });
   }
-
-  handlePress(){
-    return(
-      <Text>ROOM SHOW COMPONENT</Text>
-    );
+  isDropZone(gesture){
+    const dz = this.props.dropZoneValues;
+    return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
   render(){
     const room = this.props.room;
     const lights = this.props.lights;
     return(
-        <TouchableOpacity style={styles.button} onPress={this.handlePress}>
-          <View style={styles.button}>
+          <Animated.View {...this.panResponder.panHandlers} style={this.state.pan.getLayout()}>
             <Text style={styles.text}>{room.name}</Text>
-          </View>
-        </TouchableOpacity>
+          </Animated.View>
     );
   }
 }

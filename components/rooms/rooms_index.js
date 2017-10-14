@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableHighlight, FlatList, PanResponder, Animated, Dimensions, Button } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableHighlight, PanResponder, Animated, Dimensions, Button } from 'react-native';
 import RoomsIndexItem from './rooms_index_item';
 import { AsyncStorage } from 'react-native';
+import RoomFormContainer from './room_form_container';
 
 class RoomsIndex extends Component{
   constructor(props){
@@ -13,7 +14,8 @@ class RoomsIndex extends Component{
       showDraggableRoom: true,
       dropZoneValuesLight: null,
       dropZoneValuesRoom: null,
-      renderedLights: []
+      renderedLights: [],
+      renderedRooms: []
     };
 
     this.panResponderLight = PanResponder.create({
@@ -60,7 +62,6 @@ class RoomsIndex extends Component{
     this.renderLights = this.renderLights.bind(this);
     this.renderDragArea = this.renderDragArea.bind(this);
     this.renderCreateRoom = this.renderCreateRoom.bind(this);
-    this.renderSingleRoom = this.renderSingleRoom.bind(this);
     this.resetLights = this.resetLights.bind(this);
 }
 
@@ -100,43 +101,46 @@ class RoomsIndex extends Component{
   // }
 
   renderCreateRoom(){
+    const { navigate } = this.props.navigation;
     return(
-        <View>
-          <Text>Create New Room</Text>
-        </View>
+      <View>
+        <Button onPress={() => navigate('roomsNew')}
+              title="Create New Room"
+        />
+      </View>
     );
   }
 
   renderDragArea(){
     return(
       <View style={styles.dropZone} onLayout={this.setRoomDropZoneValues.bind(this)}>
-        <Text style={styles.text}>Drag Here To Delete</Text>
-      </View>
-    );
-  }
-
-  renderSingleRoom(room, lights){
-    return(
-      <View style={styles.room} key={room.id} >
-        <RoomsIndexItem room={room} lights={lights} key={room.id}/>
+        <Text style={styles.text}>Drag Here To Delete Room</Text>
       </View>
     );
   }
 
   renderRooms(){
+    const { navigate } = this.props.navigation;
     const rooms = this.props.rooms;
     const lights = this.props.lights;
     if(this.state.showDraggableRoom){
       return(
-        <Animated.View {...this.panResponderRoom.panHandlers} style={this.state.roompan.getLayout()} onLayout={this.setLightDropZoneValues.bind(this)} >
+        <View onLayout={this.setLightDropZoneValues.bind(this)}>
           {
             Object.values(rooms).map(room =>(
                 <View style={styles.room} key={room.id} >
-                  <RoomsIndexItem room={room} lights={lights} key={room.id}/>
+                  <RoomsIndexItem
+                    room={room}
+                    rooms={rooms}
+                    lights={lights}
+                    showDraggable={this.state.showDraggableRoom}
+                    dropZoneValues = {this.state.dropZoneValuesRoom}
+                    key={room.id}
+                />
                 </View>
             ))
           }
-        </Animated.View>
+        </View>
       );
     }
 
@@ -158,6 +162,7 @@ class RoomsIndex extends Component{
   }
 
   renderLights(){
+    const { navigate } = this.props.navigation;
     const lights = this.props.lights;
     if(this.state.showDraggableLight){
       return(
@@ -165,7 +170,10 @@ class RoomsIndex extends Component{
           {
             Object.values(lights).map(light =>(
               <View style={styles.draggableLight}>
-                <Animated.View {...this.panResponderLight.panHandlers} style={[this.state.lightpan.getLayout(), styles.circle]} key={light.id + "light"}>
+                <Animated.View {...this.panResponderLight.panHandlers}
+                  style={[this.state.lightpan.getLayout(), styles.circle]}
+                  key={light.id + "light"}
+                >
                   <Text style={styles.text}>{light.name}</Text>
                 </Animated.View>
               </View>
