@@ -1,23 +1,27 @@
-import * as ApiUtil from "jshue";
+import * as APIUtil from "../util/admin_api_util";
 
 export const RECEIVE_ALL_SCENES = "RECEIVE_ALL_SCENES";
 export const RECEIVE_SCENE = "RECEIVE_SCENE";
 export const REMOVE_SCENE = "REMOVE_SCENE";
 
-export const fetchScenes = () => dispatch => (
-  ApiUtil.getScenes().then((scenes) => dispatch(receiveAllScenes(scenes)))
-);
+export const fetchScenes = () => dispatch => {
+  APIUtil.User.getScenes().then((scenes) => dispatch(receiveAllScenes(scenes))).catch(function(error) {
+    console.log('There has been a problem with your fetchScenes operation: ' + error.message);
+  })
+};
 
 export const fetchScene = (id) => dispatch => (
-  ApiUtil.getScene(id).then(scene => dispatch(receiveScene(scene)))
+  APIUtil.User.getScene(id).then(scene => dispatch(receiveScene(scene))).catch(function(error) {
+    console.log('There has been a problem with your fetchScene operation: ' + error.message);
+  })
 );
 
 export const deleteScene = (id) => dispatch => (
-  ApiUtil.deleteScene(id).then((scene) => dispatch(removeScene(scene)))
+  APIUtil.User.deleteScene(id).then((scene) => dispatch(removeScene(scene)))
 );
 
 export const createScene = (scene) => dispatch => (
-  ApiUtil.createScene(scene).then((scene) => dispatch(createScene(scene)))
+  APIUtil.User.createScene(scene).then((scene) => dispatch(createScene(scene)))
 );
 
 const receiveAllScenes = (scenes) => ({
