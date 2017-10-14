@@ -67,7 +67,7 @@ export default class Root extends React.Component {
         <Button onPress={this.showModal}
           title="click for all lights"
           />
-          <Text>Hello</ Text>
+
         </View>
         <View>
           <Button

@@ -31,7 +31,6 @@ class LightIndex extends React.Component {
 	          />
 	        )
 	      )}
-				<PanResponderExample />
 	      </View>
 			</View>
     )
