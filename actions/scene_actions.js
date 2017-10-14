@@ -4,12 +4,16 @@ export const RECEIVE_ALL_SCENES = "RECEIVE_ALL_SCENES";
 export const RECEIVE_SCENE = "RECEIVE_SCENE";
 export const REMOVE_SCENE = "REMOVE_SCENE";
 
-export const fetchScenes = () => dispatch => (
-  APIUtil.User.getScenes().then((scenes) => dispatch(receiveAllScenes(scenes)))
-);
+export const fetchScenes = () => dispatch => {
+  APIUtil.User.getScenes().then((scenes) => dispatch(receiveAllScenes(scenes))).catch(function(error) {
+    console.log('There has been a problem with your fetchScenes operation: ' + error.message);
+  })
+};
 
 export const fetchScene = (id) => dispatch => (
-  APIUtil.User.getScene(id).then(scene => dispatch(receiveScene(scene)))
+  APIUtil.User.getScene(id).then(scene => dispatch(receiveScene(scene))).catch(function(error) {
+    console.log('There has been a problem with your fetchScene operation: ' + error.message);
+  })
 );
 
 export const deleteScene = (id) => dispatch => (
