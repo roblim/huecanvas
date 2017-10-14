@@ -8,10 +8,12 @@ import {
         setAllLightsOff,
         setAllLightsOn,
         setLightColor,
-        setMiredTemperature
+        setMiredTemperature,
+        putLightName
       } from '../util/lights_util';
 
 export const RECEIVE_LIGHT_STATE = 'RECEIVE_LIGHT_STATE';
+export const RECEIVE_LIGHT_NAME = 'RECEIVE_LIGHT_NAME';
 export const TURN_ALL_LIGHTS_OFF = 'TURN_ALL_LIGHTS_OFF';
 export const TURN_ALL_LIGHTS_ON = 'TURN_ALL_LIGHTS_ON';
 
@@ -20,7 +22,7 @@ import jsHue from 'jshue';
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
-const homeIP = '10.1.10.67'
+const homeIP = '""'
 const Hue = jsHue();
 const Bridge = Hue.bridge(homeIP);
 const User = Bridge.user(homeHue);
@@ -29,6 +31,12 @@ export const receiveLightState = (lightId, lightState) => ({
   type: RECEIVE_LIGHT_STATE,
   lightId,
   lightState
+});
+
+export const receiveLightName = (lightId, name) => ({
+  type: RECEIVE_LIGHT_NAME,
+  lightId,
+  name
 });
 
 export const turnLightOff = (user, lightId) => dispatch => (
@@ -110,5 +118,11 @@ export const changeTemperature = (user, lightId, miredTemp) => dispatch => (
         colormode: 'ct'
       }
     ))
+  )
+);
+
+export const updateLightName = (user, lightId, name) => dispatch => (
+  putLightName(user, lightId, name).then(
+    r => dispatch(receiveLightName(lightId, Object.values(r[0].success)[0]))
   )
 );

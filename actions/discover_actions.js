@@ -7,24 +7,18 @@ export const RECEIVE_BRIDGE = "RECEIVE_BRIDGE";
 export const RECEIVE_USERNAME = "RECEIVE_USERNAME";
 let username;
 
-
-APIUtil.Bridge.createUser(`HueCanvas#iPad${Math.random * 100}`).then((data) => {
-}, (errors) => {
-  console.log(errors);
-})
+let bridgeIP;
+let bridge;
 
 export const fetchBridges = () => dispatch => {
-  APIUtil.discover().then((bridges) => dispatch(receiveBridge(bridge))).catch(function(error) {
-    console.log('There has been a problem with your fetch operation: ' + error.message);
-  });
+  APIUtil.discover().then((bridges) => dispatch(receiveBridge(bridges[0].internalipaddress)))
 };
 
-let user;
 
 export const createUser = () => dispatch => {
-    console.log("here");
-   APIUtil.createUser().then((data) => {
+   APIUtil.createUser(bridge).then((data) => {
      user = data[0].success.username;
+     console.log(user);
      dispatch(receiveUser(data[0].success.username)
    )
    }
@@ -54,8 +48,10 @@ const receiveUsername = (user) => {
   user
 };
 
-const receiveBridge = (bridge) => {
+const receiveBridge = (ip) => {
+
+  return {
   type: RECEIVE_BRIDGE,
-  bridge,
-  bridgeIP
-};
+  bridge: APIUtil.Hue.bridge(ip),
+  bridgeIP: `${ip}`
+}};

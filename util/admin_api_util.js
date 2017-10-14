@@ -12,9 +12,9 @@ export const discover = () => {
   return Hue.discover()
 }
 
-export const createUser = () => {
+export const createUser = (bridge) => {
   console.log("here");
-  return Bridge.createUser(`HueCanvas#iPad${Math.random * 100}`);
+  return bridge.createUser(`HueCanvas#iPad${Math.random * 100}`);
 }
 
 

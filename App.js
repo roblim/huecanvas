@@ -21,7 +21,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
           <AppContainer />
-    </Provider>
+      </Provider>
     );
   }
 }
