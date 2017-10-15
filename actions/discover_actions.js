@@ -37,19 +37,19 @@ export const createUser = (bridge) => dispatch => {
   })
 }
 
-export const fetchLights = (user) => dispatch => {
-  console.log('user');
-  console.log(user);
-  user.getLights().then((lights) => {
+export const setUser = (bridge, user) => dispatch => {
+  userObj = bridge.user(user);
+  dispatch(receiveUser(userObj));
+}
+
+export const fetchLights = (user2) => dispatch => {
+  console.log(user2);
+  user2.getLights().then((lights) => {
     console.log(lights);
     dispatch(receiveAllLights(lights)
   )})
 }
 
-export const setUser = (bridge, user) => dispatch => {
-  userObj = bridge.user(user);
-  dispatch(receiveUser(userObj));
-}
 
 const receiveAllBridges = (bridges) => ({
   type: RECEIVE_ALL_BRIDGES,

@@ -21,11 +21,8 @@ class Discover extends React.Component {
       users = JSON.parse(users);
 
       if (!!Object.keys(users)[0]) {
-        user = Object.keys(users)[0];
-        this.setState({validDevice: true});
-        this.setState({userName: user})
-        this.setState({currUser: this.props.bridge.user(user)});
-        this.props.setUser(this.props.bridge, user)
+        users = Object.keys(users).map((user) => this.props.bridge.user(user))
+        this.props.fetchLights(users[0])
       } else {
         console.log("still false");
       }

@@ -27,7 +27,6 @@ export default class Root extends React.Component {
 
   componentDidMount() {
     console.log(AsyncStorage.getItem("users"));
-    this.setState({isModalVisible: true});
   }
 
   showModal() {
