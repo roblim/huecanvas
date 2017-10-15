@@ -140,7 +140,7 @@ class RoomsIndex extends Component{
         <View >
           {
             Object.values(rooms).map(room =>(
-              <View style={styles.view} onLayout={this.setLightDropZoneValues.bind(this.props.that)}>
+              <View onLayout={this.setLightDropZoneValues.bind(this.props.that)}>
                   <RoomsIndexItem
                     room={room}
                     rooms={rooms}
@@ -220,9 +220,6 @@ class RoomsIndex extends Component{
           {this.renderCreateRoom()}
           {this.renderRooms(this.state.dropZoneValuesRoom)}
           {this.renderLights(this.state.dropZoneValuesLight)}
-          <TouchableHighlight onPress={this.resetLights}>
-            <Text>Reset Lights</Text>
-          </TouchableHighlight>
         </View>
 
       );
@@ -268,7 +265,7 @@ let styles = StyleSheet.create({
     },
     draggableRoom:{
         position    : 'absolute',
-        top         : (Window.height/3)*2 - CIRCLE_RADIUS,
+        top         : (Window.height/3)*2,
         left        : Window.width/2 - CIRCLE_RADIUS
     },
     circle      : {
@@ -276,9 +273,6 @@ let styles = StyleSheet.create({
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
         borderRadius        : CIRCLE_RADIUS
-    },
-    view: {
-      backgroundColor: '#9e9e9e'
     }
 });
 

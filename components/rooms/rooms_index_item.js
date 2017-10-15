@@ -109,7 +109,7 @@ class RoomsIndexItem extends Component{
 
            >
              <View>
-               <Text>{room.name}</Text>
+               <Text style={styles.text}>{room.name}</Text>
              </View>
            </TouchableWithoutFeedback>
 
@@ -128,19 +128,23 @@ class RoomsIndexItem extends Component{
 }
 
 export default RoomsIndexItem;
-
+let Window = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text:{
-    color: 'white'
-  },
+    text        : {
+        marginTop   : 22,
+        marginLeft  : 5,
+        marginRight : 5,
+        textAlign   : 'center',
+        color       : '#fff'
+    },
   index:{
     backgroundColor: '#d15c94',
-    width: 100,
-    height: 75
+    width: Window.width/3,
+    height: Window.height/8
   },
 });

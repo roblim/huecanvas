@@ -53,11 +53,12 @@ class RoomsIndexLight extends Component {
       return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
   render(){
+    let light = this.props.light;
     if(this.state.showDraggable){
       return(
         <Animated.View {...this.panResponder.panHandlers}
-          style={this.state.pan.getLayout()}>
-            <LightIndexItemContainer light={this.props.light}/>
+          style={[this.state.pan.getLayout(), styles.circle]}>
+            <Text style={styles.text}>{this.props.light.name}</Text>
         </Animated.View>
       );
     } else {
