@@ -66,6 +66,7 @@ class RoomsIndexItem extends Component{
     const room = this.props.room;
     const lights = this.props.lights;
     const rooms = this.props.rooms;
+<<<<<<< HEAD
     if(this.state.showDraggable){
       return(
           <Animated.View {...this.panResponder.panHandlers}
@@ -98,6 +99,36 @@ class RoomsIndexItem extends Component{
                  }}>
                  <Text>Back</Text>
                </TouchableHighlight>
+=======
+    return(
+        <Animated.View {...this.panResponder.panHandlers} style={this.state.pan.getLayout()}>
+          <Modal
+                animationType="slide"
+                transparent={false}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {alert("Modal has been closed.")}}
+                >
+            <View >
+              <View>
+                <LightIndexContainer that={this} room={room} />
+              </View>
+            </View>
+          </Modal>
+       <Modal
+             animationType="slide"
+             transparent={false}
+             visible={this.state.modal2Visible}
+             onRequestClose={() => {alert("Modal has been closed.")}}
+             >
+         <View >
+           <View>
+             <RoomFormContainer rooms={rooms} room={room} that={this} modal2Visible={this.state.modal2Visible}/>
+             <TouchableHighlight onPress={() => {
+               this.setModal2Visible(!this.state.modal2Visible)
+               }}>
+               <Text>Back</Text>
+             </TouchableHighlight>
+>>>>>>> dfb740ae0ea4e408ed1eeb9e2964cfded3f1a1a2
 
              </View>
            </View>

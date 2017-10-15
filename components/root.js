@@ -21,7 +21,7 @@ export default class Root extends React.Component {
   }
 
   componentDidMount() {
-
+    APIUtil.deleteRoom('undefined')
   }
 
   showModal() {
@@ -73,7 +73,7 @@ export default class Root extends React.Component {
         </View>
         <View>
           <Button
-            onPress={() => navigate('roomsEdit')}
+            onPress={() => navigate('roomsNew')}
             title="Navigate to RoomsNew"
           />
           <Button
@@ -86,14 +86,14 @@ export default class Root extends React.Component {
           onPress={() => navigate('roomsIndex')}
           title="Navigate to RoomsIndex"
         />
-      <LightIndexContainer />
     </View>
+    <LightIndexContainer />
     </View>
     );
   }
 }
-
 // <SceneIndexContainer />
+
 const styles = StyleSheet.create({
   container: {
     // flex: 1,

@@ -4,15 +4,12 @@ import {StackNavigator} from 'react-navigation';
 import RoomFormContainer from './rooms/room_form_container';
 import RoomsIndexContainer from './rooms/rooms_index_container';
 import Root from './root';
-import NavSliders from './nav/nav_sliders'
+import NavSlidersContainer from './nav/nav_sliders_container'
 import RoomTemp from "./rooms/room_temp";
 
-const { TabNavigator: Tabs } = ReactNavigation;
-
 const TabNavigator = StackNavigator({
+	home: {screen: Root},
 	roomsNew: {screen: RoomFormContainer},
-  home: {screen: Root},
-  roomsEdit: {screen: RoomFormContainer},
 	roomsIndex: {screen: RoomsIndexContainer},
 	roomTemp: {screen: RoomTemp}
 }, {
@@ -21,7 +18,8 @@ const TabNavigator = StackNavigator({
 		headerStyle: {
 			backgroundColor: 'black',
 		},
-		headerRight: (<NavSliders />)
+		headerRight: (<NavSlidersContainer />),
+		headerLeft: null
   },
 });
 

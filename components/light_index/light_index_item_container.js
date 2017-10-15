@@ -3,6 +3,7 @@ import {
         turnLightOff,
         turnLightOn,
         changeBrightness,
+        changeBrightnessAll,
         increaseBrightness,
         decreaseBrightness,
         turnAllLightsOff,
@@ -46,10 +47,10 @@ const mapDispatchToProps = dispatch => ({
       lightId,
       decrement
     )),
-  changeColor: (user, lightId, rgbObject) =>
+  changeColor: (user, light, rgbObject) =>
     dispatch(changeColor(
       user,
-      lightId,
+      light,
       rgbObject
     )),
   changeTemperature: (user, lightId, miredTemp) =>
@@ -63,6 +64,11 @@ const mapDispatchToProps = dispatch => ({
       user,
       lightId,
       name
+    )),
+  changeBrightnessAll: (user, brightness) =>
+    dispatch(changeBrightnessAll(
+      user,
+      brightness
     ))
 });
 

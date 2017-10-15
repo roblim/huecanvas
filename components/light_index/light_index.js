@@ -6,33 +6,44 @@ import { Text,
 				 StyleSheet,
 				 Button,
 			   TouchableHighlight } from 'react-native';
-import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker';
+import { ColorPicker,
+				 TriangleColorPicker,
+			   toHsv,
+			   fromHsv } from 'react-native-color-picker';
 import PanResponderExample from './panner';
 
 class LightIndex extends React.Component {
   constructor(props) {
     super(props)
+		this.state = { color: toHsv('green') }
+		this.onColorChange = this.onColorChange.bind(this)
+  }
+
+	onColorChange(color) {
+    this.setState({ color })
   }
 
 	componentDidMount() {
 		this.props.fetchLights();
 	}
 
+
+
   render() {
 		if (this.props.lights.length < 1) { return null;}
     return(
 			<View>
-	      <View style={{paddingTop: 50, height: 600, flexWrap: 'wrap', flexDirection: 'row'}}>
-	        {this.props.lights.map((light, idx) =>
+				<View style={{paddingTop: 50, height: 600, flexWrap: 'wrap', flexDirection: 'row'}}>
+					{this.props.lights.map((light, idx) =>
 					(
-	          <LightIndexItemContainer
+						<LightIndexItemContainer
 							light={light}
-	            key={`light-${idx}`}
-	          />
-	        )
-	      )}
-	      </View>
-			</View>
+							key={`light-${idx}`}
+						/>
+					)
+				)}
+				</View>
+		</View>
     )
   }
 }

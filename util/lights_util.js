@@ -1,4 +1,5 @@
 import jsHue from 'jshue';
+import { rgbToCIE1931, getRGBFromXYAndBrightness } from './color';
 
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
@@ -12,7 +13,7 @@ export const blinkLight = (user, lightId) => {
   return user.setLightState(
     lightId,
     { alert: 'select'}
-  )
+  ).then(data => console.log(data), err => console.log(err));
 };
 
 export const setLightOff = (user, lightId) => {
@@ -36,6 +37,15 @@ export const setLightOn = (user, lightId) => {
 export const setBri = (user, lightId, brightness) => {
   return user.setLightState(
     lightId,
+    {
+      bri: brightness
+    }
+  )
+};
+
+export const setBriAll = (user, brightness) => {
+  return user.setGroupState(
+    0,
     {
       bri: brightness
     }
@@ -78,7 +88,6 @@ export const setAllLightsOn = (user) => {
   )
 };
 
-
 export const rgbToXY = (rgbObject) => {
   let red = rgbObject.red / 255.0;
   let green = rgbObject.green / 255.0;
@@ -108,24 +117,70 @@ export const xyToRGB = (xyArr, bri) => {
   let X = (Y / y) * x;
   let Z = (Y / y) * z;
 
-  let r =  X * 1.656492 - Y * 0.354851 - Z * 0.255038;
-  let g = -X * 0.707196 + Y * 1.655397 + Z * 0.036152;
-  let b =  X * 0.051713 - Y * 0.121364 + Z * 1.011530;
+  let r =  (X * 1.656492) - (Y * 0.354851) - (Z * 0.255038);
+  let g = (-X * 0.707196) + (Y * 1.655397) + (Z * 0.036152);
+  let b =  (X * 0.051713) - (Y * 0.121364) + (Z * 1.011530);
+
+  if (r > b && r > g && r > 1.0) {
+      // red is too big
+      g = g / r;
+      b = b / r;
+      r = 1.0;
+  }
+  else if (g > b && g > r && g > 1.0) {
+      // green is too big
+      r = r / g;
+      b = b / g;
+      g = 1.0;
+  }
+  else if (b > r && b > g && b > 1.0) {
+      // blue is too big
+      r = r / b;
+      g = g / b;
+      b = 1.0;
+  }
 
   r = (r <= 0.0031308) ? 12.92 * r : (1.0 + 0.055) * Math.pow(r, (1.0 / 2.4)) - 0.055;
   g = (g <= 0.0031308) ? 12.92 * g : (1.0 + 0.055) * Math.pow(g, (1.0 / 2.4)) - 0.055;
   b = (b <= 0.0031308) ? 12.92 * b : (1.0 + 0.055) * Math.pow(b, (1.0 / 2.4)) - 0.055;
 
+  if (r > b && r > g) {
+    // red is biggest
+    if (r > 1.0) {
+        g = g / r;
+        b = b / r;
+        r = 1.0;
+    }
+}
+else if (g > b && g > r) {
+    // green is biggest
+    if (g > 1.0) {
+        r = r / g;
+        b = b / g;
+        g = 1.0;
+    }
+}
+else if (b > r && b > g) {
+    // blue is biggest
+    if (b > 1.0) {
+        r = r / b;
+        g = g / b;
+        b = 1.0;
+    }
+}
+
   return { red: r * 255, green: g * 255, blue: b * 255 }
 };
 
-export const setLightColor = (user, lightId, rgbObject) => {
-  let xY = rgbToXY(rgbObject);
+export const setLightColor = (user, light, rgbObject) => {
+  let xY = rgbToCIE1931(rgbObject.red / 255.0, rgbObject.green / 255.0, rgbObject.blue / 255.0, light.modelid);
   return user.setLightState(
-    lightId,
+    light.lightId,
     {
-      bri: Math.round(xY.bri * 255),
-      xy: [xY.x, xY.y]
+      bri: 255,
+      xy: [xY[0], xY[1]],
+      // bri: Math.round(xY[2] * 255),
+      // transitiontime: 0
     }
   )
 };
@@ -143,7 +198,3 @@ export const setMiredTemperature = (user, lightId, temp) => {
 export const putLightName = (user, lightId, name) => {
   return user.setLight(lightId, { name });
 };
-
-export const fetchLights = () => {
-  return user.getLights()
-}
