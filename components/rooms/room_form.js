@@ -13,14 +13,15 @@ export default class RoomForm extends React.Component {
 		super(props);
 		this.state = this.props.room;
 		this.handleSubmit = this.handleSubmit.bind(this);
-    // this.that = this.props.that
+    this.modal2Visible = this.props.modal2Visible
+    this.that = this.props.that;
 	}
 
   componentDidMount() {
 		// if (this.props.navigation.state.params.roomId) {
 		// 	this.props.fetchRoom(this.props.match.params.roomId)
 		// }
-    // console.log(this.that);
+    console.log(this.that);
 	}
 
   componentWillReceiveProps(newProps) {
@@ -59,17 +60,13 @@ export default class RoomForm extends React.Component {
               style={styles.input}
               placeholder="Name this room" />
 
-              <TouchableHighlight onPress={() => {
-                this.that.setModal2Visible(!this.that.state.modal2Visible)
+            <TouchableHighlight onPress={(e) => {
+                this.handleSubmit(e)
+                this.that.setModal2Visible(!this.modal2Visible);
                 }}>
-                <Text>Back</Text>
-              </TouchableHighlight>
+                <Text>Save</Text>
+            </TouchableHighlight>
 
-            <Button
-              color='white'
-              title="Save"
-              onPress={this.handleSubmit}
-            />
         </View>
       )
     //} else {

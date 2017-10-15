@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => {
 	} else {
 		ownProps.rooms ? assignId(room, ownProps.rooms) : room["id"] = 0
 	}
-	return {room, that: ownProps.that}
+	return {room, modal2Visible: ownProps.modal2Visible, that: ownProps.that}
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
