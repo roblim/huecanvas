@@ -1,6 +1,11 @@
-// import ReactNativeComponentTree from 'react-native/Libraries/Renderer/src/renderers/native/ReactNativeComponentTree';
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  TouchableHighlight
+} from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements'
 
 export default class RoomForm extends React.Component {
@@ -8,12 +13,14 @@ export default class RoomForm extends React.Component {
 		super(props);
 		this.state = this.props.room;
 		this.handleSubmit = this.handleSubmit.bind(this);
+    // this.that = this.props.that
 	}
 
   componentDidMount() {
 		// if (this.props.navigation.state.params.roomId) {
 		// 	this.props.fetchRoom(this.props.match.params.roomId)
 		// }
+    // console.log(this.that);
 	}
 
   componentWillReceiveProps(newProps) {
@@ -33,9 +40,13 @@ export default class RoomForm extends React.Component {
 		//.then(() => this.props.history.push('/rooms'));;
 	}
 
+  setModal2Visible(visible) {
+    this.setState({modal2Visible: visible});
+  }
+
   render() {
     const name = this.state ? this.state.name : "";
-    const { navigate } = this.props.navigation;
+    // const { navigate } = this.props.navigation;
     //if (this.props.shouldRender) {
       return(
         <View style={styles.container}>
@@ -48,17 +59,17 @@ export default class RoomForm extends React.Component {
               style={styles.input}
               placeholder="Name this room" />
 
+              <TouchableHighlight onPress={() => {
+                this.that.setModal2Visible(!this.that.state.modal2Visible)
+                }}>
+                <Text>Back</Text>
+              </TouchableHighlight>
+
             <Button
               color='white'
               title="Save"
               onPress={this.handleSubmit}
             />
-
-          <Button
-            color="white"
-            onPress={() => navigate('home')}
-            title="Navigate to Home"
-          />
         </View>
       )
     //} else {

@@ -7,10 +7,10 @@ import {
 import RoomForm from './room_form';
 // import { withRouter } from 'react-router-dom';
 
-const assignId = (room, entities) => {
+const assignId = (room, rooms) => {
 
-	if (Object.keys(entities.rooms).length !== 0) {
-		let maxId= Object.keys(entities.rooms).reduce((a, b) => {
+	if (Object.keys(rooms).length !== 0) {
+		let maxId= Object.keys(rooms).reduce((a, b) => {
 			console.log(a, b);
 			return (Math.max(a, b))
 		})
@@ -23,25 +23,17 @@ const assignId = (room, entities) => {
 
 const mapStateToProps = (state, ownProps) => {
 	let room = { name: "" }
-	console.log(state.entities);
-	// room = assignId(room, state.entities)
-	let shouldRender = false;
-	if (ownProps.navigation.state.routeName === "RoomNew") {
-		shouldRender = true;
-	} else if (ownProps.navigation.state.params === "RoomEdit") {
-			room = state.entities.rooms[ownProps.match.params.roomId];
-			if (ownProps.renderId == ownProps.match.params.roomId) {
-				shouldRender = true;
-			}
-		}
-	return {room, shouldRender}
+	if (ownProps.room) {
+		room = ownProps.room
+	} else {
+		ownProps.rooms ? assignId(room, ownProps.rooms) : room["id"] = 0
+	}
+	return {room, that: ownProps.that}
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	const formType = ownProps.navigation.state.params == "RoomEdit" ?
-		 'edit' :
-		 'new';
 
+	let formType = ownProps.room ? 'edit' : 'new'
 	const processForm = (formType === 'new') ? createRoom : updateRoom;
 	return {
 		processForm: room => dispatch(processForm(room)),
