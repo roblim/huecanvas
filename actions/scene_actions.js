@@ -26,7 +26,7 @@ export const deleteScene = (id) => dispatch => (
 );
 
 export const createScene = (scene) => dispatch => (
-  APIUtil.User.createScene(scene).then((scene) => dispatch(createScene(scene)))
+  APIUtil.User.createScene(scene).then((scene) => dispatch(receiveScene(scene)))
 );
 
 const receiveAllScenes = (scenes) => ({

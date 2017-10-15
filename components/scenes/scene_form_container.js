@@ -4,8 +4,9 @@ import { createScene } from "../../actions/scene_actions";
 
 const mapStateToProps = (state) => {
   console.log("state", state);
+  let lights = Object.keys(state.entities.lights);
   return {
-    lights: ["lol"]
+    lights
   }
 }
 

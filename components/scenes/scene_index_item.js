@@ -13,8 +13,7 @@ class SceneIndexItem extends React.Component {
     const scene = this.props.item.item[this.id];
     return (
 
-      <View style={{backgroundColor: "white",
-                    padding: 5}}>
+      <View style={{backgroundColor: "white", marginBottom: 10}}>
       <Button style={{color: "magenta"}}
               title={scene.name}
               onPress={() => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, Button } from "react-native";
+import { View, Text, FlatList, Button, StyleSheet } from "react-native";
 import SceneIndexItem from "./scene_index_item";
 let count = 0;
 class SceneIndex extends React.Component {
@@ -16,7 +16,7 @@ class SceneIndex extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchScenes();
+    this.props.fetchScenes()
   }
 
   displayScene(scene) {
@@ -51,6 +51,7 @@ class SceneIndex extends React.Component {
                 onPress={() => this.props.hideModal("index")}
                 />
         <FlatList
+          contentContainerStyle={styles.list}
           data={this.props.scenes}
           renderItem={this.renderItem}
           />
@@ -64,7 +65,13 @@ class SceneIndex extends React.Component {
 
 export default SceneIndex;
 
-
+const styles = StyleSheet.create({
+  list: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  }
+});
 // <Button title="getScenes"
 //   onPress={() => this.props.fetchScenes()}
 //   />

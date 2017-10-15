@@ -68,7 +68,7 @@ class SceneFooter extends React.Component {
             backdropColor="rgb(255, 255, 255)"
 
             >
-            <Text>Create Scene</Text>
+            <Text>Save current scene as: </Text>
 
             <SceneFormContainer
               hideModal={this.hideModal}
