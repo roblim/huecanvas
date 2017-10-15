@@ -12,6 +12,7 @@ import { StyleSheet,
 import RoomsIndexItem from './rooms_index_item';
 import { AsyncStorage } from 'react-native';
 import RoomFormContainer from './room_form_container';
+import RoomsIndexLight from './rooms_index_light';
 
 
 class RoomsIndex extends Component{
@@ -26,7 +27,8 @@ class RoomsIndex extends Component{
       dropZoneValuesRoom: null,
       renderedLights: [],
       renderedRooms: [],
-      modalVisible: false
+      modalVisible: false,
+      dimensions:{}
     };
 
     this.panResponderLight = PanResponder.create({
@@ -74,6 +76,7 @@ class RoomsIndex extends Component{
     this.renderDragArea = this.renderDragArea.bind(this);
     this.renderCreateRoom = this.renderCreateRoom.bind(this);
     this.resetLights = this.resetLights.bind(this);
+    this.setLightDropZoneValues = this.setLightDropZoneValues.bind(this);
 }
 
   componentWillMount(){
@@ -93,6 +96,7 @@ class RoomsIndex extends Component{
 
   isRoomDropZone(gesture){
     const dz = this.state.dropZoneValuesRoom;
+    console.log(this.state);
     return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
 
@@ -129,16 +133,14 @@ class RoomsIndex extends Component{
 
   renderRooms(dropZoneValues){
     if (!this.props.rooms) { return null; }
-
     const rooms = this.props.rooms;
     const lights = this.props.lights;
     if(this.state.showDraggableRoom){
       return(
-        <View onLayout={this.setLightDropZoneValues.bind(this)} >
+        <View >
           {
             Object.values(rooms).map(room =>(
-              <View>
-
+              <View style={styles.view} onLayout={this.setLightDropZoneValues.bind(this.props.that)}>
                   <RoomsIndexItem
                     room={room}
                     rooms={rooms}
@@ -146,6 +148,7 @@ class RoomsIndex extends Component{
                     showDraggable={this.state.showDraggableRoom}
                     dropZoneValues = {dropZoneValues}
                     key={room.id}
+                    getDimensions={this.getDimensions}
                 />
                 <Text></Text>
              </View>
@@ -172,8 +175,7 @@ class RoomsIndex extends Component{
     ).start();
   }
 
-  renderLights(){
-    const { navigate } = this.props.navigation;
+  renderLights(dropZoneValues){
     const lights = this.props.lights;
     if(this.state.showDraggableLight){
       return(
@@ -181,12 +183,11 @@ class RoomsIndex extends Component{
           {
             Object.values(lights).map(light =>(
               <View>
-                <Animated.View {...this.panResponderLight.panHandlers}
-                  style={[this.state.lightpan.getLayout(), styles.circle]}
-                  key={light.id + "light"}
-                >
-                  <Text style={styles.text}>{light.name}</Text>
-                </Animated.View>
+                  <RoomsIndexLight
+                    light={light}
+                    showDraggable={this.state.showDraggableLight}
+                    dropZoneValues={dropZoneValues}
+                    />
               </View>
             ))
           }
@@ -203,25 +204,22 @@ class RoomsIndex extends Component{
           <Modal
                 animationType="slide"
                 transparent={false}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {alert("Modal has been closed.")}}
-                >
+                visible={this.state.modalVisible}>
             <View >
               <View>
                 <RoomFormContainer rooms={this.props.rooms} that={this.state.that}/>
                 <TouchableHighlight onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible)
+                  this.setModalVisible(!this.state.modalVisible);
                   }}>
                   <Text>Back</Text>
                 </TouchableHighlight>
-
               </View>
             </View>
           </Modal>
           {this.renderDragArea()}
           {this.renderCreateRoom()}
           {this.renderRooms(this.state.dropZoneValuesRoom)}
-          {this.renderLights()}
+          {this.renderLights(this.state.dropZoneValuesLight)}
           <TouchableHighlight onPress={this.resetLights}>
             <Text>Reset Lights</Text>
           </TouchableHighlight>
@@ -278,6 +276,9 @@ let styles = StyleSheet.create({
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
         borderRadius        : CIRCLE_RADIUS
+    },
+    view: {
+      backgroundColor: '#9e9e9e'
     }
 });
 

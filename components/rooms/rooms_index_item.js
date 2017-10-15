@@ -56,7 +56,6 @@ class RoomsIndexItem extends Component{
     this.setState({modal2Visible: visible});
   }
 
-
   isDropZone(gesture){
       const dz = this.props.dropZoneValues;
       return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
@@ -72,14 +71,12 @@ class RoomsIndexItem extends Component{
             <Modal
                   animationType="slide"
                   transparent={false}
-                  visible={this.state.modalVisible}
-                  onRequestClose={() => {alert("Modal has been closed.")}}
-                  >
+                  visible={this.state.modalVisible}>
               <View >
                 <View>
                   <LightIndexContainer room={room} />
                   <TouchableHighlight onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible)
+                    this.setModalVisible(!this.state.modalVisible);
                     }}>
                     <Text>Back</Text>
                   </TouchableHighlight>
@@ -90,14 +87,12 @@ class RoomsIndexItem extends Component{
          <Modal
                animationType="slide"
                transparent={false}
-               visible={this.state.modal2Visible}
-               onRequestClose={() => {alert("Modal has been closed.")}}
-               >
+               visible={this.state.modal2Visible}>
            <View >
              <View>
                <RoomFormContainer rooms={rooms} room={room} that={this.state.that}/>
                <TouchableHighlight onPress={() => {
-                 this.setModal2Visible(!this.state.modal2Visible)
+                 this.setModal2Visible(!this.state.modal2Visible);
                  }}>
                  <Text>Back</Text>
                </TouchableHighlight>
@@ -111,6 +106,7 @@ class RoomsIndexItem extends Component{
            onLongPress={() => {
              this.setModal2Visible(true);
            }}
+
            >
              <View>
                <Text>{room.name}</Text>
