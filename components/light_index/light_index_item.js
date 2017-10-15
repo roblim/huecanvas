@@ -132,7 +132,7 @@ class LightIndexItem extends React.Component {
 					console.log('double tap!')
 				} else {
 					console.log('blink');
-					this.changeBrightnessAll(user, 255);
+					this.blinkLight(user, lightId);
 				}
 				this.setState({ lastPress: new Date().getTime() });
 			}
