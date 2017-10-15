@@ -47,10 +47,10 @@ const mapDispatchToProps = dispatch => ({
       lightId,
       decrement
     )),
-  changeColor: (user, lightId, rgbObject) =>
+  changeColor: (user, light, rgbObject) =>
     dispatch(changeColor(
       user,
-      lightId,
+      light,
       rgbObject
     )),
   changeTemperature: (user, lightId, miredTemp) =>

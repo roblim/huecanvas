@@ -108,13 +108,13 @@ export const turnAllLightsOn = (user) => dispatch => (
   )
 );
 
-export const changeColor = (user, lightId, rgbObject) => dispatch => (
-  setLightColor(user, lightId, rgbObject).then(
+export const changeColor = (user, light, rgbObject) => dispatch => (
+  setLightColor(user, light, rgbObject).then(
     lightState => dispatch(receiveLightState(
-      lightId,
+      light.lightId,
       {
-        xy: Object.values(lightState[1].success)[0],
-        bri: Object.values(lightState[2].success)[0],
+        xy: Object.values(lightState[0].success)[0],
+        bri: Object.values(lightState[1].success)[0],
         colormode: 'xy'
       }
     )), error => console.log(error)
