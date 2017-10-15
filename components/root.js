@@ -44,7 +44,6 @@ export default class Root extends React.Component {
     return (
       <View>
   			<View style={{flex: 1}}>
-  				<Text>This is the root page</Text>
             <Modal
               style={{
                 flex: 1,

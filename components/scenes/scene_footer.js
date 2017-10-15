@@ -40,18 +40,13 @@ class SceneFooter extends React.Component {
         <View>
           <Modal
             style={{
-              flex: 1,
-              justifyContent: "center",
-              margin: "auto",
-              backgroundColor: "white"
+              backgroundColor: "rgba(33, 33, 33, .4)"
 
             }}
             isVisible={this.state.IndexModalIsOpen}
             backdropColor="rgb(255, 255, 255)"
 
             >
-            <Text>ScenesFooter</Text>
-
             <SceneIndexContainer
               hideModal={this.hideModal}
               />
@@ -74,7 +69,8 @@ class SceneFooter extends React.Component {
               hideModal={this.hideModal}
               />
             </ Modal>
-            <Button onPress={() => this.openModal("index")}
+            <Button
+              onPress={() => this.openModal("index")}
               title="scenes"
 
               />
@@ -91,8 +87,8 @@ class SceneFooter extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "pink",
-    justifyContent: 'space-between'
+    backgroundColor: "rgba(33, 33, 33, .4)",
+    justifyContent: "space-between"
   }
 })
 
