@@ -28,28 +28,31 @@ class SceneFooter extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Modal
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            margin: "auto",
-            backgroundColor: "white"
+        <View>
+          <Modal
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              margin: "auto",
+              backgroundColor: "white"
 
-          }}
-          isVisible={this.state.modalIsOpen}
-          backdropColor="rgb(255, 255, 255)"
+            }}
+            isVisible={this.state.modalIsOpen}
+            backdropColor="rgb(255, 255, 255)"
 
-          >
-          <Button
-            onPress={() => this.hideModal}
-            title="close"
-            />
-          <Text>ScenesFooter</Text>
-          </ Modal>
-        <Button onPress={() => this.openModal()}
-                title="scenes"
+            >
+            <Text>ScenesFooter</Text>
+            
+            <SceneIndexContainer
+              hideModal={this.hideModal}
+              />
+            </ Modal>
+            <Button onPress={() => this.openModal()}
+              title="scenes"
 
-          />
+              />
+
+        </View>
       </View>
     )
   }
@@ -57,7 +60,8 @@ class SceneFooter extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "red"
+    backgroundColor: "pink",
+    justifyContent: 'space-between'
   }
 })
 

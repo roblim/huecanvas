@@ -16,6 +16,12 @@ export const fetchScene = (id) => dispatch => (
   })
 );
 
+export const setScene = (id) => dispatch => {
+  console.log("idddd", id);
+  APIUtil.User.setGroupState(0, {"scene": `${id}`}
+).then(scene => dispatch(receiveScene(scene)))
+}
+
 export const deleteScene = (id) => dispatch => (
   APIUtil.User.deleteScene(id).then((scene) => dispatch(removeScene(scene)))
 );

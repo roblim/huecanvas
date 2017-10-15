@@ -3,10 +3,11 @@ import jsHue from "jshue";
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
-const homeIP = '10.1.10.67'
-const Hue = jsHue();
-export const Bridge = Hue.bridge(homeIP);
-export const User = Bridge.user(homeHue);
+const precitaIP = '10.0.0.31';
+  const homeIP = '""'
+export const Hue = jsHue();
+export const Bridge = Hue.bridge(precitaIP);
+export const User = Bridge.user("PtOObSxmdrIP0lwZeL2jTtmAge2AFUMEF9Lu1ayy");
 
 export const discover = () => {
   return Hue.discover()
@@ -14,6 +15,7 @@ export const discover = () => {
 
 export const createUser = (bridge) => {
   console.log("here");
+  console.log(bridge);
   return bridge.createUser(`HueCanvas#iPad${Math.random * 100}`);
 }
 

@@ -1,27 +1,24 @@
 import { connect } from "react-redux";
 import Discover from "./discover";
-import { fetchBridges, fetchLights, createUser } from "../../actions/discover_actions";
+import { fetchBridges, fetchLights, createUser, setUser } from "../../actions/discover_actions";
 
 const mapStateToProps = (state) => {
-  console.log(state);
-  if (state.bridges) {
+  let bridge = state.admin.bridge;
+  let user = state.admin.user;
     return {
-      bridges: Object.keys(state.bridges).map((id) => state.bridges[id]),
-      lights: Object.keys(state.lights).map((id) => state.lights[id])
+      bridge,
+      user
+      // lights: Object.keys(state.entities.lights).map((id) => state.entitieslights[id])
     }
-  } else {
-    return {
-      bridges: []
-    }
-  }
 
 }
 
 
 const mapDispatchToProps = (dispatch) => ({
-  createUser: () => dispatch(createUser()),
+  createUser: (bridge) => dispatch(createUser(bridge)),
   fetchBridges: () => dispatch(fetchBridges()),
-  fetchLights: () => dispatch(fetchLights())
+  fetchLights: (user) => dispatch(fetchLights(user)),
+  setUser: (bridge, user) => dispatch(setUser(bridge, user))
 })
 
 export default connect(
