@@ -53,9 +53,6 @@ class SceneFooter extends React.Component {
             </ Modal>
           <Modal
             style={{
-              flex: 1,
-              justifyContent: "center",
-              margin: "auto",
               backgroundColor: "white"
 
             }}
@@ -70,11 +67,14 @@ class SceneFooter extends React.Component {
               />
             </ Modal>
             <Button
+              color="black"
               onPress={() => this.openModal("index")}
               title="scenes"
 
               />
-            <Button onPress={() => this.openModal("create")}
+            <Button
+              color="black"
+              onPress={() => this.openModal("create")}
               title="create scene"
 
               />
@@ -87,7 +87,7 @@ class SceneFooter extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "rgba(33, 33, 33, .4)",
+    backgroundColor: "rgba(255, 255, 255, .4)",
     justifyContent: "space-between"
   }
 })

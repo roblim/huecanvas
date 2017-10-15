@@ -24,6 +24,7 @@ class SceneForm extends React.Component {
         />
 
       <Button
+        color='black'
         title="Save"
         onPress={
           () => {

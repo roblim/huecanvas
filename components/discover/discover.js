@@ -23,7 +23,6 @@ class Discover extends React.Component {
 
       if (!!Object.keys(users)[0]) {
         users = Object.keys(users).map((user) => this.props.bridge.user(user))
-        console.log(users);
         this.props.fetchLights(users[0])
       } else {
         console.log("still false");
