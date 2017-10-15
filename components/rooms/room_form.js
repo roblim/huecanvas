@@ -15,22 +15,38 @@ export default class RoomForm extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
     this.modal2Visible = this.props.modal2Visible
     this.that = this.props.that;
+    this.rooms = this.props.rooms
 	}
 
-  componentDidMount() {
-		// if (this.props.navigation.state.params.roomId) {
-		// 	this.props.fetchRoom(this.props.match.params.roomId)
-		// }
-    console.log(this.that);
-	}
+  componentWillMount() {
+    if (!this.state.room.id) {
+      this.props.fetchRooms().then(res => {
+        if (Object.keys(res.rooms).length !== 0) {
+      		let maxId = Object.keys(res.rooms).reduce((a, b) => {
+      			return (Math.max(a, b))
+      		})
+          this.setState({room: {id: (maxId + 1)}})
+          console.log(this.state.room);
+      	} else {
+      		return 0
+      	}
+      })
+    }
+  }
 
   componentWillReceiveProps(newProps) {
     this.setState(newProps.room)
   }
 
+  assignId = () => {
+
+
+  }
+
+
   update(field) {
 		return (e) => {
-      return this.setState({room: {[field]: e.nativeEvent.text}, errors: ""})
+      return this.setState({room: {id: this.state.room.id, [field]: e.nativeEvent.text}, errors: ""})
     }
 	}
 
