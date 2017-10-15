@@ -19,11 +19,9 @@ class Discover extends React.Component {
         if (!!Object.keys(users)[0]) {
           this.setState({user: true})
           users = Object.keys(users).map((user) => this.props.bridge.user(user))
-          console.log("users(array)", users[0].getLights());
           this.props.fetchLights(users[0])
 
         } else {
-          console.log("no user");
           this.setState({user: false})
         }
       })
@@ -31,8 +29,6 @@ class Discover extends React.Component {
     };
 
   userOptions() {
-    console.log(this.state);
-    console.log("hit");
     if (this.state.user) {
       this.props.fetchLights(this.props.user)
       setTimeout(() => this.props.hideModal(), 1500);
@@ -60,7 +56,6 @@ class Discover extends React.Component {
   }
 
   render() {
-    console.log("hit2");
     return (
       <View>
 
