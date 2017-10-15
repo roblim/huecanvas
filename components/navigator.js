@@ -18,7 +18,8 @@ const TabNavigator = StackNavigator({
 		headerStyle: {
 			backgroundColor: 'black',
 		},
-		headerRight: (<NavSlidersContainer />)
+		headerRight: (<NavSlidersContainer />),
+		headerLeft: null
   },
 });
 
