@@ -2,7 +2,8 @@ import merge from 'lodash/merge';
 import { RECEIVE_LIGHT_STATE,
          TURN_ALL_LIGHTS_OFF,
          TURN_ALL_LIGHTS_ON,
-         RECEIVE_LIGHT_NAME
+         RECEIVE_LIGHT_NAME,
+         SET_BRIGHTNESS_ALL
         } from '../actions/light_actions';
 import { RECEIVE_ALL_LIGHTS } from '../actions/discover_actions';
 
@@ -26,6 +27,11 @@ const LightReducer = (state = {}, action) => {
     case RECEIVE_LIGHT_NAME:
       newState = merge({}, state);
       newState[action.lightId]['name'] = action.name;
+      return newState;
+    case SET_BRIGHTNESS_ALL:
+      newState = merge({}, state);
+      let briLightIds = Object.keys(newState);
+      briLightIds.forEach(id => newState[id].state.bri = action.bri);
       return newState;
     case TURN_ALL_LIGHTS_OFF:
       newState = merge({}, state);

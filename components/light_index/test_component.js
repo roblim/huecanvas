@@ -16,15 +16,16 @@ import { blinkLight,
 			 	 setAllLightsOn,
 			 	 setLightColor,
 			   setMiredTemperature,
-			   putLightName} from '../../util/lights_util';
+			   putLightName,
+			 	 setBriAll} from '../../util/lights_util';
 
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
-const homeIP = '""'
+const homeIP = '10.1.10.67'
 const Hue = jsHue();
-const Bridge = Hue.bridge(appAcademyIP);
-const User = Bridge.user(appAcademyHue);
+const Bridge = Hue.bridge(homeIP);
+const User = Bridge.user(homeHue);
 
 const state = {
   entities: {
@@ -61,9 +62,9 @@ export default class TestComponent extends React.Component {
 			<View style={{flexDirection: 'row', flexWrap: 'wrap', width: 500, top: 500, left: 0}}>
       <TouchableHighlight
 				style={styles.container}
-        onPress={blinkLight.bind(null, state.admin.user, 8)}
+        onPress={setBriAll.bind(null, state.admin.user, 255)}
         >
-        <Text style={styles.welcome}>Blink</Text>
+        <Text style={styles.welcome}>Set All Brightness</Text>
       </TouchableHighlight>
 
       <TouchableHighlight

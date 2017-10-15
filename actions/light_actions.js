@@ -9,13 +9,15 @@ import {
         setAllLightsOn,
         setLightColor,
         setMiredTemperature,
-        putLightName
+        putLightName,
+        setBriAll
       } from '../util/lights_util';
 
 export const RECEIVE_LIGHT_STATE = 'RECEIVE_LIGHT_STATE';
 export const RECEIVE_LIGHT_NAME = 'RECEIVE_LIGHT_NAME';
 export const TURN_ALL_LIGHTS_OFF = 'TURN_ALL_LIGHTS_OFF';
 export const TURN_ALL_LIGHTS_ON = 'TURN_ALL_LIGHTS_ON';
+export const SET_BRIGHTNESS_ALL = 'SET_BRIGHTNESS_ALL';
 
 import jsHue from 'jshue';
 
@@ -44,7 +46,7 @@ export const turnLightOff = (user, lightId) => dispatch => (
     lightState => dispatch(receiveLightState(
       lightId,
       { on: Object.values(lightState[0].success)[0] }
-    ))
+    )), error => console.log(error)
   )
 );
 
@@ -53,7 +55,7 @@ export const turnLightOn = (user, lightId) => dispatch => (
     lightState => dispatch(receiveLightState(
       lightId,
       { on: Object.values(lightState[0].success)[0] }
-    ))
+    )), error => console.log(error)
   )
 );
 
@@ -62,7 +64,15 @@ export const changeBrightness = (user, lightId, brightness) => dispatch => (
     lightState => dispatch(receiveLightState(
       lightId,
       { bri: Object.values(lightState[0].success)[0] }
-    ))
+    )), error => console.log(error)
+  )
+);
+
+export const changeBrightnessAll = (user, brightness) => dispatch => (
+  setBriAll(user, brightness).then(
+    lightState => dispatch({ type: SET_BRIGHTNESS_ALL,
+                             bri: Object.values(lightState[0].success)[0] }),
+    err => console.log(err)
   )
 );
 
@@ -71,7 +81,7 @@ export const increaseBrightness = (user, lightId, increment) => dispatch => (
     lightState => dispatch(receiveLightState(
       lightId,
       { bri: Object.values(lightState[0].success)[0] }
-    ))
+    )), error => console.log(error)
   )
 );
 
@@ -80,19 +90,21 @@ export const decreaseBrightness = (user, lightId, decrement) => dispatch => (
     lightState => dispatch(receiveLightState(
       lightId,
       { bri: Object.values(lightState[0].success)[0] }
-    ))
+    )), error => console.log(error)
   )
 );
 
 export const turnAllLightsOff = (user) => dispatch => (
   setAllLightsOff(user).then(
-    lightState => dispatch({ type: TURN_ALL_LIGHTS_OFF })
+    lightState => dispatch({ type: TURN_ALL_LIGHTS_OFF }),
+    error => console.log(error)
   )
 );
 
 export const turnAllLightsOn = (user) => dispatch => (
   setAllLightsOn(user).then(
-    lightState => dispatch({ type: TURN_ALL_LIGHTS_ON })
+    lightState => dispatch({ type: TURN_ALL_LIGHTS_ON }),
+    error => console.log(error)
   )
 );
 
@@ -105,7 +117,7 @@ export const changeColor = (user, lightId, rgbObject) => dispatch => (
         bri: Object.values(lightState[2].success)[0],
         colormode: 'xy'
       }
-    ))
+    )), error => console.log(error)
   )
 );
 
@@ -117,12 +129,13 @@ export const changeTemperature = (user, lightId, miredTemp) => dispatch => (
         ct: Object.values(lightState[0].success)[0],
         colormode: 'ct'
       }
-    ))
+    )), error => console.log(error)
   )
 );
 
 export const updateLightName = (user, lightId, name) => dispatch => (
   putLightName(user, lightId, name).then(
-    r => dispatch(receiveLightName(lightId, Object.values(r[0].success)[0]))
+    r => dispatch(receiveLightName(lightId, Object.values(r[0].success)[0])),
+    error => console.log(error)
   )
 );
