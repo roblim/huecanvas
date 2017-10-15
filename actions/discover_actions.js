@@ -8,7 +8,6 @@ export const RECEIVE_BRIDGE = "RECEIVE_BRIDGE";
 export const RECEIVE_USER = "RECEIVE_USER";
 
 let bridgeIP;
-let bridge;
 
 export const fetchBridges = () => dispatch => {
   APIUtil.discover().then((bridges) => dispatch(receiveBridge(bridges[0].internalipaddress)))
@@ -21,16 +20,12 @@ export const createUser = (bridge) => dispatch => {
        dispatch(receiveUser(data[0].error))
      } else {
 
-       console.log("RESERERSFAVFVSTGAREF");
-
       user = bridge.user(data[0].success.username);
       AsyncStorage.getItem("users").then((users) => {
         console.log(users);
         users = JSON.parse(users);
         let allUsers = merge({}, users);
-        console.log("allUsers", allUsers);
         allUsers[data[0].success.username] = bridge.user(data[0].success.username);
-        console.log(allUsers);
         AsyncStorage.mergeItem("users", JSON.stringify(allUsers));
       })
       console.log(user);
@@ -43,7 +38,12 @@ export const createUser = (bridge) => dispatch => {
 }
 
 export const fetchLights = (user) => dispatch => {
-  user.getLights().then((lights) => dispatch(receiveAllLights(lights)))
+  console.log('user');
+  console.log(user);
+  user.getLights().then((lights) => {
+    console.log(lights);
+    dispatch(receiveAllLights(lights)
+  )})
 }
 
 export const setUser = (bridge, user) => dispatch => {
