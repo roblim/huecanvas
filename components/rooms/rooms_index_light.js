@@ -20,7 +20,7 @@ class RoomsIndexLight extends Component {
       pan: new Animated.ValueXY(),
       showDraggable: this.props.showDraggable,
       dropZoneValues: this.props.dropZoneValues,
-      dimensions:{}
+      panResponder: null
     };
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
@@ -41,18 +41,40 @@ class RoomsIndexLight extends Component {
         }
       }
     });
-    this.isDropZone = this.isDropZone.bind(this);
+
   }
 
   isDropZone(gesture){
       const dz = this.props.dropZoneValues;
+      const thisZone = this.props.dropZones.map(dropZone =>{
+          return(
+            dropZone
+          );
+
+      });
+      console.log("thisZone", thisZone);
+      const last = thisZone.find(dropZone =>{
+        console.log("dropZoney",dropZone.y);
+        console.log("dropZoney+height", dropZone.y+dropZone.height);
+        console.log("gesture.moveY", gesture.moveY);
+        console.log();
+        if((dropZone.y < gesture.moveY) && (dropZone.y+dropZone.height > gesture.moveY)){
+          return(
+            dropZone
+          );
+        }
+      });
+
+      console.log("last", last);
       dz.height += 100;
       this.setState({
         dropZoneValues: dz
       });
       return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
+
   render(){
+
     let light = this.props.light;
     if(this.state.showDraggable){
       return(
@@ -76,7 +98,7 @@ let CIRCLE_RADIUS = 36;
 let Window = Dimensions.get('window');
 let styles = StyleSheet.create({
     circle      : {
-        backgroundColor     : '#1abc9c',
+        backgroundColor     : '#00000030',
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
         borderRadius        : CIRCLE_RADIUS

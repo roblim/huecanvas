@@ -46,6 +46,7 @@ class RoomsIndexItem extends Component{
         }
       }
     });
+
   }
 
   setModalVisible(visible) {
@@ -145,6 +146,6 @@ const styles = StyleSheet.create({
   index:{
     backgroundColor: '#d15c94',
     width: Window.width/3,
-    height: Window.height/8
+    height: 100
   },
 });

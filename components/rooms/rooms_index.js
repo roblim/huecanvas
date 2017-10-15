@@ -25,10 +25,10 @@ class RoomsIndex extends Component{
       showDraggableRoom: true,
       dropZoneValuesLight: null,
       dropZoneValuesRoom: null,
-      renderedLights: [],
-      renderedRooms: [],
+      renderedLights: this.props.lights,
+      renderedRooms: this.props.rooms,
       modalVisible: false,
-      dimensions:{}
+      dropZones:[]
     };
 
     this.panResponderLight = PanResponder.create({
@@ -62,6 +62,7 @@ class RoomsIndex extends Component{
           this.setState({
               showDraggableRoom: false
           });
+
         }else{
           Animated.spring(
               this.state.roompan,
@@ -88,7 +89,6 @@ class RoomsIndex extends Component{
     this.setState({modalVisible: visible});
   }
 
-
   isLightDropZone(gesture){
     const dz = this.state.dropZoneValuesLight;
     return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
@@ -96,13 +96,13 @@ class RoomsIndex extends Component{
 
   isRoomDropZone(gesture){
     const dz = this.state.dropZoneValuesRoom;
-    console.log(this.state);
     return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
 
   setLightDropZoneValues(event){
     this.setState({
-        dropZoneValuesLight: event.nativeEvent.layout
+        dropZoneValuesLight: event.nativeEvent.layout,
+        dropZones: [...this.state.dropZones, event.nativeEvent.layout]
     });
   }
 
@@ -140,7 +140,7 @@ class RoomsIndex extends Component{
         <View >
           {
             Object.values(rooms).map(room =>(
-              <View onLayout={this.setLightDropZoneValues.bind(this.props.that)}>
+              <View style={styles.view} onLayout={this.setLightDropZoneValues.bind(this)}>
                   <RoomsIndexItem
                     room={room}
                     rooms={rooms}
@@ -148,9 +148,9 @@ class RoomsIndex extends Component{
                     showDraggable={this.state.showDraggableRoom}
                     dropZoneValues = {dropZoneValues}
                     key={room.id}
-                    getDimensions={this.getDimensions}
+                    that={this}
+                    setLightDropZoneValues={this.setLightDropZoneValues}
                 />
-                <Text></Text>
              </View>
             ))
           }
@@ -187,6 +187,7 @@ class RoomsIndex extends Component{
                     light={light}
                     showDraggable={this.state.showDraggableLight}
                     dropZoneValues={dropZoneValues}
+                    dropZones={this.state.dropZones}
                     />
               </View>
             ))
@@ -198,6 +199,7 @@ class RoomsIndex extends Component{
 
   }
   render(){
+    console.log("dropzones", this.state.dropZones);
     if(this.props.rooms){
       return(
         <View >
@@ -273,6 +275,9 @@ let styles = StyleSheet.create({
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
         borderRadius        : CIRCLE_RADIUS
+    },
+    view :{
+      height: 100
     }
 });
 
