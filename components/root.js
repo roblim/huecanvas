@@ -22,6 +22,8 @@ export default class Root extends React.Component {
   }
 
   componentWillMount() {
+    this.showModal();
+    // AsyncStorage.clear();
     console.log(AsyncStorage.getItem("users"));
   }
 
@@ -56,10 +58,9 @@ export default class Root extends React.Component {
               backdropColor="rgb(255, 255, 255)"
 
               >
-              <Button onPress={this.hideModal}
-                title="close"
+              <DiscoverContainer hideModal={this.hideModal}
+                                  navigate={navigate}
                 />
-              <DiscoverContainer />
               </Modal>
 
   			</View>

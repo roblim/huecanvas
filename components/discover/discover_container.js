@@ -5,9 +5,11 @@ import { fetchBridges, fetchLights, createUser, setUser } from "../../actions/di
 const mapStateToProps = (state) => {
   let bridge = state.admin.bridge;
   let user = state.admin.user;
+  let lights = !!state.entities.lights;
     return {
       bridge,
-      user
+      user,
+      lights
       // lights: Object.keys(state.entities.lights).map((id) => state.entitieslights[id])
     }
 
