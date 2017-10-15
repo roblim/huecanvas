@@ -10,7 +10,7 @@ class SceneIndex extends React.Component {
     }
     this.setScene = this.setScene.bind(this);
     this.renderItem = this.renderItem.bind(this);
-
+    this.displayScene = this.displayScene.bind(this);
     console.log(count+= 1);
     console.log(props);
   }
@@ -19,10 +19,15 @@ class SceneIndex extends React.Component {
     this.props.fetchScenes();
   }
 
+  displayScene(scene) {
+    this.setState({currentScene: scene})
+  }
+
   renderItem(scene) {
     return (
       <SceneIndexItem item={scene}
-                      setScene={this.setScene}
+                      setScene={this.props.setScene}
+                      displayScene={this.displayScene}
                       fetchScene={this.props.fetchScene}
                       />
     )
@@ -37,13 +42,13 @@ class SceneIndex extends React.Component {
     return (
       <View>
               <Text style={{backgroundColor:"maroon", color: "white"}}>Scenes</Text>
+              <Text style={{fontSize: 20, color: "white", backgroundColor: "maroon", marginBottom: 100}}>
+                Current Scene: {this.state.currentScene}
+              </Text>
         <FlatList
           data={this.props.scenes}
           renderItem={this.renderItem}
           />
-        <Text style={{fontSize: 20, color: "white", backgroundColor: "maroon", marginBottom: 100}}>
-          Current Scene: {this.state.currentScene}
-        </Text>
 
       </ View>
 
