@@ -41,12 +41,11 @@ class SceneFooter extends React.Component {
             backdropColor="rgb(255, 255, 255)"
 
             >
-            <Button
-              onPress={() => this.hideModal()}
-              title="close"
-              />
             <Text>ScenesFooter</Text>
-            <SceneIndexContainer />
+            
+            <SceneIndexContainer
+              hideModal={this.hideModal}
+              />
             </ Modal>
             <Button onPress={() => this.openModal()}
               title="scenes"
