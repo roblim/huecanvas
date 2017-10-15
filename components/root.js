@@ -45,7 +45,6 @@ export default class Root extends React.Component {
       <View>
   			<View style={{flex: 1}}>
   				<Text>This is the root page</Text>
-            <SceneFooter />
             <Modal
               style={{
                 flex: 1,
@@ -78,10 +77,6 @@ export default class Root extends React.Component {
             onPress={() => navigate('roomsEdit')}
             title="Navigate to RoomsNew"
           />
-          <Button
-            onPress={() => navigate('roomTemp')}
-            title="Navigate to RoomTemp"
-          />
       </View>
       <View>
         <Button
@@ -90,6 +85,7 @@ export default class Root extends React.Component {
         />
     </View>
     <LightIndexContainer />
+    <SceneFooter />
     </View>
     );
   }

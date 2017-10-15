@@ -13,8 +13,7 @@ const TabNavigator = StackNavigator({
 	roomsNew: {screen: RoomFormContainer},
   home: {screen: Root},
   roomsEdit: {screen: RoomFormContainer},
-	roomsIndex: {screen: RoomsIndexContainer},
-	roomTemp: {screen: RoomTemp}
+	roomsIndex: {screen: RoomsIndexContainer}
 }, {
   navigationOptions: {
     headerTintColor: 'white',
