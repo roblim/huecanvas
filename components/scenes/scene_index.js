@@ -41,8 +41,8 @@ class SceneIndex extends React.Component {
   render() {
     return (
       <View>
-              <Text style={{backgroundColor:"rgba(33, 33, 33, .4)", color: "white"}}>Scenes</Text>
-              <Text style={{fontSize: 20, color: "white", backgroundColor: "rgba(33, 33, 33, .4)"}}>
+              <Text style={{backgroundColor:"rgba(255, 255, 255, .4)", color: "black"}}>Scenes</Text>
+              <Text style={{fontSize: 20, color: "black", backgroundColor: "rgba(255, 255, 255, .4)"}}>
                 Current Scene: {this.state.currentScene}
               </Text>
         <FlatList
@@ -52,7 +52,7 @@ class SceneIndex extends React.Component {
           />
 
         <Button
-          color= "white"
+          color= "black"
           title="close"
           onPress={() => this.props.hideModal("index")}
           />

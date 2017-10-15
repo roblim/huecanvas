@@ -35,6 +35,11 @@ class SceneForm extends React.Component {
             this.props.hideModal("create")}
         }
         />
+        <Button
+          color= "black"
+          title="close"
+          onPress={() => this.props.hideModal("create")}
+          />
     </View>
     )
   }

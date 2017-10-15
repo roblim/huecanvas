@@ -40,7 +40,7 @@ class SceneFooter extends React.Component {
         <View>
           <Modal
             style={{
-              backgroundColor: "rgba(33, 33, 33, .4)"
+              backgroundColor: "rgba(255, 255, 255, .4)"
 
             }}
             isVisible={this.state.IndexModalIsOpen}

@@ -14,7 +14,7 @@ class SceneIndexItem extends React.Component {
     return (
 
       <View style={{backgroundColor: "transparent", marginBottom: 10, padding: 10}}>
-      <Button color="rgb(255, 255, 255)"
+      <Button color="black"
               title={scene.name}
               onPress={() => {
                 this.props.fetchScene(this.id)
