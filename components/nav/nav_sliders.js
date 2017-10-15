@@ -4,7 +4,6 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 export default class NavSliders extends React.Component {
 
 	render() {
-		console.log("TEEEEEEEEEESSSSSSSSSSSSSTTTTTTTTTTTTTTT");
 		return (<Text style={styles.test}>TEST</Text>)
 	}
 

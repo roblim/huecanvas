@@ -11,7 +11,6 @@ const assignId = (room, entities) => {
 
 	if (Object.keys(entities.rooms).length !== 0) {
 		let maxId= Object.keys(entities.rooms).reduce((a, b) => {
-			console.log(a, b);
 			return (Math.max(a, b))
 		})
 		room["id"] = maxId + 1
@@ -23,7 +22,6 @@ const assignId = (room, entities) => {
 
 const mapStateToProps = (state, ownProps) => {
 	let room = { name: "" }
-	console.log(state.entities);
 	// room = assignId(room, state.entities)
 	let shouldRender = false;
 	if (ownProps.navigation.state.routeName === "RoomNew") {

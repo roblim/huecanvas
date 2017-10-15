@@ -18,7 +18,6 @@ class LightIndex extends React.Component {
     super(props)
 		this.state = { color: toHsv('green') }
 		this.onColorChange = this.onColorChange.bind(this)
-		console.log("lights", props);
   }
 
 	onColorChange(color) {

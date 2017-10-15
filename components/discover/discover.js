@@ -15,23 +15,23 @@ class Discover extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchBridges();
+    this.props.fetchBridges()
+      AsyncStorage.getItem("users").then((users) => {
+        users = JSON.parse(users);
+        if (!!Object.keys(users)[0]) {
+          users = Object.keys(users).map((user) => this.props.bridge.user(user))
+          console.log("users(array)", users[1].getLights());
+          this.props.fetchLights(users[1])
+
+        } else {
+          console.log("still false");
+        }
+      })
+
+    };
 
 
-    AsyncStorage.getItem("users").then((users) => {
-      users = JSON.parse(users);
-
-      if (!!Object.keys(users)[0]) {
-        users = Object.keys(users).map((user) => this.props.bridge.user(user))
-        this.props.fetchLights(users[0])
-      } else {
-        console.log("still false");
-      }
-    })
-
-    console.log(this.state);
     // this.props.createUser();
-  }
   // componentDidMount() {
   //   if (this.state.validDevice) {
   //     this.props.fetchLights(this.state.user);
@@ -78,7 +78,7 @@ class Discover extends React.Component {
         {() => bridgeFound()}
       {() => creatingUser()}
 
-      <Button title={"authenticate!"}
+      <Button title={"createUser"}
               onPress={() => this.props.createUser(this.props.bridge)}
         />
       <Button title={"getLights"}
