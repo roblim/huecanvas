@@ -6,13 +6,10 @@ class SceneIndexItem extends React.Component {
   constructor(props) {
     super(props);
     this.id = Object.keys(props.item.item)[0];
-    console.log(this.id);
-    console.log("props", props);
   }
 
 
   render() {
-    console.log(this.id);
     const scene = this.props.item.item[this.id];
     return (
 

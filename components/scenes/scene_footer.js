@@ -3,26 +3,35 @@ import { View, Text, Button, StyleSheet } from "react-native";
 import SceneIndex from "./scene_index";
 import Modal from "react-native-modal";
 import SceneIndexContainer from "./scene_index_container";
+import SceneFormContainer from "./scene_form_container";
 
 class SceneFooter extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      modalIsOpen: false
+      IndexModalIsOpen: false,
+      CreateModalIsOpen: false
     }
 
     this.openModal = this.openModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
   }
 
-  hideModal() {
-    this.setState({modalIsOpen: false})
+  hideModal(type) {
+    if (type === "index") {
+      this.setState({IndexModalIsOpen: false})
+    } else {
+      this.setState({CreateModalIsOpen: false})
+    }
   }
 
-  openModal() {
-    console.log("heard");
-    this.setState({modalIsOpen: true})
+  openModal(type) {
+    if (type === "index") {
+      this.setState({IndexModalIsOpen: true})
+    } else {
+      this.setState({CreateModalIsOpen: true})
+    }
   }
 
   render() {
@@ -37,18 +46,40 @@ class SceneFooter extends React.Component {
               backgroundColor: "white"
 
             }}
-            isVisible={this.state.modalIsOpen}
+            isVisible={this.state.IndexModalIsOpen}
             backdropColor="rgb(255, 255, 255)"
 
             >
             <Text>ScenesFooter</Text>
-            
+
             <SceneIndexContainer
               hideModal={this.hideModal}
               />
             </ Modal>
-            <Button onPress={() => this.openModal()}
+          <Modal
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              margin: "auto",
+              backgroundColor: "white"
+
+            }}
+            isVisible={this.state.CreateModalIsOpen}
+            backdropColor="rgb(255, 255, 255)"
+
+            >
+            <Text>Create Scene</Text>
+
+            <SceneFormContainer
+              hideModal={this.hideModal}
+              />
+            </ Modal>
+            <Button onPress={() => this.openModal("index")}
               title="scenes"
+
+              />
+            <Button onPress={() => this.openModal("create")}
+              title="create scene"
 
               />
 

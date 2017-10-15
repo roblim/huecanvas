@@ -48,7 +48,7 @@ class SceneIndex extends React.Component {
               <Button
                 style={{backgroundColor: "pink"}}
                 title="close"
-                onPress={() => this.props.hideModal()}
+                onPress={() => this.props.hideModal("index")}
                 />
         <FlatList
           data={this.props.scenes}

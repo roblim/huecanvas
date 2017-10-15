@@ -11,12 +11,14 @@ import { ColorPicker,
 			   toHsv,
 			   fromHsv } from 'react-native-color-picker';
 import PanResponderExample from './panner';
+import SceneFooter from "../scenes/scene_footer";
 
 class LightIndex extends React.Component {
   constructor(props) {
     super(props)
 		this.state = { color: toHsv('green') }
 		this.onColorChange = this.onColorChange.bind(this)
+		console.log("lights", props);
   }
 
 	onColorChange(color) {
@@ -43,6 +45,7 @@ class LightIndex extends React.Component {
 					)
 				)}
 				</View>
+				<SceneFooter lights={this.props.lights}/>
 		</View>
     )
   }
