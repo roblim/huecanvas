@@ -7,6 +7,7 @@ import { Text,
 			   Modal,
 			   PanResponder} from 'react-native';
 import { xyToRGB } from '../../util/lights_util';
+import { getRGBFromXYAndBrightness } from '../../util/color';
 import LightFormContainer from './light_form_container';
 import PanResponderExample from './panner';
 import { ColorPicker,
@@ -25,15 +26,15 @@ class LightIndexItem extends React.Component {
 
 	constructor(props) {
     super(props)
-
-		this.lightColor = xyToRGB(this.props.light.state.xy, this.props.light.state.bri);
-		this.lightColorRGB = 	`rgb(${this.lightColor.red},
-																${this.lightColor.green},
-																${this.lightColor.blue})`;
-
-
 		this.user = this.props.user;
 		this.light = this.props.light;
+
+		this.lightColor = getRGBFromXYAndBrightness(this.light.state.xy[0], this.light.state.xy[1], this.light.state.bri, this.light.modelId);
+		this.lightColorRGB = 	`rgb(${this.lightColor[0]},
+																${this.lightColor[1]},
+																${this.lightColor[2]})`;
+
+
 
 		this.state = {
 			modalVisible: false,
@@ -89,25 +90,25 @@ class LightIndexItem extends React.Component {
 	}
 
 	onColorChange(color) {
-    this.setState({ color });
 		let rgbObject = this.hexToRgbA(fromHsv(color)).rgbObject;
 
 		let delta = new Date().getTime() - this.state.lastCall;
 		if (delta >= 120) {
-			this.changeColor(this.user, this.light.lightId, rgbObject)
+			this.setState({ color });
+			this.changeColor(this.user, this.light, rgbObject)
 			this.setState({ lastCall: new Date().getTime() });
 		}
 	}
 
 	onColorSelected(color) {
 		this.setState({ oldColor: this.hexToRgbA(color).rgbaString});
-		this.changeColor(this.user, this.light.lightId, this.hexToRgbA(color).rgbObject);
+		this.changeColor(this.user, this.light, this.hexToRgbA(color).rgbObject);
 		this.setModalVisible(false);
 	}
 
 	onOldColorSelected(color) {
 		this.setState({ color: toHsv(color) })
-		this.changeColor(this.user, this.light.lightId, this.hexToRgbA(color).rgbObject);
+		this.changeColor(this.user, this.light, this.hexToRgbA(color).rgbObject);
 		this.setModalVisible(false);
 	}
 
@@ -167,26 +168,21 @@ class LightIndexItem extends React.Component {
 	            this.circle = circle;
 	          }}
 						{...this._panResponder.panHandlers}
-						style={lightColor(light).container} >
+						style={lightColor(light).container}>
 
 						<TouchableHighlight
 							style={lightColor(light).container}
 							onLongPress={() => this.setModalVisible(true)}
 							onPress={this.onPress(user, light.lightId)}>
 								<View style={lightColor(light).container}>
-									<View style={{
-																backgroundColor: 'grey',
-																borderRadius: 10
+									<Text style={{
+																color: 'white',
+																fontSize: 16,
+																fontWeight: 'bold',
+																textAlign: 'center',
 															}}>
-										<Text style={{
-																	color: 'white',
-																	fontSize: 16,
-																	fontWeight: 'bold',
-																	textAlign: 'center',
-																}}>
-											{this.props.light.name}
-										</Text>
-									</View>
+										{this.props.light.name}
+									</Text>
 								</View>
 						</TouchableHighlight>
 
@@ -215,7 +211,6 @@ class LightIndexItem extends React.Component {
 										onColorChange={this.onColorChange.bind(this)}
 										onColorSelected={this.onColorSelected.bind(this)}
 										onOldColorSelected={this.onOldColorSelected.bind(this)}
-										hideSliders={true}
 										style={{flex: 1}}
 									/>
 								</View>
@@ -289,10 +284,11 @@ class LightIndexItem extends React.Component {
 }
 
 const lightColor = (light) => {
-	let rgb = xyToRGB(light.state.xy, light.state.bri);
-	let { red } = rgb;
-	let { green } = rgb;
-	let { blue } = rgb;
+	// let rgb = xyToRGB(light.state.xy, light.state.bri);
+	let rgb = getRGBFromXYAndBrightness(light.state.xy[0], light.state.xy[1], light.state.bri, light.modelId);
+	let red  = rgb[0];
+	let green  = rgb[1];
+	let blue  = rgb[2];
 
 	return(
 		StyleSheet.create({

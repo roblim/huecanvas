@@ -1,4 +1,5 @@
 import jsHue from 'jshue';
+import { rgbToCIE1931, getRGBFromXYAndBrightness } from './color';
 
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
@@ -87,7 +88,6 @@ export const setAllLightsOn = (user) => {
   )
 };
 
-
 export const rgbToXY = (rgbObject) => {
   let red = rgbObject.red / 255.0;
   let green = rgbObject.green / 255.0;
@@ -172,13 +172,14 @@ else if (b > r && b > g) {
   return { red: r * 255, green: g * 255, blue: b * 255 }
 };
 
-export const setLightColor = (user, lightId, rgbObject) => {
-  let xY = rgbToXY(rgbObject);
+export const setLightColor = (user, light, rgbObject) => {
+  let xY = rgbToCIE1931(rgbObject.red / 255.0, rgbObject.green / 255.0, rgbObject.blue / 255.0, light.modelid);
   return user.setLightState(
-    lightId,
+    light.lightId,
     {
-      bri: Math.round(xY.bri * 255),
-      xy: [xY.x, xY.y],
+      bri: 255,
+      xy: [xY[0], xY[1]],
+      // bri: Math.round(xY[2] * 255),
       // transitiontime: 0
     }
   )
