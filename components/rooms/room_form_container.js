@@ -8,7 +8,7 @@ import RoomForm from './room_form';
 // import { withRouter } from 'react-router-dom';
 
 const assignId = (room, entities) => {
-	
+
 	if (Object.keys(entities.rooms).length !== 0) {
 		let maxId= Object.keys(entities.rooms).reduce((a, b) => {
 			console.log(a, b);

@@ -9,6 +9,10 @@ import { Text,
 import { xyToRGB } from '../../util/lights_util';
 import LightFormContainer from './light_form_container';
 import PanResponderExample from './panner';
+import { ColorPicker,
+				 TriangleColorPicker,
+			   toHsv,
+			   fromHsv } from 'react-native-color-picker';
 
 const CIRCLE_HIGHLIGHT_COLOR = "grey";
 
@@ -19,17 +23,26 @@ class LightIndexItem extends React.Component {
 	_circleStyles = {};
 	circle = null;
 
+
+
 	constructor(props) {
     super(props)
 
 		this.lightColor = xyToRGB(this.props.light.state.xy, this.props.light.state.bri);
-		this.lightColorRGB = `rgba(${this.lightColor.red},
-			 												${this.lightColor.green},
-															${this.lightColor.blue},
-															0.3)`;
+		this.lightColorRGB = 	`rgb(${this.lightColor.red},
+																${this.lightColor.green},
+																${this.lightColor.blue})`;
+
+
+		this.user = this.props.user;
+		this.light = this.props.light;
 
 		this.state = {
 			modalVisible: false,
+			oldColor: this.lightColorRGB,
+			color: toHsv(this.lightColorRGB),
+			lastPress: 0,
+			lastCall: 0,
 			numberActiveTouches: 0,
       moveX: 0,
       moveY: 0,
@@ -39,7 +52,9 @@ class LightIndexItem extends React.Component {
       dy: 0,
       vx: 0,
       vy: 0
-		}
+		};
+
+		this.onColorChange = this.onColorChange.bind(this);
 
 		this.blinkLight = this.props.blinkLight.bind(this);
 		this.turnLightOn = this.props.turnLightOn.bind(this);
@@ -52,7 +67,51 @@ class LightIndexItem extends React.Component {
 		this.changeColor = this.props.changeColor.bind(this);
 		this.changeTemperature = this.props.changeTemperature.bind(this);
 		this.updateLightName = this.props.updateLightName.bind(this);
+		this.changeBrightnessAll = this.props.changeBrightnessAll.bind(this);
   }
+
+	hexToRgbA(hex, alpha = 1) {
+    let c;
+    if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+        c = hex.substring(1).split('');
+        if(c.length== 3){
+            c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+        }
+        c = '0x'+c.join('');
+        return(
+					{ rgbaString: 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+  `, ${alpha})`,
+						rgbObject: {
+												red: (c>>16)&255,
+												green: (c>>8)&255,
+												blue: c&255
+											 }
+					}
+				)
+    }
+	}
+
+	onColorChange(color) {
+    this.setState({ color });
+		let rgbObject = this.hexToRgbA(fromHsv(color)).rgbObject;
+
+		let delta = new Date().getTime() - this.state.lastCall;
+		if (delta >= 150) {
+			this.changeColor(this.user, this.light.lightId, rgbObject)
+			this.setState({ lastCall: new Date().getTime() });
+		}
+	}
+
+	onColorSelected(color) {
+		this.setState({ oldColor: this.hexToRgbA(color).rgbaString});
+		this.changeColor(this.user, this.light.lightId, this.hexToRgbA(color).rgbObject);
+		this.setModalVisible(false);
+	}
+
+	onOldColorSelected(color) {
+		this.setState({ color: toHsv(color) })
+		this.changeColor(this.user, this.light.lightId, this.hexToRgbA(color).rgbObject);
+		this.setModalVisible(false);
+	}
 
 	setModalVisible(visible) {
 			this.setState({modalVisible: visible});
@@ -62,6 +121,22 @@ class LightIndexItem extends React.Component {
 			return(
 				<LightFormContainer light={this.props.light} />
 			)
+	}
+
+	onPress(user, lightId) {
+		return (
+			() => {
+				let delta = new Date().getTime() - this.state.lastPress;
+
+				if (delta < 200) {
+					console.log('double tap!')
+				} else {
+					console.log('blink');
+					this.blinkLight(user, lightId);
+				}
+				this.setState({ lastPress: new Date().getTime() });
+			}
+		);
 	}
 
 	componentWillMount() {
@@ -74,7 +149,7 @@ class LightIndexItem extends React.Component {
 			onPanResponderTerminate: this._handlePanResponderEnd
 		});
 		this._previousLeft = 20;
-		this._previousTop = 84;
+		this._previousTop = 100;
 		this._circleStyles = {
 			style: { left: this._previousLeft, top: this._previousTop }
 		};
@@ -83,8 +158,6 @@ class LightIndexItem extends React.Component {
 	componentDidMount() {
 		this._updatePosition();
 	}
-
-	// onLongPress={() => this.setModalVisible(true)}
 
   render() {
     const { user } = this.props;
@@ -96,12 +169,12 @@ class LightIndexItem extends React.Component {
 	            this.circle = circle;
 	          }}
 						{...this._panResponder.panHandlers}
-						style={lightColor(light).container}
-		        onPress={() => this.blinkLight(user, light.lightId)}>
+						style={lightColor(light).container} >
 
 						<TouchableHighlight
 							style={lightColor(light).container}
-							onPress={() => this.blinkLight(user, light.lightId)}>
+							onLongPress={() => this.setModalVisible(true)}
+							onPress={this.onPress(user, light.lightId)}>
 								<View style={lightColor(light).container}>
 									<Text style={{
 																color: '#98a4ba',
@@ -126,24 +199,40 @@ class LightIndexItem extends React.Component {
 		          >
 		         <View style={styles.modalContainer}>
 		         	<View style={styles.modalContent}>
-								{this.form()}
-		            <TouchableHighlight onPress={() => {
-		              this.setModalVisible(!this.state.modalVisible)
-		            }}>
-		              <Text>Hide Modal</Text>
-		            </TouchableHighlight>
+								<View style={{flex: 1, padding: 15, backgroundColor: '#212021'}}>
+									<Text style={{color: 'white',
+																fontSize: 40,
+																fontWeight: 'bold',
+																marginTop: 20,
+																marginLeft: 30
+															}}>{this.light.name}</Text>
+									<TriangleColorPicker
+										oldColor={this.state.oldColor}
+										color={this.state.color}
+										onColorChange={this.onColorChange.bind(this)}
+										onColorSelected={this.onColorSelected.bind(this)}
+										onOldColorSelected={this.onOldColorSelected.bind(this)}
+										hideSliders={true}
+										style={{flex: 1}}
+									/>
+								</View>
+
 		          </View>
 		         </View>
 		        </Modal>
 	      	</View>
+
 			</View>
     )
   }
 
+
+
+
 	_highlight = () => {
 		this.circle &&
 			this.circle.setNativeProps({
-				style: { backgroundColor: CIRCLE_HIGHLIGHT_COLOR }
+				style: { backgroundColor: {CIRCLE_HIGHLIGHT_COLOR} }
 			});
 	};
 
@@ -211,7 +300,7 @@ const lightColor = (light) => {
 				justifyContent: 'center',
 				flexWrap: 'wrap',
 				alignItems: 'center',
-				backgroundColor: `rgba(${red}, ${green}, ${blue}, 0.3)`,
+				backgroundColor: `rgb(${red}, ${green}, ${blue})`,
 				width: 110,
 				height: 110,
 				borderRadius: 55,
@@ -233,11 +322,10 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	modalContent: {
-		width: 200,
-		height: 100,
+		width: '100%',
+		height: '100%',
 		backgroundColor: 'white',
-		borderRadius: 5,
-		padding: 10
+		borderRadius: 5
 	},
 	wrapper: {
 		// flex: 1,
