@@ -22,10 +22,11 @@ class RoomsIndexItem extends Component{
       modal2Visible: false,
       pan: new Animated.ValueXY(),
       showDraggable: this.props.showDraggable,
-      dropZoneValues: null,
-      showLight: false
+      dropZoneValues: this.props.dropZoneValues,
+      showLight: false,
+      that: this
     };
-
+    console.log("that", this.state.that);
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
       onPanResponderMove: Animated.event([null,{
@@ -57,7 +58,7 @@ class RoomsIndexItem extends Component{
 
 
   isDropZone(gesture){
-    const dz = this.props.dropZoneValues;
+    const dz = this.state.dropZoneValues;
     return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
   render(){
@@ -65,8 +66,7 @@ class RoomsIndexItem extends Component{
     const lights = this.props.lights;
     const rooms = this.props.rooms;
     return(
-      <View>
-        <View>
+        <Animated.View {...this.panResponder.panHandlers} style={this.state.pan.getLayout()}>
           <Modal
                 animationType="slide"
                 transparent={false}
@@ -93,25 +93,31 @@ class RoomsIndexItem extends Component{
              >
          <View >
            <View>
-             <RoomFormContainer rooms={rooms} room={room}/>
+             <RoomFormContainer rooms={rooms} room={room} that={this.state.that}/>
+             <TouchableHighlight onPress={() => {
+               this.setModal2Visible(!this.state.modal2Visible)
+               }}>
+               <Text>Back</Text>
+             </TouchableHighlight>
+
            </View>
          </View>
        </Modal>
+         <TouchableHighlight onPress={() => {
+           this.setModalVisible(true);
+         }}
+         onLongPress={() => {
+           this.setModal2Visible(true);
+         }}
 
-       <TouchableHighlight onPress={() => {
-         this.setModalVisible(true);
-       }}
-       onLongPress={() => {
-         this.setModal2Visible(true);
-       }}
+         >
+           <Text>{room.name}</Text>
+         </TouchableHighlight>
 
-       >
-         <Text>{room.name}</Text>
-       </TouchableHighlight>
 
-     </View>
 
-      </View>
+     </Animated.View>
+
     );
   }
 }
@@ -127,4 +133,9 @@ const styles = StyleSheet.create({
   text:{
     color: 'white'
   },
+  index:{
+    backgroundColor: '#d15c94',
+    width: 100,
+    height: 75
+  }
 });
