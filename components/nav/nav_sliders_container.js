@@ -4,7 +4,8 @@ import NavSliders from './nav_sliders';
 import { fetchLights } from '../../actions/discover_actions';
 import {
 	turnAllLightsOff,
-	turnAllLightsOn
+	turnAllLightsOn,
+	changeBrightnessAll
 } from '../../actions/light_actions';
 import { Switch } from 'react-native';
 
@@ -15,11 +16,14 @@ const mapStateToProps = (state, ownProps) => ({
 	eventSwitchRegressionIsOn: true
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => {
+	return {
   fetchLights: () => dispatch(fetchLights()),
-	turnAllLightsOn: user => dispatch(turnAllLightsOn()),
-	turnAllLightsOff: user => dispatch(turnAllLightsOff())
-});
+	changeBrightnessAll: (user, int) => dispatch(changeBrightnessAll(user, int)),
+	turnAllLightsOn: user => dispatch(turnAllLightsOn(user)),
+	turnAllLightsOff: user => dispatch(turnAllLightsOff(user))
+	}
+};
 
 const NavSlidersContainer = connect(
   mapStateToProps,

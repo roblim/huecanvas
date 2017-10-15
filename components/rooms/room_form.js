@@ -38,12 +38,6 @@ export default class RoomForm extends React.Component {
     this.setState(newProps.room)
   }
 
-  assignId = () => {
-
-
-  }
-
-
   update(field) {
 		return (e) => {
       return this.setState({room: {id: this.state.room.id, [field]: e.nativeEvent.text}, errors: ""})
