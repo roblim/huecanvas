@@ -42,6 +42,7 @@ class LightIndexItem extends React.Component {
 			oldColor: this.lightColorRGB,
 			color: toHsv(this.lightColorRGB),
 			lastPress: 0,
+			lastCall: 0,
 			numberActiveTouches: 0,
       moveX: 0,
       moveY: 0,
@@ -66,6 +67,7 @@ class LightIndexItem extends React.Component {
 		this.changeColor = this.props.changeColor.bind(this);
 		this.changeTemperature = this.props.changeTemperature.bind(this);
 		this.updateLightName = this.props.updateLightName.bind(this);
+		this.changeBrightnessAll = this.props.changeBrightnessAll.bind(this);
   }
 
 	hexToRgbA(hex, alpha = 1) {
@@ -89,18 +91,26 @@ class LightIndexItem extends React.Component {
 	}
 
 	onColorChange(color) {
-	    this.setState({ color });
-			let rgbObject = this.hexToRgbA(fromHsv(color)).rgbObject;
-			let time = new Date().getTime();
-			if (time % 5 === 0) {
-				this.changeColor(this.user, this.light.lightId, rgbObject)
-			}
-	  }
+    this.setState({ color });
+		let rgbObject = this.hexToRgbA(fromHsv(color)).rgbObject;
+
+		let delta = new Date().getTime() - this.state.lastCall;
+		if (delta >= 150) {
+			this.changeColor(this.user, this.light.lightId, rgbObject)
+			this.setState({ lastCall: new Date().getTime() });
+		}
+	}
 
 	onColorSelected(color) {
-		this.setModalVisible(false);
 		this.setState({ oldColor: this.hexToRgbA(color).rgbaString});
 		this.changeColor(this.user, this.light.lightId, this.hexToRgbA(color).rgbObject);
+		this.setModalVisible(false);
+	}
+
+	onOldColorSelected(color) {
+		this.setState({ color: toHsv(color) })
+		this.changeColor(this.user, this.light.lightId, this.hexToRgbA(color).rgbObject);
+		this.setModalVisible(false);
 	}
 
 	setModalVisible(visible) {
@@ -122,7 +132,7 @@ class LightIndexItem extends React.Component {
 					console.log('double tap!')
 				} else {
 					console.log('blink');
-					this.blinkLight(user, lightId);
+					this.changeBrightnessAll(user, 255);
 				}
 				this.setState({ lastPress: new Date().getTime() });
 			}
@@ -139,7 +149,7 @@ class LightIndexItem extends React.Component {
 			onPanResponderTerminate: this._handlePanResponderEnd
 		});
 		this._previousLeft = 20;
-		this._previousTop = 84;
+		this._previousTop = 100;
 		this._circleStyles = {
 			style: { left: this._previousLeft, top: this._previousTop }
 		};
@@ -190,28 +200,28 @@ class LightIndexItem extends React.Component {
 		         <View style={styles.modalContainer}>
 		         	<View style={styles.modalContent}>
 								<View style={{flex: 1, padding: 15, backgroundColor: '#212021'}}>
-									<Text style={{color: 'white'}}>React Native Color Picker - Controlled</Text>
-									<ColorPicker
+									<Text style={{color: 'white',
+																fontSize: 40,
+																fontWeight: 'bold',
+																marginTop: 20,
+																marginLeft: 30
+															}}>{this.light.name}</Text>
+									<TriangleColorPicker
 										oldColor={this.state.oldColor}
 										color={this.state.color}
-										onColorChange={this.onColorChange}
+										onColorChange={this.onColorChange.bind(this)}
 										onColorSelected={this.onColorSelected.bind(this)}
-										onOldColorSelected={color => alert(`Old color selected: ${color}`)}
+										onOldColorSelected={this.onOldColorSelected.bind(this)}
+										hideSliders={true}
 										style={{flex: 1}}
 									/>
 								</View>
 
-
-
-		            <TouchableHighlight onPress={() => {
-		              this.setModalVisible(!this.state.modalVisible)
-		            }}>
-		              <Text>Hide Modal</Text>
-		            </TouchableHighlight>
 		          </View>
 		         </View>
 		        </Modal>
 	      	</View>
+
 			</View>
     )
   }
@@ -290,7 +300,7 @@ const lightColor = (light) => {
 				justifyContent: 'center',
 				flexWrap: 'wrap',
 				alignItems: 'center',
-				backgroundColor: `rgba(${red}, ${green}, ${blue}, 0.3)`,
+				backgroundColor: `rgb(${red}, ${green}, ${blue})`,
 				width: 110,
 				height: 110,
 				borderRadius: 55,

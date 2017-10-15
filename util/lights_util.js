@@ -12,7 +12,7 @@ export const blinkLight = (user, lightId) => {
   return user.setLightState(
     lightId,
     { alert: 'select'}
-  )
+  ).then(data => console.log(data), err => console.log(err));
 };
 
 export const setLightOff = (user, lightId) => {
@@ -36,6 +36,15 @@ export const setLightOn = (user, lightId) => {
 export const setBri = (user, lightId, brightness) => {
   return user.setLightState(
     lightId,
+    {
+      bri: brightness
+    }
+  )
+};
+
+export const setBriAll = (user, brightness) => {
+  return user.setGroupState(
+    0,
     {
       bri: brightness
     }
@@ -144,7 +153,3 @@ export const setMiredTemperature = (user, lightId, temp) => {
 export const putLightName = (user, lightId, name) => {
   return user.setLight(lightId, { name });
 };
-
-export const fetchLights = () => {
-  return user.getLights()
-}

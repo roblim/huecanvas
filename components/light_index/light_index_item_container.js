@@ -3,6 +3,7 @@ import {
         turnLightOff,
         turnLightOn,
         changeBrightness,
+        changeBrightnessAll,
         increaseBrightness,
         decreaseBrightness,
         turnAllLightsOff,
@@ -63,6 +64,11 @@ const mapDispatchToProps = dispatch => ({
       user,
       lightId,
       name
+    )),
+  changeBrightnessAll: (user, brightness) =>
+    dispatch(changeBrightnessAll(
+      user,
+      brightness
     ))
 });
 
