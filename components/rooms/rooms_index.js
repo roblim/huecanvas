@@ -13,6 +13,7 @@ import RoomsIndexItem from './rooms_index_item';
 import { AsyncStorage } from 'react-native';
 import RoomFormContainer from './room_form_container';
 
+
 class RoomsIndex extends Component{
   constructor(props){
     super(props);
@@ -24,7 +25,8 @@ class RoomsIndex extends Component{
       dropZoneValuesLight: null,
       dropZoneValuesRoom: null,
       renderedLights: [],
-      renderedRooms: []
+      renderedRooms: [],
+      modalVisible: false
     };
 
     this.panResponderLight = PanResponder.create({
@@ -79,6 +81,11 @@ class RoomsIndex extends Component{
     this.props.fetchLights();
   }
 
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
+
+
   isLightDropZone(gesture){
     const dz = this.state.dropZoneValuesLight;
     return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
@@ -102,10 +109,10 @@ class RoomsIndex extends Component{
   }
 
   renderCreateRoom(){
-    const { navigate } = this.props.navigation;
+    const rooms = this.props.rooms;
     return(
       <View>
-        <Button onPress={() => navigate('roomsNew')}
+        <Button onPress={() => this.setModalVisible(true)}
               title="Create New Room"
         />
       </View>
@@ -120,10 +127,9 @@ class RoomsIndex extends Component{
     );
   }
 
-  renderRooms(){
+  renderRooms(dropZoneValues){
     if (!this.props.rooms) { return null; }
 
-    const { navigate } = this.props.navigation;
     const rooms = this.props.rooms;
     const lights = this.props.lights;
     if(this.state.showDraggableRoom){
@@ -131,14 +137,18 @@ class RoomsIndex extends Component{
         <View onLayout={this.setLightDropZoneValues.bind(this)} >
           {
             Object.values(rooms).map(room =>(
+              <View>
+
                   <RoomsIndexItem
                     room={room}
                     rooms={rooms}
                     lights={lights}
                     showDraggable={this.state.showDraggableRoom}
-                    dropZoneValues = {this.state.dropZoneValuesRoom}
+                    dropZoneValues = {dropZoneValues}
                     key={room.id}
                 />
+                <Text></Text>
+             </View>
             ))
           }
         </View>
@@ -189,13 +199,31 @@ class RoomsIndex extends Component{
   render(){
     if(this.props.rooms){
       return(
-        <View style={styles.mainContainer}>
+        <View >
+          <Modal
+                animationType="slide"
+                transparent={false}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {alert("Modal has been closed.")}}
+                >
+            <View >
+              <View>
+                <RoomFormContainer rooms={this.props.rooms} that={this.state.that}/>
+                <TouchableHighlight onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible)
+                  }}>
+                  <Text>Back</Text>
+                </TouchableHighlight>
+
+              </View>
+            </View>
+          </Modal>
           {this.renderDragArea()}
           {this.renderCreateRoom()}
-          {this.renderRooms()}
+          {this.renderRooms(this.state.dropZoneValuesRoom)}
           {this.renderLights()}
           <TouchableHighlight onPress={this.resetLights}>
-            <Text>Reset</Text>
+            <Text>Reset Lights</Text>
           </TouchableHighlight>
         </View>
 

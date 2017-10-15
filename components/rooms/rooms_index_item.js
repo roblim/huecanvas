@@ -8,6 +8,7 @@ import { StyleSheet,
          Animated,
          Dimensions,
          Modal,
+         TouchableWithoutFeedback,
          TouchableHighlight} from 'react-native';
 
 import RoomFormContainer from './room_form_container';
@@ -26,7 +27,6 @@ class RoomsIndexItem extends Component{
       showLight: false,
       that: this
     };
-    console.log("that", this.state.that);
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
       onPanResponderMove: Animated.event([null,{
@@ -58,67 +58,76 @@ class RoomsIndexItem extends Component{
 
 
   isDropZone(gesture){
-    const dz = this.state.dropZoneValues;
-    return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
+      const dz = this.props.dropZoneValues;
+      return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
   render(){
     const room = this.props.room;
     const lights = this.props.lights;
     const rooms = this.props.rooms;
-    return(
-        <Animated.View {...this.panResponder.panHandlers} style={this.state.pan.getLayout()}>
-          <Modal
-                animationType="slide"
-                transparent={false}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {alert("Modal has been closed.")}}
-                >
-            <View >
-              <View>
-                <LightIndexContainer room={room} />
-                <TouchableHighlight onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible)
-                  }}>
-                  <Text>Back</Text>
-                </TouchableHighlight>
+    if(this.state.showDraggable){
+      return(
+          <Animated.View {...this.panResponder.panHandlers}
+              style={[this.state.pan.getLayout(), styles.index]}>
+            <Modal
+                  animationType="slide"
+                  transparent={false}
+                  visible={this.state.modalVisible}
+                  onRequestClose={() => {alert("Modal has been closed.")}}
+                  >
+              <View >
+                <View>
+                  <LightIndexContainer room={room} />
+                  <TouchableHighlight onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible)
+                    }}>
+                    <Text>Back</Text>
+                  </TouchableHighlight>
 
+                </View>
               </View>
-            </View>
-          </Modal>
-       <Modal
-             animationType="slide"
-             transparent={false}
-             visible={this.state.modal2Visible}
-             onRequestClose={() => {alert("Modal has been closed.")}}
-             >
-         <View >
-           <View>
-             <RoomFormContainer rooms={rooms} room={room} that={this.state.that}/>
-             <TouchableHighlight onPress={() => {
-               this.setModal2Visible(!this.state.modal2Visible)
-               }}>
-               <Text>Back</Text>
-             </TouchableHighlight>
+            </Modal>
+         <Modal
+               animationType="slide"
+               transparent={false}
+               visible={this.state.modal2Visible}
+               onRequestClose={() => {alert("Modal has been closed.")}}
+               >
+           <View >
+             <View>
+               <RoomFormContainer rooms={rooms} room={room} that={this.state.that}/>
+               <TouchableHighlight onPress={() => {
+                 this.setModal2Visible(!this.state.modal2Visible)
+                 }}>
+                 <Text>Back</Text>
+               </TouchableHighlight>
 
+             </View>
            </View>
-         </View>
-       </Modal>
-         <TouchableHighlight onPress={() => {
-           this.setModalVisible(true);
-         }}
-         onLongPress={() => {
-           this.setModal2Visible(true);
-         }}
+         </Modal>
+           <TouchableWithoutFeedback onPress={() => {
+             this.setModalVisible(true);
+           }}
+           onLongPress={() => {
+             this.setModal2Visible(true);
+           }}
+           >
+             <View>
+               <Text>{room.name}</Text>
+             </View>
+           </TouchableWithoutFeedback>
 
-         >
-           <Text>{room.name}</Text>
-         </TouchableHighlight>
 
 
+       </Animated.View>
 
-     </Animated.View>
+      );
+    } else {
+      return(
+        <View></View>
+      );
+    }
 
-    );
   }
 }
 
@@ -137,5 +146,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#d15c94',
     width: 100,
     height: 75
-  }
+  },
 });
