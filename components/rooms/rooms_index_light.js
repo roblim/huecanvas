@@ -52,9 +52,12 @@ class RoomsIndexLight extends Component {
           );
 
       });
-      console.log("thisZone", thisZone);
+      const fixedDropZones = thisZone.forEach(dropZone =>{
+        dropZone.height = 100;
+      });
+      console.log(fixedDropZones);
       const last = thisZone.find(dropZone =>{
-        console.log("dropZoney",dropZone.y);
+        console.log("dropZone-y",dropZone.y);
         console.log("dropZoney+height", dropZone.y+dropZone.height);
         console.log("gesture.moveY", gesture.moveY);
         console.log();
@@ -66,7 +69,8 @@ class RoomsIndexLight extends Component {
       });
 
       console.log("last", last);
-      dz.height += 100;
+      dz.height += 200;
+      dz.y = 200;
       this.setState({
         dropZoneValues: dz
       });

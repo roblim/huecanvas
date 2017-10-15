@@ -140,7 +140,7 @@ class RoomsIndex extends Component{
         <View >
           {
             Object.values(rooms).map(room =>(
-              <View style={styles.view} onLayout={this.setLightDropZoneValues.bind(this)}>
+              <View style={styles.view} onLayout={this.setLightDropZoneValues.bind(this.props.that)}>
                   <RoomsIndexItem
                     room={room}
                     rooms={rooms}
@@ -228,6 +228,7 @@ class RoomsIndex extends Component{
     } else {
       return(
         <View style={styles.mainContainer}>
+          <Text>No Rooms</Text>
         </View>
       );
 

@@ -62,6 +62,7 @@ class RoomsIndexItem extends Component{
       return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
   render(){
+
     const room = this.props.room;
     const lights = this.props.lights;
     const rooms = this.props.rooms;
@@ -146,6 +147,6 @@ const styles = StyleSheet.create({
   index:{
     backgroundColor: '#d15c94',
     width: Window.width/3,
-    height: 100
+    height: Window.height/8
   },
 });
