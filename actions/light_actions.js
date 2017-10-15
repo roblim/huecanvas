@@ -113,8 +113,8 @@ export const changeColor = (user, lightId, rgbObject) => dispatch => (
     lightState => dispatch(receiveLightState(
       lightId,
       {
-        xy: Object.values(lightState[1].success)[0],
-        bri: Object.values(lightState[2].success)[0],
+        xy: Object.values(lightState[0].success)[0],
+        bri: Object.values(lightState[1].success)[0],
         colormode: 'xy'
       }
     )), error => console.log(error)

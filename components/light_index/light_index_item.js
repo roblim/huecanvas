@@ -23,8 +23,6 @@ class LightIndexItem extends React.Component {
 	_circleStyles = {};
 	circle = null;
 
-
-
 	constructor(props) {
     super(props)
 
@@ -95,7 +93,7 @@ class LightIndexItem extends React.Component {
 		let rgbObject = this.hexToRgbA(fromHsv(color)).rgbObject;
 
 		let delta = new Date().getTime() - this.state.lastCall;
-		if (delta >= 150) {
+		if (delta >= 120) {
 			this.changeColor(this.user, this.light.lightId, rgbObject)
 			this.setState({ lastCall: new Date().getTime() });
 		}
@@ -132,7 +130,7 @@ class LightIndexItem extends React.Component {
 					console.log('double tap!')
 				} else {
 					console.log('blink');
-					this.changeBrightnessAll(user, 255);
+					this.blinkLight(user, lightId);
 				}
 				this.setState({ lastPress: new Date().getTime() });
 			}
@@ -176,14 +174,19 @@ class LightIndexItem extends React.Component {
 							onLongPress={() => this.setModalVisible(true)}
 							onPress={this.onPress(user, light.lightId)}>
 								<View style={lightColor(light).container}>
-									<Text style={{
-																color: '#98a4ba',
-																fontSize: 16,
-																fontWeight: 'bold',
-																textAlign: 'center'
+									<View style={{
+																backgroundColor: 'grey',
+																borderRadius: 10
 															}}>
-										{this.props.light.name}
-									</Text>
+										<Text style={{
+																	color: 'white',
+																	fontSize: 16,
+																	fontWeight: 'bold',
+																	textAlign: 'center',
+																}}>
+											{this.props.light.name}
+										</Text>
+									</View>
 								</View>
 						</TouchableHighlight>
 
@@ -225,9 +228,6 @@ class LightIndexItem extends React.Component {
 			</View>
     )
   }
-
-
-
 
 	_highlight = () => {
 		this.circle &&
@@ -293,6 +293,7 @@ const lightColor = (light) => {
 	let { red } = rgb;
 	let { green } = rgb;
 	let { blue } = rgb;
+
 	return(
 		StyleSheet.create({
 			container: {
@@ -311,8 +312,6 @@ const lightColor = (light) => {
 		})
 	);
 };
-
-
 
 const styles = StyleSheet.create({
 	modalContainer: {
