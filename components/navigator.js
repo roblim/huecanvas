@@ -10,8 +10,6 @@ import RoomTemp from "./rooms/room_temp";
 const TabNavigator = StackNavigator({
 	home: {screen: Root},
 	roomsNew: {screen: RoomFormContainer},
-  home: {screen: Root},
-  roomsEdit: {screen: RoomFormContainer},
 	roomsIndex: {screen: RoomsIndexContainer},
 	roomTemp: {screen: RoomTemp}
 }, {

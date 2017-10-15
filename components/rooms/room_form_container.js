@@ -14,10 +14,9 @@ const assignId = (room, rooms) => {
 			console.log(a, b);
 			return (Math.max(a, b))
 		})
-		room["id"] = maxId + 1
-		return room;
+		return room["id"] = maxId + 1
 	} else {
-		room["id"] = 0
+		return room["id"] = 0
 	}
 }
 

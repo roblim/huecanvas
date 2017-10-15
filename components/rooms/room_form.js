@@ -6,12 +6,12 @@ import {
   StyleSheet,
   TouchableHighlight
 } from 'react-native';
-import { FormLabel, FormInput } from 'react-native-elements'
+import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 
 export default class RoomForm extends React.Component {
   constructor(props) {
 		super(props);
-		this.state = this.props.room;
+		this.state = {room: this.props.room, errors: ""};
 		this.handleSubmit = this.handleSubmit.bind(this);
     this.modal2Visible = this.props.modal2Visible
     this.that = this.props.that;
@@ -30,14 +30,13 @@ export default class RoomForm extends React.Component {
 
   update(field) {
 		return (e) => {
-      return this.setState({[field]: e.nativeEvent.text})
+      return this.setState({room: {[field]: e.nativeEvent.text}, errors: ""})
     }
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
-    console.log(this.state);
-		this.props.processForm(this.state)
+		this.props.processForm(this.state.room)
 		//.then(() => this.props.history.push('/rooms'));;
 	}
 
@@ -46,8 +45,7 @@ export default class RoomForm extends React.Component {
   }
 
   render() {
-    const name = this.state ? this.state.name : "";
-    // const { navigate } = this.props.navigation;
+    const name = this.state.room ? this.state.room.name : "";
     //if (this.props.shouldRender) {
       return(
         <View style={styles.container}>
@@ -60,11 +58,25 @@ export default class RoomForm extends React.Component {
               style={styles.input}
               placeholder="Name this room" />
 
-            <TouchableHighlight onPress={(e) => {
-                this.handleSubmit(e)
-                this.that.setModal2Visible(!this.modal2Visible);
+            <FormValidationMessage>
+              {this.state.errors}
+            </FormValidationMessage>
+
+            <TouchableHighlight style={styles.saveBtn} onPress={(e) => {
+                if (this.state.room.name !== "") {
+                  this.handleSubmit(e)
+                  if (this.that) {
+                    this.that.setModal2Visible(!this.modal2Visible);
+                  } else {
+                    const { navigate } = this.props.navigation;
+                    navigate('roomsIndex')
+                  }
+                } else {
+                  this.setState({errors: "This field is required"})
+                  console.log("updated", this.state);
+                }
                 }}>
-                <Text>Save</Text>
+                <Text style={styles.text}>Save</Text>
             </TouchableHighlight>
 
         </View>
@@ -80,7 +92,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#4286f4',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '50%'
+    width: '50%',
+    alignSelf: 'center',
+    marginTop: '50%'
   },
   input: {
     backgroundColor: 'white',
@@ -91,6 +105,15 @@ const styles = StyleSheet.create({
     width: 345
   },
   saveBtn: {
-    color: '#1ea52d',
+    backgroundColor: '#1ea52d',
+    padding: 15,
+    borderRadius: 5,
+    marginTop: 15,
+    marginBottom: 15
   },
+  text: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: '600'
+  }
 });
