@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchLights: () => {console.log("what");}
+  fetchLights: () => dispatch(fetchLights())
 });
 
 const LightIndexContainer = connect(

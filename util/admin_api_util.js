@@ -3,10 +3,11 @@ import jsHue from "jshue";
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
+const precitaIP = '10.0.0.31';
   const homeIP = '""'
 export const Hue = jsHue();
-export const Bridge = Hue.bridge(appAcademyIP);
-export const User = Bridge.user(appAcademyHue);
+export const Bridge = Hue.bridge(precitaIP);
+export const User = Bridge.user("PtOObSxmdrIP0lwZeL2jTtmAge2AFUMEF9Lu1ayy");
 
 export const discover = () => {
   return Hue.discover()

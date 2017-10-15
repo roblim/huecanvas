@@ -9,6 +9,8 @@ export const RECEIVE_USER = "RECEIVE_USER";
 
 let bridgeIP;
 
+
+
 export const fetchBridges = () => dispatch => {
   APIUtil.discover().then((bridges) => dispatch(receiveBridge(bridges[0].internalipaddress)))
 };
@@ -16,6 +18,7 @@ export const fetchBridges = () => dispatch => {
 
 export const createUser = (bridge) => dispatch => {
    APIUtil.createUser(bridge).then((data) => {
+     console.log(data);
      if (data[0].error) {
        dispatch(receiveUser(data[0].error))
      } else {
@@ -42,10 +45,9 @@ export const setUser = (bridge, user) => dispatch => {
   dispatch(receiveUser(userObj));
 }
 
-export const fetchLights = (user2) => dispatch => {
-  console.log(user2);
-  user2.getLights().then((lights) => {
-    console.log(lights);
+export const fetchLights = () => dispatch => {
+  APIUtil.User.getLights().then((lights) => {
+
     dispatch(receiveAllLights(lights)
   )})
 }
