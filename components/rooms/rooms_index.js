@@ -80,14 +80,11 @@ class RoomsIndex extends Component{
     this.setLightDropZoneValues = this.setLightDropZoneValues.bind(this);
 }
 
-
   componentWillMount(){
     this.props.fetchRooms();
     this.props.fetchLights();
 
   }
-
-
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
