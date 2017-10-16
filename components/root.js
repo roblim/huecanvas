@@ -8,7 +8,7 @@ import SceneIndexContainer from "./scenes/scene_index_container";
 import TestComponent from './light_index/test_component.js';
 import LightIndexContainer from './light_index/light_index_container';
 import * as APIUtil from '../util/rooms_api_util'
-
+import { AsyncStorage } from 'react-native';
 
 export default class Root extends React.Component {
   constructor(props) {
@@ -21,7 +21,6 @@ export default class Root extends React.Component {
   }
 
   componentDidMount() {
-    APIUtil.deleteRoom('undefined')
   }
 
   showModal() {

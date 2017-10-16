@@ -21,14 +21,16 @@ export default class RoomForm extends React.Component {
   componentWillMount() {
     if (!this.state.room.id) {
       this.props.fetchRooms().then(res => {
-        if (Object.keys(res.rooms).length !== 0) {
+        console.log(res.rooms);
+        if (res.rooms !== null) {
       		let maxId = Object.keys(res.rooms).reduce((a, b) => {
       			return (Math.max(a, b))
       		})
-          this.setState({room: {id: (maxId + 1)}})
+          this.setState({room: {id: (parseInt(maxId) + 1)}})
           console.log(this.state.room);
       	} else {
-      		return 0
+      		this.setState({room: {id: 0}})
+          console.log('hooray');
       	}
       })
     }
@@ -59,7 +61,6 @@ export default class RoomForm extends React.Component {
     //if (this.props.shouldRender) {
       return(
         <View style={styles.container}>
-
             <FormInput
               onChange={this.update('name')}
               required
@@ -86,9 +87,19 @@ export default class RoomForm extends React.Component {
                   console.log("updated", this.state);
                 }
                 }}>
-                <Text style={styles.text}>Save</Text>
+                <Text style={styles.saveText}>Save</Text>
             </TouchableHighlight>
 
+            <TouchableHighlight style={styles.backBtn} onPress={(e) => {
+                if (this.that) {
+                  this.that.setModal2Visible(!this.modal2Visible);
+                } else {
+                  const { navigate } = this.props.navigation;
+                  navigate('roomsIndex')
+                }
+              }}>
+              <Text style={styles.backText}>{'<'}</Text>
+            </TouchableHighlight>
         </View>
       )
     //} else {
@@ -104,7 +115,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '50%',
     alignSelf: 'center',
-    marginTop: '50%'
+    marginTop: '25%',
   },
   input: {
     backgroundColor: 'white',
@@ -112,6 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 15,
+    marginTop: 60,
     width: 345
   },
   saveBtn: {
@@ -121,7 +133,17 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15
   },
-  text: {
+  backBtn: {
+    position: 'absolute',
+    left: 15,
+    top: -5,
+  },
+  backText: {
+    fontSize: 40,
+    color: '#ffffff',
+    fontWeight: '600'
+  },
+  saveText: {
     color: '#ffffff',
     fontSize: 18,
     fontWeight: '600'
