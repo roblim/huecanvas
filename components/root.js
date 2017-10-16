@@ -15,25 +15,16 @@ export default class Root extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalVisible: false,
-      displayed: false
+      isModalVisible: false
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
-    this.button = this.button.bind(this);
-    this.toggleDisplay = this.toggleDisplay.bind(this);
-  }
-
-  componentWillMount() {
-    if (this.state.displayed === false) {
-
-      this.showModal();
-    }
-    // AsyncStorage.clear();
-    // AsyncStorage.clear();
   }
 
   componentDidMount() {
+    console.log(AsyncStorage.getItem("users"));
+  componentDidMount() {
+    APIUtil.deleteRoom('undefined')
   }
 
   showModal() {
@@ -44,30 +35,15 @@ export default class Root extends React.Component {
     this.setState({ isModalVisible: false });
   }
 
-  toggleDisplay(bool) {
-    this.setState({displayed: bool})
-  }
-
-  button() {
-    if (this.state.displayed) {
-      return (
-        <Text>Home</Text>
-      )
-    } else {
-      return (
-        <Button onPress={this.showModal}
-          title="find bridge"
-          />
-      )
-    }
-  }
-
   // <SceneIndexContainer />
   render() {
     const { navigate } = this.props.navigation;
+    console.log("all rooms", APIUtil.fetchRooms());
     return (
       <View>
   			<View style={{flex: 1}}>
+  				<Text>This is the root page</Text>
+            <SceneFooter />
             <Modal
               style={{
                 flex: 1,
@@ -80,25 +56,29 @@ export default class Root extends React.Component {
               backdropColor="rgb(255, 255, 255)"
 
               >
-              <DiscoverContainer hideModal={this.hideModal}
-                                  navigate={navigate}
-                                  toggleDisplay={this.toggleDisplay}
-
+              <Button onPress={this.hideModal}
+                title="close"
                 />
+              <DiscoverContainer />
               </Modal>
 
   			</View>
 
 
         <View style={styles.container}>
-
-        {this.button()}
+        <Button onPress={this.showModal}
+          title="find bridge"
+          />
 
         </View>
         <View>
           <Button
-            onPress={() => navigate('roomsEdit')}
+            onPress={() => navigate('roomsNew')}
             title="Navigate to RoomsNew"
+          />
+          <Button
+            onPress={() => navigate('roomTemp')}
+            title="Navigate to RoomTemp"
           />
       </View>
       <View>
@@ -108,13 +88,12 @@ export default class Root extends React.Component {
         />
     </View>
     <LightIndexContainer />
-    <SceneFooter />
     </View>
     );
   }
 }
-
 // <SceneIndexContainer />
+
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
