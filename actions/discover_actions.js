@@ -17,7 +17,7 @@ export const fetchBridges = () => dispatch => {
 
 
 export const createUser = (bridge) => dispatch => {
-   
+
    APIUtil.createUser(bridge).then((data) => {
      if (data[0].error) {
        dispatch(receiveUser(data[0].error))
@@ -39,12 +39,12 @@ export const createUser = (bridge) => dispatch => {
 }
 
 export const setUser = (user) => dispatch => {
-  dispatch(receiveUser(user));
+  dispatch(receiveUser(APIUtil.User));
 }
 
 export const fetchLights = (thisUser) => dispatch => {
   if (thisUser) {
-    thisUser.getLights().then((lights) => {
+    APIUtil.User.getLights().then((lights) => {
 
       dispatch(receiveAllLights(lights)
     )})

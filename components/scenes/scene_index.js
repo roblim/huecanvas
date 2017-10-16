@@ -22,8 +22,16 @@ class SceneIndex extends React.Component {
   }
 
   renderItem(scene) {
-    return (
+    let color;
+    if (scene.index < 15) {
+      color = itemColors[scene.index]
+    } else {
+      color = itemColors["default"]
+    }
+
+      return (
       <SceneIndexItem item={scene}
+                      color={color}
                       key={scene.index}
                       setScene={this.props.setScene}
                       displayScene={this.displayScene}
@@ -37,6 +45,7 @@ class SceneIndex extends React.Component {
   }
 
   render() {
+
     return (
       <View>
           <Text style={{backgroundColor:"rgba(255, 255, 255, .4)", color: "black"}}>Scenes</Text>
@@ -67,6 +76,25 @@ export default SceneIndex;
 const styles = StyleSheet.create({
   list: {
     flexDirection: 'row',
+    justifyContent: "space-between",
     flexWrap: 'wrap',
   }
 });
+
+const itemColors = {
+  0: "#FED38B",
+  1: "#EEDB66",
+  3: "#8FCADC",
+  4: "#FFFFFF",
+  5: "#906F43",
+  6: "#9B4D23",
+  7: "#F47A49 ",
+  8: "#F5AF74",
+  9: "#189A95",
+  10: "rgb(233, 175, 189)",
+  11: "rgb(59, 92, 181)",
+  12: "rgb(238, 219, 102)",
+  13: "rgb(239, 224, 59)",
+  14: "#FEF696",
+  "default": "teal"
+}
