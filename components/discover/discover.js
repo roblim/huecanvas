@@ -21,8 +21,9 @@ class Discover extends React.Component {
            setTimeout(() => {
              this.props.hideModal();
              users = Object.keys(users).map((user) => this.props.bridge.user(user))
+             this.props.setUser(users[0])
              this.props.fetchLights(users[0])
-           }, 2000)
+           }, 3000)
         }
       })
 

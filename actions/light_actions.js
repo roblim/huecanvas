@@ -68,13 +68,14 @@ export const changeBrightness = (user, lightId, brightness) => dispatch => (
   )
 );
 
-export const changeBrightnessAll = (user, brightness) => dispatch => (
+export const changeBrightnessAll = (user, brightness) => dispatch => {
+  console.log("useree", user);
   setBriAll(user, brightness).then(
     lightState => dispatch({ type: SET_BRIGHTNESS_ALL,
                              bri: Object.values(lightState[0].success)[0] }),
     err => console.log(err)
   )
-);
+};
 
 export const increaseBrightness = (user, lightId, increment) => dispatch => (
   incBri(user, lightId, increment).then(

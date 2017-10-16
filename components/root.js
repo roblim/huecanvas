@@ -8,8 +8,8 @@ import SceneIndexContainer from "./scenes/scene_index_container";
 import TestComponent from './light_index/test_component.js';
 import LightIndexContainer from './light_index/light_index_container';
 import * as APIUtil from '../util/rooms_api_util'
-import { fetchBridges } from "../actions/discover_actions";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage } from 'react-native';
+
 
 export default class Root extends React.Component {
   constructor(props) {
@@ -25,14 +25,11 @@ export default class Root extends React.Component {
   }
 
   componentWillMount() {
-    console.log(AsyncStorage.getItem("users"));
-
-    if (this.state.displayed === false) {
 
       this.showModal();
-    }
+    // AsyncStorage.clear();
+    // AsyncStorage.clear();
   }
-
 
   showModal() {
     this.setState({ isModalVisible: true });
@@ -53,7 +50,7 @@ export default class Root extends React.Component {
       )
     } else {
       return (
-        <Button onPress={this.showModal}
+        <Button onPress={() => this.showModal}
           title="find bridge"
           />
       )
@@ -62,6 +59,7 @@ export default class Root extends React.Component {
 
   // <SceneIndexContainer />
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View>
   			<View style={{flex: 1}}>
@@ -78,6 +76,7 @@ export default class Root extends React.Component {
 
               >
               <DiscoverContainer hideModal={this.hideModal}
+                                  navigate={navigate}
                                   toggleDisplay={this.toggleDisplay}
 
                 />
@@ -88,7 +87,7 @@ export default class Root extends React.Component {
 
         <View style={styles.container}>
 
-        {this.button()}
+        {() => this.button()}
 
         </View>
         <View>
