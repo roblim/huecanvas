@@ -21,14 +21,16 @@ export default class RoomForm extends React.Component {
   componentWillMount() {
     if (!this.state.room.id) {
       this.props.fetchRooms().then(res => {
-        if (Object.keys(res.rooms).length !== 0) {
+        console.log(res.rooms);
+        if (res.rooms !== null) {
       		let maxId = Object.keys(res.rooms).reduce((a, b) => {
       			return (Math.max(a, b))
       		})
           this.setState({room: {id: (maxId + 1)}})
           console.log(this.state.room);
       	} else {
-      		return 0
+      		this.setState({room: {id: 0}})
+          console.log('hooray');
       	}
       })
     }
