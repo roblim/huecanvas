@@ -6,8 +6,6 @@ import {
 } from '../../actions/room_actions';
 import RoomForm from './room_form';
 // import { withRouter } from 'react-router-dom';
-
-<<<<<<< HEAD
 const mapStateToProps = (state, ownProps) => {
 	let room = { name: "" }
 	let rooms = ownProps.rooms || state.rooms
@@ -15,18 +13,6 @@ const mapStateToProps = (state, ownProps) => {
 		room = ownProps.room
 	}
 	return {room, rooms: rooms, modal2Visible: ownProps.modal2Visible, that: ownProps.that}
-=======
-const assignId = (room, entities) => {
-
-	if (Object.keys(entities.rooms).length !== 0) {
-		let maxId= Object.keys(entities.rooms).reduce((a, b) => {
-			return (Math.max(a, b))
-		})
-		room["id"] = maxId + 1
-		return room;
-	} else {
-		room["id"] = 0
-	}
 }
 
 const mapStateToProps = (state, ownProps) => {

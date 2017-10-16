@@ -14,13 +14,8 @@ class NavSliders extends React.Component {
 		this.state = {user: this.props.user, sliderVal: -1, lastCall: 0, globalOn: true }
   }
 
-<<<<<<< HEAD
 	componentWillMount() {
 		this.props.fetchLights()
-=======
-	render() {
-		return (<Text style={styles.test}>TEST</Text>)
->>>>>>> scene
 	}
 
 	componentWillReceiveProps(nextProps) {
