@@ -11,8 +11,6 @@ class SceneIndex extends React.Component {
     this.setScene = this.setScene.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.displayScene = this.displayScene.bind(this);
-    console.log(count+= 1);
-    console.log(props);
   }
 
   componentWillMount() {
@@ -34,7 +32,6 @@ class SceneIndex extends React.Component {
   }
 
   setScene(name) {
-    console.log("click heard");
     this.setState({currentScene: name})
   }
 

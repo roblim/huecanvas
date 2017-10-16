@@ -5,7 +5,6 @@ import { FormLabel } from "react-native-elements";
 class SceneForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log("sceneFrom props: ", props);
     this.state = {
       text: ""
     };

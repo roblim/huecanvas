@@ -16,14 +16,11 @@ class Discover extends React.Component {
     this.props.fetchBridges()
       AsyncStorage.getItem("users").then((users) => {
         users = JSON.parse(users);
-        console.log(!!Object.keys(users)[0]);
          if (!!Object.keys(users)[0]) {
            this.setState({user: true})
            setTimeout(() => {
              this.props.hideModal();
-             console.log(this.props.bridge);
              users = Object.keys(users).map((user) => this.props.bridge.user(user))
-             console.log("here");
              this.props.fetchLights(users[0])
            }, 2000)
         }

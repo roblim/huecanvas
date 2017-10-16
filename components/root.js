@@ -30,11 +30,10 @@ export default class Root extends React.Component {
       this.showModal();
     }
     // AsyncStorage.clear();
-    console.log(AsyncStorage.getItem("users"));
+    // AsyncStorage.clear();
   }
 
   componentDidMount() {
-    console.log(AsyncStorage.getItem("users"));
   }
 
   showModal() {
@@ -66,7 +65,6 @@ export default class Root extends React.Component {
   // <SceneIndexContainer />
   render() {
     const { navigate } = this.props.navigation;
-    console.log("all rooms", APIUtil.fetchRooms());
     return (
       <View>
   			<View style={{flex: 1}}>
