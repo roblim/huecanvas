@@ -5,7 +5,6 @@ const _initialState = () => (
 		TabNavigator.router.getActionForPathAndParams('home')
 	)
 )
-
 const navReducer = (state = _initialState(), action) => {
   const nextState = TabNavigator.router.getStateForAction(action, state);
   // Simply return the original `state` if `nextState` is null or undefined.
