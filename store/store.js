@@ -13,7 +13,6 @@ const homeIP = '10.1.10.67'
 const Hue = jsHue();
 const Bridge = Hue.bridge(homeIP);
 const User = Bridge.user(homeHue);
-const Lights = User.getLights().then(data => data);
 
 
 const configureStore = (preloadedState) => (

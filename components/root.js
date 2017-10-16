@@ -25,12 +25,12 @@ export default class Root extends React.Component {
   }
 
   componentWillMount() {
+    console.log(AsyncStorage.getItem("users"));
+
     if (this.state.displayed === false) {
 
       this.showModal();
     }
-    // AsyncStorage.clear();
-    // AsyncStorage.clear();
   }
 
 
@@ -62,7 +62,6 @@ export default class Root extends React.Component {
 
   // <SceneIndexContainer />
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View>
   			<View style={{flex: 1}}>
@@ -79,7 +78,6 @@ export default class Root extends React.Component {
 
               >
               <DiscoverContainer hideModal={this.hideModal}
-                                  navigate={navigate}
                                   toggleDisplay={this.toggleDisplay}
 
                 />
