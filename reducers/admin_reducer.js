@@ -2,7 +2,6 @@ import { RECEIVE_BRIDGE, RECEIVE_USER } from "../actions/discover_actions";
 import { merge } from "lodash";
 
 export const AdminReducer = (state = {}, action) => {
-  console.log(action);
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_USER:

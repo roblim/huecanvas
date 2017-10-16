@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, Button } from "react-native";
+import { View, Text, FlatList, Button, StyleSheet } from "react-native";
 import SceneIndexItem from "./scene_index_item";
 let count = 0;
 class SceneIndex extends React.Component {
@@ -11,12 +11,10 @@ class SceneIndex extends React.Component {
     this.setScene = this.setScene.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.displayScene = this.displayScene.bind(this);
-    console.log(count+= 1);
-    console.log(props);
   }
 
   componentWillMount() {
-    this.props.fetchScenes();
+    this.props.fetchScenes()
   }
 
   displayScene(scene) {
@@ -34,20 +32,26 @@ class SceneIndex extends React.Component {
   }
 
   setScene(name) {
-    console.log("click heard");
     this.setState({currentScene: name})
   }
 
   render() {
     return (
       <View>
-              <Text style={{backgroundColor:"maroon", color: "white"}}>Scenes</Text>
-              <Text style={{fontSize: 20, color: "white", backgroundColor: "maroon", marginBottom: 100}}>
+              <Text style={{backgroundColor:"rgba(255, 255, 255, .4)", color: "black"}}>Scenes</Text>
+              <Text style={{fontSize: 20, color: "black", backgroundColor: "rgba(255, 255, 255, .4)"}}>
                 Current Scene: {this.state.currentScene}
               </Text>
         <FlatList
+          contentContainerStyle={styles.list}
           data={this.props.scenes}
           renderItem={this.renderItem}
+          />
+
+        <Button
+          color= "black"
+          title="close"
+          onPress={() => this.props.hideModal("index")}
           />
 
       </ View>
@@ -59,7 +63,13 @@ class SceneIndex extends React.Component {
 
 export default SceneIndex;
 
-
+const styles = StyleSheet.create({
+  list: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  }
+});
 // <Button title="getScenes"
 //   onPress={() => this.props.fetchScenes()}
 //   />
