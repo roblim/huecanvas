@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import { selectRoomLights,
          selectLights,
-         selectLightPositions } from '../../reducers/selectors';
+         selectLightPositions,
+         selectRoom } from '../../reducers/selectors';
 import LightIndex from './light_index';
 import { fetchLights } from '../../actions/discover_actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  room: state.entities.rooms[ownProps.room],
+  room: selectRoom(state, ownProps.room),
   user: state.admin.user,
   lights: selectRoomLights(state, ownProps.room),
   lightPositions: selectLightPositions(state, ownProps.room)

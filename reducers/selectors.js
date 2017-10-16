@@ -5,8 +5,13 @@ export const selectLights = (state) => {
   return Object.values(lights);
 }
 
+export const selectRoom = (state, roomId) => {
+  if (!roomId) { return null; }
+  return state.entities.rooms[roomId];
+}
+
 export const selectRoomLights = (state, roomId) => {
-  
+  if (!roomId) { return []; }
   let lights = state.entities.lights;
   if (Object.keys(lights).length < 1) { return []; }
   let roomLightIds = Object.keys(state.entities.rooms[roomId].lights);
@@ -16,10 +21,10 @@ export const selectRoomLights = (state, roomId) => {
 }
 
 export const selectLightPositions = (state, roomId) => {
+  if (!roomId) { return null; }
   let roomLights = state.entities.rooms[roomId].lights;
   let roomLightIds = Object.keys(roomLights);
   let lightPositions = {};
-  // debugger;
   roomLightIds.forEach(id => lightPositions[id] = roomLights[id].canvasPosition);
   console.log(lightPositions);
   return lightPositions;

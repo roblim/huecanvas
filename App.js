@@ -27,7 +27,7 @@ let preloadedState = {
             }
 };
 
-let store = configureStore(preloadedState)
+let store = configureStore()
 
 const hue = jsHue();
 
