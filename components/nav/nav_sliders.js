@@ -65,7 +65,7 @@ class NavSliders extends React.Component {
 		console.log(!!Object.keys(this.props.lights).length > 0);
 		while (!this.props.user) {
 			return (
-				<Text style={{color: "white"}}>HueCanvas</Text>
+				null
 			)
 		}
     return (

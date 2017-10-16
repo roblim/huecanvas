@@ -40,7 +40,7 @@ class LightIndex extends React.Component {
 				}}>
 
 				<View style={{padding: 20,
-						flex: 2.3,
+						flex: 3.3,
 						flexWrap: 'wrap',
 						alignSelf: 'center',
 						width: '100%',
