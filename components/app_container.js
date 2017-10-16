@@ -18,7 +18,6 @@ class AppContainer extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state);
 	return {nav: state, user: state.admin.user, bridge: state.admin.bridge}
 };
 export default connect(mapStateToProps)(AppContainer);

@@ -3,26 +3,35 @@ import { View, Text, Button, StyleSheet } from "react-native";
 import SceneIndex from "./scene_index";
 import Modal from "react-native-modal";
 import SceneIndexContainer from "./scene_index_container";
+import SceneFormContainer from "./scene_form_container";
 
 class SceneFooter extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      modalIsOpen: false
+      IndexModalIsOpen: false,
+      CreateModalIsOpen: false
     }
 
     this.openModal = this.openModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
   }
 
-  hideModal() {
-    this.setState({modalIsOpen: false})
+  hideModal(type) {
+    if (type === "index") {
+      this.setState({IndexModalIsOpen: false})
+    } else {
+      this.setState({CreateModalIsOpen: false})
+    }
   }
 
-  openModal() {
-    console.log("heard");
-    this.setState({modalIsOpen: true})
+  openModal(type) {
+    if (type === "index") {
+      this.setState({IndexModalIsOpen: true})
+    } else {
+      this.setState({CreateModalIsOpen: true})
+    }
   }
 
   render() {
@@ -31,25 +40,42 @@ class SceneFooter extends React.Component {
         <View>
           <Modal
             style={{
-              flex: 1,
-              justifyContent: "center",
-              margin: "auto",
-              backgroundColor: "white"
+              backgroundColor: "rgba(255, 255, 255, .4)"
 
             }}
-            isVisible={this.state.modalIsOpen}
+            isVisible={this.state.IndexModalIsOpen}
             backdropColor="rgb(255, 255, 255)"
 
             >
-            <Button
-              onPress={() => this.hideModal()}
-              title="close"
+            <SceneIndexContainer
+              hideModal={this.hideModal}
               />
-            <Text>ScenesFooter</Text>
-            <SceneIndexContainer />
             </ Modal>
-            <Button onPress={() => this.openModal()}
+          <Modal
+            style={{
+              backgroundColor: "white"
+
+            }}
+            isVisible={this.state.CreateModalIsOpen}
+            backdropColor="rgb(255, 255, 255)"
+
+            >
+            <Text>Save current scene as: </Text>
+
+            <SceneFormContainer
+              hideModal={this.hideModal}
+              />
+            </ Modal>
+            <Button
+              color="black"
+              onPress={() => this.openModal("index")}
               title="scenes"
+
+              />
+            <Button
+              color="black"
+              onPress={() => this.openModal("create")}
+              title="create scene"
 
               />
 
@@ -61,8 +87,8 @@ class SceneFooter extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "pink",
-    justifyContent: 'space-between'
+    backgroundColor: "rgba(255, 255, 255, .4)",
+    justifyContent: "space-between"
   }
 })
 

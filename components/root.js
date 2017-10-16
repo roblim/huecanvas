@@ -22,6 +22,8 @@ export default class Root extends React.Component {
   }
 
   componentDidMount() {
+    console.log(AsyncStorage.getItem("users"));
+  componentDidMount() {
     APIUtil.deleteRoom('undefined')
   }
 
@@ -36,6 +38,7 @@ export default class Root extends React.Component {
   // <SceneIndexContainer />
   render() {
     const { navigate } = this.props.navigation;
+    console.log("all rooms", APIUtil.fetchRooms());
     return (
       <View>
   			<View style={{flex: 1}}>

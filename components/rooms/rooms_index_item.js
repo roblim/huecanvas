@@ -9,7 +9,6 @@ import { StyleSheet,
          Dimensions,
          Modal,
          TouchableHighlight} from 'react-native';
-
 import RoomFormContainer from './room_form_container';
 import RoomsIndexContainer from './rooms_index_container';
 import LightIndexContainer from '../light_index/light_index_container';

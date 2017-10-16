@@ -6,19 +6,15 @@ class SceneIndexItem extends React.Component {
   constructor(props) {
     super(props);
     this.id = Object.keys(props.item.item)[0];
-    console.log(this.id);
-    console.log("props", props);
   }
 
 
   render() {
-    console.log(this.id);
     const scene = this.props.item.item[this.id];
     return (
 
-      <View style={{backgroundColor: "white",
-                    padding: 5}}>
-      <Button style={{color: "magenta"}}
+      <View style={{backgroundColor: "transparent", marginBottom: 10, padding: 10}}>
+      <Button color="black"
               title={scene.name}
               onPress={() => {
                 this.props.fetchScene(this.id)
