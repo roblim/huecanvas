@@ -7,8 +7,8 @@ const appAcademyIP = '192.168.1.234';
 const precitaIP = '10.0.0.31';
   const homeIP = "10.1.10.67"
 export const Hue = jsHue();
-export const Bridge = Hue.bridge(homeIP);
-export const User = Bridge.user(homeHue);
+export const Bridge = Hue.bridge(precitaIP);
+export const User = Bridge.user(precitaHue);
 
 export const discover = () => {
   return Hue.discover()

@@ -38,7 +38,7 @@ class RoomsIndexItem extends Component{
       onPanResponderRelease: (e, gesture) =>{
         if(this.isDropZone(gesture)){
           console.log("roomid", this.state.room.id);
-          this.props.removeRoom(this.state.room.id);
+          this.props.removeRoom(this.props.room.id);
           this.setState({
             showDraggable: false
           });
@@ -54,6 +54,7 @@ class RoomsIndexItem extends Component{
   }
 
   getThisLayout(event){
+    console.log("this was called");
     let newRoom = merge({}, this.state.room, {coordinates: event.nativeEvent.layout});
     this.setState({
       room: newRoom
@@ -78,6 +79,11 @@ class RoomsIndexItem extends Component{
     const lights = this.props.lights;
     const rooms = this.props.rooms;
     console.log("room passed to LightIndexContainer", this.props.sendToLightContainer);
+    if(!this.props.rooms.coordinates){
+      let newRoom = merge({}, this.state.room, {coordinates: {x:0, y:0, height:128, width:205}});
+      this.props.parentProps.updateRoom(newRoom);
+    }
+
     if(this.state.showDraggable){
       return(
           <Animated.View {...this.panResponder.panHandlers}

@@ -39,7 +39,11 @@ class RoomsIndexLight extends Component {
         });
         console.log("coordinates", coordinates);
         console.log("gesturex", gesture.moveX);
+
         let whichCoordinates = coordinates.map((coord,idx) => {
+          if(!coord){
+            return null;
+          }
           if ((Math.abs(coord.y)+167 < gesture.moveY) && (Math.abs(coord.y)+coord.height+167 > gesture.moveY)){
             return idx;
           }
@@ -68,6 +72,11 @@ class RoomsIndexLight extends Component {
   }
 
   isDropZone(gesture){
+    let rooms = this.props.rooms;
+    let coordinates = Object.values(rooms).map(room =>{
+        return(room.coordinates);
+    });
+
       // const dz = this.props.dropZoneValues;
       // // const thisZone = this.props.dropZones.map(dropZone =>{
       // //     return(
