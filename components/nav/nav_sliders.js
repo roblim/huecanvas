@@ -11,7 +11,7 @@ class NavSliders extends React.Component {
 		this.turnAllLightsOff = this.props.turnAllLightsOff.bind(this);
 		this.turnAllLightsOn = this.props.turnAllLightsOn.bind(this);
 		this.changeBrightnessAll = this.props.changeBrightnessAll.bind(this)
-		this.state = {user: this.props.user, sliderVal: -1, lastCall: 0, globalOn: true }
+		this.state = {user: this.props.user, sliderVal: 121, lastCall: 0, globalOn: true }
   }
 
 
@@ -23,8 +23,11 @@ class NavSliders extends React.Component {
 				if (light.state.reachable) {
 					total += light.state.bri
 				}
+				console.log(total);
 			})
-			this.setState({user: this.props.user, sliderVal: (Math.floor(total / nextProps.lights.length)), lastCall: 0, globalOn: true });
+			console.log(Math.trunc(total/nextProps.lights.length));
+			myTotal = isNaN(total) === true ? 0 : Math.trunc(total / nextProps.lights.length)
+			this.setState({user: this.props.user, sliderVal: (myTotal), lastCall: 0, globalOn: true });
 		}
 	}
 // light.state.bri
@@ -52,13 +55,14 @@ class NavSliders extends React.Component {
 			if (this.state.globalOn == false) {
 				this.turnAllLightsOn(this.state.props)
 			}
-			this.setState({ user: this.props.user, sliderVal: value, lastCall: new Date().getTime(), globalOn: true });
+			this.setState({ user: this.props.user, sliderVal: Math.trunc(value), lastCall: new Date().getTime(), globalOn: true });
 			this.changeBrightnessAll(this.props.user, this.state.sliderVal)
 		}
 	}
 
   render() {
 		// this.determineInitialBrightness()
+		console.log(this.state.sliderVal);
 		// console.log(this.props.user);
 		console.log(!!Object.keys(this.props.lights).length > 0);
 		while (!this.props.user) {
@@ -78,7 +82,7 @@ class NavSliders extends React.Component {
 						minimumValue={0}
 						maximumValue={255}
 						step={1}
-						value={0}
+						value={this.state.sliderVal}
 						onValueChange={value => this.handleSlideChange(value)}
 			 	 />
 			 </View>

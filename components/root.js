@@ -28,7 +28,6 @@ export default class Root extends React.Component {
 
       this.showModal();
     // AsyncStorage.clear();
-    // AsyncStorage.clear();
   }
 
   showModal() {
@@ -87,7 +86,7 @@ export default class Root extends React.Component {
 
         <View style={styles.container}>
 
-        {() => this.button()}
+        {this.button()}
 
         </View>
         <View>
