@@ -24,6 +24,7 @@ class SceneIndex extends React.Component {
   renderItem(scene) {
     return (
       <SceneIndexItem item={scene}
+                      key={scene.index}
                       setScene={this.props.setScene}
                       displayScene={this.displayScene}
                       fetchScene={this.props.fetchScene}
@@ -38,10 +39,10 @@ class SceneIndex extends React.Component {
   render() {
     return (
       <View>
-              <Text style={{backgroundColor:"rgba(255, 255, 255, .4)", color: "black"}}>Scenes</Text>
-              <Text style={{fontSize: 20, color: "black", backgroundColor: "rgba(255, 255, 255, .4)"}}>
-                Current Scene: {this.state.currentScene}
-              </Text>
+          <Text style={{backgroundColor:"rgba(255, 255, 255, .4)", color: "black"}}>Scenes</Text>
+          <Text style={{fontSize: 20, color: "black", backgroundColor: "rgba(255, 255, 255, .4)"}}>
+            Current Scene: {this.state.currentScene}
+          </Text>
         <FlatList
           contentContainerStyle={styles.list}
           data={this.props.scenes}
@@ -65,11 +66,7 @@ export default SceneIndex;
 
 const styles = StyleSheet.create({
   list: {
-    justifyContent: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
   }
 });
-// <Button title="getScenes"
-//   onPress={() => this.props.fetchScenes()}
-//   />

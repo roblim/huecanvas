@@ -16,7 +16,6 @@ class NavSliders extends React.Component {
 
 
 	componentWillReceiveProps(nextProps) {
-		console.log("nextprops", nextProps);
 		if (this.state.sliderVal == -1) {
 			let total = 0
 			nextProps.lights.forEach(light => {
@@ -56,26 +55,25 @@ class NavSliders extends React.Component {
 				this.turnAllLightsOn(this.state.props)
 			}
 			this.setState({ user: this.props.user, sliderVal: Math.trunc(value), lastCall: new Date().getTime(), globalOn: true });
-			this.changeBrightnessAll(this.props.user, this.state.sliderVal)
+			this.changeBrightnessAll(this.props.user, Math.trunc(this.state.sliderVal))
 		}
 	}
 
   render() {
 		// this.determineInitialBrightness()
-		console.log(this.state.sliderVal);
 		// console.log(this.props.user);
 		console.log(!!Object.keys(this.props.lights).length > 0);
 		while (!this.props.user) {
 			return (
-				<Text style={{color: "white"}}>HueCanvas</Text>
+				null
 			)
 		}
     return (
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'stretch', flex: 1 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', flex: 1, marginTop: -20 }}>
 				<View>
 					<Slider
-						style={{flex: 1, marginRight: 20, marginTop: -10}}
-						trackStyle={{width: 255, height: 20}}
+						style={{flex: 1, marginRight: 20,}}
+						trackStyle={{width: 255, height: 28, borderRadius: 14}}
 						thumbTouchSize={{width: 40, height: 40}}
 						thumbStyle={{width: 30, height: 30, borderRadius: 100, backgroundColor: 'white'}}
 						minimumTrackTintColor={'#9fc5f8'}

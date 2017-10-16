@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, Dimensions } from "react-native";
 import SceneIndex from "./scene_index";
 import Modal from "react-native-modal";
 import SceneIndexContainer from "./scene_index_container";
@@ -40,7 +40,9 @@ class SceneFooter extends React.Component {
         <View>
           <Modal
             style={{
-              backgroundColor: "rgba(255, 255, 255, .4)"
+
+              backgroundColor: "rgba(255, 255, 255, .4)",
+              height: "100%"
 
             }}
             isVisible={this.state.IndexModalIsOpen}
@@ -60,22 +62,21 @@ class SceneFooter extends React.Component {
             backdropColor="rgb(255, 255, 255)"
 
             >
-            <Text>Save current scene as: </Text>
 
             <SceneFormContainer
               hideModal={this.hideModal}
               />
             </ Modal>
             <Button
-              color="black"
+              color="#383838"
               onPress={() => this.openModal("index")}
-              title="scenes"
+              title="Scenes"
 
               />
             <Button
-              color="black"
+              color="#383838"
               onPress={() => this.openModal("create")}
-              title="create scene"
+              title="Create Scene"
 
               />
 
@@ -84,11 +85,12 @@ class SceneFooter extends React.Component {
     )
   }
 }
-
+let Window = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "rgba(255, 255, 255, .4)",
-    justifyContent: "space-between"
+    backgroundColor: "black",
+    justifyContent: "space-between",
+    flex: 1
   }
 })
 

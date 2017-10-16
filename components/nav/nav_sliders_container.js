@@ -10,7 +10,6 @@ import {
 import { Switch } from 'react-native';
 
 const mapStateToProps = (state, ownProps) => {
-	console.log(state);
 	return {
   user: state.admin.user,
 	lights: selectLights(state),
