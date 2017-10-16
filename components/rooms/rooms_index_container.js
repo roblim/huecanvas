@@ -11,9 +11,9 @@ const mapStateToProps = state =>({
 const mapDispatchToProps = dispatch =>({
   fetchRooms: () => dispatch(fetchRooms()),
   createRoom: ()=> dispatch(createRoom()),
-  fetchRoom: (id)=> dispatch(fetchRoom()),
+  fetchRoom: (id)=> dispatch(fetchRoom(id)),
   fetchLights: ()=> dispatch(fetchLights()),
-  deleteRoom: (id)=>dispatch(deleteRoom()),
+  deleteRoom: (id)=>dispatch(deleteRoom(id)),
   updateRoom: (room)=>dispatch(updateRoom(room))
 });
 

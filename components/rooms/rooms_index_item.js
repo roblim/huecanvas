@@ -38,6 +38,8 @@ class RoomsIndexItem extends Component{
       }]),
       onPanResponderRelease: (e, gesture) =>{
         if(this.isDropZone(gesture)){
+          console.log("roomid", this.state.room.id);
+          this.props.removeRoom(this.state.room.id);
           this.setState({
             showDraggable: false
           });
@@ -157,10 +159,10 @@ const styles = StyleSheet.create({
         color       : '#fff'
     },
   index:{
-    backgroundColor: '#d15c94',
+    backgroundColor: '#00baa6',
     width: Window.width/5,
     height: Window.height/6,
-    borderRadius: 4,
+    borderRadius: 20,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
   },

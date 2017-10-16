@@ -82,6 +82,7 @@ class RoomsIndex extends Component{
     this.setLightDropZoneValues = this.setLightDropZoneValues.bind(this);
     this.renderedLights = this.renderedLights.bind(this);
     this.findLightsInRooms = this.findLightsInRooms.bind(this);
+    this.removeRoom = this.removeRoom.bind(this);
 }
 
 
@@ -96,23 +97,38 @@ class RoomsIndex extends Component{
   }
 
   findLightsInRooms(){
-    let rooms = this.props.rooms;
+    if(!this.props.rooms){return([]);}
+    let rooms = Object.values(this.props.rooms).map(room =>{
+      return room;
+    });
     let lights = [];
-    let lightsInRooms = Object.values(rooms).map(room =>{
-      return room.lights;
+    let lightsInRooms = rooms.map(room =>{
+      if(rooms.lights){
+        return room.lights;
+      }
     });
-    lightsInRooms.forEach(roomLights =>{
-      Object.values(roomLights).map(light =>{
-        lights.push(light);
-      });
-    });
-    return lights;
-  }
+    if(lightsInRooms.length === 0){
+      return([]);
+    } else {
+      lightsInRooms.forEach(roomLights =>{
+        if(!roomLights){
+          return lights;
+        } else{
+          Object.values(roomLights).map(light =>{
+            lights.push(light);
+          });
+        return lights;
+        }
+      });}
+    }
 
   renderedLights(lightsInRoom){
       const lightsArray = Object.values(this.props.lights).map(light =>{
         return light;
       });
+      if (!lightsInRoom){
+        return lightsArray;
+      }
       const roomLightsIndices = Object.values(lightsInRoom).map(light =>{
         return light.lightId;
       });
@@ -165,6 +181,13 @@ class RoomsIndex extends Component{
     });
   }
 
+  removeRoom(id){
+    console.log("REMOVE ROOM HAS BEEN REACHED");
+    console.log("THIS IS THE ID:", id);
+    console.log("THIS.PROPS.DELETEROOM", this.props.deleteRoom);
+    this.props.deleteRoom(1);
+  }
+
   renderCreateRoom(){
     const { navigate } = this.props.navigation;
     const rooms = this.props.rooms;
@@ -207,6 +230,7 @@ class RoomsIndex extends Component{
                       setLightDropZoneValues={this.setLightDropZoneValues}
                       parentProps={this.props}
                       sendToLightContainer={this.state.sendToLightContainer}
+                      removeRoom={id => this.removeRoom(id)}
                   />
              );
             }
