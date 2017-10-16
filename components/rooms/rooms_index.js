@@ -29,7 +29,8 @@ class RoomsIndex extends Component{
       renderedRooms: this.props.rooms,
       modalVisible: false,
       dropZones:[],
-      currentCoordinates: this.props.rooms.coordinates
+      currentCoordinates: this.props.rooms.coordinates,
+      sendToLightContainer: null
     };
 
     this.panResponderLight = PanResponder.create({
@@ -86,7 +87,11 @@ class RoomsIndex extends Component{
     this.props.fetchRooms();
     this.props.fetchLights();
   }
-
+  getCurrentRoom(currentRoom){
+    this.setState({
+      sendToLightContainer: currentRoom
+    });
+  }
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
@@ -156,6 +161,7 @@ class RoomsIndex extends Component{
                       that={this}
                       setLightDropZoneValues={this.setLightDropZoneValues}
                       parentProps={this.props}
+                      sendToLightContainer={this.state.sendToLightContainer}
                   />
              );
             }
@@ -183,6 +189,7 @@ class RoomsIndex extends Component{
   }
 
   renderLights(dropZoneValues){
+    console.log("room index state", this.state);
     const lights = this.props.lights;
     if(this.state.showDraggableLight){
       return(
@@ -197,6 +204,7 @@ class RoomsIndex extends Component{
                     dropZones={this.state.dropZones}
                     rooms={this.props.rooms}
                     parentProps = {this.props}
+                    getCurrentRoom = {(currentRoom)=> this.getCurrentRoom(currentRoom)}
                     />
               </View>
             ))

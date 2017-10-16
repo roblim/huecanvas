@@ -76,7 +76,7 @@ class RoomsIndexItem extends Component{
     const room = this.props.room;
     const lights = this.props.lights;
     const rooms = this.props.rooms;
-    console.log("room passed to LightIndexContainer", this.props.room);
+    console.log("room passed to LightIndexContainer", this.props.sendToLightContainer);
     if(this.state.showDraggable){
       return(
           <Animated.View {...this.panResponder.panHandlers}
@@ -88,7 +88,7 @@ class RoomsIndexItem extends Component{
                   visible={this.state.modalVisible}>
               <View >
                 <View>
-                  <LightIndexContainer room={room} />
+                  <LightIndexContainer room={this.props.sendToLightContainer} />
                   <TouchableHighlight onPress={() => {
                     this.setModalVisible(!this.state.modalVisible);
                     }}>

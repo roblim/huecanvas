@@ -37,8 +37,10 @@ class RoomsIndexLight extends Component {
             return(room.coordinates);
 
         });
+        console.log("coordinates", coordinates);
+        console.log("gesturex", gesture.moveX);
         let whichCoordinates = coordinates.map((coord,idx) => {
-          if (Math.abs(coord.y)+167 < gesture.moveY && Math.abs(coord.y)+coord.height+167 > gesture.moveY){
+          if ((Math.abs(coord.y)+167 < gesture.moveY) && (Math.abs(coord.y)+coord.height+167 > gesture.moveY)){
             return idx;
           }
         });
@@ -54,19 +56,12 @@ class RoomsIndexLight extends Component {
         this.setState({
           room: newRoom
         });
+        console.log("this.state.room", newRoom);
+        this.props.getCurrentRoom(newRoom);
         this.props.parentProps.updateRoom(newRoom);
-        if(this.isDropZone(gesture)){
           this.setState({
             showDraggable: false
           });
-          //on release, determine if gesture is within each room's coordinates
-          // if gesture is within room coordinates, set the currentroom's list of lights to be the light id
-        } else {
-          Animated.spring(
-            this.state.pan,
-            {toValue:{x:0,y:0}}
-          ).start();
-        }
       }
     });
   }
@@ -107,6 +102,7 @@ class RoomsIndexLight extends Component {
   }
 
   render(){
+    console.log("checking for getCurrentRoom", this.props);
     let light = this.props.light;
     if(this.state.showDraggable){
       return(
