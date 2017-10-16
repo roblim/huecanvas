@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, StatusBar } from 'react-native';
 import Modal from "react-native-modal";
 import SceneFooter from "./scenes/scene_footer";
 import DiscoverContainer from "./discover/discover_container";
@@ -21,6 +21,7 @@ export default class Root extends React.Component {
   }
 
   componentDidMount() {
+
   }
 
   showModal() {
@@ -32,61 +33,61 @@ export default class Root extends React.Component {
   }
 
   // <SceneIndexContainer />
+  // <View style={{flex: 1}}>
+  //   <Text>This is the root page</Text>
+  //   <SceneFooter />
+  //   <Modal
+  //     style={{
+  //       flex: 1,
+  //       justifyContent: "center",
+  //       alignItems: "center",
+  //       margin: "auto"
+  //
+  //     }}
+  //     isVisible={this.state.isModalVisible}
+  //     backdropColor="rgb(255, 255, 255)"
+  //
+  //     >
+  //     <Button onPress={this.hideModal}
+  //       title="close"
+  //       />
+  //     <DiscoverContainer />
+  //   </Modal>
+  //
+  // </View>
+
+  // <View style={styles.container}>
+  //   <Button onPress={() => this.showModal}
+  //     title="discover"
+  //     />
+  //   <Button onPress={this.showModal}
+  //     title="find bridge"
+  //     />
+  //   <Button
+  //     onPress={() => navigate('roomTemp')}
+  //     title="Navigate to RoomTemp"
+  //     />
+  // </View>
+  //
+  // <View>
+  //   <Button
+  //     onPress={() => navigate('roomsNew')}
+  //     title="Navigate to RoomsNew"
+  //   />
+  // </View>
+  // <View>
+  //   <Button
+  //     onPress={() => navigate('roomsIndex')}
+  //     title="Navigate to RoomsIndex"
+  //   />
+  // </View>
   render() {
     const { navigate } = this.props.navigation;
     console.log("all rooms", APIUtil.fetchRooms());
     return (
       <View>
-  			<View style={{flex: 1}}>
-  				<Text>This is the root page</Text>
-            <SceneFooter />
-            <Modal
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "auto"
-
-              }}
-              isVisible={this.state.isModalVisible}
-              backdropColor="rgb(255, 255, 255)"
-
-              >
-              <Button onPress={this.hideModal}
-                title="close"
-                />
-              <DiscoverContainer />
-              </Modal>
-
-  			</View>
-
-
-        <View style={styles.container}>
-          <Button onPress={() => this.showModal}
-                title="discover"
-          />
-        <Button onPress={this.showModal}
-          title="find bridge"
-          />
-
-        </View>
-        <View>
-          <Button
-            onPress={() => navigate('roomsNew')}
-            title="Navigate to RoomsNew"
-          />
-          <Button
-            onPress={() => navigate('roomTemp')}
-            title="Navigate to RoomTemp"
-          />
-      </View>
-      <View>
-        <Button
-          onPress={() => navigate('roomsIndex')}
-          title="Navigate to RoomsIndex"
-        />
-    </View>
-    <LightIndexContainer />
+        <StatusBar hidden />
+        <LightIndexContainer />
     </View>
     );
   }

@@ -6,7 +6,7 @@
 import React, { Component } from "react";
 import { StyleSheet, PanResponder, View, Text } from "react-native";
 
-const CIRCLE_SIZE = 200;
+const CIRCLE_SIZE = 150;
 const CIRCLE_COLOR = "blue";
 const CIRCLE_HIGHLIGHT_COLOR = "green";
 
@@ -53,6 +53,10 @@ class PanResponderExample extends Component {
     this._updatePosition();
   }
 
+  onLayout(e) {
+    this.setState({layout: e.nativeEvent.layout});
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -60,15 +64,21 @@ class PanResponderExample extends Component {
           ref={circle => {
             this.circle = circle;
           }}
+          onLayout={this.onLayout.bind(this)}
           style={styles.circle}
           {...this._panResponder.panHandlers}
         />
         <Text>
           {this.state.numberActiveTouches} touches,
-          dx: {this.state.dx},
-          dy: {this.state.dy},
-          vx: {this.state.vx},
-          vy: {this.state.vy}
+          layout: {JSON.stringify(this.state.layout)},
+          xDelta: {this.state.dx},
+          yDelta: {this.state.dy},
+          xVeloc: {this.state.vx},
+          yVeloc: {this.state.vy},
+          xRespGrant: {this.state.x0},
+          yRespGrant: {this.state.y0},
+          lastTouchX: {this.state.moveX},
+          lastTouchY: {this.state.moveY}
         </Text>
       </View>
     );
