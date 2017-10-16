@@ -5,6 +5,7 @@ import { Text,
 				 View,
 				 StyleSheet,
 				 Button,
+				 ScrollView,
 			   TouchableHighlight } from 'react-native';
 import { ColorPicker,
 				 TriangleColorPicker,
@@ -35,12 +36,14 @@ class LightIndex extends React.Component {
 					width: '100%',
 					height: '100%',
 					backgroundColor: '#121212',
-
+					// justifyContent: 'space-between'
 				}}>
+
 				<View style={{padding: 20,
-						flex: 1,
+						flex: 2.3,
 						flexWrap: 'wrap',
 						alignSelf: 'center',
+						width: '100%',
 						// margin: 'auto',
 							// height: '100%',
 						// width: '60%',
@@ -59,6 +62,7 @@ class LightIndex extends React.Component {
 						)}
 				</View>
 				<SceneFooter lights={this.props.lights}/>
+
 		</View>
     )
   }
@@ -74,17 +78,17 @@ class LightIndex extends React.Component {
 
 export default LightIndex;
 
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-		paddingTop: 50,
-    justifyContent: 'center',
-		alignContent: 'center',
-		flexWrap: 'wrap',
-    alignItems: 'center',
-    backgroundColor: 'pink',
-    width: 90,
-    height: 90,
-		borderRadius: 45
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+// 		paddingTop: 50,
+//     justifyContent: 'center',
+// 		alignContent: 'center',
+// 		flexWrap: 'wrap',
+//     alignItems: 'center',
+//     backgroundColor: 'pink',
+//     width: 90,
+//     height: 90,
+// 		borderRadius: 45,
+//   },
+// });
