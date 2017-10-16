@@ -11,6 +11,7 @@ import { StyleSheet,
          TouchableWithoutFeedback,
          TouchableHighlight} from 'react-native';
 import LightIndexItemContainer from '../light_index/light_index_item_container';
+import merge from 'lodash/merge';
 
 
 class RoomsIndexLight extends Component {
@@ -20,7 +21,9 @@ class RoomsIndexLight extends Component {
       pan: new Animated.ValueXY(),
       showDraggable: this.props.showDraggable,
       dropZoneValues: this.props.dropZoneValues,
-      panResponder: null
+      panResponder: null,
+      rooms: this.props.rooms,
+      room:null
     };
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
@@ -29,52 +32,78 @@ class RoomsIndexLight extends Component {
         dy: this.state.pan.y
       }]),
       onPanResponderRelease: (e, gesture) =>{
-        if(this.isDropZone(gesture)){
+        let rooms = this.props.rooms;
+        let coordinates = Object.values(rooms).map(room =>{
+            return(room.coordinates);
+
+        });
+        console.log("coordinates", coordinates);
+        console.log("gesturex", gesture.moveX);
+        let whichCoordinates = coordinates.map((coord,idx) => {
+          if ((Math.abs(coord.y)+167 < gesture.moveY) && (Math.abs(coord.y)+coord.height+167 > gesture.moveY)){
+            return idx;
+          }
+        });
+        console.log(whichCoordinates);
+        let droppedRoomIndex = whichCoordinates.filter(function(obj) {
+          return obj !== undefined;
+        });
+        droppedRoomIndex = droppedRoomIndex[0];
+        console.log(droppedRoomIndex);
+        console.log(this.props.rooms[droppedRoomIndex]);
+        console.log("lightid", this.props.light.lightId);
+        let newRoom = merge({}, this.props.rooms[droppedRoomIndex], {lights: {[this.props.light.lightId]:{lightId: this.props.light.lightId, canvasPosition: null}}});
+        this.setState({
+          room: newRoom
+        });
+        console.log("this.state.room", newRoom);
+        this.props.getCurrentRoom(newRoom);
+        this.props.getDroppedLights(this.props.light);
+        this.props.parentProps.updateRoom(newRoom);
           this.setState({
             showDraggable: false
           });
-        } else {
-          Animated.spring(
-            this.state.pan,
-            {toValue:{x:0,y:0}}
-          ).start();
-        }
       }
     });
-
   }
 
   isDropZone(gesture){
-      const dz = this.props.dropZoneValues;
-      const thisZone = this.props.dropZones.map(dropZone =>{
-          return(
-            dropZone
-          );
-
-      });
-      console.log("thisZone", thisZone);
-      const last = thisZone.find(dropZone =>{
-        console.log("dropZoney",dropZone.y);
-        console.log("dropZoney+height", dropZone.y+dropZone.height);
-        console.log("gesture.moveY", gesture.moveY);
-        console.log();
-        if((dropZone.y < gesture.moveY) && (dropZone.y+dropZone.height > gesture.moveY)){
-          return(
-            dropZone
-          );
-        }
-      });
-
-      console.log("last", last);
-      dz.height += 100;
-      this.setState({
-        dropZoneValues: dz
-      });
-      return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
+      // const dz = this.props.dropZoneValues;
+      // // const thisZone = this.props.dropZones.map(dropZone =>{
+      // //     return(
+      // //       dropZone
+      // //     );
+      // //
+      // // });
+      // // const fixedDropZones = thisZone.forEach(dropZone =>{
+      // //   dropZone.height = 100;
+      // // });
+      // // console.log(fixedDropZones);
+      // // const last = thisZone.find(dropZone =>{
+      // //   console.log("dropZone-y",dropZone.y);
+      // //   console.log("dropZoney+height", dropZone.y+dropZone.height);
+      // //   console.log("gesture.moveY", gesture.moveY);
+      // //   console.log();
+      // //   if((dropZone.y < gesture.moveY) && (dropZone.y+dropZone.height > gesture.moveY)){
+      // //     return(
+      // //       dropZone
+      // //     );
+      // //   }
+      // // });
+      // //
+      // // console.log("last", last);
+      //
+      // dz.height += 200;
+      // dz.y = 200;
+      // this.setState({
+      //   dropZoneValues: dz
+      // });
+      // return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
+      return true;
   }
 
   render(){
-
+    console.log("checking for getCurrentRoom", this.props);
     let light = this.props.light;
     if(this.state.showDraggable){
       return(
