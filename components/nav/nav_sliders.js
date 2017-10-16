@@ -16,7 +16,6 @@ class NavSliders extends React.Component {
 
 
 	componentWillReceiveProps(nextProps) {
-		console.log("nextprops", nextProps);
 		if (this.state.sliderVal == -1) {
 			let total = 0
 			nextProps.lights.forEach(light => {
@@ -56,13 +55,12 @@ class NavSliders extends React.Component {
 				this.turnAllLightsOn(this.state.props)
 			}
 			this.setState({ user: this.props.user, sliderVal: Math.trunc(value), lastCall: new Date().getTime(), globalOn: true });
-			this.changeBrightnessAll(this.props.user, this.state.sliderVal)
+			this.changeBrightnessAll(this.props.user, Math.trunc(this.state.sliderVal))
 		}
 	}
 
   render() {
 		// this.determineInitialBrightness()
-		console.log(this.state.sliderVal);
 		// console.log(this.props.user);
 		console.log(!!Object.keys(this.props.lights).length > 0);
 		while (!this.props.user) {
