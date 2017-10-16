@@ -128,10 +128,9 @@ class RoomsIndex extends Component{
     const lights = this.props.lights;
     if(this.state.showDraggableRoom){
       return(
-        <View onLayout={this.setLightDropZoneValues.bind(this)}>
+        <View onLayout={this.setLightDropZoneValues.bind(this)} >
           {
             Object.values(rooms).map(room =>(
-                <View style={styles.room} key={room.id} >
                   <RoomsIndexItem
                     room={room}
                     rooms={rooms}
@@ -140,7 +139,6 @@ class RoomsIndex extends Component{
                     dropZoneValues = {this.state.dropZoneValuesRoom}
                     key={room.id}
                 />
-                </View>
             ))
           }
         </View>
@@ -169,10 +167,10 @@ class RoomsIndex extends Component{
     const lights = this.props.lights;
     if(this.state.showDraggableLight){
       return(
-        <View>
+        <View style={styles.draggableLight}>
           {
             Object.values(lights).map(light =>(
-              <View style={styles.draggableLight}>
+              <View>
                 <Animated.View {...this.panResponderLight.panHandlers}
                   style={[this.state.lightpan.getLayout(), styles.circle]}
                   key={light.id + "light"}
@@ -220,7 +218,7 @@ let styles = StyleSheet.create({
     },
     dropZone    : {
         height         : 100,
-        backgroundColor:'#2c3e50'
+        backgroundColor: '#9e9e9e'
     },
     text        : {
         marginTop   : 25,
@@ -237,11 +235,14 @@ let styles = StyleSheet.create({
     draggableLight: {
         position    : 'absolute',
         top         : Window.height/2 - CIRCLE_RADIUS,
-        left        : Window.width/2 - CIRCLE_RADIUS,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'stretch',
+        flexWrap: 'wrap'
     },
     draggableRoom:{
         position    : 'absolute',
-        top         : Window.height/3 - CIRCLE_RADIUS,
+        top         : (Window.height/3)*2 - CIRCLE_RADIUS,
         left        : Window.width/2 - CIRCLE_RADIUS
     },
     circle      : {

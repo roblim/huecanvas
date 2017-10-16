@@ -21,12 +21,8 @@ export default class Root extends React.Component {
     this.hideModal = this.hideModal.bind(this);
   }
 
-  componentWillMount() {
-    console.log(AsyncStorage.getItem("users"));
-  }
-
   componentDidMount() {
-    console.log(AsyncStorage.getItem("users"));
+    APIUtil.deleteRoom('undefined')
   }
 
   showModal() {
@@ -75,7 +71,7 @@ export default class Root extends React.Component {
         </View>
         <View>
           <Button
-            onPress={() => navigate('roomsEdit')}
+            onPress={() => navigate('roomsNew')}
             title="Navigate to RoomsNew"
           />
           <Button
@@ -94,8 +90,8 @@ export default class Root extends React.Component {
     );
   }
 }
-
 // <SceneIndexContainer />
+
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
