@@ -87,6 +87,7 @@ class RoomsIndex extends Component{
 
 
   componentWillMount(){
+    AsyncStorage.clear();
     this.props.fetchRooms();
     this.props.fetchLights();
 
