@@ -27,7 +27,6 @@ export const receiveRoomErrors = errors => ({
 
 export const fetchRooms = () => dispatch => (
 	APIUtil.fetchRooms().then(rooms => {
-		// console.log(rooms);
 		return dispatch(receiveRooms(rooms));
 	}, err => (
 		dispatch(receiveRoomErrors(err.responseJSON))

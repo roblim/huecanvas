@@ -6,7 +6,6 @@ import {
 } from '../../actions/room_actions';
 import RoomForm from './room_form';
 // import { withRouter } from 'react-router-dom';
-
 const mapStateToProps = (state, ownProps) => {
 	let room = { name: "" }
 	let rooms = ownProps.rooms || state.rooms
@@ -14,6 +13,22 @@ const mapStateToProps = (state, ownProps) => {
 		room = ownProps.room
 	}
 	return {room, rooms: rooms, modal2Visible: ownProps.modal2Visible, that: ownProps.that}
+}
+
+const mapStateToProps = (state, ownProps) => {
+	let room = { name: "" }
+	// room = assignId(room, state.entities)
+	let shouldRender = false;
+	if (ownProps.navigation.state.routeName === "RoomNew") {
+		shouldRender = true;
+	} else if (ownProps.navigation.state.params === "RoomEdit") {
+			room = state.entities.rooms[ownProps.match.params.roomId];
+			if (ownProps.renderId == ownProps.match.params.roomId) {
+				shouldRender = true;
+			}
+		}
+	return {room, shouldRender}
+>>>>>>> scene
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
