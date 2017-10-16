@@ -1,5 +1,5 @@
 import React from "react";
-import { TextInput, View, StyleSheet, Button } from "react-native";
+import { Text, TextInput, View, StyleSheet, Button } from "react-native";
 import { FormLabel } from "react-native-elements";
 
 class SceneForm extends React.Component {
@@ -15,8 +15,14 @@ class SceneForm extends React.Component {
 
     return (
       <View style={styles.container}>
+        <Text style={{fontSize: 25, marginBottom: 20}}>Save current scene as: </Text>
+
       <TextInput
-        style={{borderColor: "red", backgroundColor: "rgb(240, 240, 240)"}}
+        style={{borderColor: "red",
+          backgroundColor: "rgb(240, 240, 240)",
+          width: "50%",
+          height: 50
+        }}
         onChangeText={(text) => this.setState({text})}
         value={this.state.text}
         placeholder="scene name"
@@ -48,6 +54,8 @@ class SceneForm extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 
