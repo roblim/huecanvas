@@ -89,6 +89,7 @@ class RoomsIndex extends Component{
   componentWillMount(){
     this.props.fetchRooms();
     this.props.fetchLights();
+
   }
   getCurrentRoom(currentRoom){
     this.setState({
@@ -101,12 +102,17 @@ class RoomsIndex extends Component{
     let rooms = Object.values(this.props.rooms).map(room =>{
       return room;
     });
+
     let lights = [];
     let lightsInRooms = rooms.map(room =>{
-      if(rooms.lights){
+      if(room.lights){
         return room.lights;
+      } else {
+        return null;
       }
     });
+
+
     if(lightsInRooms.length === 0){
       return([]);
     } else {
@@ -117,18 +123,22 @@ class RoomsIndex extends Component{
           Object.values(roomLights).map(light =>{
             lights.push(light);
           });
+          console.log("lightsinRooms return value", lights);
         return lights;
         }
       });}
     }
 
   renderedLights(lightsInRoom){
+    console.log("Part 0: passed in", lightsInRoom);
       const lightsArray = Object.values(this.props.lights).map(light =>{
         return light;
       });
       if (!lightsInRoom){
         return lightsArray;
       }
+
+      console.log("Part 1: array of all", lightsArray);
       const roomLightsIndices = Object.values(lightsInRoom).map(light =>{
         return light.lightId;
       });
@@ -253,18 +263,13 @@ class RoomsIndex extends Component{
     ).start();
     Animated.spring(
       this.state.roompan,
+
       {toValue:{x:0, y:0}}
     ).start();
   }
 
   renderLights(dropZoneValues){
-    console.log("room index state", this.state);
-    console.log("lights inside rooms", this.findLightsInRooms());
-    console.log("lights in index", this.renderedLights(this.findLightsInRooms()));
-    // const lights = this.props.lights;
     const lights = this.renderedLights(this.findLightsInRooms());
-
-
     if(this.state.showDraggableLight){
       return(
         <View style={styles.draggableLight}>
@@ -291,7 +296,7 @@ class RoomsIndex extends Component{
 
   }
   render(){
-
+    console.log("lights inside rooms(render)", this.findLightsInRooms());
       return(
         <View >
           <Modal
