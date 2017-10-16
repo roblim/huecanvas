@@ -23,11 +23,3 @@ const LightIndexContainer = connect(
 )(LightIndex);
 
 export default LightIndexContainer;
-
-// {id: 0,
-//  name: "Daddy’s",
-//  lights: {
-// 					1: {lightId: 1, canvasPosition: null},
-// 					2: {lightId: 2, canvasPosition: null},
-// 	 			 }
-// }
