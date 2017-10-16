@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+	import { connect } from 'react-redux';
 import TabNavigator from './navigator';
 import { addNavigationHelpers } from 'react-navigation';
 import React, { Component } from 'react';
@@ -18,7 +18,6 @@ class AppContainer extends Component {
 }
 
 const mapStateToProps = state => {
-	// console.log(state.navigation);
-	return {nav: state}
+	return {nav: state, user: state.admin.user, bridge: state.admin.bridge}
 };
 export default connect(mapStateToProps)(AppContainer);

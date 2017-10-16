@@ -16,12 +16,17 @@ export const fetchScene = (id) => dispatch => (
   })
 );
 
+export const setScene = (id) => dispatch => {
+  APIUtil.User.setGroupState(0, {"scene": `${id}`}
+).then(scene => dispatch(receiveScene(scene)))
+}
+
 export const deleteScene = (id) => dispatch => (
   APIUtil.User.deleteScene(id).then((scene) => dispatch(removeScene(scene)))
 );
 
 export const createScene = (scene) => dispatch => (
-  APIUtil.User.createScene(scene).then((scene) => dispatch(createScene(scene)))
+  APIUtil.User.createScene(scene).then((scene) => dispatch(receiveScene(scene)))
 );
 
 const receiveAllScenes = (scenes) => ({
