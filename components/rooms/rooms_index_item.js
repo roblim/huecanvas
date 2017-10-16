@@ -25,7 +25,8 @@ class RoomsIndexItem extends Component{
       showDraggable: this.props.showDraggable,
       dropZoneValues: this.props.dropZoneValues,
       showLight: false,
-      that: this
+      that: this,
+      layout: null
     };
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
@@ -39,12 +40,19 @@ class RoomsIndexItem extends Component{
             showDraggable: false
           });
         } else {
-          Animated.spring(
-            this.state.pan,
-            {toValue:{x:0,y:0}}
-          ).start();
+          // Animated.spring(
+          //   this.state.pan,
+          //   {toValue:{x:0,y:0}}
+          // ).start();
         }
       }
+    });
+
+  }
+
+  getThisLayout(event){
+    this.setState({
+      layout: event.nativeEvent.layout
     });
 
   }
@@ -62,15 +70,16 @@ class RoomsIndexItem extends Component{
       return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
   render(){
-
     const room = this.props.room;
     const lights = this.props.lights;
     const rooms = this.props.rooms;
-<<<<<<< HEAD
+    console.log(this.state.layout);
+    console.log("props", this.props);
     if(this.state.showDraggable){
       return(
           <Animated.View {...this.panResponder.panHandlers}
-              style={[this.state.pan.getLayout(), styles.index]}>
+              style={[this.state.pan.getLayout(), styles.index]}
+              onLayout={this.getThisLayout.bind(this)}>
             <Modal
                   animationType="slide"
                   transparent={false}
@@ -99,36 +108,6 @@ class RoomsIndexItem extends Component{
                  }}>
                  <Text>Back</Text>
                </TouchableHighlight>
-=======
-    return(
-        <Animated.View {...this.panResponder.panHandlers} style={this.state.pan.getLayout()}>
-          <Modal
-                animationType="slide"
-                transparent={false}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {alert("Modal has been closed.")}}
-                >
-            <View >
-              <View>
-                <LightIndexContainer that={this} room={room} />
-              </View>
-            </View>
-          </Modal>
-       <Modal
-             animationType="slide"
-             transparent={false}
-             visible={this.state.modal2Visible}
-             onRequestClose={() => {alert("Modal has been closed.")}}
-             >
-         <View >
-           <View>
-             <RoomFormContainer rooms={rooms} room={room} that={this} modal2Visible={this.state.modal2Visible}/>
-             <TouchableHighlight onPress={() => {
-               this.setModal2Visible(!this.state.modal2Visible)
-               }}>
-               <Text>Back</Text>
-             </TouchableHighlight>
->>>>>>> dfb740ae0ea4e408ed1eeb9e2964cfded3f1a1a2
 
              </View>
            </View>
@@ -177,7 +156,6 @@ const styles = StyleSheet.create({
     },
   index:{
     backgroundColor: '#d15c94',
-    width: Window.width/3,
-    height: Window.height/8
+    flex: 1
   },
 });

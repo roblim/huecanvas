@@ -80,10 +80,14 @@ class RoomsIndex extends Component{
     this.setLightDropZoneValues = this.setLightDropZoneValues.bind(this);
 }
 
+
   componentWillMount(){
     this.props.fetchRooms();
     this.props.fetchLights();
+
   }
+
+
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
@@ -113,10 +117,11 @@ class RoomsIndex extends Component{
   }
 
   renderCreateRoom(){
+    const { navigate } = this.props.navigation;
     const rooms = this.props.rooms;
     return(
       <View>
-        <Button onPress={() => this.setModalVisible(true)}
+        <Button onPress={() => navigate('roomsNew')}
               title="Create New Room"
         />
       </View>
@@ -140,7 +145,7 @@ class RoomsIndex extends Component{
         <View >
           {
             Object.values(rooms).map(room =>(
-              <View style={styles.view} onLayout={this.setLightDropZoneValues.bind(this.props.that)}>
+              <View style={styles.roomContainer} onLayout={this.setLightDropZoneValues.bind(this.props.that)}>
                   <RoomsIndexItem
                     room={room}
                     rooms={rooms}
@@ -151,6 +156,7 @@ class RoomsIndex extends Component{
                     that={this}
                     setLightDropZoneValues={this.setLightDropZoneValues}
                 />
+                <Text></Text>
              </View>
             ))
           }
@@ -200,7 +206,7 @@ class RoomsIndex extends Component{
   }
   render(){
     console.log("dropzones", this.state.dropZones);
-    if(this.props.rooms){
+
       return(
         <View >
           <Modal
@@ -209,7 +215,7 @@ class RoomsIndex extends Component{
                 visible={this.state.modalVisible}>
             <View >
               <View>
-                <RoomFormContainer rooms={this.props.rooms} that={this.state.that}/>
+                <RoomFormContainer rooms={this.props.rooms} that={this.state.that} room={this.props.room} modal2Visible={this.state.modal2Visible}/>
                 <TouchableHighlight onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
                   }}>
@@ -223,17 +229,8 @@ class RoomsIndex extends Component{
           {this.renderRooms(this.state.dropZoneValuesRoom)}
           {this.renderLights(this.state.dropZoneValuesLight)}
         </View>
-
       );
-    } else {
-      return(
-        <View style={styles.mainContainer}>
-          <Text>No Rooms</Text>
-        </View>
-      );
-
-    }}
-
+}
 }
 
 let CIRCLE_RADIUS = 36;
@@ -259,11 +256,12 @@ let styles = StyleSheet.create({
       width: Window.width/3
     },
     draggableLight: {
+        flex:1,
         position    : 'absolute',
-        top         : Window.height/2 - CIRCLE_RADIUS,
+        top         : Window.height/3*2,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'stretch',
+        alignItems: 'center',
         flexWrap: 'wrap'
     },
     draggableRoom:{
@@ -279,6 +277,10 @@ let styles = StyleSheet.create({
     },
     view :{
       height: 100
+    },
+    roomContainer:{
+      width: Window.height/3,
+      height: Window.height/6
     }
 });
 
