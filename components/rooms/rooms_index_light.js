@@ -58,6 +58,7 @@ class RoomsIndexLight extends Component {
         });
         console.log("this.state.room", newRoom);
         this.props.getCurrentRoom(newRoom);
+        this.props.getDroppedLights(this.props.light);
         this.props.parentProps.updateRoom(newRoom);
           this.setState({
             showDraggable: false
