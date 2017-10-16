@@ -27,7 +27,6 @@ export default class Root extends React.Component {
   componentWillMount() {
 
       this.showModal();
-    // AsyncStorage.clear();
   }
 
   showModal() {
@@ -129,7 +128,11 @@ export default class Root extends React.Component {
           </Modal>
   			</View>
 
-        <View style={styles.container}>{this.button()}</View>
+
+        <View style={styles.container}>
+
+
+        </View>
         <View>
           <Button
             onPress={() => navigate('roomsNew')}

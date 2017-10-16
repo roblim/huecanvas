@@ -29,6 +29,7 @@ class Discover extends React.Component {
 
     };
 
+
   userOptions() {
 
     if (this.state.user) {
@@ -43,8 +44,8 @@ class Discover extends React.Component {
           <Text style={{padding: 50, fontSize: 20}}>Press button on the Philips Hue bridge, then click create user</Text>
           <Image source={require("../../docs/icons/icon_pack_v2.02/Push-link/PDF/pushlink_bridgev2-1.png")}
             style={{width: 300, height: 300}}
-      />
-    <Button color="black"
+            />
+          <Button color="black"
             title={"create user"}
             onPress={() => {
               this.props.createUser(this.props.bridge);
@@ -57,6 +58,8 @@ class Discover extends React.Component {
           </ View>
 
       )
+
+
     }
   }
 

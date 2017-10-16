@@ -1,5 +1,4 @@
 export const selectLights = (state) => {
-  console.log(state);
   let lights = state.entities.lights
   let lightIds = Object.keys(lights);
   lightIds.forEach(id => (lights[id]['lightId'] = parseInt(id)));
