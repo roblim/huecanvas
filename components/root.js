@@ -15,14 +15,20 @@ export default class Root extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalVisible: false
+      isModalVisible: false,
+      displayed: false
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.button = this.button.bind(this);
+    this.toggleDisplay = this.toggleDisplay.bind(this);
   }
 
   componentWillMount() {
-    this.showModal();
+    if (this.state.displayed === false) {
+
+      this.showModal();
+    }
     // AsyncStorage.clear();
     console.log(AsyncStorage.getItem("users"));
   }
@@ -37,6 +43,24 @@ export default class Root extends React.Component {
 
   hideModal() {
     this.setState({ isModalVisible: false });
+  }
+
+  toggleDisplay(bool) {
+    this.setState({displayed: bool})
+  }
+
+  button() {
+    if (this.state.displayed) {
+      return (
+        <Text>Home</Text>
+      )
+    } else {
+      return (
+        <Button onPress={this.showModal}
+          title="find bridge"
+          />
+      )
+    }
   }
 
   // <SceneIndexContainer />
@@ -60,6 +84,8 @@ export default class Root extends React.Component {
               >
               <DiscoverContainer hideModal={this.hideModal}
                                   navigate={navigate}
+                                  toggleDisplay={this.toggleDisplay}
+
                 />
               </Modal>
 
@@ -67,9 +93,8 @@ export default class Root extends React.Component {
 
 
         <View style={styles.container}>
-        <Button onPress={this.showModal}
-          title="find bridge"
-          />
+
+        {this.button()}
 
         </View>
         <View>

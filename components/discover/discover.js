@@ -16,19 +16,23 @@ class Discover extends React.Component {
     this.props.fetchBridges()
       AsyncStorage.getItem("users").then((users) => {
         users = JSON.parse(users);
-        if (!!Object.keys(users)[0]) {
-          this.setState({user: true})
-          users = Object.keys(users).map((user) => this.props.bridge.user(user))
-          this.props.fetchLights(users[0])
-
-        } else {
-          this.setState({user: false})
+        console.log(!!Object.keys(users)[0]);
+         if (!!Object.keys(users)[0]) {
+           this.setState({user: true})
+           setTimeout(() => {
+             this.props.hideModal();
+             console.log(this.props.bridge);
+             users = Object.keys(users).map((user) => this.props.bridge.user(user))
+             console.log("here");
+             this.props.fetchLights(users[0])
+           }, 2000)
         }
       })
 
     };
 
   userOptions() {
+
     if (this.state.user) {
       this.props.fetchLights(this.props.user)
       setTimeout(() => this.props.hideModal(), 1500);
@@ -47,6 +51,9 @@ class Discover extends React.Component {
             onPress={() => {
               this.props.createUser(this.props.bridge);
               this.props.hideModal();
+              setTimeout(() => {
+                this.props.fetchLights(this.props.user)
+              }, 2000)
             }}
             />
           </ View>
