@@ -13,10 +13,9 @@ const homeIP = '10.1.10.67'
 const Hue = jsHue();
 const Bridge = Hue.bridge(homeIP);
 const User = Bridge.user(homeHue);
-const Lights = User.getLights().then(data => data);
 
 
-const configureStore = (preloadedState = testStore) => (
+const configureStore = (preloadedState) => (
   createStore(
     RootReducer,
     preloadedState,
@@ -26,13 +25,13 @@ const configureStore = (preloadedState = testStore) => (
 
 export default configureStore;
 
-let testStore = {
-  admin: {
-    bridge: Bridge,
-    user: User,
-    bridgeIP: homeIP
-  }
-};
+// let testStore = {
+//   admin: {
+//     bridge: Bridge,
+//     user: User,
+//     bridgeIP: homeIP
+//   }
+// };
 
 // { 2: {
 //   manufacturername:"Philips"
