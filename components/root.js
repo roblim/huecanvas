@@ -27,7 +27,6 @@ export default class Root extends React.Component {
   componentWillMount() {
 
       this.showModal();
-    AsyncStorage.clear();
   }
 
   showModal() {
