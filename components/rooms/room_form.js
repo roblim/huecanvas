@@ -26,10 +26,10 @@ export default class RoomForm extends React.Component {
       		let maxId = Object.keys(res.rooms).reduce((a, b) => {
       			return (Math.max(a, b))
       		})
-          this.setState({room: {id: (parseInt(maxId) + 1)}})
+          this.setState({room: {id: (parseInt(maxId) + 1), coordinates:{x:null, y:null, height: null, width:null}}})
           console.log(this.state.room);
       	} else {
-      		this.setState({room: {id: 0}})
+      		this.setState({room: {id: 0, coordinates:{x:null, y:null, height: null, width:null}}});
           console.log('hooray');
       	}
       })

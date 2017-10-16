@@ -28,7 +28,9 @@ class RoomsIndex extends Component{
       renderedLights: this.props.lights,
       renderedRooms: this.props.rooms,
       modalVisible: false,
-      dropZones:[]
+      dropZones:[],
+      sendToLightContainer: null,
+      droppedLights:[]
     };
 
     this.panResponderLight = PanResponder.create({
@@ -64,10 +66,10 @@ class RoomsIndex extends Component{
           });
 
         }else{
-          Animated.spring(
-              this.state.roompan,
-              {toValue:{x:0,y:0}}
-          ).start();
+          // Animated.spring(
+          //     this.state.roompan,
+          //     {toValue:{x:0,y:0}}
+          // ).start();
         }
       }
     });
@@ -78,12 +80,85 @@ class RoomsIndex extends Component{
     this.renderCreateRoom = this.renderCreateRoom.bind(this);
     this.resetLights = this.resetLights.bind(this);
     this.setLightDropZoneValues = this.setLightDropZoneValues.bind(this);
+    this.renderedLights = this.renderedLights.bind(this);
+    this.findLightsInRooms = this.findLightsInRooms.bind(this);
+    this.removeRoom = this.removeRoom.bind(this);
 }
 
   componentWillMount(){
     this.props.fetchRooms();
     this.props.fetchLights();
 
+  }
+  getCurrentRoom(currentRoom){
+    this.setState({
+      sendToLightContainer: currentRoom
+    });
+  }
+
+  findLightsInRooms(){
+    if(!this.props.rooms){return([]);}
+    let rooms = Object.values(this.props.rooms).map(room =>{
+      return room;
+    });
+
+    let lights = [];
+    let lightsInRooms = rooms.map(room =>{
+      if(room.lights){
+        return room.lights;
+      } else {
+        return null;
+      }
+    });
+
+
+    if(lightsInRooms.length === 0){
+      return([]);
+    } else {
+      lightsInRooms.forEach(roomLights =>{
+        if(!roomLights){
+          return lights;
+        } else{
+          Object.values(roomLights).map(light =>{
+            lights.push(light);
+          });
+          console.log("lightsinRooms return value", lights);
+        return lights;
+        }
+      });}
+    }
+
+  renderedLights(lightsInRoom){
+    console.log("Part 0: passed in", lightsInRoom);
+      const lightsArray = Object.values(this.props.lights).map(light =>{
+        return light;
+      });
+      if (!lightsInRoom){
+        return lightsArray;
+      }
+
+      console.log("Part 1: array of all", lightsArray);
+      const roomLightsIndices = Object.values(lightsInRoom).map(light =>{
+        return light.lightId;
+      });
+      let newLightsArray=[];
+
+      if(roomLightsIndices.length === 0){
+        return lightsArray;
+      } else {
+        lightsArray.forEach(light =>{
+          if(roomLightsIndices.includes(light.lightId)){
+            newLightsArray.push(light);
+          }
+        });
+        return newLightsArray;
+      }
+  }
+
+  getDroppedLights(droppedLight){
+    this.setState({
+      droppedLights: [...this.state.droppedLights, droppedLight]
+    });
   }
 
   setModalVisible(visible) {
@@ -111,6 +186,13 @@ class RoomsIndex extends Component{
     this.setState({
       dropZoneValuesRoom: event.nativeEvent.layout
     });
+  }
+
+  removeRoom(id){
+    console.log("REMOVE ROOM HAS BEEN REACHED");
+    console.log("THIS IS THE ID:", id);
+    console.log("THIS.PROPS.DELETEROOM", this.props.deleteRoom);
+    this.props.deleteRoom(1);
   }
 
   renderCreateRoom(){
@@ -141,21 +223,25 @@ class RoomsIndex extends Component{
       return(
         <View >
           {
-            Object.values(rooms).map(room =>(
-              <View style={styles.roomContainer} onLayout={this.setLightDropZoneValues.bind(this.props.that)}>
-                  <RoomsIndexItem
-                    room={room}
-                    rooms={rooms}
-                    lights={lights}
-                    showDraggable={this.state.showDraggableRoom}
-                    dropZoneValues = {dropZoneValues}
-                    key={room.id}
-                    that={this}
-                    setLightDropZoneValues={this.setLightDropZoneValues}
-                />
-                <Text></Text>
-             </View>
-            ))
+            Object.values(rooms).map(room =>{
+              return(
+
+                    <RoomsIndexItem
+                      room={room}
+                      rooms={rooms}
+                      lights={lights}
+                      showDraggable={this.state.showDraggableRoom}
+                      dropZoneValues = {dropZoneValues}
+                      key={room.id}
+                      that={this}
+                      setLightDropZoneValues={this.setLightDropZoneValues}
+                      parentProps={this.props}
+                      sendToLightContainer={this.state.sendToLightContainer}
+                      removeRoom={id => this.removeRoom(id)}
+                  />
+             );
+            }
+          )
           }
         </View>
       );
@@ -174,23 +260,28 @@ class RoomsIndex extends Component{
     ).start();
     Animated.spring(
       this.state.roompan,
+
       {toValue:{x:0, y:0}}
     ).start();
   }
 
   renderLights(dropZoneValues){
-    const lights = this.props.lights;
+    const lights = this.renderedLights(this.findLightsInRooms());
     if(this.state.showDraggableLight){
       return(
         <View style={styles.draggableLight}>
           {
-            Object.values(lights).map(light =>(
+            lights.map(light =>(
               <View>
                   <RoomsIndexLight
                     light={light}
                     showDraggable={this.state.showDraggableLight}
                     dropZoneValues={dropZoneValues}
                     dropZones={this.state.dropZones}
+                    rooms={this.props.rooms}
+                    parentProps = {this.props}
+                    getCurrentRoom = {(currentRoom)=> this.getCurrentRoom(currentRoom)}
+                    getDroppedLights={(droppedLight)=> this.getDroppedLights(droppedLight)}
                     />
               </View>
             ))
@@ -202,8 +293,6 @@ class RoomsIndex extends Component{
 
   }
   render(){
-    console.log("dropzones", this.state.dropZones);
-
       return(
         <View >
           <Modal
@@ -276,8 +365,8 @@ let styles = StyleSheet.create({
       height: 100
     },
     roomContainer:{
-      width: Window.height/3,
-      height: Window.height/6
+      width: Window.height/5,
+      height: Window.height/6,
     }
 });
 
