@@ -14,6 +14,7 @@ import { StyleSheet,
 import RoomFormContainer from './room_form_container';
 import RoomsIndexContainer from './rooms_index_container';
 import LightIndexContainer from '../light_index/light_index_container';
+import merge from 'lodash/merge';
 
 class RoomsIndexItem extends Component{
   constructor(props){
@@ -26,7 +27,8 @@ class RoomsIndexItem extends Component{
       dropZoneValues: this.props.dropZoneValues,
       showLight: false,
       that: this,
-      layout: null
+      layout: null,
+      room: this.props.room
     };
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
@@ -40,21 +42,22 @@ class RoomsIndexItem extends Component{
             showDraggable: false
           });
         } else {
-          // Animated.spring(
-          //   this.state.pan,
-          //   {toValue:{x:0,y:0}}
-          // ).start();
-        }
-      }
+        //   Animated.spring(
+        //   //   this.state.pan,
+        //   //   {toValue:{x:0,y:0}}
+        //   // ).start();
+        // }
+      }}
     });
 
   }
 
   getThisLayout(event){
+    let newRoom = merge({}, this.state.room, {coordinates: event.nativeEvent.layout});
     this.setState({
-      layout: event.nativeEvent.layout
+      room: newRoom
     });
-
+    this.props.parentProps.updateRoom(this.state.room);
   }
 
   setModalVisible(visible) {
@@ -73,8 +76,7 @@ class RoomsIndexItem extends Component{
     const room = this.props.room;
     const lights = this.props.lights;
     const rooms = this.props.rooms;
-    console.log(this.state.layout);
-    console.log("props", this.props);
+    console.log("room passed to LightIndexContainer", this.props.room);
     if(this.state.showDraggable){
       return(
           <Animated.View {...this.panResponder.panHandlers}
@@ -121,7 +123,7 @@ class RoomsIndexItem extends Component{
 
            >
              <View>
-               <Text style={styles.text}>{room.name}</Text>
+               <Text style={styles.text}>{this.props.room.name}</Text>
              </View>
            </TouchableWithoutFeedback>
 
@@ -156,6 +158,10 @@ const styles = StyleSheet.create({
     },
   index:{
     backgroundColor: '#d15c94',
-    flex: 1
+    width: Window.width/5,
+    height: Window.height/6,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
   },
 });
