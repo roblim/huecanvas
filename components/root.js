@@ -21,9 +21,6 @@ export default class Root extends React.Component {
     this.hideModal = this.hideModal.bind(this);
   }
 
-  componentDidMount() {
-    AsyncStorage.clear()
-  }
 
   showModal() {
     this.setState({ isModalVisible: true });
