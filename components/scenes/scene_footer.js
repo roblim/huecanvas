@@ -40,7 +40,9 @@ class SceneFooter extends React.Component {
         <View>
           <Modal
             style={{
-              backgroundColor: "rgba(255, 255, 255, .4)"
+
+              backgroundColor: "rgba(255, 255, 255, .4)",
+              height: "100%"
 
             }}
             isVisible={this.state.IndexModalIsOpen}
@@ -60,7 +62,6 @@ class SceneFooter extends React.Component {
             backdropColor="rgb(255, 255, 255)"
 
             >
-            <Text>Save current scene as: </Text>
 
             <SceneFormContainer
               hideModal={this.hideModal}
