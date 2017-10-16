@@ -65,15 +65,15 @@ class NavSliders extends React.Component {
 		console.log(!!Object.keys(this.props.lights).length > 0);
 		while (!this.props.user) {
 			return (
-				<Text style={{color: "white"}}>HueCanvas</Text>
+				null
 			)
 		}
     return (
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'stretch', flex: 1 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', flex: 1, marginTop: -20 }}>
 				<View>
 					<Slider
-						style={{flex: 1, marginRight: 20, marginTop: -10}}
-						trackStyle={{width: 255, height: 20}}
+						style={{flex: 1, marginRight: 20,}}
+						trackStyle={{width: 255, height: 28, borderRadius: 14}}
 						thumbTouchSize={{width: 40, height: 40}}
 						thumbStyle={{width: 30, height: 30, borderRadius: 100, backgroundColor: 'white'}}
 						minimumTrackTintColor={'#9fc5f8'}

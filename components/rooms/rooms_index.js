@@ -12,6 +12,8 @@ import { StyleSheet,
 import RoomsIndexItem from './rooms_index_item';
 import { AsyncStorage } from 'react-native';
 import RoomFormContainer from './room_form_container';
+import RoomsIndexLight from './rooms_index_light';
+
 
 class RoomsIndex extends Component{
   constructor(props){
@@ -23,8 +25,10 @@ class RoomsIndex extends Component{
       showDraggableRoom: true,
       dropZoneValuesLight: null,
       dropZoneValuesRoom: null,
-      renderedLights: [],
-      renderedRooms: []
+      renderedLights: this.props.lights,
+      renderedRooms: this.props.rooms,
+      modalVisible: false,
+      dropZones:[]
     };
 
     this.panResponderLight = PanResponder.create({
@@ -58,6 +62,7 @@ class RoomsIndex extends Component{
           this.setState({
               showDraggableRoom: false
           });
+
         }else{
           Animated.spring(
               this.state.roompan,
@@ -72,11 +77,20 @@ class RoomsIndex extends Component{
     this.renderDragArea = this.renderDragArea.bind(this);
     this.renderCreateRoom = this.renderCreateRoom.bind(this);
     this.resetLights = this.resetLights.bind(this);
+    this.setLightDropZoneValues = this.setLightDropZoneValues.bind(this);
 }
+
 
   componentWillMount(){
     this.props.fetchRooms();
     this.props.fetchLights();
+
+  }
+
+
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
 
   isLightDropZone(gesture){
@@ -91,7 +105,8 @@ class RoomsIndex extends Component{
 
   setLightDropZoneValues(event){
     this.setState({
-        dropZoneValuesLight: event.nativeEvent.layout
+        dropZoneValuesLight: event.nativeEvent.layout,
+        dropZones: [...this.state.dropZones, event.nativeEvent.layout]
     });
   }
 
@@ -103,6 +118,7 @@ class RoomsIndex extends Component{
 
   renderCreateRoom(){
     const { navigate } = this.props.navigation;
+    const rooms = this.props.rooms;
     return(
       <View>
         <Button onPress={() => navigate('roomsNew')}
@@ -120,25 +136,28 @@ class RoomsIndex extends Component{
     );
   }
 
-  renderRooms(){
+  renderRooms(dropZoneValues){
     if (!this.props.rooms) { return null; }
-
-    const { navigate } = this.props.navigation;
     const rooms = this.props.rooms;
     const lights = this.props.lights;
     if(this.state.showDraggableRoom){
       return(
-        <View onLayout={this.setLightDropZoneValues.bind(this)} >
+        <View >
           {
             Object.values(rooms).map(room =>(
+              <View style={styles.roomContainer} onLayout={this.setLightDropZoneValues.bind(this.props.that)}>
                   <RoomsIndexItem
                     room={room}
                     rooms={rooms}
                     lights={lights}
                     showDraggable={this.state.showDraggableRoom}
-                    dropZoneValues = {this.state.dropZoneValuesRoom}
+                    dropZoneValues = {dropZoneValues}
                     key={room.id}
+                    that={this}
+                    setLightDropZoneValues={this.setLightDropZoneValues}
                 />
+                <Text></Text>
+             </View>
             ))
           }
         </View>
@@ -162,8 +181,7 @@ class RoomsIndex extends Component{
     ).start();
   }
 
-  renderLights(){
-    const { navigate } = this.props.navigation;
+  renderLights(dropZoneValues){
     const lights = this.props.lights;
     if(this.state.showDraggableLight){
       return(
@@ -171,12 +189,12 @@ class RoomsIndex extends Component{
           {
             Object.values(lights).map(light =>(
               <View>
-                <Animated.View {...this.panResponderLight.panHandlers}
-                  style={[this.state.lightpan.getLayout(), styles.circle]}
-                  key={light.id + "light"}
-                >
-                  <Text style={styles.text}>{light.name}</Text>
-                </Animated.View>
+                  <RoomsIndexLight
+                    light={light}
+                    showDraggable={this.state.showDraggableLight}
+                    dropZoneValues={dropZoneValues}
+                    dropZones={this.state.dropZones}
+                    />
               </View>
             ))
           }
@@ -187,27 +205,32 @@ class RoomsIndex extends Component{
 
   }
   render(){
-    if(this.props.rooms){
+    console.log("dropzones", this.state.dropZones);
+
       return(
-        <View style={styles.mainContainer}>
+        <View >
+          <Modal
+                animationType="slide"
+                transparent={false}
+                visible={this.state.modalVisible}>
+            <View >
+              <View>
+                <RoomFormContainer rooms={this.props.rooms} that={this.state.that} room={this.props.room} modal2Visible={this.state.modal2Visible}/>
+                <TouchableHighlight onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                  }}>
+                  <Text>Back</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
           {this.renderDragArea()}
           {this.renderCreateRoom()}
-          {this.renderRooms()}
-          {this.renderLights()}
-          <TouchableHighlight onPress={this.resetLights}>
-            <Text>Reset</Text>
-          </TouchableHighlight>
-        </View>
-
-      );
-    } else {
-      return(
-        <View style={styles.mainContainer}>
+          {this.renderRooms(this.state.dropZoneValuesRoom)}
+          {this.renderLights(this.state.dropZoneValuesLight)}
         </View>
       );
-
-    }}
-
+}
 }
 
 let CIRCLE_RADIUS = 36;
@@ -233,16 +256,17 @@ let styles = StyleSheet.create({
       width: Window.width/3
     },
     draggableLight: {
+        flex:1,
         position    : 'absolute',
-        top         : Window.height/2 - CIRCLE_RADIUS,
+        top         : Window.height/3*2,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'stretch',
+        alignItems: 'center',
         flexWrap: 'wrap'
     },
     draggableRoom:{
         position    : 'absolute',
-        top         : (Window.height/3)*2 - CIRCLE_RADIUS,
+        top         : (Window.height/3)*2,
         left        : Window.width/2 - CIRCLE_RADIUS
     },
     circle      : {
@@ -250,6 +274,13 @@ let styles = StyleSheet.create({
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
         borderRadius        : CIRCLE_RADIUS
+    },
+    view :{
+      height: 100
+    },
+    roomContainer:{
+      width: Window.height/3,
+      height: Window.height/6
     }
 });
 

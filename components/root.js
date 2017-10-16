@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, StatusBar } from 'react-native';
 import Modal from "react-native-modal";
 import SceneFooter from "./scenes/scene_footer";
 import DiscoverContainer from "./discover/discover_container";
@@ -56,30 +56,76 @@ export default class Root extends React.Component {
   }
 
   // <SceneIndexContainer />
+  // <View style={{flex: 1}}>
+  //   <Text>This is the root page</Text>
+  //   <SceneFooter />
+  //   <Modal
+  //     style={{
+  //       flex: 1,
+  //       justifyContent: "center",
+  //       alignItems: "center",
+  //       margin: "auto"
+  //
+  //     }}
+  //     isVisible={this.state.isModalVisible}
+  //     backdropColor="rgb(255, 255, 255)"
+  //
+  //     >
+  //     <Button onPress={this.hideModal}
+  //       title="close"
+  //       />
+  //     <DiscoverContainer />
+  //   </Modal>
+  //
+  // </View>
+
+  // <View style={styles.container}>
+  //   <Button onPress={() => this.showModal}
+  //     title="discover"
+  //     />
+  //   <Button onPress={this.showModal}
+  //     title="find bridge"
+  //     />
+  //   <Button
+  //     onPress={() => navigate('roomTemp')}
+  //     title="Navigate to RoomTemp"
+  //     />
+  // </View>
+  //
+  // <View>
+  //   <Button
+  //     onPress={() => navigate('roomsNew')}
+  //     title="Navigate to RoomsNew"
+  //   />
+  // </View>
+  // <View>
+  //   <Button
+  //     onPress={() => navigate('roomsIndex')}
+  //     title="Navigate to RoomsIndex"
+  //   />
+  // </View>
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View>
+        <StatusBar hidden />
   			<View style={{flex: 1}}>
-            <Modal
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "auto"
+          <Modal
+            style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: "auto"
+                  }}
+            isVisible={this.state.isModalVisible}
+            backdropColor="rgb(255, 255, 255)"
+          >
+            <DiscoverContainer hideModal={this.hideModal}
+                                navigate={navigate}
+                                toggleDisplay={this.toggleDisplay}
 
-              }}
-              isVisible={this.state.isModalVisible}
-              backdropColor="rgb(255, 255, 255)"
-
-              >
-              <DiscoverContainer hideModal={this.hideModal}
-                                  navigate={navigate}
-                                  toggleDisplay={this.toggleDisplay}
-
-                />
-              </Modal>
-
+            />
+          </Modal>
   			</View>
 
 
@@ -92,16 +138,16 @@ export default class Root extends React.Component {
             onPress={() => navigate('roomsNew')}
             title="Navigate to RoomsNew"
           />
+        </View>
+        <View>
+          <Button
+            onPress={() => navigate('roomsIndex')}
+            title="Navigate to RoomsIndex"
+          />
+        </View>
+        <LightIndexContainer />
+        <SceneFooter />
       </View>
-      <View>
-        <Button
-          onPress={() => navigate('roomsIndex')}
-          title="Navigate to RoomsIndex"
-        />
-    </View>
-    <LightIndexContainer />
-    <SceneFooter />
-    </View>
     );
   }
 }
