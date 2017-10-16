@@ -44,6 +44,7 @@ export const setBri = (user, lightId, brightness) => {
 };
 
 export const setBriAll = (user, brightness) => {
+  console.log("deep user", user);
   return user.setGroupState(
     0,
     {

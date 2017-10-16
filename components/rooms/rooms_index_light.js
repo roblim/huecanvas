@@ -68,6 +68,7 @@ class RoomsIndexLight extends Component {
   }
 
   isDropZone(gesture){
+<<<<<<< HEAD
       // const dz = this.props.dropZoneValues;
       // // const thisZone = this.props.dropZones.map(dropZone =>{
       // //     return(
@@ -100,6 +101,34 @@ class RoomsIndexLight extends Component {
       // });
       // return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
       return true;
+=======
+      const dz = this.props.dropZoneValues;
+      const thisZone = this.props.dropZones.map(dropZone =>{
+          return(
+            dropZone
+          );
+
+      });
+      console.log("thisZone", thisZone);
+      const last = thisZone.find(dropZone =>{
+        console.log("dropZoney",dropZone.y);
+        console.log("dropZoney+height", dropZone.y+dropZone.height);
+        console.log("gesture.moveY", gesture.moveY);
+        console.log();
+        if((dropZone.y < gesture.moveY) && (dropZone.y+dropZone.height > gesture.moveY)){
+          return(
+            dropZone
+          );
+        }
+      });
+
+      console.log("last", last);
+      dz.height += 100;
+      this.setState({
+        dropZoneValues: dz
+      });
+      return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
+>>>>>>> 844bf8059a447330441c14027acb7f4d327a3538
   }
 
   render(){

@@ -5,7 +5,8 @@ import { Text,
 				 Button,
 			   TouchableHighlight,
 			   Modal,
-			   PanResponder} from 'react-native';
+			   PanResponder,
+			 	 Dimensions } from 'react-native';
 import { xyToRGB } from '../../util/lights_util';
 import { getRGBFromXYAndBrightness } from '../../util/color';
 import LightFormContainer from './light_form_container';
@@ -29,12 +30,13 @@ class LightIndexItem extends React.Component {
 		this.user = this.props.user;
 		this.light = this.props.light;
 
-		this.lightColor = getRGBFromXYAndBrightness(this.light.state.xy[0], this.light.state.xy[1], this.light.state.bri, this.light.modelId);
+		this.lightColor = getRGBFromXYAndBrightness(this.light.state.xy[0],
+																								this.light.state.xy[1],
+																								this.light.state.bri,
+																								this.light.modelId);
 		this.lightColorRGB = 	`rgb(${this.lightColor[0]},
 																${this.lightColor[1]},
 																${this.lightColor[2]})`;
-
-
 
 		this.state = {
 			modalVisible: false,
@@ -147,8 +149,9 @@ class LightIndexItem extends React.Component {
 			onPanResponderRelease: this._handlePanResponderEnd,
 			onPanResponderTerminate: this._handlePanResponderEnd
 		});
-		this._previousLeft = 20;
-		this._previousTop = 100;
+		let Window = Dimensions.get('window');
+		this._previousLeft = 0;
+		this._previousTop = 0;
 		this._circleStyles = {
 			style: { left: this._previousLeft, top: this._previousTop }
 		};
@@ -163,11 +166,13 @@ class LightIndexItem extends React.Component {
 		const { light } = this.props;
     return(
 			<View style={styles.wrapper}>
+
 		      <View
 						ref={circle => {
 	            this.circle = circle;
 	          }}
 						{...this._panResponder.panHandlers}
+						onLayout={(e) => console.log(e.nativeEvent.layout)}
 						style={lightColor(light).container}>
 
 						<TouchableHighlight
@@ -176,7 +181,7 @@ class LightIndexItem extends React.Component {
 							onPress={this.onPress(user, light.lightId)}>
 								<View style={lightColor(light).container}>
 									<Text style={{
-																color: 'white',
+																color: '#111111',
 																fontSize: 16,
 																fontWeight: 'bold',
 																textAlign: 'center',
@@ -185,40 +190,37 @@ class LightIndexItem extends React.Component {
 									</Text>
 								</View>
 						</TouchableHighlight>
-
 					</View>
 
-					<View>
-		        <Modal
-		          animationType="fade"
-		          transparent={true}
-		          visible={this.state.modalVisible}
-		          onRequestClose={() => {alert("Modal has been closed.")}}
-
-		          >
-		         <View style={styles.modalContainer}>
-		         	<View style={styles.modalContent}>
-								<View style={{flex: 1, padding: 15, backgroundColor: '#212021'}}>
-									<Text style={{color: 'white',
-																fontSize: 40,
-																fontWeight: 'bold',
-																marginTop: 20,
-																marginLeft: 30
-															}}>{this.light.name}</Text>
-									<TriangleColorPicker
-										oldColor={this.state.oldColor}
-										color={this.state.color}
-										onColorChange={this.onColorChange.bind(this)}
-										onColorSelected={this.onColorSelected.bind(this)}
-										onOldColorSelected={this.onOldColorSelected.bind(this)}
-										style={{flex: 1}}
-									/>
-								</View>
-
-		          </View>
-		         </View>
-		        </Modal>
-	      	</View>
+				<View>
+	        <Modal
+	          animationType="fade"
+	          transparent={true}
+	          visible={this.state.modalVisible}
+	          onRequestClose={() => {alert("Modal has been closed.")}}
+	          >
+	         <View style={styles.modalContainer}>
+	         	<View style={styles.modalContent}>
+							<View style={{flex: 1, padding: 15, backgroundColor: 'black'}}>
+								<Text style={{color: 'white',
+															fontSize: 40,
+															fontWeight: 'bold',
+															marginTop: 15,
+															marginLeft: 30
+														}}>{this.light.name}</Text>
+								<TriangleColorPicker
+									oldColor={this.state.oldColor}
+									color={this.state.color}
+									onColorChange={this.onColorChange.bind(this)}
+									onColorSelected={this.onColorSelected.bind(this)}
+									onOldColorSelected={this.onOldColorSelected.bind(this)}
+									style={{flex: 1}}
+								/>
+							</View>
+	          </View>
+	         </View>
+	        </Modal>
+      	</View>
 
 			</View>
     )
@@ -285,7 +287,10 @@ class LightIndexItem extends React.Component {
 
 const lightColor = (light) => {
 	// let rgb = xyToRGB(light.state.xy, light.state.bri);
-	let rgb = getRGBFromXYAndBrightness(light.state.xy[0], light.state.xy[1], light.state.bri, light.modelId);
+	let rgb = getRGBFromXYAndBrightness(light.state.xy[0],
+																		  light.state.xy[1],
+																			light.state.bri,
+																			light.modelId);
 	let red  = rgb[0];
 	let green  = rgb[1];
 	let blue  = rgb[2];
@@ -302,12 +307,21 @@ const lightColor = (light) => {
 				height: 110,
 				borderRadius: 55,
 				// position: "absolute",
-				// left: 0,
-				// top: 0
+				margin: 10,
+				left: 0,
+				top: 0,
+
+				// shadowColor: `rgb(${red}, ${green}, ${blue})`,
+		    // shadowOffset: { width: 1, height: 1 },
+		    // shadowOpacity: 1,
+		    // shadowRadius: 6,
+		    // elevation: 4,
 			}
 		})
 	);
 };
+
+let Window = Dimensions.get('window');
 
 const styles = StyleSheet.create({
 	modalContainer: {
@@ -323,8 +337,16 @@ const styles = StyleSheet.create({
 		borderRadius: 5
 	},
 	wrapper: {
-		// flex: 1,
-		alignSelf: 'flex-start'
+		alignSelf: 'flex-start',
+	},
+	lightWrapper: {
+		flex:1,
+		top: 0,
+		bottom: 0,
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		flexWrap: 'wrap'
 	}
 });
 

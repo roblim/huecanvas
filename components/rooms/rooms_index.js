@@ -296,7 +296,6 @@ class RoomsIndex extends Component{
 
   }
   render(){
-    console.log("lights inside rooms(render)", this.findLightsInRooms());
       return(
         <View >
           <Modal

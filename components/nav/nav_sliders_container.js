@@ -9,12 +9,13 @@ import {
 } from '../../actions/light_actions';
 import { Switch } from 'react-native';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) => {
+	return {
   user: state.admin.user,
-  lights: selectLights(state),
-	eventSwitchIsOn: false,
+	lights: selectLights(state),
+ 	eventSwitchIsOn: false,
 	eventSwitchRegressionIsOn: true
-});
+}};
 
 const mapDispatchToProps = (dispatch) => {
 	return {

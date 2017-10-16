@@ -24,7 +24,7 @@ import jsHue from 'jshue';
 const appAcademyHue = "VJw19b5u6kZ2kWx8C5AqnaYe2eDS-kI2y8RHlL2o";
 const homeHue = '54gEGoS1LxdOnFSk3fWMfMa7sQYUi76ERzWRGhZs';
 const appAcademyIP = '192.168.1.234';
-const homeIP = '10.1.10.67'
+const homeIP = ''
 const Hue = jsHue();
 const Bridge = Hue.bridge(homeIP);
 const User = Bridge.user(homeHue);
@@ -68,13 +68,13 @@ export const changeBrightness = (user, lightId, brightness) => dispatch => (
   )
 );
 
-export const changeBrightnessAll = (user, brightness) => dispatch => (
+export const changeBrightnessAll = (user, brightness) => dispatch => {
   setBriAll(user, brightness).then(
     lightState => dispatch({ type: SET_BRIGHTNESS_ALL,
                              bri: Object.values(lightState[0].success)[0] }),
     err => console.log(err)
   )
-);
+};
 
 export const increaseBrightness = (user, lightId, increment) => dispatch => (
   incBri(user, lightId, increment).then(

@@ -11,23 +11,22 @@ class NavSliders extends React.Component {
 		this.turnAllLightsOff = this.props.turnAllLightsOff.bind(this);
 		this.turnAllLightsOn = this.props.turnAllLightsOn.bind(this);
 		this.changeBrightnessAll = this.props.changeBrightnessAll.bind(this)
-		this.state = {user: this.props.user, sliderVal: -1, lastCall: 0, globalOn: true }
+		this.state = {user: this.props.user, sliderVal: 121, lastCall: 0, globalOn: true }
   }
 
-	componentWillMount() {
-		this.props.fetchLights()
-	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log(nextProps);
 		if (this.state.sliderVal == -1) {
 			let total = 0
 			nextProps.lights.forEach(light => {
 				if (light.state.reachable) {
 					total += light.state.bri
 				}
+				console.log(total);
 			})
-			this.setState({user: this.props.user, sliderVal: (total / nextProps.lights.length), lastCall: 0, globalOn: true });
+			console.log(Math.trunc(total/nextProps.lights.length));
+			myTotal = isNaN(total) === true ? 0 : Math.trunc(total / nextProps.lights.length)
+			this.setState({user: this.props.user, sliderVal: (myTotal), lastCall: 0, globalOn: true });
 		}
 	}
 // light.state.bri
@@ -53,22 +52,28 @@ class NavSliders extends React.Component {
 		let delta = new Date().getTime() - this.state.lastCall;
 		if (delta >= 150) {
 			if (this.state.globalOn == false) {
-				this.turnAllLightsOn(this.state.user)
+				this.turnAllLightsOn(this.state.props)
 			}
-			this.setState({ user: this.props.user, sliderVal: value, lastCall: new Date().getTime(), globalOn: true });
-			this.changeBrightnessAll(this.state.user, this.state.sliderVal)
+			this.setState({ user: this.props.user, sliderVal: Math.trunc(value), lastCall: new Date().getTime(), globalOn: true });
+			this.changeBrightnessAll(this.props.user, Math.trunc(this.state.sliderVal))
 		}
 	}
 
   render() {
 		// this.determineInitialBrightness()
 		// console.log(this.props.user);
+		console.log(!!Object.keys(this.props.lights).length > 0);
+		while (!this.props.user) {
+			return (
+				null
+			)
+		}
     return (
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'stretch', flex: 1 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', flex: 1, marginTop: -20 }}>
 				<View>
 					<Slider
-						style={{flex: 1, marginRight: 20, marginTop: -10}}
-						trackStyle={{width: 255, height: 20}}
+						style={{flex: 1, marginRight: 20,}}
+						trackStyle={{width: 255, height: 28, borderRadius: 14}}
 						thumbTouchSize={{width: 40, height: 40}}
 						thumbStyle={{width: 30, height: 30, borderRadius: 100, backgroundColor: 'white'}}
 						minimumTrackTintColor={'#9fc5f8'}
@@ -87,5 +92,20 @@ class NavSliders extends React.Component {
     );
   }
 }
+
+// class NavSliders extends React.Component {
+// 	constructor(props) {
+// 		super(props);
+//
+// 	}
+//
+// 	render() {
+// 		return (
+// 			<View>
+// 				<Text style={{color: "white"}}>Sup</Text>
+// 			</View>
+// 		)
+// 	}
+// }
 
 export default NavSliders;

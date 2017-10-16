@@ -25,11 +25,12 @@ const appAcademyIP = '192.168.1.234';
 const homeIP = '10.1.10.67'
 const Hue = jsHue();
 const Bridge = Hue.bridge(homeIP);
-const User = Bridge.user(homeHue);
+const User = Bridge.user(appAcademyHue);
 
 const state = {
   entities: {
-    lights: User.getLights().then(r => console.log(r))
+		lights: ""
+    // lights: User.getLights().then(r => console.log(r))
   },
   admin: {
     bridge: Bridge,

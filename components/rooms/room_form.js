@@ -61,7 +61,6 @@ export default class RoomForm extends React.Component {
     //if (this.props.shouldRender) {
       return(
         <View style={styles.container}>
-
             <FormInput
               onChange={this.update('name')}
               required
@@ -88,9 +87,19 @@ export default class RoomForm extends React.Component {
                   console.log("updated", this.state);
                 }
                 }}>
-                <Text style={styles.text}>Save</Text>
+                <Text style={styles.saveText}>Save</Text>
             </TouchableHighlight>
 
+            <TouchableHighlight style={styles.backBtn} onPress={(e) => {
+                if (this.that) {
+                  this.that.setModal2Visible(!this.modal2Visible);
+                } else {
+                  const { navigate } = this.props.navigation;
+                  navigate('roomsIndex')
+                }
+              }}>
+              <Text style={styles.backText}>{'<'}</Text>
+            </TouchableHighlight>
         </View>
       )
     //} else {
@@ -106,7 +115,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '50%',
     alignSelf: 'center',
-    marginTop: '50%'
+    marginTop: '25%',
   },
   input: {
     backgroundColor: 'white',
@@ -114,6 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 15,
+    marginTop: 60,
     width: 345
   },
   saveBtn: {
@@ -123,7 +133,17 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15
   },
-  text: {
+  backBtn: {
+    position: 'absolute',
+    left: 15,
+    top: -5,
+  },
+  backText: {
+    fontSize: 40,
+    color: '#ffffff',
+    fontWeight: '600'
+  },
+  saveText: {
     color: '#ffffff',
     fontSize: 18,
     fontWeight: '600'
