@@ -15,7 +15,7 @@ const Bridge = Hue.bridge(homeIP);
 const User = Bridge.user(homeHue);
 
 
-const configureStore = (preloadedState) => (
+const configureStore = (preloadedState = testStore) => (
   createStore(
     RootReducer,
     preloadedState,
@@ -25,13 +25,40 @@ const configureStore = (preloadedState) => (
 
 export default configureStore;
 
-// let testStore = {
-//   admin: {
-//     bridge: Bridge,
-//     user: User,
-//     bridgeIP: homeIP
-//   }
-// };
+let testStore = {
+  admin: {
+    bridge: Bridge,
+    user: User,
+    bridgeIP: homeIP
+  }
+},
+  entities: {
+    lights: {
+    8:
+      {
+      manufacturername: "Philips",
+      modelid: "LCT001",
+      name: "Color Bulb",
+      state:
+        {
+        alert: null,
+        bri: null,
+        colormode: null,
+        ct: null,
+        effect: null,
+        hue: null,
+        on: null,
+        reachable: null,
+        sat: null,
+        xy: null
+        },
+      swversion: "5.23.1.13452",
+      type: "Extended color light",
+      uniqueid: "00:17:88:01:00:ef:cf:88-0b"
+      }
+    }
+  }
+
 
 // { 2: {
 //   manufacturername:"Philips"
