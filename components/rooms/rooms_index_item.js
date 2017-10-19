@@ -27,7 +27,7 @@ class RoomsIndexItem extends Component{
       showLight: false,
       that: this,
       layout: null,
-      room: this.props.room
+      room: this.props.room,
     };
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
@@ -53,14 +53,41 @@ class RoomsIndexItem extends Component{
 
   }
 
-  getThisLayout(event){
-    console.log("this was called");
-    let newRoom = merge({}, this.state.room, {coordinates: event.nativeEvent.layout});
+  componentDidMount(){
+    let newRoom = merge({}, this.state.room, {coordinates: this.props.coordinates});
+    console.log("componentDidMount", newRoom);
     this.setState({
       room: newRoom
     });
     this.props.parentProps.updateRoom(this.state.room);
   }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.coordinates !== this.props.coordinates) {
+      let newRoom = merge({}, this.state.room, {coordinates: nextProps.coordinates});
+      console.log("componentWillReceiveProps", newRoom);
+      this.setState({
+        room: newRoom
+      });
+      this.props.parentProps.updateRoom(this.state.room);
+    }
+  }
+
+  getThisLayout(event){
+    let newRoom = this.state.room;
+    if (this.state.room.coordinates === null)
+    {
+      newRoom = merge({}, this.state.room, {coordinates: this.props.coordinates});
+    } else {
+      newRoom = merge({}, this.state.room, {coordinates: event.nativeEvent.layout});
+    }
+
+    this.setState({
+      room: newRoom
+    });
+    this.props.parentProps.updateRoom(this.state.room);
+  }
+
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
@@ -74,15 +101,13 @@ class RoomsIndexItem extends Component{
       const dz = this.props.dropZoneValues;
       return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
+
+
   render(){
     const room = this.props.room;
     const lights = this.props.lights;
     const rooms = this.props.rooms;
-    console.log("room passed to LightIndexContainer", this.props.sendToLightContainer);
-    if(!this.props.rooms.coordinates){
-      let newRoom = merge({}, this.state.room, {coordinates: {x:0, y:0, height:128, width:205}});
-      this.props.parentProps.updateRoom(newRoom);
-    }
+
 
     if(this.state.showDraggable){
       return(
@@ -169,6 +194,6 @@ const styles = StyleSheet.create({
     height: Window.height/6,
     borderRadius: 20,
     borderWidth: 0.5,
-    borderColor: '#d6d7da',
+    borderColor: '#d6d7da'
   },
 });

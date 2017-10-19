@@ -13,6 +13,7 @@ import RoomsIndexItem from './rooms_index_item';
 import { AsyncStorage } from 'react-native';
 import RoomFormContainer from './room_form_container';
 import RoomsIndexLight from './rooms_index_light';
+import merge from 'lodash/merge';
 
 
 class RoomsIndex extends Component{
@@ -30,7 +31,8 @@ class RoomsIndex extends Component{
       modalVisible: false,
       dropZones:[],
       sendToLightContainer: null,
-      droppedLights:[]
+      droppedLights:[],
+      coordinates: null
     };
 
     this.panResponderLight = PanResponder.create({
@@ -66,10 +68,10 @@ class RoomsIndex extends Component{
           });
 
         }else{
-          // Animated.spring(
-          //     this.state.roompan,
-          //     {toValue:{x:0,y:0}}
-          // ).start();
+        //   Animated.spring(
+        //       this.state.roompan,
+        //       {toValue:{x:0,y:0}}
+        //   ).start();
         }
       }
     });
@@ -163,6 +165,12 @@ class RoomsIndex extends Component{
     });
   }
 
+  getThisLayout(event){
+    console.log("event", event.nativeEvent.layout);
+    this.setState({ coordinates: event.nativeEvent.layout});
+    console.log(this.state.coordinates);
+  }
+
 
 
   setModalVisible(visible) {
@@ -193,10 +201,7 @@ class RoomsIndex extends Component{
   }
 
   removeRoom(id){
-    console.log("REMOVE ROOM HAS BEEN REACHED");
-    console.log("THIS IS THE ID:", id);
-    console.log("THIS.PROPS.DELETEROOM", this.props.deleteRoom);
-    this.props.deleteRoom(1);
+    this.props.deleteRoom(id);
   }
 
   renderCreateRoom(){
@@ -229,7 +234,7 @@ class RoomsIndex extends Component{
           {
             Object.values(rooms).map(room =>{
               return(
-
+                  <View onLayout={this.getThisLayout.bind(this)}>
                     <RoomsIndexItem
                       room={room}
                       rooms={rooms}
@@ -242,7 +247,9 @@ class RoomsIndex extends Component{
                       parentProps={this.props}
                       sendToLightContainer={this.state.sendToLightContainer}
                       removeRoom={id => this.removeRoom(id)}
+                      coordinates={this.state.coordinates}
                   />
+                </View>
              );
             }
           )
