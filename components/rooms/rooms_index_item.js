@@ -99,6 +99,7 @@ class RoomsIndexItem extends Component{
 
   isDropZone(gesture){
       const dz = this.props.dropZoneValues;
+      console.log(this.props.dropZoneValues);
       return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
 
