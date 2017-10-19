@@ -48,8 +48,9 @@ class RoomsIndexLight extends Component {
             return idx;
           }
         });
-
-        if(whichCoordinates === null){
+        console.log("WHICH COORDINATES", whichCoordinates);
+        console.log("WHICH COORDINATES UNDEFINED", whichCoordinates.some(x => x === undefined));
+        if(whichCoordinates.some(x => x === undefined)){
             Animated.spring(
                 this.state.roompan,
                 {toValue:{x:0,y:0}}

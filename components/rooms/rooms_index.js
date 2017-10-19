@@ -210,6 +210,7 @@ class RoomsIndex extends Component{
   }
 
   removeRoom(id){
+    console.log("THIS IS BEING CALLED");
     this.props.deleteRoom(id);
   }
 

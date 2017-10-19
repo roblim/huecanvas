@@ -36,18 +36,15 @@ class RoomsIndexItem extends Component{
         dy: this.state.pan.y
       }]),
       onPanResponderRelease: (e, gesture) =>{
+        console.log("pan responder was released");
         if(this.isDropZone(gesture)){
-          console.log("roomid", this.state.room.id);
-          this.props.removeRoom(this.props.room.id);
+          console.log("this is the room that was released", this.props.room);
           this.setState({
             showDraggable: false
           });
+          this.props.removeRoom(this.props.room.id);
+
         } else {
-        //   Animated.spring(
-        //   //   this.state.pan,
-        //   //   {toValue:{x:0,y:0}}
-        //   // ).start();
-        // }
       }}
     });
 
@@ -63,7 +60,7 @@ class RoomsIndexItem extends Component{
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.coordinates !== this.props.coordinates) {
+    if(this.props.coordinates === null) {
       let newRoom = merge({}, this.state.room, {coordinates: nextProps.coordinates});
       console.log("componentWillReceiveProps", newRoom);
       this.setState({
@@ -99,8 +96,7 @@ class RoomsIndexItem extends Component{
 
   isDropZone(gesture){
       const dz = this.props.dropZoneValues;
-      console.log(this.props.dropZoneValues);
-      return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
+      return gesture.moveY < dz.height;
   }
 
 
@@ -108,7 +104,6 @@ class RoomsIndexItem extends Component{
     const room = this.props.room;
     const lights = this.props.lights;
     const rooms = this.props.rooms;
-
 
     if(this.state.showDraggable){
       return(
