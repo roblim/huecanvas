@@ -8,7 +8,7 @@ import RoomForm from './room_form';
 // import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = (state, ownProps) => {
-	let room = { name: "" }
+	let room = { name: ""}
 	let rooms = ownProps.rooms || state.rooms
 	if (ownProps.room) {
 		room = ownProps.room
