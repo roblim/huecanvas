@@ -46,27 +46,37 @@ class RoomsIndexLight extends Component {
           }
           if ((Math.abs(coord.y)+167 < gesture.moveY) && (Math.abs(coord.y)+coord.height+167 > gesture.moveY)){
             return idx;
+          } else {
+            return null;
           }
         });
-        console.log(whichCoordinates);
-        let droppedRoomIndex = whichCoordinates.filter(function(obj) {
-          return obj !== undefined;
-        });
-        droppedRoomIndex = droppedRoomIndex[0];
-        console.log(droppedRoomIndex);
-        console.log(this.props.rooms[droppedRoomIndex]);
-        console.log("lightid", this.props.light.lightId);
-        let newRoom = merge({}, this.props.rooms[droppedRoomIndex], {lights: {[this.props.light.lightId]:{lightId: this.props.light.lightId, canvasPosition: null}}});
-        this.setState({
-          room: newRoom
-        });
-        console.log("this.state.room", newRoom);
-        this.props.getCurrentRoom(newRoom);
-        this.props.getDroppedLights(this.props.light);
-        this.props.parentProps.updateRoom(newRoom);
-          this.setState({
-            showDraggable: false
+        if(whichCoordinates.some(x => x === null)){
+            Animated.spring(
+                this.state.pan,
+                {toValue:{x:0,y:0}}
+            ).start();
+        } else {
+          console.log("whichCoordinates", whichCoordinates);
+          let droppedRoomIndex = whichCoordinates.filter(function(obj) {
+            return obj !== undefined;
           });
+          droppedRoomIndex = droppedRoomIndex[0];
+          console.log(droppedRoomIndex);
+          console.log("this.props.rooms[droppedRoomIndex]", this.props.rooms[droppedRoomIndex]);
+          console.log("lightid", this.props.light.lightId);
+          let newRoom = merge({}, this.props.rooms[droppedRoomIndex], {lights: {[this.props.light.lightId]:{lightId: this.props.light.lightId, canvasPosition: null}}});
+          this.setState({
+            room: newRoom
+          });
+          console.log("this.state.room", newRoom);
+          this.props.getCurrentRoom(newRoom);
+          this.props.getDroppedLights(this.props.light);
+          this.props.parentProps.updateRoom(newRoom);
+            this.setState({
+              showDraggable: false
+            });
+        }
+
       }
     });
   }
@@ -76,6 +86,8 @@ class RoomsIndexLight extends Component {
     let coordinates = Object.values(rooms).map(room =>{
         return(room.coordinates);
     });
+
+    
 
       // const dz = this.props.dropZoneValues;
       // // const thisZone = this.props.dropZones.map(dropZone =>{
