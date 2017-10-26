@@ -48,25 +48,34 @@ class RoomsIndexLight extends Component {
             return idx;
           }
         });
-        console.log(whichCoordinates);
-        let droppedRoomIndex = whichCoordinates.filter(function(obj) {
-          return obj !== undefined;
-        });
-        droppedRoomIndex = droppedRoomIndex[0];
-        console.log(droppedRoomIndex);
-        console.log(this.props.rooms[droppedRoomIndex]);
-        console.log("lightid", this.props.light.lightId);
-        let newRoom = merge({}, this.props.rooms[droppedRoomIndex], {lights: {[this.props.light.lightId]:{lightId: this.props.light.lightId, canvasPosition: null}}});
-        this.setState({
-          room: newRoom
-        });
-        console.log("this.state.room", newRoom);
-        this.props.getCurrentRoom(newRoom);
-        this.props.getDroppedLights(this.props.light);
-        this.props.parentProps.updateRoom(newRoom);
-          this.setState({
-            showDraggable: false
+
+        if(whichCoordinates === null){
+            Animated.spring(
+                this.state.roompan,
+                {toValue:{x:0,y:0}}
+            ).start();
+        } else {
+          console.log("whichCoordinates", whichCoordinates);
+          let droppedRoomIndex = whichCoordinates.filter(function(obj) {
+            return obj !== undefined;
           });
+          droppedRoomIndex = droppedRoomIndex[0];
+          console.log(droppedRoomIndex);
+          console.log("this.props.rooms[droppedRoomIndex]", this.props.rooms[droppedRoomIndex]);
+          console.log("lightid", this.props.light.lightId);
+          let newRoom = merge({}, this.props.rooms[droppedRoomIndex], {lights: {[this.props.light.lightId]:{lightId: this.props.light.lightId, canvasPosition: null}}});
+          this.setState({
+            room: newRoom
+          });
+          console.log("this.state.room", newRoom);
+          this.props.getCurrentRoom(newRoom);
+          this.props.getDroppedLights(this.props.light);
+          this.props.parentProps.updateRoom(newRoom);
+            this.setState({
+              showDraggable: false
+            });
+        }
+
       }
     });
   }

@@ -19,6 +19,7 @@ export const fetchBridges = () => dispatch => {
 export const createUser = (bridge) => dispatch => {
 
    APIUtil.createUser(bridge).then((data) => {
+     console.log(data);
      if (data[0].error) {
        dispatch(receiveUser(data[0].error))
      } else {
