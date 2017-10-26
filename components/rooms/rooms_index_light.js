@@ -46,12 +46,13 @@ class RoomsIndexLight extends Component {
           }
           if ((Math.abs(coord.y)+167 < gesture.moveY) && (Math.abs(coord.y)+coord.height+167 > gesture.moveY)){
             return idx;
+          } else {
+            return null;
           }
         });
-
-        if(whichCoordinates === null){
+        if(whichCoordinates.some(x => x === null)){
             Animated.spring(
-                this.state.roompan,
+                this.state.pan,
                 {toValue:{x:0,y:0}}
             ).start();
         } else {
@@ -85,6 +86,8 @@ class RoomsIndexLight extends Component {
     let coordinates = Object.values(rooms).map(room =>{
         return(room.coordinates);
     });
+
+    
 
       // const dz = this.props.dropZoneValues;
       // // const thisZone = this.props.dropZones.map(dropZone =>{
