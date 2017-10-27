@@ -14,6 +14,7 @@ import { AsyncStorage } from 'react-native';
 import RoomFormContainer from './room_form_container';
 import RoomsIndexLight from './rooms_index_light';
 import merge from 'lodash/merge';
+import NativeMethodsMixin from 'NativeMethodsMixin';
 
 
 class RoomsIndex extends Component{
