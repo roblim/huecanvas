@@ -15,9 +15,7 @@ class SceneIndexItem extends React.Component {
     return (
 
       <View style={{backgroundColor     : this.props.color,
-      width               : 60*2,
-      height              : 60*2,
-      borderRadius        : 60,
+      fontSize: 30,
       justifyContent: "center",
       alignItems: 'center'}}
 

@@ -58,7 +58,6 @@ class SceneIndex extends React.Component {
             Current Scene: {this.state.currentScene}
           </Text>
         <FlatList
-          contentContainerStyle={styles.list}
           data={this.props.scenes}
           renderItem={this.renderItem}
           />
@@ -79,11 +78,6 @@ class SceneIndex extends React.Component {
 export default SceneIndex;
 
 const styles = StyleSheet.create({
-  list: {
-    flexDirection: 'row',
-    justifyContent: "space-between",
-    flexWrap: 'wrap',
-  }
 });
 
 const sceneColors = {
