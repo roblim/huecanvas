@@ -84,7 +84,6 @@ class RoomsIndex extends Component{
     this.renderCreateRoom = this.renderCreateRoom.bind(this);
     this.resetLights = this.resetLights.bind(this);
     this.setLightDropZoneValues = this.setLightDropZoneValues.bind(this);
-    this.renderedLights = this.renderedLights.bind(this);
     this.findLightsInRooms = this.findLightsInRooms.bind(this);
     this.removeRoom = this.removeRoom.bind(this);
 }
@@ -134,39 +133,6 @@ class RoomsIndex extends Component{
         }
       });}
     }
-
-  renderedLights(lightsInRoom){
-    console.log("Part 0: passed in", lightsInRoom);
-
-      let lightsArray = Object.values(this.props.lights).map(light =>{
-        return light;
-      });
-      if (!lightsInRoom){
-        return lightsArray;
-      }
-
-      console.log("Part 1: array of all", lightsArray);
-      let roomLightsIndices=[];
-      if(lightsInRoom){
-        roomLightsIndices = Object.values(lightsInRoom).map(light =>{
-          return light.lightId;
-        });
-      }
-      console.log("roomLightsIndices", roomLightsIndices);
-      let newLightsArray=[];
-
-      if(roomLightsIndices.length === 0){
-        return lightsArray;
-      }
-
-      lightsArray.forEach(light =>{
-        if(roomLightsIndices.includes(light.lightId)){
-          console.log("light", light);
-          newLightsArray.push(light);
-        }
-      });
-      return newLightsArray;
-  }
 
   getDroppedLights(droppedLight){
     this.setState({
@@ -288,7 +254,7 @@ class RoomsIndex extends Component{
 
   renderLights(dropZoneValues){
     console.log("roomLights", this.state.roomLights);
-    const lights = this.renderedLights(this.findLightsInRooms());
+    const lights = this.props.lights || []
     if(this.state.showDraggableLight){
       return(
         <View style={styles.draggableLight}>

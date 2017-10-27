@@ -10,7 +10,8 @@ import { Text, View } from "react-native";
 const TabNavigator = StackNavigator({
 	home: {screen: Root},
 	roomsNew: {screen: RoomFormContainer},
-	roomsIndex: {screen: RoomsIndexContainer}
+	roomsIndex: {screen: RoomsIndexContainer},
+	// roomTemp: {screen: RoomTemp}
 }, {
   navigationOptions: {
     headerTintColor: 'white',
