@@ -11,12 +11,12 @@ class SceneForm extends React.Component {
     this.state = {
       text: "",
       modalIsOpen: false,
-      selectedColor: "black"
+      selectedColor: "rgb(240, 240, 240)"
     };
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   openModal() {
@@ -29,6 +29,8 @@ class SceneForm extends React.Component {
 
   handleSelect(event) {
     console.log(event);
+    this.setState({selectedColor: event});
+    this.closeModal();
   }
 
   render() {
@@ -49,8 +51,8 @@ class SceneForm extends React.Component {
         />
 
       <Button
-        color={this.state.selectedColor}
-        title="Select color"
+        color="black"
+        title="Select Color"
         onPress={this.openModal}
         />
       <View style={{backgroundColor     : this.state.selectedColor,
@@ -68,10 +70,7 @@ class SceneForm extends React.Component {
         >
 
         <TriangleColorPicker
-          onColorSelected={() => {
-            this.handleSelect()
-            this.closeModal()
-          }}
+          onColorSelected={this.handleSelect}
           style={{flex: 1}}
           />
 

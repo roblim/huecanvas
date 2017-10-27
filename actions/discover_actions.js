@@ -23,7 +23,6 @@ export const createUser = (bridge) => dispatch => {
      if (data[0].error) {
        dispatch(receiveUser(data[0].error))
      } else {
-
       user = bridge.user(data[0].success.username);
       AsyncStorage.getItem("users").then((users) => {
         users = JSON.parse(users);
@@ -40,12 +39,12 @@ export const createUser = (bridge) => dispatch => {
 }
 
 export const setUser = (user) => dispatch => {
-  dispatch(receiveUser(user));
+  dispatch(receiveUser(APIUtil.User));
 }
 
 export const fetchLights = (thisUser) => dispatch => {
   if (thisUser) {
-    thisUser.getLights().then((lights) => {
+    APIUtil.User.getLights().then((lights) => {
 
       dispatch(receiveAllLights(lights)
     )})

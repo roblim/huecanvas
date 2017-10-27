@@ -6,7 +6,7 @@ class SceneIndex extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(props);
+    console.log(props.scenes);
 
     this.state = {
       currentScene: ""
@@ -25,15 +25,18 @@ class SceneIndex extends React.Component {
   }
 
   renderItem(scene) {
+    console.log(scene.item.name);
     let color;
-    if (scene.index < 15) {
-      color = itemColors[scene.index]
+    if (sceneColors[scene.item.name]) {
+      console.log("here");
+      color = sceneColors[scene.item.name]
     } else {
-      color = itemColors["default"]
+      color = "#b35858"
     }
 
       return (
       <SceneIndexItem item={scene}
+                      color={color}
                       key={scene.index}
                       setScene={this.props.setScene}
                       displayScene={this.displayScene}
@@ -83,8 +86,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const itemColors = {
-  0: "#FED38B",
+const sceneColors = {
+  "Margriet": "#FED38B",
   1: "#EEDB66",
   3: "#8FCADC",
   4: "#FFFFFF",

@@ -6,6 +6,7 @@ class SceneIndexItem extends React.Component {
   constructor(props) {
     super(props);
     this.id = Object.keys(props.item.item)[0];
+    console.log(props);
   }
 
 
@@ -13,7 +14,7 @@ class SceneIndexItem extends React.Component {
     const scene = this.props.item.item[this.id];
     return (
 
-      <View style={{backgroundColor     : "red",
+      <View style={{backgroundColor     : this.props.color,
       width               : 60*2,
       height              : 60*2,
       borderRadius        : 60,
