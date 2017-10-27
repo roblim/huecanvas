@@ -14,7 +14,6 @@ import { AsyncStorage } from 'react-native';
 import RoomFormContainer from './room_form_container';
 import RoomsIndexLight from './rooms_index_light';
 import merge from 'lodash/merge';
-import NativeMethodsMixin from 'NativeMethodsMixin';
 
 
 class RoomsIndex extends Component{
@@ -36,6 +35,7 @@ class RoomsIndex extends Component{
       droppedLights:[],
       coordinates: null
     };
+
 
     this.panResponderLight = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -210,7 +210,7 @@ class RoomsIndex extends Component{
           {
             Object.values(rooms).map(room =>{
               return(
-                  <View onLayout={this.getThisLayout.bind(this)}>
+                  <View ref='blah' onLayout={this.getThisLayout.bind(this)}>
                     <RoomsIndexItem
                       room={room}
                       rooms={rooms}
@@ -254,7 +254,7 @@ class RoomsIndex extends Component{
 
   renderLights(dropZoneValues){
     console.log("roomLights", this.state.roomLights);
-    const lights = this.props.lights || []
+    const lights = this.props.lights || [];
     if(this.state.showDraggableLight){
       return(
         <View style={styles.draggableLight}>
