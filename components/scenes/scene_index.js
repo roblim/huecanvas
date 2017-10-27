@@ -5,6 +5,9 @@ let count = 0;
 class SceneIndex extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log(props);
+
     this.state = {
       currentScene: ""
     }
@@ -31,7 +34,6 @@ class SceneIndex extends React.Component {
 
       return (
       <SceneIndexItem item={scene}
-                      color={color}
                       key={scene.index}
                       setScene={this.props.setScene}
                       displayScene={this.displayScene}

@@ -1,14 +1,34 @@
 import React from "react";
 import { Text, TextInput, View, StyleSheet, Button } from "react-native";
+import Modal from "react-native-modal";
 import { FormLabel } from "react-native-elements";
+import { TriangleColorPicker, ColorPicker } from "react-native-color-picker";
+
 
 class SceneForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ""
+      text: "",
+      modalIsOpen: false,
+      selectedColor: "black"
     };
 
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+
+  }
+
+  openModal() {
+    this.setState({modalIsOpen: true})
+  }
+
+  closeModal() {
+    this.setState({modalIsOpen: false})
+  }
+
+  handleSelect(event) {
+    console.log(event);
   }
 
   render() {
@@ -29,14 +49,43 @@ class SceneForm extends React.Component {
         />
 
       <Button
-        color='black'
+        color={this.state.selectedColor}
+        title="Select color"
+        onPress={this.openModal}
+        />
+      <View style={{backgroundColor     : this.state.selectedColor,
+        width               : 60*2,
+        height              : 60*2,
+        borderRadius        : 60,
+        justifyContent: "center",
+        alignItems: 'center'}}
+
+        >
+        <Text>{this.state.text}</Text>
+      </ View>
+      <Modal
+        isVisible={this.state.modalIsOpen}
+        >
+
+        <TriangleColorPicker
+          onColorSelected={() => {
+            this.handleSelect()
+            this.closeModal()
+          }}
+          style={{flex: 1}}
+          />
+
+        </ Modal>
+      <Button
+        color={this.state.selectedColor}
         title="Save"
         onPress={
           () => {
             this.props.createScene({
               "name": this.state.text,
               "lights": this.props.lights,
-              "recycle": true
+              "recycle": true,
+              "picture": this.props.selectedColor
             })
             this.props.hideModal("create")}
         }

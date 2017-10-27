@@ -32,6 +32,178 @@ let testStore = {
     bridgeIP: homeIP
   },
   entities:{
+    scenes: {
+ "0": {
+  "name": "Margriet",
+  "lights": [
+   "3"
+  ],
+  "active": true
+ },
+ "1": {
+  "name": "Margriet",
+  "lights": [
+   "3"
+  ],
+  "active": true
+ },
+ "3": {
+  "name": "Margriet",
+  "lights": [
+   "3"
+  ],
+  "active": true
+ },
+ "78d9ae79d-on-0": {
+  "name": "Rise & shine on ",
+  "lights": [
+   "1",
+   "2"
+  ],
+  "active": true
+ },
+ "d7741cd71-on-0": {
+  "name": "Read on 0",
+  "lights": [
+   "1",
+   "2"
+  ],
+  "active": true
+ },
+ "756e841fb-on-0": {
+  "name": "Flappie on 0",
+  "lights": [
+   "1",
+   "2"
+  ],
+  "active": true
+ },
+ "e069ec8aa-on-0": {
+  "name": "Snooze on 0",
+  "lights": [
+   "1",
+   "2"
+  ],
+  "active": true
+ },
+ "32b256994-on-0": {
+  "name": "Twilight on 0",
+  "lights": [
+   "1",
+   "2"
+  ],
+  "active": true
+ },
+ "aab2bce11-on-0": {
+  "name": "Read on 0",
+  "lights": [
+   "1",
+   "2",
+   "3"
+  ],
+  "active": true
+ },
+ "7ba24d163-on-0": {
+  "name": "Read on 0",
+  "lights": [
+   "1",
+   "2",
+   "3"
+  ],
+  "active": true
+ },
+ "ca13d654a-on-0": {
+  "name": "Margriet on 0",
+  "lights": [
+   "1",
+   "2",
+   "3"
+  ],
+  "active": true
+ },
+ "0e70aa160-on-0": {
+  "name": "Margriet on 0",
+  "lights": [
+   "1",
+   "2",
+   "3"
+  ],
+  "active": true
+ },
+ "3fe33cc48-on-0": {
+  "name": "Read on 0",
+  "lights": [
+   "1",
+   "2",
+   "3"
+  ],
+  "active": true
+ },
+ "b2595e9d5-off-0": {
+  "name": "Flappie off 0",
+  "lights": [
+   "1",
+   "2"
+  ],
+  "active": true
+ },
+ "755f00bd9-on-0": {
+  "name": "Twilight on 0",
+  "lights": [
+   "1",
+   "2",
+   "3"
+  ],
+  "active": true
+ },
+ "15efe031d-on-0": {
+  "name": "Nieuwe sceneoper",
+  "lights": [
+   "3"
+  ],
+  "active": true
+ },
+ "a3b93d4b7-on-0": {
+  "name": "Nieuwe sceneoper",
+  "lights": [
+   "3"
+  ],
+  "active": true
+ },
+ "4726a26fc-on-0": {
+  "name": "Nieuwe scene on ",
+  "lights": [
+   "3"
+  ],
+  "active": true
+ },
+ "5ea14e59a-on-0": {
+  "name": "Viooltjes on 0",
+  "lights": [
+   "1",
+   "2",
+   "3"
+  ],
+  "active": true
+ },
+ "7d151928e-on-0": {
+  "name": "Hibiscus on 0",
+  "lights": [
+   "3"
+  ],
+  "active": true
+ },
+ "Margriet": {
+  "name": "Margriet",
+  "lights": [
+   "1",
+   "2",
+   "3"
+  ],
+  "active": true
+ }
+},
+
     lights:{
       2: {
       manufacturername:"Philips",
