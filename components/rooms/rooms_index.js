@@ -281,22 +281,7 @@ class RoomsIndex extends Component{
   }
   render(){
       return(
-        <View >
-          <Modal
-                animationType="slide"
-                transparent={false}
-                visible={this.state.modalVisible}>
-            <View >
-              <View>
-                <RoomFormContainer rooms={this.props.rooms} that={this.state.that} room={this.props.room} modal2Visible={this.state.modal2Visible}/>
-                <TouchableHighlight onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                  }}>
-                  <Text>Back</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-          </Modal>
+        <View>
           {this.renderDragArea()}
           {this.renderCreateRoom()}
           {this.renderRooms(this.state.dropZoneValuesRoom)}

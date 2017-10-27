@@ -132,13 +132,7 @@ class RoomsIndexItem extends Component{
                visible={this.state.modal2Visible}>
            <View >
              <View>
-               <RoomFormContainer rooms={rooms} room={room} that={this.state.that}/>
-               <TouchableHighlight onPress={() => {
-                 this.setModal2Visible(!this.state.modal2Visible);
-                 }}>
-                 <Text>Back</Text>
-               </TouchableHighlight>
-
+               <RoomFormContainer rooms={rooms} room={room} that={this.state.that} modal2Visible={this.state.modal2Visible}/>
              </View>
            </View>
          </Modal>
