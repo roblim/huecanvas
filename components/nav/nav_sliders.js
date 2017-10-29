@@ -22,9 +22,9 @@ class NavSliders extends React.Component {
 				if (light.state.reachable) {
 					total += light.state.bri
 				}
-				console.log(total);
+				// console.log(total);
 			})
-			console.log(Math.trunc(total/nextProps.lights.length));
+			// console.log(Math.trunc(total/nextProps.lights.length));
 			myTotal = isNaN(total) === true ? 0 : Math.trunc(total / nextProps.lights.length)
 			this.setState({user: this.props.user, sliderVal: (myTotal), lastCall: 0, globalOn: true });
 		}

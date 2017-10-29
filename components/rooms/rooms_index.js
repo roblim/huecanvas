@@ -37,46 +37,46 @@ class RoomsIndex extends Component{
     };
 
 
-    this.panResponderLight = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([null,{
-          dx: this.state.lightpan.x,
-          dy: this.state.lightpan.y
-      }]),
-      onPanResponderRelease: (e, gesture) => {
-        if(this.isLightDropZone(gesture)){
-          this.setState({
-              showDraggableLight: false
-          });
-        }else{
-          Animated.spring(
-              this.state.lightpan,
-              {toValue:{x:0,y:0}}
-          ).start();
-        }
-      }
-    });
+    // this.panResponderLight = PanResponder.create({
+    //   onStartShouldSetPanResponder: () => true,
+    //   onPanResponderMove: Animated.event([null,{
+    //       dx: this.state.lightpan.x,
+    //       dy: this.state.lightpan.y
+    //   }]),
+    //   onPanResponderRelease: (e, gesture) => {
+    //     if(this.isLightDropZone(gesture)){
+    //       this.setState({
+    //           showDraggableLight: false
+    //       });
+    //     }else{
+    //       Animated.spring(
+    //           this.state.lightpan,
+    //           {toValue:{x:0,y:0}}
+    //       ).start();
+    //     }
+    //   }
+    // });
 
-    this.panResponderRoom = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([null,{
-          dx: this.state.roompan.x,
-          dy: this.state.roompan.y
-      }]),
-      onPanResponderRelease: (e, gesture) => {
-        if(this.isRoomDropZone(gesture)){
-          this.setState({
-              showDraggableRoom: false
-          });
-
-        }else{
-        //   Animated.spring(
-        //       this.state.roompan,
-        //       {toValue:{x:0,y:0}}
-        //   ).start();
-        }
-      }
-    });
+    // this.panResponderRoom = PanResponder.create({
+    //   onStartShouldSetPanResponder: () => true,
+    //   onPanResponderMove: Animated.event([null,{
+    //       dx: this.state.roompan.x,
+    //       dy: this.state.roompan.y
+    //   }]),
+    //   onPanResponderRelease: (e, gesture) => {
+    //     if(this.isRoomDropZone(gesture)){
+    //       this.setState({
+    //           showDraggableRoom: false
+    //       });
+    //
+    //     }else{
+    //     //   Animated.spring(
+    //     //       this.state.roompan,
+    //     //       {toValue:{x:0,y:0}}
+    //     //   ).start();
+    //     }
+    //   }
+    // });
 
     this.renderRooms = this.renderRooms.bind(this);
     this.renderLights = this.renderLights.bind(this);
@@ -110,7 +110,7 @@ class RoomsIndex extends Component{
     let lights = [];
     let lightsInRooms = rooms.map(room =>{
       if(room.lights){
-        console.log("room.lights", room.lights);
+        // console.log("room.lights", room.lights);
         return room.lights;
       } else {
         return null;
@@ -128,7 +128,7 @@ class RoomsIndex extends Component{
           Object.values(roomLights).map(light =>{
             lights.push(light);
           });
-          console.log("lightsinRooms return value", lights);
+          // console.log("lightsinRooms return value", lights);
           return lights;
         }
       });}
@@ -141,7 +141,7 @@ class RoomsIndex extends Component{
   }
 
   getThisLayout(event){
-    console.log("event", event.nativeEvent.layout);
+    // console.log("event", event.nativeEvent.layout);
     this.setState({ coordinates: event.nativeEvent.layout});
   }
 
