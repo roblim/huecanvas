@@ -41,12 +41,12 @@ class SceneFooter extends React.Component {
           <Modal
             style={{
 
-              backgroundColor: "rgba(255, 255, 255, .4)",
+              backgroundColor: "rgba(33, 33, 33, .4)",
               height: "100%"
 
             }}
             isVisible={this.state.IndexModalIsOpen}
-            backdropColor="rgb(255, 255, 255)"
+            backdropColor="rgb(33, 33, 33)"
 
             >
             <SceneIndexContainer
@@ -59,7 +59,7 @@ class SceneFooter extends React.Component {
 
             }}
             isVisible={this.state.CreateModalIsOpen}
-            backdropColor="rgb(255, 255, 255)"
+            backdropColor="rgb(33, 33, 33)"
 
             >
 
@@ -68,13 +68,13 @@ class SceneFooter extends React.Component {
               />
             </ Modal>
             <Button
-              color="#383838"
+              color="white"
               onPress={() => this.openModal("index")}
               title="Scenes"
 
               />
             <Button
-              color="#383838"
+              color="white"
               onPress={() => this.openModal("create")}
               title="Create Scene"
 

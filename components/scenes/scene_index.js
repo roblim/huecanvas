@@ -25,7 +25,7 @@ class SceneIndex extends React.Component {
   }
 
   renderItem(scene) {
-    console.log(scene.item.name);
+    console.log(sceneColors[scene.item.name]);
     let color;
     if (sceneColors[scene.item.name]) {
       console.log("here");
@@ -36,6 +36,7 @@ class SceneIndex extends React.Component {
 
       return (
       <SceneIndexItem item={scene}
+        style={{padding: 50}}
                       color={color}
                       key={scene.index}
                       setScene={this.props.setScene}
@@ -53,8 +54,8 @@ class SceneIndex extends React.Component {
 
     return (
       <View>
-          <Text style={{backgroundColor:"rgba(255, 255, 255, .4)", color: "black"}}>Scenes</Text>
-          <Text style={{fontSize: 20, color: "black", backgroundColor: "rgba(255, 255, 255, .4)"}}>
+          <Text style={{backgroundColor:"rgba(33, 33, 33, .4)", color: "white"}}>Scenes</Text>
+          <Text style={{fontSize: 20, color: "white", backgroundColor: "rgba(33, 33, 33, .4)"}}>
             Current Scene: {this.state.currentScene}
           </Text>
         <FlatList
@@ -63,7 +64,7 @@ class SceneIndex extends React.Component {
           />
 
         <Button
-          color= "black"
+          color= "white"
           title="close"
           onPress={() => this.props.hideModal("index")}
           />
