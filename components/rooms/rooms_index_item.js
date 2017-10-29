@@ -65,6 +65,13 @@ class RoomsIndexItem extends Component{
   }
 
   componentWillReceiveProps(nextProps){
+    console.log("lights", nextProps.lights);
+    if (nextProps.lights) {
+      let newRoom = merge(this.state.room, {lights: nextProps.lights});
+      this.setState({
+        room: newRoom
+      })
+    }
     if(this.props.coordinates === null) {
       let newRoom = merge(this.state.room, {coordinates: nextProps.coordinates});
       // console.log("componentWillReceiveProps", newRoom);
@@ -76,12 +83,13 @@ class RoomsIndexItem extends Component{
   }
 
   getThisLayout(event){
-    let newRoom = this.state.room;
+    let newRoom = this.props.room;
+    console.log(newRoom);
     if (this.state.room.coordinates === null)
     {
-      newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
+      newRoom = merge({}, this.state.room, {coordinates: this.props.coordinates});
     } else {
-      newRoom = merge(this.state.room, {coordinates: event.nativeEvent.layout});
+      newRoom = merge({}, this.state.room, {coordinates: event.nativeEvent.layout});
     }
 
     this.setState({

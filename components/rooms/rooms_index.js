@@ -37,46 +37,46 @@ class RoomsIndex extends Component{
     };
 
 
-    // this.panResponderLight = PanResponder.create({
-    //   onStartShouldSetPanResponder: () => true,
-    //   onPanResponderMove: Animated.event([null,{
-    //       dx: this.state.lightpan.x,
-    //       dy: this.state.lightpan.y
-    //   }]),
-    //   onPanResponderRelease: (e, gesture) => {
-    //     if(this.isLightDropZone(gesture)){
-    //       this.setState({
-    //           showDraggableLight: false
-    //       });
-    //     }else{
-    //       Animated.spring(
-    //           this.state.lightpan,
-    //           {toValue:{x:0,y:0}}
-    //       ).start();
-    //     }
-    //   }
-    // });
+    this.panResponderLight = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([null,{
+          dx: this.state.lightpan.x,
+          dy: this.state.lightpan.y
+      }]),
+      onPanResponderRelease: (e, gesture) => {
+        if(this.isLightDropZone(gesture)){
+          this.setState({
+              showDraggableLight: false
+          });
+        }else{
+          Animated.spring(
+              this.state.lightpan,
+              {toValue:{x:0,y:0}}
+          ).start();
+        }
+      }
+    });
 
-    // this.panResponderRoom = PanResponder.create({
-    //   onStartShouldSetPanResponder: () => true,
-    //   onPanResponderMove: Animated.event([null,{
-    //       dx: this.state.roompan.x,
-    //       dy: this.state.roompan.y
-    //   }]),
-    //   onPanResponderRelease: (e, gesture) => {
-    //     if(this.isRoomDropZone(gesture)){
-    //       this.setState({
-    //           showDraggableRoom: false
-    //       });
-    //
-    //     }else{
-    //     //   Animated.spring(
-    //     //       this.state.roompan,
-    //     //       {toValue:{x:0,y:0}}
-    //     //   ).start();
-    //     }
-    //   }
-    // });
+    this.panResponderRoom = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([null,{
+          dx: this.state.roompan.x,
+          dy: this.state.roompan.y
+      }]),
+      onPanResponderRelease: (e, gesture) => {
+        if(this.isRoomDropZone(gesture)){
+          this.setState({
+              showDraggableRoom: false
+          });
+
+        }else{
+        //   Animated.spring(
+        //       this.state.roompan,
+        //       {toValue:{x:0,y:0}}
+        //   ).start();
+        }
+      }
+    });
 
     this.renderRooms = this.renderRooms.bind(this);
     this.renderLights = this.renderLights.bind(this);
