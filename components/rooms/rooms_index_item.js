@@ -29,8 +29,13 @@ class RoomsIndexItem extends Component{
       layout: null,
       room: this.props.room,
     };
+
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
+      onPanResponderGrant: (e, gestureState) => {
+        this.state.pan.setOffset(this.state.room.coordinates);
+        this.state.pan.setValue({x: 0, y: 0});
+      },
       onPanResponderMove: Animated.event([null,{
         dx: this.state.pan.x,
         dy: this.state.pan.y
@@ -51,8 +56,8 @@ class RoomsIndexItem extends Component{
   }
 
   componentDidMount(){
-    let newRoom = merge({}, this.state.room, {coordinates: this.props.coordinates});
-    console.log("componentDidMount", newRoom);
+    let newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
+    // console.log("componentDidMount", newRoom);
     this.setState({
       room: newRoom
     });
@@ -60,9 +65,16 @@ class RoomsIndexItem extends Component{
   }
 
   componentWillReceiveProps(nextProps){
+    console.log("lights", nextProps.lights);
+    if (nextProps.lights) {
+      let newRoom = merge(this.state.room, {lights: nextProps.lights});
+      this.setState({
+        room: newRoom
+      })
+    }
     if(this.props.coordinates === null) {
-      let newRoom = merge({}, this.state.room, {coordinates: nextProps.coordinates});
-      console.log("componentWillReceiveProps", newRoom);
+      let newRoom = merge(this.state.room, {coordinates: nextProps.coordinates});
+      // console.log("componentWillReceiveProps", newRoom);
       this.setState({
         room: newRoom
       });
@@ -71,7 +83,8 @@ class RoomsIndexItem extends Component{
   }
 
   getThisLayout(event){
-    let newRoom = this.state.room;
+    let newRoom = this.props.room;
+    console.log(newRoom);
     if (this.state.room.coordinates === null)
     {
       newRoom = merge({}, this.state.room, {coordinates: this.props.coordinates});
@@ -104,11 +117,12 @@ class RoomsIndexItem extends Component{
     const room = this.props.room;
     const lights = this.props.lights;
     const rooms = this.props.rooms;
-
+    console.log(this.props.room);
     if(this.state.showDraggable){
       return(
           <Animated.View {...this.panResponder.panHandlers}
               style={[this.state.pan.getLayout(), styles.index]}
+
               onLayout={this.getThisLayout.bind(this)}>
             <Modal
                   animationType="slide"
@@ -132,13 +146,7 @@ class RoomsIndexItem extends Component{
                visible={this.state.modal2Visible}>
            <View >
              <View>
-               <RoomFormContainer rooms={rooms} room={room} that={this.state.that}/>
-               <TouchableHighlight onPress={() => {
-                 this.setModal2Visible(!this.state.modal2Visible);
-                 }}>
-                 <Text>Back</Text>
-               </TouchableHighlight>
-
+               <RoomFormContainer rooms={rooms} room={room} that={this.state.that} modal2Visible={this.state.modal2Visible}/>
              </View>
            </View>
          </Modal>
@@ -150,7 +158,7 @@ class RoomsIndexItem extends Component{
            }}
 
            >
-             <View>
+             <View ref={component => this._root = component}>
                <Text style={styles.text}>{this.props.room.name}</Text>
              </View>
            </TouchableWithoutFeedback>
