@@ -130,9 +130,9 @@ class LightIndexItem extends React.Component {
 				let delta = new Date().getTime() - this.state.lastPress;
 
 				if (delta < 200) {
-					console.log('double tap!')
+					// console.log('double tap!')
 				} else {
-					console.log('blink');
+					// console.log('blink');
 					this.blinkLight(user, lightId);
 				}
 				this.setState({ lastPress: new Date().getTime() });
