@@ -21,16 +21,16 @@ export default class RoomForm extends React.Component {
   componentWillMount() {
     if (!this.state.room.id) {
       this.props.fetchRooms().then(res => {
-        console.log(res.rooms);
+        // console.log(res.rooms);
         if (res.rooms !== null) {
       		let maxId = Object.keys(res.rooms).reduce((a, b) => {
       			return (Math.max(a, b))
       		})
           this.setState({room: {id: (parseInt(maxId) + 1), name: this.props.room.name, coordinates:{x:0, y:0, height:128, width:205}}})
-          console.log('room form', this.state.room);
+          // console.log('room form', this.state.room);
       	} else {
       		this.setState({room: {id: 0, coordinates:{x:0, y:0, height:128, width:205}}});
-          console.log('hooray');
+          // console.log('hooray');
       	}
       })
     }
@@ -84,7 +84,7 @@ export default class RoomForm extends React.Component {
                   }
                 } else {
                   this.setState({errors: "This field is required"})
-                  console.log("updated", this.state);
+                  // console.log("updated", this.state);
                 }
                 }}>
                 <Text style={styles.saveText}>Save</Text>

@@ -46,8 +46,8 @@ class RoomsIndexLight extends Component {
 
 
 
-          console.log("coordinates", coordinates);
-          console.log("gesturex", gesture.moveX);
+          // console.log("coordinates", coordinates);
+          // console.log("gesturex", gesture.moveX);
 
           let whichCoordinates = coordinates.map((coord,idx) => {
             if(!coord){
@@ -65,19 +65,19 @@ class RoomsIndexLight extends Component {
                   {toValue:{x:0,y:0}}
               ).start();
           } else {
-            console.log("whichCoordinates", whichCoordinates);
+            // console.log("whichCoordinates", whichCoordinates);
             let droppedRoomIndex = whichCoordinates.filter(function(obj) {
               return obj !== undefined;
             });
             droppedRoomIndex = droppedRoomIndex[0];
-            console.log(droppedRoomIndex);
-            console.log("this.props.rooms[droppedRoomIndex]", this.props.rooms[droppedRoomIndex]);
-            console.log("lightid", this.props.light.lightId);
+            // console.log(droppedRoomIndex);
+            // console.log("this.props.rooms[droppedRoomIndex]", this.props.rooms[droppedRoomIndex]);
+            // console.log("lightid", this.props.light.lightId);
             let newRoom = merge({}, this.props.rooms[droppedRoomIndex], {lights: {[this.props.light.lightId]:{lightId: this.props.light.lightId, canvasPosition: null}}});
             this.setState({
               room: newRoom
             });
-            console.log("this.state.room", newRoom);
+            // console.log("this.state.room", newRoom);
             this.props.getCurrentRoom(newRoom);
             this.props.getDroppedLights(this.props.light);
             this.props.parentProps.updateRoom(newRoom);
@@ -135,7 +135,7 @@ class RoomsIndexLight extends Component {
   }
 
   render(){
-    console.log("checking for getCurrentRoom", this.props);
+    // console.log("checking for getCurrentRoom", this.props);
     let light = this.props.light;
     if(this.state.showDraggable){
       return(
