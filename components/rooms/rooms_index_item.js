@@ -18,10 +18,11 @@ import merge from 'lodash/merge';
 class RoomsIndexItem extends Component{
   constructor(props){
     super(props);
+    let {x, y} = this.props.room.coordinates || {x: 0, y: 0}
     this.state={
       modalVisible: false,
       modal2Visible: false,
-      pan: new Animated.ValueXY(),
+      pan: new Animated.ValueXY({x, y}),
       showDraggable: this.props.showDraggable,
       dropZoneValues: this.props.dropZoneValues,
       showLight: false,
@@ -31,7 +32,10 @@ class RoomsIndexItem extends Component{
     };
 
     this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: ()=> true,
+      // onStartShouldSetPanResponder: ()=> true,
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+      // onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
       onPanResponderGrant: (e, gestureState) => {
         this.state.pan.setOffset(this.state.room.coordinates);
         this.state.pan.setValue({x: 0, y: 0});
@@ -56,23 +60,24 @@ class RoomsIndexItem extends Component{
   }
 
   componentDidMount(){
-    let newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
-    // console.log("componentDidMount", newRoom);
-    this.setState({
-      room: newRoom
-    });
-    this.props.parentProps.updateRoom(this.state.room);
+    if (!this.state.room.coordinates) {
+      let newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
+      // console.log("componentDidMount", newRoom);
+      this.setState({
+        room: newRoom
+      });
+      this.props.parentProps.updateRoom(this.state.room);
+    }
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("room", nextProps.room.lights);
-    if (nextProps.room && nextProps.room.lights) {
-      let newRoom = merge(this.state.room, {lights: nextProps.room.lights});
+    if (nextProps.room) {
+      let newRoom = merge(this.state.room, nextProps.room);
       this.setState({
         room: newRoom
       })
     }
-    if(this.props.coordinates === null) {
+    if(this.props.coordinates === null || Object.keys(this.props.coordinates).length < 1) {
       let newRoom = merge(this.state.room, {coordinates: nextProps.coordinates});
       // console.log("componentWillReceiveProps", newRoom);
       this.setState({
@@ -87,9 +92,9 @@ class RoomsIndexItem extends Component{
     // console.log(newRoom);
     if (this.state.room.coordinates === null)
     {
-      newRoom = merge({}, this.state.room, {coordinates: this.props.coordinates});
+      newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
     } else {
-      newRoom = merge({}, this.state.room, {coordinates: event.nativeEvent.layout});
+      newRoom = merge(this.state.room, {coordinates: event.nativeEvent.layout});
     }
 
     this.setState({
@@ -158,7 +163,7 @@ class RoomsIndexItem extends Component{
            }}
 
            >
-             <View ref={component => this._root = component}>
+             <View>
                <Text style={styles.text}>{this.props.room.name}</Text>
              </View>
            </TouchableWithoutFeedback>

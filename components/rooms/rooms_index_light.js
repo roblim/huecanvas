@@ -33,7 +33,7 @@ class RoomsIndexLight extends Component {
       }]),
       onPanResponderRelease: (e, gesture) =>{
         let rooms = this.props.rooms;
-        if (!this.props.rooms){
+        if (Object.keys(this.props.rooms).length < 1){
           Animated.spring(
               this.state.pan,
               {toValue:{x:0,y:0}}
@@ -41,7 +41,7 @@ class RoomsIndexLight extends Component {
           ).start();
         } else {
           let coordinates = Object.values(rooms).map(room =>{
-              return(room.coordinates);
+              return({ id: room.id, coords: room.coordinates });
           });
 
 
@@ -50,11 +50,11 @@ class RoomsIndexLight extends Component {
           // console.log("gesturex", gesture.moveX);
 
           let whichCoordinates = coordinates.map((coord,idx) => {
-            if(!coord){
+            if(!coord.coords){
               return null;
             }
-            if ((Math.abs(coord.y)+167 < gesture.moveY) && (Math.abs(coord.y)+coord.height+167 > gesture.moveY)){
-              return idx;
+            if ((Math.abs(coord.coords.y)+167 < gesture.moveY) && (Math.abs(coord.coords.y)+coord.coords.height+167 > gesture.moveY)){
+              return coord.id;
             } else {
               return null;
             }
@@ -66,14 +66,11 @@ class RoomsIndexLight extends Component {
               ).start();
           } else {
             // console.log("whichCoordinates", whichCoordinates);
-            let droppedRoomIndex = whichCoordinates.filter(function(obj) {
-              return obj !== undefined;
+            let roomId = whichCoordinates.filter(function(id) {
+              return id !== undefined;
             });
-            droppedRoomIndex = droppedRoomIndex[0];
-            // console.log(droppedRoomIndex);
-            // console.log("this.props.rooms[droppedRoomIndex]", this.props.rooms[droppedRoomIndex]);
-            // console.log("lightid", this.props.light.lightId);
-            let newRoom = merge({}, this.props.rooms[droppedRoomIndex], {lights: {[this.props.light.lightId]:{lightId: this.props.light.lightId, canvasPosition: null}}});
+
+            let newRoom = merge({}, this.props.rooms[roomId], {lights: {[this.props.light.lightId]:{lightId: this.props.light.lightId, canvasPosition: null}}});
             this.setState({
               room: newRoom
             });
