@@ -18,7 +18,7 @@ const RoomsReducer = (state = {}, action) => {
 			return action.rooms;
 		case RECEIVE_ROOM:
 			// console.log('oldstate', state);
-			// console.log('action', action);
+			console.log('action', action);
 			newState[action.room.id] = action.room;
 			// console.log('newState', newState);
 			return newState;

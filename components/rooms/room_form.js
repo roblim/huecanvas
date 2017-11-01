@@ -28,10 +28,12 @@ export default class RoomForm extends React.Component {
       		let maxId = Object.keys(res.rooms).reduce((a, b) => {
       			return (Math.max(a, b))
       		})
-          this.setState({room: {id: (parseInt(maxId) + 1), coordinates:{x:0, y:0, height:128, width:205}}})
+          let updatedRoom = merge(this.state.room, {id: (parseInt(maxId) + 1)})
+          this.setState({room: updatedRoom})
           // console.log('room form', this.state.room);
       	} else {
-      		this.setState({room: {id: 0, coordinates:{x:0, y:0, height:128, width:205}}});
+          let updatedRoom = merge(this.state.room, {id: 0})
+      		this.setState({room: {id: 0}});
           // console.log('hooray');
       	}
       })
@@ -39,20 +41,32 @@ export default class RoomForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState(newProps.room)
+    let updated = merge(this.state.room, newProps.room)
+    this.setState({room: updated})
   }
 
   update(field) {
 		return (e) => {
-      let coords = this.state.room.coordinates || {x:0, y:0, height:128, width:205}
-      return this.setState(merge(this.state.room, {[field]: e.nativeEvent.text, coordinates: coords, errors: ""}))
+      // console.log(this.state.room);
+      // let updated = merge(this.state.room, {[field]: e.nativeEvent.text})
+      // console.log({room: updated});
+      return this.setState(merge(this.state.room, {[field]: e.nativeEvent.text}))
+      // console.log(this.state.room);
     }
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
-		this.props.processForm(this.state.room)
-		//.then(() => this.props.history.push('/rooms'));;
+    console.log(this.props.processForm);
+    console.log(this.state.room);
+		this.props.processForm(this.state.room).then(() => {
+      if (this.that) {
+        this.that.setModal2Visible(!this.modal2Visible);
+      } else {
+        const { navigate } = this.props.navigation;
+        navigate('roomsIndex')
+      }
+    })
 	}
 
   setModal2Visible(visible) {
@@ -77,14 +91,8 @@ export default class RoomForm extends React.Component {
             </FormValidationMessage>
 
             <TouchableHighlight style={styles.saveBtn} onPress={(e) => {
-                if (this.state.room.name !== "") {
+                if (!!this.state.room.name) {
                   this.handleSubmit(e)
-                  if (this.that) {
-                    this.that.setModal2Visible(!this.modal2Visible);
-                  } else {
-                    const { navigate } = this.props.navigation;
-                    navigate('roomsIndex')
-                  }
                 } else {
                   this.setState({errors: "This field is required"})
                   // console.log("updated", this.state);
