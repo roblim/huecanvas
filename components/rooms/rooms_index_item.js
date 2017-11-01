@@ -78,8 +78,13 @@ class RoomsIndexItem extends Component{
           // console.log(updated);
           // this.setState({coords: updated})
           // console.log(this.state.coords);
+          console.log("oldCoords", this.state.coords);
+          let y = e.nativeEvent.pageY
+          let updatedCoords = merge({}, this.state.coords)
+          updatedCoords = merge(updatedCoords, {y})
+          console.log("updatedCoords", updatedCoords);
           newRoom = merge(newRoom, {coordinates: this.state.coords})
-          // console.log(newRoom);
+          console.log("updatedRoom", newRoom);
           this.setState({room: newRoom})
           this.props.parentProps.updateRoom(newRoom);
           // return true

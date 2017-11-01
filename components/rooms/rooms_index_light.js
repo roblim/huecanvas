@@ -23,7 +23,8 @@ class RoomsIndexLight extends Component {
       dropZoneValues: this.props.dropZoneValues,
       panResponder: null,
       rooms: this.props.rooms,
-      room:null
+      room:null,
+      coords: {x: 0, y: 0}
     };
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
@@ -32,6 +33,12 @@ class RoomsIndexLight extends Component {
         dy: this.state.pan.y
       }]),
       onPanResponderRelease: (e, gesture) =>{
+        this.state.coords.x += this.state.pan.x._value;
+        this.state.coords.y += this.state.pan.y._value;
+        console.log(e.nativeEvent.pageY);
+
+        // this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
+        console.log("RELEASED");
         let rooms = this.props.rooms;
         console.log(rooms);
         if (Object.keys(this.props.rooms).length < 1){
@@ -52,13 +59,22 @@ class RoomsIndexLight extends Component {
               console.log('null');
               return null;
             }
-            if ((Math.abs(coord.coords.y)+167 < gesture.moveY) && (Math.abs(coord.coords.y)+coord.coords.height+167 > gesture.moveY)){
+
+            // console.log(gesture.moveY - 330);
+            // console.log(Math.abs(this.state.coords.y));
+            // gesture.moveY = gesture.moveY > 600 ? gesture.moveY - 300 : gesture.moveY
+            console.log(coord.coords.y);
+            console.log(gesture.moveY - 275);
+            console.log(coord.coords.y + coord.coords.height);
+            console.log(gesture.moveY - 275 > coord.coords.y);
+            console.log(gesture.moveY - 275 < coord.coords.y + coord.coords.height);
+            // this.state.coords.y = this.state.coords.y <
+            if (gesture.moveY - 130 > coord.coords.y && gesture.moveY - 130 < coord.coords.y + coord.coords.height){
               // console.log("gesture", gesture.moveX);
               // console.log("width", coord.coords.width);
               // console.log("dz", coord.coords.x);
-              console.log((Math.abs(coord.coords.x) < gesture.moveX));
-              console.log((Math.abs(coord.coords.x)+coord.coords.width > gesture.moveX));
-
+              // console.log(((coord.coords.x) < gesture.moveX));
+              // console.log(((coord.coords.x)+coord.coords.width > gesture.moveX));
               if ((Math.abs(coord.coords.x) < gesture.moveX) && (Math.abs(coord.coords.x)+coord.coords.width > gesture.moveX)){
                 console.log(coord.id);
                 return coord.id;
@@ -96,8 +112,8 @@ class RoomsIndexLight extends Component {
               });
           }
         }
-
-
+      this.state.coords = {x:0, y:0}
+      // this.state.pan.setValue({x: 0, y: 0});
       }
     });
   }

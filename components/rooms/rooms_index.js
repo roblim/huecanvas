@@ -134,7 +134,7 @@ class RoomsIndex extends Component{
           {
             Object.values(rooms).map(room =>{
               return(
-
+                  <View>
                     <RoomsIndexItem
                       room={room}
                       rooms={rooms}
@@ -149,6 +149,7 @@ class RoomsIndex extends Component{
                       removeRoom={id => this.removeRoom(id)}
                       coordinates={this.state.coordinates}
                   />
+                </View>
 
              );
             }
