@@ -18,10 +18,11 @@ import merge from 'lodash/merge';
 class RoomsIndexItem extends Component{
   constructor(props){
     super(props);
+    let {x, y} = this.props.room.coordinates || {x: 0, y: 0};
     this.state={
       modalVisible: false,
       modal2Visible: false,
-      pan: new Animated.ValueXY(),
+      pan: new Animated.ValueXY({x, y}),
       showDraggable: this.props.showDraggable,
       dropZoneValues: this.props.dropZoneValues,
       showLight: false,
@@ -29,14 +30,25 @@ class RoomsIndexItem extends Component{
       layout: null,
       room: this.props.room,
     };
+
     this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: ()=> true,
+      // onStartShouldSetPanResponder: ()=> true,
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+      // onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+        return gestureState.dx != 0 && gestureState.dy != 0;
+      },
+      onPanResponderGrant: (e, gestureState) => {
+        this.state.pan.setOffset(this.state.room.coordinates);
+        this.state.pan.setValue({x: 0, y: 0});
+      },
       onPanResponderMove: Animated.event([null,{
         dx: this.state.pan.x,
         dy: this.state.pan.y
       }]),
       onPanResponderRelease: (e, gesture) =>{
         if(this.isDropZone(gesture)){
+          // console.log("this is the room that was released", this.props.room);
           this.setState({
             showDraggable: false
           });
@@ -48,18 +60,27 @@ class RoomsIndexItem extends Component{
 
   }
 
-  // componentDidMount(){
-  //   let newRoom = merge({}, this.state.room, {coordinates: this.props.coordinates});
-  //   console.log("componentDidMount", newRoom);
-  //   this.setState({
-  //     room: newRoom
-  //   });
-  //   this.props.parentProps.updateRoom(this.state.room);
-  // }
+  componentDidMount(){
+    if (!this.state.room.coordinates) {
+      let newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
+      // console.log("componentDidMount", newRoom);
+      this.setState({
+        room: newRoom
+      });
+      this.props.parentProps.updateRoom(this.state.room);
+    }
+  }
 
   componentWillReceiveProps(nextProps){
-    if(this.props.coordinates === null) {
-      let newRoom = merge({}, this.state.room, {coordinates: nextProps.coordinates});
+    if (nextProps.room) {
+      let newRoom = merge(this.state.room, nextProps.room);
+      this.setState({
+        room: newRoom
+      });
+    }
+    if(this.props.coordinates === null || Object.keys(this.props.coordinates).length < 1) {
+      let newRoom = merge(this.state.room, {coordinates: nextProps.coordinates});
+      // console.log("componentWillReceiveProps", newRoom);
       this.setState({
         room: newRoom
       });
@@ -68,12 +89,13 @@ class RoomsIndexItem extends Component{
   }
 
   getThisLayout(event){
-    let newRoom = this.state.room;
+    let newRoom = this.props.room;
+    // console.log(newRoom);
     if (this.state.room.coordinates === null)
     {
-      newRoom = merge({}, this.state.room, {coordinates: this.props.coordinates});
+      newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
     } else {
-      newRoom = merge({}, this.state.room, {coordinates: event.nativeEvent.layout});
+      newRoom = merge(this.state.room, {coordinates: event.nativeEvent.layout});
     }
 
     this.setState({
@@ -93,7 +115,7 @@ class RoomsIndexItem extends Component{
 
   isDropZone(gesture){
       const dz = this.props.dropZoneValues;
-      return gesture.moveY < dz.height;
+      return gesture.moveY < dz.height && gesture.moveY != 0;
   }
 
 
@@ -101,10 +123,12 @@ class RoomsIndexItem extends Component{
     const room = this.props.room;
     const lights = this.props.lights;
     const rooms = this.props.rooms;
+    // console.log(this.props.room);
     if(this.state.showDraggable){
       return(
           <Animated.View {...this.panResponder.panHandlers}
               style={[this.state.pan.getLayout(), styles.index]}
+
               onLayout={this.getThisLayout.bind(this)}>
             <Modal
                   animationType="slide"

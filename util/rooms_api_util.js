@@ -27,7 +27,7 @@ export const updateRoom = room => {
 		rooms = JSON.parse(rooms);
 		let myRooms = merge({}, rooms);
 		myRooms[room.id] = room;
-		console.log(myRooms);
+		// console.log(myRooms);
 		return AsyncStorage.mergeItem("rooms", JSON.stringify(myRooms));
 	});
 };

@@ -7,6 +7,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import merge from 'lodash/merge';
 
 export default class RoomForm extends React.Component {
   constructor(props) {
@@ -19,18 +20,19 @@ export default class RoomForm extends React.Component {
 	}
 
   componentWillMount() {
-    if (!this.state.room.id) {
+    if (this.props.formType == 'new') {
       this.props.fetchRooms().then(res => {
         console.log(res.rooms);
-        if (res.rooms !== null) {
+        if (Object.keys(res.rooms).length > 0) {
+          console.log("FUCK");
       		let maxId = Object.keys(res.rooms).reduce((a, b) => {
       			return (Math.max(a, b))
       		})
-          this.setState({room: {id: (parseInt(maxId) + 1), name: this.props.room.name, coordinates:{x:0, y:0, height:128, width:205}}})
-          console.log('room form', this.state.room);
+          this.setState({room: {id: (parseInt(maxId) + 1), coordinates:{x:0, y:0, height:128, width:205}}})
+          // console.log('room form', this.state.room);
       	} else {
       		this.setState({room: {id: 0, coordinates:{x:0, y:0, height:128, width:205}}});
-          console.log('hooray');
+          // console.log('hooray');
       	}
       })
     }
@@ -42,7 +44,8 @@ export default class RoomForm extends React.Component {
 
   update(field) {
 		return (e) => {
-      return this.setState({room: {id: this.state.room.id, [field]: e.nativeEvent.text}, errors: ""})
+      let coords = this.state.room.coordinates || {x:0, y:0, height:128, width:205}
+      return this.setState(merge(this.state.room, {[field]: e.nativeEvent.text, coordinates: coords, errors: ""}))
     }
 	}
 
@@ -84,7 +87,7 @@ export default class RoomForm extends React.Component {
                   }
                 } else {
                   this.setState({errors: "This field is required"})
-                  console.log("updated", this.state);
+                  // console.log("updated", this.state);
                 }
                 }}>
                 <Text style={styles.saveText}>Save</Text>
