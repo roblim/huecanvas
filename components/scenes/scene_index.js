@@ -25,7 +25,7 @@ class SceneIndex extends React.Component {
   }
 
   renderItem(scene) {
-    console.log(sceneColors[scene.item.name]);
+
     let color;
     if (sceneColors[scene.item.name]) {
       console.log("here");
@@ -53,7 +53,9 @@ class SceneIndex extends React.Component {
   render() {
 
     return (
-      <View>
+      <View
+        style={{flex: -1}}
+        >
           <Text style={{backgroundColor:"rgba(33, 33, 33, .4)", color: "white"}}>Scenes</Text>
           <Text style={{fontSize: 20, color: "white", backgroundColor: "rgba(33, 33, 33, .4)"}}>
             Current Scene: {this.state.currentScene}
