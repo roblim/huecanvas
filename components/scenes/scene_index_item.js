@@ -12,8 +12,8 @@ class SceneIndexItem extends React.Component {
         text: "Edit",
         backgroundColor: "green",
         onPress: () => {
+          setTimeout(() => {this.props.openModal("edit")}, 1000)
           this.props.hideModal("index");
-          this.props.openModal("edit")
         }
       },
       {
