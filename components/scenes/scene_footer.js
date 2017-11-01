@@ -55,7 +55,7 @@ class SceneFooter extends React.Component {
             </ Modal>
           <Modal
             style={{
-              backgroundColor: "white"
+              backgroundColor: "rgba(33, 33, 33, .4)"
 
             }}
             isVisible={this.state.CreateModalIsOpen}

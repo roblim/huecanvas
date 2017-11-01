@@ -37,11 +37,15 @@ class SceneForm extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 25, marginBottom: 20}}>Save current scene as: </Text>
+        <Text style={{
+            color: "white",
+            fontSize: 25,
+            marginBottom: 20}}>Save current scene as: </Text>
 
       <TextInput
         style={{borderColor: "red",
-          backgroundColor: "rgb(240, 240, 240)",
+          backgroundColor: "rgb(230, 230, 230)",
+          paddingLeft: 5,
           width: "50%",
           height: 50
         }}
@@ -51,7 +55,7 @@ class SceneForm extends React.Component {
         />
 
       <Button
-        color="black"
+        color="white"
         title="Select Color"
         onPress={this.openModal}
         />
@@ -90,7 +94,7 @@ class SceneForm extends React.Component {
         }
         />
         <Button
-          color= "black"
+          color= "white"
           title="close"
           onPress={() => this.props.hideModal("create")}
           />
@@ -101,7 +105,7 @@ class SceneForm extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(33, 33, 33, .4)',
     justifyContent: "center",
     alignItems: "center"
   }
