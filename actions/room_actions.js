@@ -53,7 +53,7 @@ export const updateRoom = room => dispatch => (
 	APIUtil.updateRoom(room).then(() => (
 		dispatch(receiveRoom(room))
 	), err => (
-		dispatch(receiveRoomErrors(err.responseJSONS))
+		dispatch(receiveRoomErrors(err.responseJSON))
 	))
 );
 
