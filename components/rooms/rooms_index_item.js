@@ -36,7 +36,9 @@ class RoomsIndexItem extends Component{
       onStartShouldSetPanResponder: ()=> true,
       // onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
       // onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      // onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+        return gestureState.dx != 0 && gestureState.dy != 0;
+      },
       onPanResponderGrant: (e, gestureState) => {
         // this.state.coords.x = this.state.pan.x._value;
         // this.state.coords.y = this.state.pan.y._value;
@@ -77,8 +79,13 @@ class RoomsIndexItem extends Component{
           // console.log(updated);
           // this.setState({coords: updated})
           // console.log(this.state.coords);
+          console.log("oldCoords", this.state.coords);
+          let y = e.nativeEvent.pageY
+          let updatedCoords = merge({}, this.state.coords)
+          updatedCoords = merge(updatedCoords, {y})
+          console.log("updatedCoords", updatedCoords);
           newRoom = merge(newRoom, {coordinates: this.state.coords})
-          // console.log(newRoom);
+          console.log("updatedRoom", newRoom);
           this.setState({room: newRoom})
           this.props.parentProps.updateRoom(newRoom);
           // return true
@@ -145,7 +152,7 @@ class RoomsIndexItem extends Component{
 
   isDropZone(gesture){
       const dz = this.props.dropZoneValues;
-      return gesture.moveY < dz.height;
+      return gesture.moveY < dz.height && gesture.moveY != 0;
   }
 
 
