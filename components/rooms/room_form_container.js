@@ -7,9 +7,11 @@ import {
 } from '../../actions/room_actions';
 import * as APIUtil from '../../util/rooms_api_util'
 import RoomForm from './room_form';
+import { Dimensions } from 'react-native';
 
 const mapStateToProps = (state, ownProps) => {
-	let room = {id: 0, coordinates: {x:0, y:0, height:128, width:205}}
+	let Window = Dimensions.get('window');
+	let room = {id: 0, coordinates: {x:0, y:0, height: Window.height/6, width:205}}
 	let rooms = ownProps.rooms || state.rooms
 	if (ownProps.room) {
 		room = ownProps.room

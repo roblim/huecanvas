@@ -134,7 +134,7 @@ class RoomsIndex extends Component{
           {
             Object.values(rooms).map(room =>{
               return(
-                  <View>
+
                     <RoomsIndexItem
                       room={room}
                       rooms={rooms}
@@ -149,7 +149,7 @@ class RoomsIndex extends Component{
                       removeRoom={id => this.removeRoom(id)}
                       coordinates={this.state.coordinates}
                   />
-                </View>
+
 
              );
             }
@@ -185,7 +185,7 @@ class RoomsIndex extends Component{
         <View style={styles.draggableLight}>
           {
             lights.map(light =>(
-              <View>
+
                   <RoomsIndexLight
                     light={light}
                     showDraggable={this.state.showDraggableLight}
@@ -196,7 +196,7 @@ class RoomsIndex extends Component{
                     getCurrentRoom = {(currentRoom)=> this.getCurrentRoom(currentRoom)}
                     getDroppedLights={(droppedLight)=> this.getDroppedLights(droppedLight)}
                     />
-              </View>
+
             ))
           }
         </View>
