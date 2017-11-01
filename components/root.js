@@ -26,7 +26,7 @@ export default class Root extends React.Component {
 
   componentWillMount() {
 
-      // this.showModal();
+      this.showModal();
   }
 
   showModal() {
@@ -118,7 +118,7 @@ export default class Root extends React.Component {
                     margin: "auto"
                   }}
             isVisible={this.state.isModalVisible}
-            backdropColor="rgb(255, 255, 255)"
+            backdropColor="rgba(33, 33, 33, .4)"
           >
             <DiscoverContainer hideModal={this.hideModal}
                                 navigate={navigate}

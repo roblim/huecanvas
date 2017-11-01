@@ -36,17 +36,23 @@ class Discover extends React.Component {
       this.props.fetchLights(this.props.user)
       setTimeout(() => this.props.hideModal(), 1500);
       return (
-        <Text style={{fontSize: 50}}>Welcome back</Text>
+        <Text style={{
+            color: "white",
+            fontSize: 50
+          }}>Welcome back</Text>
       )
     } else {
       return (
         <View style={{alignItems: 'center', alignContent: "space-between"}}>
-          <Text style={{padding: 50, fontSize: 20}}>Press button on the Philips Hue bridge, then click create user</Text>
+          <Text style={{
+              color: "white",
+              padding: 50,
+              fontSize: 20}}>Press button on the Philips Hue bridge, then click create user</Text>
           <Image source={require("../../docs/icons/icon_pack_v2.02/Push-link/PDF/pushlink_bridgev2-1.png")}
             style={{width: 300, height: 300}}
             />
-          <Button color="black"
-            title={"create user"}
+          <Button color="white"
+            title={"Create User"}
             onPress={() => {
               this.props.createUser(this.props.bridge);
               this.props.hideModal();
@@ -75,7 +81,8 @@ class Discover extends React.Component {
 
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: "rgba(255, 255, 255, .9)",
+    backgroundColor: "rgba(33, 33, 33, .4)",
+    color: "white"
 
   }
 })
