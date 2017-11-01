@@ -52,8 +52,9 @@ export default class RoomForm extends React.Component {
         // console.log(Window.height/6);
         // console.log(Window.height/6);
         let absoluteY = (Window.height/6 * items + 320)
-
-        let updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
+        let y = absoluteY - 320
+        let updatedCoords = merge(this.state.room.coordinates, {y})
+        updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
         console.log("updatedCoords", updatedCoords);
         let updatedRoom = merge({}, this.state.room)
         updatedRoom = merge(updatedRoom, {coordinates: updatedCoords})

@@ -80,9 +80,9 @@ class RoomsIndexItem extends Component{
           // this.setState({coords: updated})
           // console.log(this.state.coords);
           // console.log("oldCoords", this.state.coords);
-          let y = e.nativeEvent.pageY
+          // let y = e.nativeEvent.pageY
           let updatedCoords = merge({absoluteY: e.nativeEvent.pageY}, this.state.coords)
-          updatedCoords = merge(updatedCoords, {y})
+          // updatedCoords = merge(updatedCoords, {y})
           console.log("updatedCoords", updatedCoords);
           newRoom = merge(newRoom, {coordinates: updatedCoords})
           // console.log("updatedRoom", newRoom);
@@ -110,7 +110,7 @@ class RoomsIndexItem extends Component{
 
   componentWillReceiveProps(nextProps){
     if (nextProps.room) {
-      let newRoom = merge(this.state.room, nextProps.room);
+      let newRoom = merge({}, this.state.room, nextProps.room);
       this.setState({
         room: newRoom
       })
@@ -241,6 +241,7 @@ const styles = StyleSheet.create({
     height: Window.height/6,
     borderRadius: 20,
     borderWidth: 0.5,
-    borderColor: '#d6d7da'
+    borderColor: '#d6d7da',
+    position: 'absolute'
   },
 });
