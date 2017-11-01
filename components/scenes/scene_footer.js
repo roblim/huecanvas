@@ -51,6 +51,7 @@ class SceneFooter extends React.Component {
             >
             <SceneIndexContainer
               hideModal={this.hideModal}
+              openModal={this.openModal}
               />
             </ Modal>
           <Modal

@@ -7,7 +7,23 @@ class SceneIndexItem extends React.Component {
   constructor(props) {
     super(props);
     this.id = Object.keys(props.item.item)[0];
-
+    this.buttons = [
+      {
+        text: "Edit",
+        backgroundColor: "green",
+        onPress: () => {
+          this.props.hideModal("index");
+          this.props.openModal("edit")
+        }
+      },
+      {
+        text: 'Delete',
+        backgroundColor: "red",
+        onPress: () => {
+          this.props.deleteScene(this.key);
+        }
+      }
+    ]
   }
 
 
@@ -25,7 +41,7 @@ class SceneIndexItem extends React.Component {
       >
 
       <Swipeout
-        right={swipeoutBtns}
+        right={this.buttons}
         style={{
           backgroundColor: "transparent",
           width: "100%"}}
@@ -51,11 +67,5 @@ class SceneIndexItem extends React.Component {
 
 }
 
-const swipeoutBtns = [
-  {
-    text: 'Delete',
-    backgroundColor: "red"
-  }
-]
 
 export default SceneIndexItem;

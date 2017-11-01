@@ -11,9 +11,11 @@ class SceneIndex extends React.Component {
     this.state = {
       currentScene: ""
     }
+    console.log(this.props.scenes);
     this.setScene = this.setScene.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.displayScene = this.displayScene.bind(this);
+    this.deleteScene = this.deleteScene.bind(this);
   }
 
   componentWillMount() {
@@ -42,8 +44,19 @@ class SceneIndex extends React.Component {
                       setScene={this.props.setScene}
                       displayScene={this.displayScene}
                       fetchScene={this.props.fetchScene}
+                      deleteScene={this.deleteScene}
+                      hideModal={this.props.hideModal}
+                      openModal={this.props.openModal}
                       />
     )
+  }
+
+  deleteScene(idx) {
+    console.log(idx);
+    console.log("before", this.props.scenes);
+    this.props.scenes.splice(idx, 1);
+    this.props.hideModal("index");
+    console.log("after", this.props.scenes);
   }
 
   setScene(name) {
