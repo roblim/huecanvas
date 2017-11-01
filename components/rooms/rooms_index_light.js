@@ -50,11 +50,14 @@ class RoomsIndexLight extends Component {
           // console.log("gesturex", gesture.moveX);
 
           let whichCoordinates = coordinates.map((coord,idx) => {
-            if(!coord.coords){
+            if(Object.keys(coord.coords).length < 1){
               return null;
             }
             if ((Math.abs(coord.coords.y)+167 < gesture.moveY) && (Math.abs(coord.coords.y)+coord.coords.height+167 > gesture.moveY)){
-              return coord.id;
+              if ((Math.abs(coord.coords.x) < gesture.moveX) && (Math.abs(coord.coords.x)+coord.coords.width > gesture.moveX)){
+                return coord.id;
+              }
+              return null
             } else {
               return null;
             }
@@ -67,6 +70,7 @@ class RoomsIndexLight extends Component {
           } else {
             // console.log("whichCoordinates", whichCoordinates);
             let roomId = whichCoordinates.filter(function(id) {
+              console.log(id);
               return id !== undefined;
             });
 

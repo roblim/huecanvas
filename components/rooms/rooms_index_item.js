@@ -29,16 +29,25 @@ class RoomsIndexItem extends Component{
       that: this,
       layout: null,
       room: this.props.room,
+      coords: {x, y}
     };
 
     this.panResponder = PanResponder.create({
-      // onStartShouldSetPanResponder: ()=> true,
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+      onStartShouldSetPanResponder: ()=> true,
+      // onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
       // onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+      // onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
       onPanResponderGrant: (e, gestureState) => {
-        this.state.pan.setOffset(this.state.room.coordinates);
+        // this.state.coords.x = this.state.pan.x._value;
+        // this.state.coords.y = this.state.pan.y._value;
+
+        this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
+        // let offSet = this.state.room.coordinates || {x: 0, y: 0}
+        // let {x, y} = this.state.room.coordinates
+        // console.log(x,y);
+        // this.state.pan.setOffset({x, y});
         this.state.pan.setValue({x: 0, y: 0});
+        return true
       },
       onPanResponderMove: Animated.event([null,{
         dx: this.state.pan.x,
@@ -54,20 +63,42 @@ class RoomsIndexItem extends Component{
           this.props.removeRoom(this.props.room.id);
 
         } else {
+          this.state.coords.x += this.state.pan.x._value;
+          this.state.coords.y += this.state.pan.y._value;
+
+          this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
+          this.state.pan.setValue({x: 0, y: 0});
+          // let x = gesture.moveX
+          // let y = gesture.moveY
+          // let newCoords = {x, y, height:128, width:205}
+          // // this.state.room.coordinates  coords
+          // let updated = merge(this.state.coords, newCoords)
+          let newRoom = merge({}, this.state.room)
+          // console.log(updated);
+          // this.setState({coords: updated})
+          // console.log(this.state.coords);
+          newRoom = merge(newRoom, {coordinates: this.state.coords})
+          // console.log(newRoom);
+          this.setState({room: newRoom})
+          this.props.parentProps.updateRoom(newRoom);
+          // return true
+          // console.log(newRoom);
+          // console.log(gesture.moveX);
+          // console.log(this.state.room);
       }}
     });
 
   }
 
   componentDidMount(){
-    if (!this.state.room.coordinates) {
-      let newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
-      // console.log("componentDidMount", newRoom);
-      this.setState({
-        room: newRoom
-      });
-      this.props.parentProps.updateRoom(this.state.room);
-    }
+    // if (!this.state.room.coordinates) {
+    //   let newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
+    //   console.log("componentDidMount", newRoom);
+    //   this.setState({
+    //     room: newRoom
+    //   });
+    //   this.props.parentProps.updateRoom(this.state.room);
+    // }
   }
 
   componentWillReceiveProps(nextProps){
@@ -77,14 +108,14 @@ class RoomsIndexItem extends Component{
         room: newRoom
       })
     }
-    if(this.props.coordinates === null || Object.keys(this.props.coordinates).length < 1) {
-      let newRoom = merge(this.state.room, {coordinates: nextProps.coordinates});
-      // console.log("componentWillReceiveProps", newRoom);
-      this.setState({
-        room: newRoom
-      });
-      this.props.parentProps.updateRoom(this.state.room);
-    }
+    // if(this.state.room.coordinates === null || Object.keys(this.state.room.coordinates).length < 1) {
+    //   let newRoom = merge(this.state.room, {coordinates: nextProps.coordinates});
+    //   // console.log("componentWillReceiveProps", newRoom);
+    //   this.setState({
+    //     room: newRoom
+    //   });
+    //   // this.props.parentProps.updateRoom(this.state.room);
+    // }
   }
 
   getThisLayout(event){
@@ -100,7 +131,7 @@ class RoomsIndexItem extends Component{
     this.setState({
       room: newRoom
     });
-    this.props.parentProps.updateRoom(this.state.room);
+    // this.props.parentProps.updateRoom(this.state.room);
   }
 
 
