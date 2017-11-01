@@ -47,7 +47,7 @@ class RoomsIndex extends Component{
 
 
   componentWillMount(){
-    // AsyncStorage.clear();
+
     this.props.fetchRooms();
     this.props.fetchLights();
 
@@ -206,7 +206,7 @@ class RoomsIndex extends Component{
   }
   render(){
       return(
-        <View>
+        <View style={styles.main}>
           {this.renderDragArea()}
           {this.renderCreateRoom()}
           {this.renderRooms(this.state.dropZoneValuesRoom)}
@@ -219,8 +219,14 @@ class RoomsIndex extends Component{
 let CIRCLE_RADIUS = 36;
 let Window = Dimensions.get('window');
 let styles = StyleSheet.create({
+    main:{
+      flex: 1
+    },
     mainContainer: {
         flex    : 1,
+    },
+    button: {
+      color: 'white'
     },
     dropZone    : {
         height         : 100,

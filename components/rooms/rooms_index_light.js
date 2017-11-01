@@ -179,6 +179,7 @@ let styles = StyleSheet.create({
         marginLeft  : 5,
         marginRight : 5,
         textAlign   : 'center',
-        color       : '#fff'
+        color       : '#fff',
+        
     }
 });

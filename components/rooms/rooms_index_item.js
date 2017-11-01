@@ -187,18 +187,18 @@ class RoomsIndexItem extends Component{
              </View>
            </View>
          </Modal>
-           <TouchableWithoutFeedback onPress={() => {
+           <TouchableHighlight onPress={() => {
              this.setModalVisible(true);
            }}
            onLongPress={() => {
              this.setModal2Visible(true);
            }}
-
+           style={styles.touchable}
            >
              <View>
                <Text style={styles.text}>{this.props.room.name}</Text>
              </View>
-           </TouchableWithoutFeedback>
+           </TouchableHighlight>
 
 
 
@@ -221,6 +221,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  touchable:{
+    flex: 1,
+    padding: 20,
+    borderRadius: 20
   },
     text        : {
         marginTop   : 22,
