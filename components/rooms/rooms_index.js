@@ -64,10 +64,10 @@ class RoomsIndex extends Component{
     });
   }
 
-  getThisLayout(event){
-    // console.log("event", event.nativeEvent.layout);
-    this.setState({ coordinates: event.nativeEvent.layout});
-  }
+  // getThisLayout(event){
+  //   // console.log("event", event.nativeEvent.layout);
+  //   this.setState({ coordinates: event.nativeEvent.layout});
+  // }
 
 
 

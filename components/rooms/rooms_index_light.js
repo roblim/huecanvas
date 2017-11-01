@@ -33,6 +33,7 @@ class RoomsIndexLight extends Component {
       }]),
       onPanResponderRelease: (e, gesture) =>{
         let rooms = this.props.rooms;
+        console.log(rooms);
         if (Object.keys(this.props.rooms).length < 1){
           Animated.spring(
               this.state.pan,
@@ -43,26 +44,34 @@ class RoomsIndexLight extends Component {
           let coordinates = Object.values(rooms).map(room =>{
               return({ id: room.id, coords: room.coordinates });
           });
-
-
-
           // console.log("coordinates", coordinates);
           // console.log("gesturex", gesture.moveX);
 
           let whichCoordinates = coordinates.map((coord,idx) => {
-            if(Object.keys(coord.coords).length < 1){
+            if(!coord.coords || Object.keys(coord.coords).length < 1){
+              console.log('null');
               return null;
             }
             if ((Math.abs(coord.coords.y)+167 < gesture.moveY) && (Math.abs(coord.coords.y)+coord.coords.height+167 > gesture.moveY)){
+              // console.log("gesture", gesture.moveX);
+              // console.log("width", coord.coords.width);
+              // console.log("dz", coord.coords.x);
+              console.log((Math.abs(coord.coords.x) < gesture.moveX));
+              console.log((Math.abs(coord.coords.x)+coord.coords.width > gesture.moveX));
+
               if ((Math.abs(coord.coords.x) < gesture.moveX) && (Math.abs(coord.coords.x)+coord.coords.width > gesture.moveX)){
+                console.log(coord.id);
                 return coord.id;
               }
+              console.log(coord.id, "outside width");
               return null
             } else {
+              console.log(coord.id, "outside height");
               return null;
             }
           });
-          if(whichCoordinates.some(x => x === null)){
+          console.log(whichCoordinates);
+          if(whichCoordinates.every(id => id === null)){
               Animated.spring(
                   this.state.pan,
                   {toValue:{x:0,y:0}}
@@ -71,9 +80,9 @@ class RoomsIndexLight extends Component {
             // console.log("whichCoordinates", whichCoordinates);
             let roomId = whichCoordinates.filter(function(id) {
               console.log(id);
-              return id !== undefined;
+              return id !== null;
             });
-
+            console.log(roomId);
             let newRoom = merge({}, this.props.rooms[roomId], {lights: {[this.props.light.lightId]:{lightId: this.props.light.lightId, canvasPosition: null}}});
             this.setState({
               room: newRoom
