@@ -17,7 +17,7 @@ class SceneIndexItem extends React.Component {
 
       <View style={{
       flex: 1,
-      backgroundColor     : "white",
+      backgroundColor     : "rgba(33, 33, 33, .4)",
       justifyContent: "center",
       alignItems: 'center',
     }}
@@ -33,10 +33,9 @@ class SceneIndexItem extends React.Component {
       <Text
               style={{
                 padding: 10,
-                borderBot
                 fontSize: 30,
                 flex: 1,
-                color: "black",
+                color: "white",
                 textAlign: "center"}}
               onPress={() => {
                 this.props.fetchScene(this.id)
