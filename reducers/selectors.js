@@ -45,3 +45,26 @@ export const selectLightPositions = (state, roomId) => {
 //                       }
 //             }
 // }
+
+export const selectUnassignedLights = state => {
+  if (state.entities.rooms) {
+    let rooms = Object.values(state.entities.rooms);
+    let assignedLights = []
+    rooms.forEach(room => {
+      if (room.lights) {
+        assignedLights = assignedLights.concat(room.lights)
+      }
+    });
+    if (assignedLights.length > 0) {
+      return Object.values(state.entities.lights).filter(light => {
+          return assignedLights.some(assignedLight => {
+            return assignedLight.lightId == light.lightId
+          })
+      })
+    } else {
+      return Object.values(state.entities.lights)
+    }
+  } else {
+    return Object.values(state.entities.lights)
+  }
+}

@@ -15,8 +15,6 @@ export const discover = () => {
 }
 
 export const createUser = (bridge) => {
-  console.log("here");
-  console.log(bridge);
   return bridge.createUser(`HueCanvas#iPad${Math.random * 100}`);
 }
 

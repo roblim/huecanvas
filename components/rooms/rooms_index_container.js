@@ -2,10 +2,11 @@ import RoomsIndex from './rooms_index';
 import { connect } from 'react-redux';
 import { fetchRooms, createRoom, fetchRoom, deleteRoom, updateRoom } from '../../actions/room_actions';
 import { fetchLights } from '../../actions/discover_actions';
+import { selectUnassignedLights } from '../../reducers/selectors.js';
 
 const mapStateToProps = state =>({
   rooms: state.entities.rooms,
-  lights: state.entities.lights
+  lights: selectUnassignedLights(state)
 });
 
 const mapDispatchToProps = dispatch =>({

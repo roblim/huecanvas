@@ -5,10 +5,12 @@ export const RECEIVE_ROOM = "RECEIVE_ROOM";
 export const RECEIVE_ROOM_ERRORS = "RECEIVE_ROOM_ERRORS";
 export const REMOVE_ROOM = "REMOVE_ROOM";
 
-export const receiveRoom = room => ({
+export const receiveRoom = room => {
+	// console.log(room);
+	return {
 	type: RECEIVE_ROOM,
 	room
-});
+}};
 
 export const receiveRooms = rooms => ({
 	type: RECEIVE_ROOMS,
@@ -42,20 +44,22 @@ export const fetchRoom = id => dispatch => (
 );
 
 export const createRoom = room => dispatch => (
-	APIUtil.createRoom(room).then(() => (
-		dispatch(receiveRoom(room))
-	), err => (
+	APIUtil.createRoom(room).then(function() {
+		console.log("CREATE", room);
+		return dispatch(receiveRoom(room))
+	}, err => (
 		dispatch(receiveRoomErrors(err.responseJSON))
 	))
 );
 
-export const updateRoom = room => dispatch => (
-	APIUtil.updateRoom(room).then(() => (
+export const updateRoom = room => dispatch => {
+	console.log("UPDATE", room.name);
+	return APIUtil.updateRoom(room).then(() => (
 		dispatch(receiveRoom(room))
 	), err => (
-		dispatch(receiveRoomErrors(err.responseJSONS))
+		dispatch(receiveRoomErrors(err.responseJSON))
 	))
-);
+};
 
 export const deleteRoom = id => dispatch => (
 	APIUtil.deleteRoom(id).then(() => (

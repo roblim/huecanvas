@@ -18,49 +18,129 @@ import merge from 'lodash/merge';
 class RoomsIndexItem extends Component{
   constructor(props){
     super(props);
+    let {x, y} = this.props.room.coordinates || {x: 0, y: 0}
     this.state={
       modalVisible: false,
       modal2Visible: false,
-      pan: new Animated.ValueXY(),
+      pan: new Animated.ValueXY({x, y}),
       showDraggable: this.props.showDraggable,
       dropZoneValues: this.props.dropZoneValues,
       showLight: false,
       that: this,
       layout: null,
-      room: this.props.room
+      room: this.props.room,
+      coords: {x, y}
     };
+
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
+      // onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+      // onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+        return gestureState.dx != 0 && gestureState.dy != 0;
+      },
+      onPanResponderGrant: (e, gestureState) => {
+        // this.state.coords.x = this.state.pan.x._value;
+        // this.state.coords.y = this.state.pan.y._value;
+
+        this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
+        // let offSet = this.state.room.coordinates || {x: 0, y: 0}
+        // let {x, y} = this.state.room.coordinates
+        // console.log(x,y);
+        // this.state.pan.setOffset({x, y});
+        this.state.pan.setValue({x: 0, y: 0});
+        return true
+      },
       onPanResponderMove: Animated.event([null,{
         dx: this.state.pan.x,
         dy: this.state.pan.y
       }]),
       onPanResponderRelease: (e, gesture) =>{
+        console.log("pan responder was released");
         if(this.isDropZone(gesture)){
-          console.log("roomid", this.state.room.id);
-          this.props.removeRoom(this.props.room.id);
+          // console.log("this is the room that was released", this.props.room);
           this.setState({
             showDraggable: false
           });
+          this.props.removeRoom(this.props.room.id);
+
         } else {
-        //   Animated.spring(
-        //   //   this.state.pan,
-        //   //   {toValue:{x:0,y:0}}
-        //   // ).start();
-        // }
+          this.state.coords.x += this.state.pan.x._value;
+          this.state.coords.y += this.state.pan.y._value;
+
+          this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
+          this.state.pan.setValue({x: 0, y: 0});
+          // let x = gesture.moveX
+          // let y = gesture.moveY
+          // let newCoords = {x, y, height:128, width:205}
+          // // this.state.room.coordinates  coords
+          // let updated = merge(this.state.coords, newCoords)
+          let newRoom = merge({}, this.state.room)
+          // console.log(updated);
+          // this.setState({coords: updated})
+          // console.log(this.state.coords);
+          // console.log("oldCoords", this.state.coords);
+          // let y = e.nativeEvent.pageY
+          let updatedCoords = merge({absoluteY: e.nativeEvent.pageY}, this.state.coords)
+          // updatedCoords = merge(updatedCoords, {y})
+          console.log("updatedCoords", updatedCoords);
+          newRoom = merge(newRoom, {coordinates: updatedCoords})
+          // console.log("updatedRoom", newRoom);
+          this.setState({room: newRoom})
+          this.props.parentProps.updateRoom(newRoom);
+          // return true
+          // console.log(newRoom);
+          // console.log(gesture.moveX);
+          // console.log(this.state.room);
       }}
     });
 
   }
 
+  componentDidMount(){
+    // if (!this.state.room.coordinates) {
+    //   let newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
+    //   console.log("componentDidMount", newRoom);
+    //   this.setState({
+    //     room: newRoom
+    //   });
+    //   this.props.parentProps.updateRoom(this.state.room);
+    // }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if (nextProps.room) {
+      let newRoom = merge({}, this.state.room, nextProps.room);
+      this.setState({
+        room: newRoom
+      })
+    }
+    // if(this.state.room.coordinates === null || Object.keys(this.state.room.coordinates).length < 1) {
+    //   let newRoom = merge(this.state.room, {coordinates: nextProps.coordinates});
+    //   // console.log("componentWillReceiveProps", newRoom);
+    //   this.setState({
+    //     room: newRoom
+    //   });
+    //   // this.props.parentProps.updateRoom(this.state.room);
+    // }
+  }
+
   getThisLayout(event){
-    console.log("this was called");
-    let newRoom = merge({}, this.state.room, {coordinates: event.nativeEvent.layout});
+    let newRoom = this.props.room;
+    // console.log(newRoom);
+    if (this.state.room.coordinates === null)
+    {
+      newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
+    } else {
+      newRoom = merge(this.state.room, {coordinates: event.nativeEvent.layout});
+    }
+
     this.setState({
       room: newRoom
     });
-    this.props.parentProps.updateRoom(this.state.room);
+    // this.props.parentProps.updateRoom(this.state.room);
   }
+
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
@@ -72,22 +152,20 @@ class RoomsIndexItem extends Component{
 
   isDropZone(gesture){
       const dz = this.props.dropZoneValues;
-      return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
+      return gesture.moveY < dz.height && gesture.moveY != 0;
   }
+
+
   render(){
     const room = this.props.room;
     const lights = this.props.lights;
     const rooms = this.props.rooms;
-    console.log("room passed to LightIndexContainer", this.props.sendToLightContainer);
-    if(!this.props.rooms.coordinates){
-      let newRoom = merge({}, this.state.room, {coordinates: {x:0, y:0, height:128, width:205}});
-      this.props.parentProps.updateRoom(newRoom);
-    }
-
+    // console.log(this.props.room);
     if(this.state.showDraggable){
       return(
           <Animated.View {...this.panResponder.panHandlers}
               style={[this.state.pan.getLayout(), styles.index]}
+
               onLayout={this.getThisLayout.bind(this)}>
             <Modal
                   animationType="slide"
@@ -111,13 +189,7 @@ class RoomsIndexItem extends Component{
                visible={this.state.modal2Visible}>
            <View >
              <View>
-               <RoomFormContainer rooms={rooms} room={room} that={this.state.that}/>
-               <TouchableHighlight onPress={() => {
-                 this.setModal2Visible(!this.state.modal2Visible);
-                 }}>
-                 <Text>Back</Text>
-               </TouchableHighlight>
-
+               <RoomFormContainer rooms={rooms} room={room} that={this.state.that} modal2Visible={this.state.modal2Visible}/>
              </View>
            </View>
          </Modal>
@@ -170,5 +242,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
+    position: 'absolute'
   },
 });

@@ -6,7 +6,7 @@ class SceneIndexItem extends React.Component {
   constructor(props) {
     super(props);
     this.id = Object.keys(props.item.item)[0];
-    console.log(props);
+    // console.log(props);
   }
 
 

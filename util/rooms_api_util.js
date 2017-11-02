@@ -2,7 +2,18 @@ import { AsyncStorage } from 'react-native';
 import merge from 'lodash/merge';
 
 export const fetchRooms = () => {
-	return AsyncStorage.getItem("rooms").then((res) => JSON.parse(res));
+	return AsyncStorage.getItem("rooms").then((res) => {
+		if (!!res) {
+			console.log("TRUEEEEEEE");
+			return JSON.parse(res)
+		} else {
+			return AsyncStorage.setItem("rooms", "{}").then(() => {
+				return AsyncStorage.getItem("rooms").then((res) => {
+					return JSON.parse(res)
+				})
+			})
+		}
+	});
 };
 
 export const fetchRoom = id => (
@@ -27,7 +38,7 @@ export const updateRoom = room => {
 		rooms = JSON.parse(rooms);
 		let myRooms = merge({}, rooms);
 		myRooms[room.id] = room;
-		console.log(myRooms);
+		// console.log(myRooms);
 		return AsyncStorage.mergeItem("rooms", JSON.stringify(myRooms));
 	});
 };
