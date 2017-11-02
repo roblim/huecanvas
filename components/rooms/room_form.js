@@ -4,9 +4,11 @@ import {
   Text,
   Button,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  Dimensions
 } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import merge from 'lodash/merge';
 
 export default class RoomForm extends React.Component {
   constructor(props) {
@@ -19,37 +21,75 @@ export default class RoomForm extends React.Component {
 	}
 
   componentWillMount() {
-    if (!this.state.room.id) {
+    if (this.props.formType == 'new') {
       this.props.fetchRooms().then(res => {
-        // console.log(res.rooms);
-        if (res.rooms !== null) {
+        console.log(res.rooms);
+        if (Object.keys(res.rooms).length > 0) {
+          console.log("FUCK");
       		let maxId = Object.keys(res.rooms).reduce((a, b) => {
       			return (Math.max(a, b))
       		})
-          this.setState({room: {id: (parseInt(maxId) + 1), name: this.props.room.name, coordinates:{x:0, y:0, height:128, width:205}}})
-          // console.log('room form', this.state.room);
+          let Window = Dimensions.get('window');
+          let items = Object.keys(res.rooms).length || 0
+          // console.log(Window.height/6);
+          // console.log(Window.height/6);
+          let absoluteY = (Window.height/6 * items + 320)
+
+          let updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
+          console.log("updatedCoords", updatedCoords);
+
+          let updatedRoom = merge({}, this.state.room, {id: (parseInt(maxId) + 1)})
+          updatedRoom = merge(updatedRoom, {coordinates: updatedCoords})
+          this.setState({room: updatedRoom})
+          console.log('room form', this.state.room);
       	} else {
-      		this.setState({room: {id: 0, coordinates:{x:0, y:0, height:128, width:205}}});
+          let updatedRoom = merge(this.state.room, {id: 0})
+      		this.setState({room: updatedRoom});
           // console.log('hooray');
       	}
+        let Window = Dimensions.get('window');
+        let items = Object.keys(res.rooms).length || 0
+        // console.log(Window.height/6);
+        // console.log(Window.height/6);
+        let absoluteY = (Window.height/6 * items + 320)
+        let y = absoluteY - 320
+        let updatedCoords = merge(this.state.room.coordinates, {y})
+        updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
+        console.log("updatedCoords", updatedCoords);
+        let updatedRoom = merge({}, this.state.room)
+        updatedRoom = merge(updatedRoom, {coordinates: updatedCoords})
+        this.setState({room: updatedRoom})
       })
     }
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState(newProps.room)
+    let updated = merge(this.state.room, newProps.room)
+    this.setState({room: updated})
   }
 
   update(field) {
 		return (e) => {
-      return this.setState({room: {id: this.state.room.id, [field]: e.nativeEvent.text}, errors: ""})
+      // console.log(this.state.room);
+      // let updated = merge(this.state.room, {[field]: e.nativeEvent.text})
+      // console.log({room: updated});
+      return this.setState(merge(this.state.room, {[field]: e.nativeEvent.text}))
+      // console.log(this.state.room);
     }
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
-		this.props.processForm(this.state.room)
-		//.then(() => this.props.history.push('/rooms'));;
+    console.log(this.props.processForm);
+    console.log(this.state.room);
+		this.props.processForm(this.state.room).then(() => {
+      if (this.that) {
+        this.that.setModal2Visible(!this.modal2Visible);
+      } else {
+        const { navigate } = this.props.navigation;
+        navigate('roomsIndex')
+      }
+    })
 	}
 
   setModal2Visible(visible) {
@@ -74,14 +114,8 @@ export default class RoomForm extends React.Component {
             </FormValidationMessage>
 
             <TouchableHighlight style={styles.saveBtn} onPress={(e) => {
-                if (this.state.room.name !== "") {
+                if (!!this.state.room.name) {
                   this.handleSubmit(e)
-                  if (this.that) {
-                    this.that.setModal2Visible(!this.modal2Visible);
-                  } else {
-                    const { navigate } = this.props.navigation;
-                    navigate('roomsIndex')
-                  }
                 } else {
                   this.setState({errors: "This field is required"})
                   // console.log("updated", this.state);

@@ -18,23 +18,38 @@ import merge from 'lodash/merge';
 class RoomsIndexItem extends Component{
   constructor(props){
     super(props);
+    let {x, y} = this.props.room.coordinates || {x: 0, y: 0}
     this.state={
       modalVisible: false,
       modal2Visible: false,
-      pan: new Animated.ValueXY(),
+      pan: new Animated.ValueXY({x, y}),
       showDraggable: this.props.showDraggable,
       dropZoneValues: this.props.dropZoneValues,
       showLight: false,
       that: this,
       layout: null,
       room: this.props.room,
+      coords: {x, y}
     };
 
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
+      // onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+      // onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+        return gestureState.dx != 0 && gestureState.dy != 0;
+      },
       onPanResponderGrant: (e, gestureState) => {
-        this.state.pan.setOffset(this.state.room.coordinates);
+        // this.state.coords.x = this.state.pan.x._value;
+        // this.state.coords.y = this.state.pan.y._value;
+
+        this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
+        // let offSet = this.state.room.coordinates || {x: 0, y: 0}
+        // let {x, y} = this.state.room.coordinates
+        // console.log(x,y);
+        // this.state.pan.setOffset({x, y});
         this.state.pan.setValue({x: 0, y: 0});
+        return true
       },
       onPanResponderMove: Animated.event([null,{
         dx: this.state.pan.x,
@@ -50,36 +65,64 @@ class RoomsIndexItem extends Component{
           this.props.removeRoom(this.props.room.id);
 
         } else {
+          this.state.coords.x += this.state.pan.x._value;
+          this.state.coords.y += this.state.pan.y._value;
+
+          this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
+          this.state.pan.setValue({x: 0, y: 0});
+          // let x = gesture.moveX
+          // let y = gesture.moveY
+          // let newCoords = {x, y, height:128, width:205}
+          // // this.state.room.coordinates  coords
+          // let updated = merge(this.state.coords, newCoords)
+          let newRoom = merge({}, this.state.room)
+          // console.log(updated);
+          // this.setState({coords: updated})
+          // console.log(this.state.coords);
+          // console.log("oldCoords", this.state.coords);
+          // let y = e.nativeEvent.pageY
+          let updatedCoords = merge({absoluteY: e.nativeEvent.pageY}, this.state.coords)
+          // updatedCoords = merge(updatedCoords, {y})
+          console.log("updatedCoords", updatedCoords);
+          newRoom = merge(newRoom, {coordinates: updatedCoords})
+          // console.log("updatedRoom", newRoom);
+          this.setState({room: newRoom})
+          this.props.parentProps.updateRoom(newRoom);
+          // return true
+          // console.log(newRoom);
+          // console.log(gesture.moveX);
+          // console.log(this.state.room);
       }}
     });
 
   }
 
   componentDidMount(){
-    let newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
-    // console.log("componentDidMount", newRoom);
-    this.setState({
-      room: newRoom
-    });
-    this.props.parentProps.updateRoom(this.state.room);
+    // if (!this.state.room.coordinates) {
+    //   let newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
+    //   console.log("componentDidMount", newRoom);
+    //   this.setState({
+    //     room: newRoom
+    //   });
+    //   this.props.parentProps.updateRoom(this.state.room);
+    // }
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("room", nextProps.room.lights);
-    if (nextProps.room && nextProps.room.lights) {
-      let newRoom = merge(this.state.room, {lights: nextProps.room.lights});
+    if (nextProps.room) {
+      let newRoom = merge({}, this.state.room, nextProps.room);
       this.setState({
         room: newRoom
       })
     }
-    if(this.props.coordinates === null) {
-      let newRoom = merge(this.state.room, {coordinates: nextProps.coordinates});
-      // console.log("componentWillReceiveProps", newRoom);
-      this.setState({
-        room: newRoom
-      });
-      this.props.parentProps.updateRoom(this.state.room);
-    }
+    // if(this.state.room.coordinates === null || Object.keys(this.state.room.coordinates).length < 1) {
+    //   let newRoom = merge(this.state.room, {coordinates: nextProps.coordinates});
+    //   // console.log("componentWillReceiveProps", newRoom);
+    //   this.setState({
+    //     room: newRoom
+    //   });
+    //   // this.props.parentProps.updateRoom(this.state.room);
+    // }
   }
 
   getThisLayout(event){
@@ -87,15 +130,15 @@ class RoomsIndexItem extends Component{
     // console.log(newRoom);
     if (this.state.room.coordinates === null)
     {
-      newRoom = merge({}, this.state.room, {coordinates: this.props.coordinates});
+      newRoom = merge(this.state.room, {coordinates: this.props.coordinates});
     } else {
-      newRoom = merge({}, this.state.room, {coordinates: event.nativeEvent.layout});
+      newRoom = merge(this.state.room, {coordinates: event.nativeEvent.layout});
     }
 
     this.setState({
       room: newRoom
     });
-    this.props.parentProps.updateRoom(this.state.room);
+    // this.props.parentProps.updateRoom(this.state.room);
   }
 
 
@@ -109,7 +152,7 @@ class RoomsIndexItem extends Component{
 
   isDropZone(gesture){
       const dz = this.props.dropZoneValues;
-      return gesture.moveY < dz.height;
+      return gesture.moveY < dz.height && gesture.moveY != 0;
   }
 
 
@@ -158,7 +201,7 @@ class RoomsIndexItem extends Component{
            }}
 
            >
-             <View ref={component => this._root = component}>
+             <View>
                <Text style={styles.text}>{this.props.room.name}</Text>
              </View>
            </TouchableWithoutFeedback>
@@ -198,6 +241,7 @@ const styles = StyleSheet.create({
     height: Window.height/6,
     borderRadius: 20,
     borderWidth: 0.5,
-    borderColor: '#d6d7da'
+    borderColor: '#d6d7da',
+    position: 'absolute'
   },
 });

@@ -47,7 +47,7 @@ class RoomsIndex extends Component{
 
 
   componentWillMount(){
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
     this.props.fetchRooms();
     this.props.fetchLights();
 
@@ -64,10 +64,10 @@ class RoomsIndex extends Component{
     });
   }
 
-  getThisLayout(event){
-    // console.log("event", event.nativeEvent.layout);
-    this.setState({ coordinates: event.nativeEvent.layout});
-  }
+  // getThisLayout(event){
+  //   // console.log("event", event.nativeEvent.layout);
+  //   this.setState({ coordinates: event.nativeEvent.layout});
+  // }
 
 
 
@@ -75,10 +75,10 @@ class RoomsIndex extends Component{
     this.setState({modalVisible: visible});
   }
 
-  isLightDropZone(gesture){
-    const dz = this.state.dropZoneValuesLight;
-    return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
-  }
+  // isLightDropZone(gesture){
+  //   const dz = this.state.dropZoneValuesLight;
+  //   return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
+  // }
 
   isRoomDropZone(gesture){
     const dz = this.state.dropZoneValuesRoom;
@@ -125,7 +125,7 @@ class RoomsIndex extends Component{
   }
 
   renderRooms(dropZoneValues){
-    if (!this.props.rooms) { return null; }
+    if (!this.props.rooms || Object.keys(this.props.rooms).length < 1) { return null; }
     const rooms = this.props.rooms;
     const lights = this.props.lights;
     if(this.state.showDraggableRoom){
@@ -134,7 +134,7 @@ class RoomsIndex extends Component{
           {
             Object.values(rooms).map(room =>{
               return(
-                  <View ref='blah' onLayout={this.getThisLayout.bind(this)}>
+
                     <RoomsIndexItem
                       room={room}
                       rooms={rooms}
@@ -149,7 +149,8 @@ class RoomsIndex extends Component{
                       removeRoom={id => this.removeRoom(id)}
                       coordinates={this.state.coordinates}
                   />
-                </View>
+
+
              );
             }
           )
@@ -184,7 +185,7 @@ class RoomsIndex extends Component{
         <View style={styles.draggableLight}>
           {
             lights.map(light =>(
-              <View>
+
                   <RoomsIndexLight
                     light={light}
                     showDraggable={this.state.showDraggableLight}
@@ -195,7 +196,7 @@ class RoomsIndex extends Component{
                     getCurrentRoom = {(currentRoom)=> this.getCurrentRoom(currentRoom)}
                     getDroppedLights={(droppedLight)=> this.getDroppedLights(droppedLight)}
                     />
-              </View>
+
             ))
           }
         </View>
