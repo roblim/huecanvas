@@ -15,7 +15,7 @@ const Bridge = Hue.bridge(homeIP);
 const User = Bridge.user(homeHue);
 
 
-const configureStore = (preloadedState = testStore) => (
+const configureStore = (preloadedState) => (
   createStore(
     RootReducer,
     preloadedState,

@@ -45,7 +45,6 @@ class RoomsIndex extends Component{
     this.removeRoom = this.removeRoom.bind(this);
 }
 
-
   componentWillMount(){
     // AsyncStorage.clear();
     this.props.fetchRooms();
@@ -187,6 +186,7 @@ class RoomsIndex extends Component{
             lights.map(light =>(
 
                   <RoomsIndexLight
+                    key={`lightId-${light.lightId}`}
                     light={light}
                     showDraggable={this.state.showDraggableLight}
                     dropZoneValues={dropZoneValues}
