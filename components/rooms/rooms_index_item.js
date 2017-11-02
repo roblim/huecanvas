@@ -163,36 +163,13 @@ class RoomsIndexItem extends Component{
     // console.log(this.props.room);
     if(this.state.showDraggable){
       return(
+        <View>
           <Animated.View {...this.panResponder.panHandlers}
               style={[this.state.pan.getLayout(), styles.index]}
 
               onLayout={this.getThisLayout.bind(this)}>
-            <Modal
-                  animationType="slide"
-                  transparent={false}
-                  visible={this.state.modalVisible}>
-              <View >
-                <View>
-                  <LightIndexContainer room={this.props.sendToLightContainer} />
-                  <TouchableHighlight onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible);
-                    }}>
-                    <Text>Back</Text>
-                  </TouchableHighlight>
 
-                </View>
-              </View>
-            </Modal>
-         <Modal
-               animationType="slide"
-               transparent={false}
-               visible={this.state.modal2Visible}>
-           <View >
-             <View>
-               <RoomFormContainer rooms={rooms} room={room} that={this.state.that} modal2Visible={this.state.modal2Visible}/>
-             </View>
-           </View>
-         </Modal>
+
            <TouchableWithoutFeedback onPress={() => {
              this.setModalVisible(true);
            }}
@@ -209,7 +186,34 @@ class RoomsIndexItem extends Component{
 
 
        </Animated.View>
+       <Modal
+             animationType="slide"
+             transparent={false}
+             visible={this.state.modal2Visible}>
+         <View >
+           <View>
+             <RoomFormContainer rooms={rooms} room={room} that={this.state.that} modal2Visible={this.state.modal2Visible}/>
+           </View>
+         </View>
+       </Modal>
+       
+       <Modal
+             animationType="slide"
+             transparent={false}
+             visible={this.state.modalVisible}>
+         <View >
+           <View>
+             <LightIndexContainer room={this.props.sendToLightContainer} />
+             <TouchableHighlight onPress={() => {
+               this.setModalVisible(!this.state.modalVisible);
+               }}>
+               <Text>Back</Text>
+             </TouchableHighlight>
 
+           </View>
+         </View>
+       </Modal>
+       </View>
       );
     } else {
       return(
