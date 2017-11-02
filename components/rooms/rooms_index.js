@@ -47,7 +47,6 @@ class RoomsIndex extends Component{
 
 
   componentWillMount(){
-
     this.props.fetchRooms();
     this.props.fetchLights();
 
@@ -109,9 +108,9 @@ class RoomsIndex extends Component{
     const rooms = this.props.rooms;
     return(
       <View>
-        <Button onPress={() => navigate('roomsNew')}
-              title="Create New Room"
-        />
+        <TouchableHighlight onPress={() => navigate('roomsNew')} style={styles.button}>
+          <Text style={styles.text}>Create New Room</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -134,7 +133,6 @@ class RoomsIndex extends Component{
           {
             Object.values(rooms).map(room =>{
               return(
-                  <View>
                     <RoomsIndexItem
                       room={room}
                       rooms={rooms}
@@ -149,7 +147,6 @@ class RoomsIndex extends Component{
                       removeRoom={id => this.removeRoom(id)}
                       coordinates={this.state.coordinates}
                   />
-                </View>
 
              );
             }
@@ -216,18 +213,15 @@ class RoomsIndex extends Component{
       );
 }
 }
-
-let CIRCLE_RADIUS = 36;
 let Window = Dimensions.get('window');
+let CIRCLE_RADIUS = Window.height/10;
 let styles = StyleSheet.create({
     main:{
-      flex: 1
+      flex: 1,
+      backgroundColor: 'black'
     },
     mainContainer: {
         flex    : 1,
-    },
-    button: {
-      color: 'white'
     },
     dropZone    : {
         height         : 100,
@@ -260,7 +254,7 @@ let styles = StyleSheet.create({
         left        : Window.width/2 - CIRCLE_RADIUS
     },
     circle      : {
-        backgroundColor     : '#1abc9c',
+        backgroundColor     : 'yellow',
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
         borderRadius        : CIRCLE_RADIUS
