@@ -18,12 +18,12 @@ class Discover extends React.Component {
         users = JSON.parse(users);
          if (users && !!Object.keys(users)[0]) {
            this.setState({user: true})
-          //  setTimeout(() => {
-          //    this.props.hideModal();
-          //    users = Object.keys(users).map((user) => this.props.bridge.user(user))
-          //    this.props.setUser(users[0])
-          //    this.props.fetchLights(users[0])
-          //  }, 3000)
+           setTimeout(() => {
+             this.props.hideModal();
+             users = Object.keys(users).map((user) => this.props.bridge.user(user))
+             this.props.setUser(users[0])
+             this.props.fetchLights(users[0])
+           }, 3000)
         }
       })
 

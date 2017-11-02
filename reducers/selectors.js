@@ -6,12 +6,12 @@ export const selectLights = (state) => {
 }
 
 export const selectRoom = (state, roomId) => {
-  if (!roomId) { return selectLights(state); }
+  if (!roomId) { return []; }
   return state.entities.rooms[roomId];
 }
 
 export const selectRoomLights = (state, roomId) => {
-  if (!roomId) { return []; }
+  if (!roomId) { return selectLights(state); }
   let lights = state.entities.lights;
   if (Object.keys(lights).length < 1) { return []; }
   let roomLightIds = Object.keys(state.entities.rooms[roomId].lights);

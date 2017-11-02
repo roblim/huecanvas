@@ -25,7 +25,7 @@ class LightIndex extends React.Component {
     this.setState({ color })
   }
 
-	componentWillMount() {
+	componentDidMount() {
 		this.props.fetchLights(this.props.user);
 	}
 
