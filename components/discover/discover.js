@@ -13,7 +13,7 @@ class Discover extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.fetchBridges()
+    this.props.fetchBridges()
       AsyncStorage.getItem("users").then((users) => {
         users = JSON.parse(users);
          if (users && !!Object.keys(users)[0]) {

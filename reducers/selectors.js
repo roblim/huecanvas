@@ -6,7 +6,7 @@ export const selectLights = (state) => {
 }
 
 export const selectRoom = (state, roomId) => {
-  if (!roomId) { return null; }
+  if (!roomId) { return selectLights(state); }
   return state.entities.rooms[roomId];
 }
 
