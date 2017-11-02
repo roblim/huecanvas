@@ -25,7 +25,6 @@ export default class RoomForm extends React.Component {
       this.props.fetchRooms().then(res => {
         console.log(res.rooms);
         if (Object.keys(res.rooms).length > 0) {
-          console.log("FUCK");
       		let maxId = Object.keys(res.rooms).reduce((a, b) => {
       			return (Math.max(a, b))
       		})
