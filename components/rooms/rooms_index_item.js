@@ -18,7 +18,7 @@ import merge from 'lodash/merge';
 class RoomsIndexItem extends Component{
   constructor(props){
     super(props);
-    let {x, y} = this.props.room.coordinates || {x: 0, y: 0};
+    let {x, y, height, width} = this.props.room.coordinates || {x: 0, y: 0}
     this.state={
       modalVisible: false,
       modal2Visible: false,
@@ -29,7 +29,7 @@ class RoomsIndexItem extends Component{
       that: this,
       layout: null,
       room: this.props.room,
-      coords: {x, y}
+      coords: {x, y, height: height, width: width}
     };
 
     this.panResponder = PanResponder.create({
@@ -109,7 +109,8 @@ class RoomsIndexItem extends Component{
 
   componentWillReceiveProps(nextProps){
     if (nextProps.room) {
-      let newRoom = merge({}, this.state.room, nextProps.room);
+      let newRoom = merge({}, this.state.room);
+      newRoom = merge(newRoom, nextProps.room)
       this.setState({
         room: newRoom
       });
