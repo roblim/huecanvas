@@ -40,7 +40,6 @@ class RoomsIndex extends Component{
     this.renderLights = this.renderLights.bind(this);
     this.renderDragArea = this.renderDragArea.bind(this);
     this.renderCreateRoom = this.renderCreateRoom.bind(this);
-    this.resetLights = this.resetLights.bind(this);
     this.setLightDropZoneValues = this.setLightDropZoneValues.bind(this);
     this.removeRoom = this.removeRoom.bind(this);
 }
@@ -159,26 +158,26 @@ class RoomsIndex extends Component{
 
   }
 
-  resetLights(){
-    this.setState({
-      showDraggableLight: true,
-      showDraggableRoom: true,
-    });
-    Animated.spring(
-        this.state.lightpan,
-        {toValue:{x:0,y:0}}
-    ).start();
-    Animated.spring(
-      this.state.roompan,
-
-      {toValue:{x:0, y:0}}
-    ).start();
-  }
+  // resetLights(){
+  //   this.setState({
+  //     showDraggableLight: true,
+  //     showDraggableRoom: true,
+  //   });
+  //   Animated.spring(
+  //       this.state.lightpan,
+  //       {toValue:{x:0,y:0}}
+  //   ).start();
+  //   Animated.spring(
+  //     this.state.roompan,
+  //
+  //     {toValue:{x:0, y:0}}
+  //   ).start();
+  // }
 
   renderLights(dropZoneValues){
     // console.log("roomLights", this.state.roomLights);
-    const lights = this.props.lights || [];
-    if(this.state.showDraggableLight){
+    const lights = this.props.lights;
+    console.log("this.props.lights", this.props.lights);
       return(
         <View style={styles.draggableLight}>
           {
@@ -200,7 +199,7 @@ class RoomsIndex extends Component{
           }
         </View>
       );
-    }
+
 
 
   }
