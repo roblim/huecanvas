@@ -11,6 +11,7 @@ import { Dimensions } from 'react-native';
 
 const mapStateToProps = (state, ownProps) => {
 	let Window = Dimensions.get('window');
+	console.log(Window);
 	let room = {id: 0, coordinates: {x:0, y:0, height: Window.height/6, width:205}}
 	let rooms = ownProps.rooms || state.rooms
 	if (ownProps.room) {
