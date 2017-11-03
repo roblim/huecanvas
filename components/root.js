@@ -116,10 +116,10 @@ export default class Root extends React.Component {
                     flex: 1,
                     justifyContent: "center",
                     alignItems: "center",
-                    margin: "auto"
+                    margin: "auto",
                   }}
             isVisible={this.state.isModalVisible}
-            backdropColor="rgb(255, 255, 255)"
+            backdropColor="rgb(33, 33, 33)"
           >
             <DiscoverContainer hideModal={this.hideModal}
                                 navigate={navigate}
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'rgba(33, 33, 33, .4)',
   },
   welcome: {
     fontSize: 20,
