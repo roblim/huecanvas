@@ -11,16 +11,20 @@ class SceneFooter extends React.Component {
 
     this.state = {
       IndexModalIsOpen: false,
-      CreateModalIsOpen: false
+      CreateModalIsOpen: false,
+      EditModalIsOpen: false
     }
 
     this.openModal = this.openModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.editScene = this.editScene.bind(this);
   }
 
   hideModal(type) {
     if (type === "index") {
       this.setState({IndexModalIsOpen: false})
+    } else if (type === "edit") {
+      thi.setState({EditModalIsOpen: false})
     } else {
       this.setState({CreateModalIsOpen: false})
     }
@@ -29,9 +33,15 @@ class SceneFooter extends React.Component {
   openModal(type) {
     if (type === "index") {
       this.setState({IndexModalIsOpen: true})
+    } else if (type === "edit") {
+      this.setState({EditModalIsOpen: true})
     } else {
       this.setState({CreateModalIsOpen: true})
     }
+  }
+
+  editScene(scene) {
+    this.setState({EditModalIsOpen: true})
   }
 
   render() {
@@ -65,6 +75,23 @@ class SceneFooter extends React.Component {
             >
 
             <SceneFormContainer
+              formType="create"
+              hideModal={this.hideModal}
+              />
+            </ Modal>
+          <Modal
+            style={{
+              backgroundColor: "rgba(33, 33, 33, .4)"
+
+            }}
+            isVisible={this.state.EditModalIsOpen}
+            backdropColor="rgb(33, 33, 33)"
+
+            >
+
+            <SceneFormContainer
+              editScene={this.editScene}
+              formType="edit"
               hideModal={this.hideModal}
               />
             </ Modal>

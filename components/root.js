@@ -114,6 +114,7 @@ export default class Root extends React.Component {
           <Modal
             style={{
                     flex: 1,
+                    backgroundColor: "rgba(33, 33, 33, .6)",
                     justifyContent: "center",
                     alignItems: "center",
                     margin: "auto",
@@ -163,6 +164,7 @@ const styles = StyleSheet.create({
   },
   welcome: {
     fontSize: 20,
+
     textAlign: 'center',
     margin: 10,
   },

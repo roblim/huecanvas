@@ -12,12 +12,16 @@ let bridgeIP;
 let globalUser;
 
 export const fetchBridges = () => dispatch => {
-  APIUtil.discover().then((bridges) => dispatch(receiveBridge(bridges[0].internalipaddress)))
+  console.log("here");
+  console.log("i love butts");
+  APIUtil.discover().then((bridges) => {
+    console.log(bridges);
+    //butts
+    dispatch(receiveBridge(bridges[0].internalipaddress))})
 };
 
 
 export const createUser = (bridge) => dispatch => {
-
   APIUtil.createUser(bridge).then((data) => {
     if (data[0].error) {
      dispatch(receiveUser(data[0].error))
@@ -32,7 +36,7 @@ export const createUser = (bridge) => dispatch => {
             dispatch(receiveUser(user))
             }
   }).catch(function(error) {
-    console.log('There has been a problem with your createUser operation: ' + error.message);
+    console.log('There has been a problem with your createUser butt operation: ' + error.message);
   })
 }
 
@@ -43,7 +47,6 @@ export const setUser = (user) => dispatch => {
 export const fetchLights = (thisUser) => dispatch => {
   if (thisUser) {
     thisUser.getLights().then((lights) => {
-
       dispatch(receiveAllLights(lights)
     )})
 

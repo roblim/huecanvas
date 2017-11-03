@@ -8,15 +8,19 @@ import { TriangleColorPicker, ColorPicker } from "react-native-color-picker";
 class SceneForm extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log("proops", this.props);
+
     this.state = {
       text: "",
       modalIsOpen: false,
       selectedColor: "rgb(240, 240, 240)"
-    };
+     };
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.renderForm = this.renderForm.bind(this);
   }
 
   openModal() {
@@ -33,11 +37,14 @@ class SceneForm extends React.Component {
     this.closeModal();
   }
 
-  render() {
+  renderForm() {
+    if (this.props.formType === "create") {
 
-    return (
-      <View style={styles.container}>
-        <Text style={{
+      console.log("create");
+
+      return (
+        <View>
+          <Text style={{
             color: "white",
             fontSize: 25,
             marginBottom: 20}}>Save current scene as: </Text>
@@ -69,16 +76,7 @@ class SceneForm extends React.Component {
         >
         <Text>{this.state.text}</Text>
       </ View>
-      <Modal
-        isVisible={this.state.modalIsOpen}
-        >
 
-        <TriangleColorPicker
-          onColorSelected={this.handleSelect}
-          style={{flex: 1}}
-          />
-
-        </ Modal>
       <Button
         color={this.state.selectedColor}
         title="Save"
@@ -93,6 +91,81 @@ class SceneForm extends React.Component {
             this.props.hideModal("create")}
         }
         />
+        </View>
+        )
+
+  } else {
+    console.log("edit");
+    return (
+      <View>
+
+      <Text style={{
+          color: "white",
+          fontSize: 25,
+          marginBottom: 20}}>Change name: </Text>
+
+    <TextInput
+      style={{borderColor: "red",
+        backgroundColor: "rgb(230, 230, 230)",
+        paddingLeft: 5,
+        width: "50%",
+        height: 50
+      }}
+      onChangeText={(text) => this.setState({text})}
+      value={this.state.text}
+      placeholder={this.props.scene.name}
+      />
+
+    <Button
+      color="white"
+      title="Select Color"
+      onPress={this.openModal}
+      />
+    <View style={{backgroundColor     : this.state.selectedColor,
+      width               : 60*2,
+      height              : 60*2,
+      borderRadius        : 60,
+      justifyContent: "center",
+      alignItems: 'center'}}
+
+      >
+      <Text>{this.state.text}</Text>
+    </ View>
+
+    <Button
+      color={this.state.selectedColor}
+      title="Save"
+      onPress={
+        () => {
+          this.props.createScene({
+            "name": this.state.text,
+            "lights": this.props.lights,
+            "recycle": true,
+            "picture": this.props.selectedColor
+          })
+          this.props.hideModal("create")}
+      }
+      />
+    </View>)
+
+  }
+  }
+  render() {
+
+    return (
+      <View style={styles.container}>
+      {() => this.renderForm()}
+      <Modal
+        isVisible={this.state.modalIsOpen}
+        >
+
+        <TriangleColorPicker
+          onColorSelected={this.handleSelect}
+          style={{flex: 1}}
+          />
+
+        </ Modal>
+
         <Button
           color= "white"
           title="close"

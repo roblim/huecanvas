@@ -14,6 +14,7 @@ class Discover extends React.Component {
 
   componentWillMount() {
     this.props.fetchBridges()
+    console.log("fetched");
       AsyncStorage.getItem("users").then((users) => {
         users = JSON.parse(users);
          if (users && !!Object.keys(users)[0]) {
@@ -71,7 +72,7 @@ class Discover extends React.Component {
   render() {
     return (
       <View>
-
+        <Text>Butt</Text>
         {this.userOptions()}
       </View>
     )
