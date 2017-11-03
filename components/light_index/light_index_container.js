@@ -1,16 +1,20 @@
 import { connect } from 'react-redux';
-import { selectLights } from '../../reducers/selectors';
+import { selectRoomLights,
+         selectLights,
+         selectLightPositions,
+         selectRoom } from '../../reducers/selectors';
 import LightIndex from './light_index';
 import { fetchLights } from '../../actions/discover_actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  roomId: ownProps.room,
+  room: selectRoom(state, ownProps.room),
   user: state.admin.user,
-  lights: selectLights(state)
+  lights: selectRoomLights(state, ownProps.room),
+  lightPositions: selectLightPositions(state, ownProps.room)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchLights: () => dispatch(fetchLights())
+  fetchLights: (user) => dispatch(fetchLights(user))
 });
 
 const LightIndexContainer = connect(
@@ -19,11 +23,3 @@ const LightIndexContainer = connect(
 )(LightIndex);
 
 export default LightIndexContainer;
-
-// {id: 0,
-//  name: "Daddy’s",
-//  lights: {
-// 					1: {lightId: 1, canvasPosition: null},
-// 					2: {lightId: 2, canvasPosition: null},
-// 	 			 }
-// }

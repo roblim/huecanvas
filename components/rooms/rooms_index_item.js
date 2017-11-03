@@ -164,7 +164,7 @@ class RoomsIndexItem extends Component{
       return(
         <View>
           <Animated.View {...this.panResponder.panHandlers}
-              style={[this.state.pan.getLayout(), styles.index]}
+              style={this.state.pan.getLayout()}
 
               onLayout={this.getThisLayout.bind(this)}>
 
@@ -177,14 +177,14 @@ class RoomsIndexItem extends Component{
            }}
            style={styles.touchable}
            >
-             <View>
+             <View style={styles.index}>
                <Text style={styles.text}>{this.props.room.name}</Text>
              </View>
            </TouchableHighlight>
 
 
 
-       </Animated.View>
+         </Animated.View>
        <Modal
              animationType="slide"
              transparent={false}

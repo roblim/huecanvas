@@ -11,6 +11,22 @@ import jsHue from 'jshue'
 import TabNavigator from './components/navigator';
 import { addNavigationHelpers } from 'react-navigation';
 
+let preloadedState = {
+  entities: {
+              rooms: {
+                      1: {id: 1,
+                         name: "Daddy’s",
+                         lights: {
+                          				2: {lightId: 2, canvasPosition: null},
+                          				3: {lightId: 3, canvasPosition: null},
+                          				4: {lightId: 4, canvasPosition: null},
+                          				6: {lightId: 6, canvasPosition: null},
+                      	 			   }
+                          }
+                      }
+            }
+};
+
 let store = configureStore()
 
 const hue = jsHue();

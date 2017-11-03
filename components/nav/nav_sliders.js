@@ -50,7 +50,7 @@ class NavSliders extends React.Component {
 
 	handleSlideChange(value) {
 		let delta = new Date().getTime() - this.state.lastCall;
-		if (delta >= 150) {
+		if (delta >= 100) {
 			if (this.state.globalOn == false) {
 				this.turnAllLightsOn(this.state.props)
 			}
