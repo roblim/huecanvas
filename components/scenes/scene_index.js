@@ -27,7 +27,7 @@ class SceneIndex extends React.Component {
   }
 
   renderItem(scene) {
-
+    console.log(scene);
     let color;
     if (sceneColors[scene.item.name]) {
       console.log("here");
@@ -40,7 +40,6 @@ class SceneIndex extends React.Component {
       <SceneIndexItem item={scene}
         style={{padding: 50}}
                       color={color}
-                      key={scene.index}
                       setScene={this.props.setScene}
                       displayScene={this.displayScene}
                       fetchScene={this.props.fetchScene}

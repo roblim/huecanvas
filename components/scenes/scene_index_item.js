@@ -6,7 +6,9 @@ class SceneIndexItem extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log(this.props);
     this.id = Object.keys(props.item.item)[0];
+    console.log(this.id);
     this.buttons = [
       {
         text: "Edit",
@@ -20,7 +22,7 @@ class SceneIndexItem extends React.Component {
         text: 'Delete',
         backgroundColor: "red",
         onPress: () => {
-          this.props.deleteScene(this.key);
+          this.props.deleteScene(this.id);
         }
       }
     ]
