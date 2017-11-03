@@ -59,7 +59,9 @@ export const selectUnassignedLights = state => {
     if (assignedLights.length > 0) {
       return Object.values(state.entities.lights).filter(light => {
           return assignedLights.some(assignedLight => {
-            return assignedLight.lightId == light.lightId
+            return Object.values(assignedLight).filter(assignedLight =>{
+                          return assignedLight.lightId !== light.lightId
+            })
           })
       })
     } else {

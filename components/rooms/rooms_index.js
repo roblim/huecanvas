@@ -40,13 +40,11 @@ class RoomsIndex extends Component{
     this.renderLights = this.renderLights.bind(this);
     this.renderDragArea = this.renderDragArea.bind(this);
     this.renderCreateRoom = this.renderCreateRoom.bind(this);
-    this.resetLights = this.resetLights.bind(this);
     this.setLightDropZoneValues = this.setLightDropZoneValues.bind(this);
     this.removeRoom = this.removeRoom.bind(this);
 }
 
   componentWillMount(){
-    // AsyncStorage.clear();
     this.props.fetchRooms();
     this.props.fetchLights();
 
@@ -108,9 +106,9 @@ class RoomsIndex extends Component{
     const rooms = this.props.rooms;
     return(
       <View>
-        <Button onPress={() => navigate('roomsNew')}
-              title="Create New Room"
-        />
+        <TouchableHighlight onPress={() => navigate('roomsNew')} style={styles.button}>
+          <Text style={styles.text}>Create New Room</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -160,26 +158,26 @@ class RoomsIndex extends Component{
 
   }
 
-  resetLights(){
-    this.setState({
-      showDraggableLight: true,
-      showDraggableRoom: true,
-    });
-    Animated.spring(
-        this.state.lightpan,
-        {toValue:{x:0,y:0}}
-    ).start();
-    Animated.spring(
-      this.state.roompan,
-
-      {toValue:{x:0, y:0}}
-    ).start();
-  }
+  // resetLights(){
+  //   this.setState({
+  //     showDraggableLight: true,
+  //     showDraggableRoom: true,
+  //   });
+  //   Animated.spring(
+  //       this.state.lightpan,
+  //       {toValue:{x:0,y:0}}
+  //   ).start();
+  //   Animated.spring(
+  //     this.state.roompan,
+  //
+  //     {toValue:{x:0, y:0}}
+  //   ).start();
+  // }
 
   renderLights(dropZoneValues){
     // console.log("roomLights", this.state.roomLights);
-    const lights = this.props.lights || [];
-    if(this.state.showDraggableLight){
+    const lights = this.props.lights;
+    console.log("this.props.lights", this.props.lights);
       return(
         <View style={styles.draggableLight}>
           {
@@ -201,13 +199,13 @@ class RoomsIndex extends Component{
           }
         </View>
       );
-    }
+
 
 
   }
   render(){
       return(
-        <View>
+        <View style={styles.main}>
           {this.renderDragArea()}
           {this.renderCreateRoom()}
           {this.renderRooms(this.state.dropZoneValuesRoom)}
@@ -216,10 +214,13 @@ class RoomsIndex extends Component{
       );
 }
 }
-
-let CIRCLE_RADIUS = 36;
 let Window = Dimensions.get('window');
+let CIRCLE_RADIUS = Window.height/10;
 let styles = StyleSheet.create({
+    main:{
+      flex: 1,
+      backgroundColor: 'black'
+    },
     mainContainer: {
         flex    : 1,
     },
@@ -232,7 +233,8 @@ let styles = StyleSheet.create({
         marginLeft  : 5,
         marginRight : 5,
         textAlign   : 'center',
-        color       : '#fff'
+        color       : '#fff',
+        fontSize: 20
     },
     room : {
       backgroundColor: '#e29a9a',
@@ -254,7 +256,7 @@ let styles = StyleSheet.create({
         left        : Window.width/2 - CIRCLE_RADIUS
     },
     circle      : {
-        backgroundColor     : '#1abc9c',
+        backgroundColor     : 'yellow',
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
         borderRadius        : CIRCLE_RADIUS

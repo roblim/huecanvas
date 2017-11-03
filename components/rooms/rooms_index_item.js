@@ -18,7 +18,7 @@ import merge from 'lodash/merge';
 class RoomsIndexItem extends Component{
   constructor(props){
     super(props);
-    let {x, y} = this.props.room.coordinates || {x: 0, y: 0}
+    let {x, y, height, width} = this.props.room.coordinates || {x: 0, y: 0}
     this.state={
       modalVisible: false,
       modal2Visible: false,
@@ -29,7 +29,7 @@ class RoomsIndexItem extends Component{
       that: this,
       layout: null,
       room: this.props.room,
-      coords: {x, y}
+      coords: {x, y, height: height, width: width}
     };
 
     this.panResponder = PanResponder.create({
@@ -56,7 +56,6 @@ class RoomsIndexItem extends Component{
         dy: this.state.pan.y
       }]),
       onPanResponderRelease: (e, gesture) =>{
-        console.log("pan responder was released");
         if(this.isDropZone(gesture)){
           // console.log("this is the room that was released", this.props.room);
           this.setState({
@@ -110,10 +109,11 @@ class RoomsIndexItem extends Component{
 
   componentWillReceiveProps(nextProps){
     if (nextProps.room) {
-      let newRoom = merge({}, this.state.room, nextProps.room);
+      let newRoom = merge({}, this.state.room);
+      newRoom = merge(newRoom, nextProps.room)
       this.setState({
         room: newRoom
-      })
+      });
     }
     // if(this.state.room.coordinates === null || Object.keys(this.state.room.coordinates).length < 1) {
     //   let newRoom = merge(this.state.room, {coordinates: nextProps.coordinates});
@@ -170,18 +170,18 @@ class RoomsIndexItem extends Component{
               onLayout={this.getThisLayout.bind(this)}>
 
 
-           <TouchableWithoutFeedback onPress={() => {
+           <TouchableHighlight onPress={() => {
              this.setModalVisible(true);
            }}
            onLongPress={() => {
              this.setModal2Visible(true);
            }}
-
+           style={styles.touchable}
            >
              <View style={styles.index}>
                <Text style={styles.text}>{this.props.room.name}</Text>
              </View>
-           </TouchableWithoutFeedback>
+           </TouchableHighlight>
 
 
 
@@ -232,10 +232,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  touchable:{
+    flex: 1,
+    padding: 20,
+    borderRadius: 20
+  },
     text        : {
-        marginTop   : 22,
+        marginTop   : 40,
         marginLeft  : 5,
         marginRight : 5,
+        fontSize    : 20,
         textAlign   : 'center',
         color       : '#fff'
     },

@@ -36,7 +36,6 @@ class RoomsIndexLight extends Component {
         this.state.coords.x += this.state.pan.x._value;
         this.state.coords.y += this.state.pan.y._value;
         console.log(e.nativeEvent.pageY);
-
         // this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
         console.log("RELEASED");
         let rooms = this.props.rooms;
@@ -104,9 +103,9 @@ class RoomsIndexLight extends Component {
             this.setState({
               room: newRoom
             });
-            // console.log("this.state.room", newRoom);
             this.props.getCurrentRoom(newRoom);
             this.props.getDroppedLights(this.props.light);
+            // console.log("this.state.room", newRoom);
             this.props.parentProps.updateRoom(newRoom);
               this.setState({
                 showDraggable: false
@@ -181,21 +180,22 @@ class RoomsIndexLight extends Component {
 }
 
 export default RoomsIndexLight;
-
-let CIRCLE_RADIUS = 36;
 let Window = Dimensions.get('window');
+let CIRCLE_RADIUS = Window.height/12;
 let styles = StyleSheet.create({
     circle      : {
-        backgroundColor     : '#00000030',
+        backgroundColor     : '#ffd677',
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
         borderRadius        : CIRCLE_RADIUS
     },
     text        : {
-        marginTop   : 22,
+        marginTop   : 52,
         marginLeft  : 5,
         marginRight : 5,
         textAlign   : 'center',
-        color       : '#fff'
+        color       : 'black',
+        fontSize    : 20
+
     }
 });
