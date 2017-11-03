@@ -4,7 +4,8 @@ import {
   Text,
   Button,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  Dimensions
 } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import merge from 'lodash/merge';
@@ -24,18 +25,39 @@ export default class RoomForm extends React.Component {
       this.props.fetchRooms().then(res => {
         console.log(res.rooms);
         if (Object.keys(res.rooms).length > 0) {
-          console.log("FUCK");
       		let maxId = Object.keys(res.rooms).reduce((a, b) => {
       			return (Math.max(a, b))
       		})
-          let updatedRoom = merge(this.state.room, {id: (parseInt(maxId) + 1)})
+          let Window = Dimensions.get('window');
+          let items = Object.keys(res.rooms).length || 0
+          // console.log(Window.height/6);
+          // console.log(Window.height/6);
+          let absoluteY = (Window.height/6 * items + 320)
+
+          let updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
+          console.log("updatedCoords", updatedCoords);
+
+          let updatedRoom = merge({}, this.state.room, {id: (parseInt(maxId) + 1)})
+          updatedRoom = merge(updatedRoom, {coordinates: updatedCoords})
           this.setState({room: updatedRoom})
-          // console.log('room form', this.state.room);
+          console.log('room form', this.state.room);
       	} else {
           let updatedRoom = merge(this.state.room, {id: 0})
-      		this.setState({room: {id: 0}});
+      		this.setState({room: updatedRoom});
           // console.log('hooray');
       	}
+        let Window = Dimensions.get('window');
+        let items = Object.keys(res.rooms).length || 0
+        // console.log(Window.height/6);
+        // console.log(Window.height/6);
+        let absoluteY = (Window.height/6 * items + 320)
+        let y = absoluteY - 320
+        let updatedCoords = merge(this.state.room.coordinates, {y})
+        updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
+        console.log("updatedCoords", updatedCoords);
+        let updatedRoom = merge({}, this.state.room)
+        updatedRoom = merge(updatedRoom, {coordinates: updatedCoords})
+        this.setState({room: updatedRoom})
       })
     }
   }

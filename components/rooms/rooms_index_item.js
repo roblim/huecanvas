@@ -78,13 +78,13 @@ class RoomsIndexItem extends Component{
           // console.log(updated);
           // this.setState({coords: updated})
           // console.log(this.state.coords);
-          console.log("oldCoords", this.state.coords);
-          let y = e.nativeEvent.pageY
-          let updatedCoords = merge({}, this.state.coords)
-          updatedCoords = merge(updatedCoords, {y})
+          // console.log("oldCoords", this.state.coords);
+          // let y = e.nativeEvent.pageY
+          let updatedCoords = merge({absoluteY: e.nativeEvent.pageY}, this.state.coords)
+          // updatedCoords = merge(updatedCoords, {y})
           console.log("updatedCoords", updatedCoords);
-          newRoom = merge(newRoom, {coordinates: this.state.coords})
-          console.log("updatedRoom", newRoom);
+          newRoom = merge(newRoom, {coordinates: updatedCoords})
+          // console.log("updatedRoom", newRoom);
           this.setState({room: newRoom})
           this.props.parentProps.updateRoom(newRoom);
           // return true
@@ -109,7 +109,7 @@ class RoomsIndexItem extends Component{
 
   componentWillReceiveProps(nextProps){
     if (nextProps.room) {
-      let newRoom = merge(this.state.room, nextProps.room);
+      let newRoom = merge({}, this.state.room, nextProps.room);
       this.setState({
         room: newRoom
       });
@@ -162,36 +162,13 @@ class RoomsIndexItem extends Component{
     // console.log(this.props.room);
     if(this.state.showDraggable){
       return(
+        <View>
           <Animated.View {...this.panResponder.panHandlers}
               style={[this.state.pan.getLayout(), styles.index]}
 
               onLayout={this.getThisLayout.bind(this)}>
-            <Modal
-                  animationType="slide"
-                  transparent={false}
-                  visible={this.state.modalVisible}>
-              <View >
-                <View>
-                  <LightIndexContainer room={this.props.sendToLightContainer} />
-                  <TouchableHighlight onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible);
-                    }}>
-                    <Text>Back</Text>
-                  </TouchableHighlight>
 
-                </View>
-              </View>
-            </Modal>
-         <Modal
-               animationType="slide"
-               transparent={false}
-               visible={this.state.modal2Visible}>
-           <View >
-             <View>
-               <RoomFormContainer rooms={rooms} room={room} that={this.state.that} modal2Visible={this.state.modal2Visible}/>
-             </View>
-           </View>
-         </Modal>
+
            <TouchableHighlight onPress={() => {
              this.setModalVisible(true);
            }}
@@ -208,7 +185,34 @@ class RoomsIndexItem extends Component{
 
 
        </Animated.View>
+       <Modal
+             animationType="slide"
+             transparent={false}
+             visible={this.state.modal2Visible}>
+         <View >
+           <View>
+             <RoomFormContainer rooms={rooms} room={room} that={this.state.that} modal2Visible={this.state.modal2Visible}/>
+           </View>
+         </View>
+       </Modal>
 
+       <Modal
+             animationType="slide"
+             transparent={false}
+             visible={this.state.modalVisible}>
+         <View >
+           <View>
+             <LightIndexContainer room={this.props.sendToLightContainer} />
+             <TouchableHighlight onPress={() => {
+               this.setModalVisible(!this.state.modalVisible);
+               }}>
+               <Text>Back</Text>
+             </TouchableHighlight>
+
+           </View>
+         </View>
+       </Modal>
+       </View>
       );
     } else {
       return(
@@ -246,6 +250,7 @@ const styles = StyleSheet.create({
     height: Window.height/6,
     borderRadius: 20,
     borderWidth: 0.5,
-    borderColor: '#d6d7da'
+    borderColor: '#d6d7da',
+    position: 'absolute'
   },
 });

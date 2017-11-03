@@ -133,6 +133,7 @@ class RoomsIndex extends Component{
           {
             Object.values(rooms).map(room =>{
               return(
+
                     <RoomsIndexItem
                       room={room}
                       rooms={rooms}
@@ -147,6 +148,7 @@ class RoomsIndex extends Component{
                       removeRoom={id => this.removeRoom(id)}
                       coordinates={this.state.coordinates}
                   />
+
 
              );
             }
@@ -182,7 +184,7 @@ class RoomsIndex extends Component{
         <View style={styles.draggableLight}>
           {
             lights.map(light =>(
-              <View>
+
                   <RoomsIndexLight
                     light={light}
                     showDraggable={this.state.showDraggableLight}
@@ -193,7 +195,7 @@ class RoomsIndex extends Component{
                     getCurrentRoom = {(currentRoom)=> this.getCurrentRoom(currentRoom)}
                     getDroppedLights={(droppedLight)=> this.getDroppedLights(droppedLight)}
                     />
-              </View>
+
             ))
           }
         </View>
@@ -232,7 +234,8 @@ let styles = StyleSheet.create({
         marginLeft  : 5,
         marginRight : 5,
         textAlign   : 'center',
-        color       : '#fff'
+        color       : '#fff',
+        fontSize: 20
     },
     room : {
       backgroundColor: '#e29a9a',

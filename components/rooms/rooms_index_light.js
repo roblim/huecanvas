@@ -62,13 +62,14 @@ class RoomsIndexLight extends Component {
             // console.log(gesture.moveY - 330);
             // console.log(Math.abs(this.state.coords.y));
             // gesture.moveY = gesture.moveY > 600 ? gesture.moveY - 300 : gesture.moveY
-            console.log(coord.coords.y);
-            console.log(gesture.moveY - 275);
-            console.log(coord.coords.y + coord.coords.height);
-            console.log(gesture.moveY - 275 > coord.coords.y);
-            console.log(gesture.moveY - 275 < coord.coords.y + coord.coords.height);
+            console.log("pan coords", this.state.coords.y);
+            console.log("greater than", coord.coords.absoluteY);
+            console.log("gesture.moveY", gesture.moveY + 50);
+            console.log("less than", coord.coords.absoluteY + coord.coords.height);
+            // console.log(gesture.moveY > coord.coords.absoluteY);
+            // console.log(gesture.moveY < coord.coords.absoluteY + coord.coords.height);
             // this.state.coords.y = this.state.coords.y <
-            if (gesture.moveY - 130 > coord.coords.y && gesture.moveY - 130 < coord.coords.y + coord.coords.height){
+            if (gesture.moveY + 50 > coord.coords.absoluteY && gesture.moveY + 50 < coord.coords.absoluteY + coord.coords.height){
               // console.log("gesture", gesture.moveX);
               // console.log("width", coord.coords.width);
               // console.log("dz", coord.coords.x);
@@ -180,21 +181,21 @@ class RoomsIndexLight extends Component {
 
 export default RoomsIndexLight;
 let Window = Dimensions.get('window');
-let CIRCLE_RADIUS = Window.height/11;
+let CIRCLE_RADIUS = Window.height/12;
 let styles = StyleSheet.create({
     circle      : {
-        backgroundColor     : 'white',
+        backgroundColor     : '#ffd677',
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
         borderRadius        : CIRCLE_RADIUS
     },
     text        : {
-        marginTop   : 50,
+        marginTop   : 52,
         marginLeft  : 5,
         marginRight : 5,
         textAlign   : 'center',
         color       : 'black',
-
+        fontSize    : 20
 
     }
 });
