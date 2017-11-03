@@ -14,7 +14,7 @@ export const receiveRoom = room => {
 
 export const receiveRooms = rooms => ({
 	type: RECEIVE_ROOMS,
-	rooms: rooms
+	rooms
 });
 
 export const removeRoom = roomId => ({
@@ -53,7 +53,7 @@ export const createRoom = room => dispatch => (
 );
 
 export const updateRoom = room => dispatch => {
-	console.log("UPDATE", room.name);
+	console.log("UPDATE", room);
 	return APIUtil.updateRoom(room).then(() => (
 		dispatch(receiveRoom(room))
 	), err => (

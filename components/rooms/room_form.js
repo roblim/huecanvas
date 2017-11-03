@@ -33,8 +33,11 @@ export default class RoomForm extends React.Component {
           // console.log(Window.height/6);
           // console.log(Window.height/6);
           let absoluteY = (Window.height/6 * items + 320)
+          let y = absoluteY - 320
+          let updatedCoords = merge(this.state.room.coordinates, {y})
+          updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
 
-          let updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
+          // let updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
           console.log("updatedCoords", updatedCoords);
 
           let updatedRoom = merge({}, this.state.room, {id: (parseInt(maxId) + 1)})
@@ -57,13 +60,15 @@ export default class RoomForm extends React.Component {
         console.log("updatedCoords", updatedCoords);
         let updatedRoom = merge({}, this.state.room)
         updatedRoom = merge(updatedRoom, {coordinates: updatedCoords})
+        console.log("updatedRoom", updatedRoom);
         this.setState({room: updatedRoom})
       })
     }
   }
 
   componentWillReceiveProps(newProps) {
-    let updated = merge(this.state.room, newProps.room)
+    let updated = merge({}, this.state.room)
+    updated = merge(updated, newProps.room)
     this.setState({room: updated})
   }
 

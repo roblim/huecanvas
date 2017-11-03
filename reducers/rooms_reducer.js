@@ -5,6 +5,7 @@ import {
 	RECEIVE_ROOM,
 	REMOVE_ROOM
 } from '../actions/room_actions';
+import { Dimensions } from 'react-native';
 
 const RoomsReducer = (state = {}, action) => {
 	Object.freeze(state);
@@ -19,6 +20,11 @@ const RoomsReducer = (state = {}, action) => {
 		case RECEIVE_ROOM:
 			// console.log('oldstate', state);
 			console.log('action', action);
+			if (action.room.coordinates.height === 0 || action.room.coordinates.width === 768) {
+				let Window = Dimensions.get('window');
+				action.room.coordinates.height = Window.height/6
+				action.room.coordinates.width = 205
+			}
 			newState[action.room.id] = action.room;
 			// console.log('newState', newState);
 			return newState;
