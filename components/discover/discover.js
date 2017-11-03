@@ -16,7 +16,7 @@ class Discover extends React.Component {
     this.props.fetchBridges()
       AsyncStorage.getItem("users").then((users) => {
         users = JSON.parse(users);
-         if (!!Object.keys(users)[0]) {
+         if (users && !!Object.keys(users)[0]) {
            this.setState({user: true})
            setTimeout(() => {
              this.props.hideModal();
@@ -44,15 +44,14 @@ class Discover extends React.Component {
     } else {
       return (
         <View style={{alignItems: 'center', alignContent: "space-between"}}>
-          <Text style={{
-              color: "white",
-              padding: 50,
-              fontSize: 20}}>Press button on the Philips Hue bridge, then click create user</Text>
-          <Image source={require("../../docs/icons/icon_pack_v2.02/Push-link/PDF/pushlink_bridgev2-1.png")}
+
+          <Text style={{padding: 50, fontSize: 20, color: "white"}}>Press button on the Philips Hue bridge, then press Done.</Text>
+          <Image source={require("../../docs/click.png")}
             style={{width: 300, height: 300}}
             />
           <Button color="white"
-            title={"Create User"}
+            style={{fontSize: 30}}
+            title={"Done"}
             onPress={() => {
               this.props.createUser(this.props.bridge);
               this.props.hideModal();
@@ -83,6 +82,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "rgba(33, 33, 33, .4)",
     color: "white"
+
 
   }
 })

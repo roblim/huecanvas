@@ -14,6 +14,7 @@ import { AsyncStorage } from 'react-native';
 export default class Root extends React.Component {
   constructor(props) {
     super(props);
+    // AsyncStorage.clear();
     this.state = {
       isModalVisible: false,
       displayed: false
@@ -25,8 +26,8 @@ export default class Root extends React.Component {
   }
 
   componentWillMount() {
+    this.showModal();
 
-      this.showModal();
   }
 
   showModal() {
@@ -115,7 +116,7 @@ export default class Root extends React.Component {
                     flex: 1,
                     justifyContent: "center",
                     alignItems: "center",
-                    margin: "auto"
+                    margin: "auto",
                   }}
             isVisible={this.state.isModalVisible}
             backdropColor="rgba(33, 33, 33, .4)"
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'rgba(33, 33, 33, .4)',
   },
   welcome: {
     fontSize: 20,

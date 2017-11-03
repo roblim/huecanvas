@@ -18,22 +18,20 @@ export const fetchBridges = () => dispatch => {
 
 export const createUser = (bridge) => dispatch => {
 
-   APIUtil.createUser(bridge).then((data) => {
-    //  console.log(data);
-     if (data[0].error) {
-       dispatch(receiveUser(data[0].error))
-     } else {
-      user = bridge.user(data[0].success.username);
-      AsyncStorage.getItem("users").then((users) => {
-        users = JSON.parse(users);
-        let allUsers = merge({}, users);
-        allUsers[data[0].success.username] = bridge.user(data[0].success.username);
-        AsyncStorage.mergeItem("users", JSON.stringify(allUsers));
-      })
-      dispatch(receiveUser(user))
-   }
-   }
-).catch(function(error) {
+  APIUtil.createUser(bridge).then((data) => {
+    if (data[0].error) {
+     dispatch(receiveUser(data[0].error))
+    } else {
+            user = bridge.user(data[0].success.username);
+            AsyncStorage.getItem("users").then((users) => {
+              users = JSON.parse(users);
+              let allUsers = merge({}, users);
+              allUsers[data[0].success.username] = bridge.user(data[0].success.username);
+              AsyncStorage.mergeItem("users", JSON.stringify(allUsers));
+            })
+            dispatch(receiveUser(user))
+            }
+  }).catch(function(error) {
     console.log('There has been a problem with your createUser operation: ' + error.message);
   })
 }
