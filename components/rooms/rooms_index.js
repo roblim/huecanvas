@@ -127,7 +127,7 @@ class RoomsIndex extends Component{
     const lights = this.props.lights;
     if(this.state.showDraggableRoom){
       return(
-        <View >
+        <View style={styles.list}>
           {
             Object.values(rooms).map(room =>{
               return(
@@ -223,11 +223,16 @@ let styles = StyleSheet.create({
       backgroundColor: 'black'
     },
     mainContainer: {
-        flex    : 1,
+        flex    : 1
     },
     dropZone    : {
         height         : 100,
         backgroundColor: '#9e9e9e'
+    },
+    list:{
+      flex: 1,
+      flexWrap: 'wrap',
+      flexDirection: 'column',
     },
     text        : {
         marginTop   : 25,
@@ -254,7 +259,8 @@ let styles = StyleSheet.create({
     draggableRoom:{
         position    : 'absolute',
         top         : (Window.height/3)*2,
-        left        : Window.width/2 - CIRCLE_RADIUS
+        left        : Window.width/2 - CIRCLE_RADIUS,
+
     },
     circle      : {
         backgroundColor     : 'yellow',
