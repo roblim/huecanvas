@@ -14,7 +14,7 @@ export const selectRoomLights = (state, roomId) => {
   if (!roomId) { return selectLights(state); }
   let lights = state.entities.lights;
   if (Object.keys(lights).length < 1) { return []; }
-  debugger;
+  // debugger;
   let roomLightIds = Object.keys(state.entities.rooms[roomId].lights);
   let roomLights = [];
   roomLightIds.forEach(id => roomLights.push(lights[id]));

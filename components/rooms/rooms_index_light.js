@@ -17,6 +17,7 @@ import merge from 'lodash/merge';
 class RoomsIndexLight extends Component {
   constructor(props){
     super(props);
+    // coords = this.props.
     this.state={
       pan: new Animated.ValueXY(),
       showDraggable: this.props.showDraggable,
@@ -189,7 +190,8 @@ let styles = StyleSheet.create({
         backgroundColor     : '#00000030',
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
-        borderRadius        : CIRCLE_RADIUS
+        borderRadius        : CIRCLE_RADIUS,
+        position            : "absolute"
     },
     text        : {
         marginTop   : 22,
