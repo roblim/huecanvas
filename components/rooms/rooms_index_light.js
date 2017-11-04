@@ -17,15 +17,18 @@ import merge from 'lodash/merge';
 class RoomsIndexLight extends Component {
   constructor(props){
     super(props);
-    // coords = this.props.
+    let Window = Dimensions.get('window');
+    console.log(this.props.length);
+    let items = this.props.length || 0
+    let startX = (Window.width/12 * items)
     this.state={
-      pan: new Animated.ValueXY(),
+      pan: new Animated.ValueXY({x: startX, y: 0}),
       showDraggable: this.props.showDraggable,
       dropZoneValues: this.props.dropZoneValues,
       panResponder: null,
       rooms: this.props.rooms,
       room:null,
-      coords: {x: 0, y: 0}
+      coords: {x: startX, y: 0}
     };
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: ()=> true,
@@ -33,11 +36,15 @@ class RoomsIndexLight extends Component {
         dx: this.state.pan.x,
         dy: this.state.pan.y
       }]),
+      onPanResponderGrant: (e, gesture) => {
+        this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
+        this.state.pan.setValue({x: 0, y: 0});
+        // return true
+      },
       onPanResponderRelease: (e, gesture) =>{
         this.state.coords.x += this.state.pan.x._value;
         this.state.coords.y += this.state.pan.y._value;
         console.log(e.nativeEvent.pageY);
-
         // this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
         console.log("RELEASED");
         let rooms = this.props.rooms;
@@ -45,9 +52,9 @@ class RoomsIndexLight extends Component {
         if (Object.keys(this.props.rooms).length < 1){
           Animated.spring(
               this.state.pan,
-              {toValue:{x:0,y:0}}
-
+              {toValue:{x:startX,y:0}}
           ).start();
+          this.state.coords = {x:startX, y:0}
         } else {
           let coordinates = Object.values(rooms).map(room =>{
               return({ id: room.id, coords: room.coordinates });
@@ -92,7 +99,7 @@ class RoomsIndexLight extends Component {
           if(whichCoordinates.every(id => id === null)){
               Animated.spring(
                   this.state.pan,
-                  {toValue:{x:0,y:0}}
+                  {toValue:{x:xStart,y:0}}
               ).start();
           } else {
             // console.log("whichCoordinates", whichCoordinates);
@@ -114,7 +121,7 @@ class RoomsIndexLight extends Component {
               });
           }
         }
-      this.state.coords = {x:0, y:0}
+      this.state.coords = {x:startX, y:0}
       // this.state.pan.setValue({x: 0, y: 0});
       }
     });
@@ -182,22 +189,23 @@ class RoomsIndexLight extends Component {
 }
 
 export default RoomsIndexLight;
-
-let CIRCLE_RADIUS = 36;
 let Window = Dimensions.get('window');
+let CIRCLE_RADIUS = Window.height/12;
 let styles = StyleSheet.create({
     circle      : {
-        backgroundColor     : '#00000030',
+        backgroundColor     : '#ffd677',
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
         borderRadius        : CIRCLE_RADIUS,
         position            : "absolute"
     },
     text        : {
-        marginTop   : 22,
+        marginTop   : 52,
         marginLeft  : 5,
         marginRight : 5,
         textAlign   : 'center',
-        color       : '#fff'
+        color       : 'black',
+        fontSize    : 20
+
     }
 });

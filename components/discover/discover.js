@@ -15,6 +15,7 @@ class Discover extends React.Component {
   componentWillMount() {
     this.props.fetchBridges()
       AsyncStorage.getItem("users").then((users) => {
+        console.log(AsyncStorage.getItem("users"));
         users = JSON.parse(users);
          if (users && !!Object.keys(users)[0]) {
            this.setState({user: true})
