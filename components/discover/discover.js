@@ -59,7 +59,7 @@ class Discover extends React.Component {
   }
 
   render() {
-    if (!this.props.user) {
+    if (!this.props.bridge) {
       return (
         <Text style={{color: "white", fontSize: 30}}>
           please wait
