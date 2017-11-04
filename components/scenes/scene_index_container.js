@@ -1,9 +1,11 @@
 import { connect } from "react-redux";
 import SceneIndex from "./scene_index";
 import { setScene, fetchScenes, fetchScene, deleteScene, createScene } from "../../actions/scene_actions";
+import { selectLights } from "../../reducers/selectors";
 
 const mapStateToProps = (state) => {
   return {
+    lights: selectLights(state),
     scenes: Object.keys(state.entities.scenes).map((id) => ({
       [`${id}`]: state.entities.scenes[id]
     }))

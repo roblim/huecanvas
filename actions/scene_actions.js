@@ -29,6 +29,7 @@ export const createScene = (scene) => dispatch => (
   APIUtil.User.createScene(scene).then((scene) => dispatch(receiveScene(scene)))
 );
 
+
 const receiveAllScenes = (scenes) => ({
   type: RECEIVE_ALL_SCENES,
   scenes

@@ -11,16 +11,20 @@ class SceneFooter extends React.Component {
 
     this.state = {
       IndexModalIsOpen: false,
-      CreateModalIsOpen: false
+      CreateModalIsOpen: false,
+      EditModalIsOpen: false
     }
 
     this.openModal = this.openModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.editScene = this.editScene.bind(this);
   }
 
   hideModal(type) {
     if (type === "index") {
       this.setState({IndexModalIsOpen: false})
+    } else if (type === "edit") {
+      thi.setState({EditModalIsOpen: false})
     } else {
       this.setState({CreateModalIsOpen: false})
     }
@@ -29,9 +33,15 @@ class SceneFooter extends React.Component {
   openModal(type) {
     if (type === "index") {
       this.setState({IndexModalIsOpen: true})
+    } else if (type === "edit") {
+      this.setState({EditModalIsOpen: true})
     } else {
       this.setState({CreateModalIsOpen: true})
     }
+  }
+
+  editScene(scene) {
+    this.setState({EditModalIsOpen: true})
   }
 
   render() {
@@ -41,40 +51,58 @@ class SceneFooter extends React.Component {
           <Modal
             style={{
 
-              backgroundColor: "rgba(255, 255, 255, .4)",
+              backgroundColor: "rgba(33, 33, 33, .4)",
               height: "100%"
 
             }}
             isVisible={this.state.IndexModalIsOpen}
-            backdropColor="rgb(255, 255, 255)"
+            backdropColor="rgb(33, 33, 33)"
 
             >
             <SceneIndexContainer
+              hideModal={this.hideModal}
+              openModal={this.openModal}
+              />
+            </ Modal>
+          <Modal
+            style={{
+              backgroundColor: "rgba(33, 33, 33, .4)"
+
+            }}
+            isVisible={this.state.CreateModalIsOpen}
+            backdropColor="rgb(33, 33, 33)"
+
+            >
+
+            <SceneFormContainer
+              formType="create"
               hideModal={this.hideModal}
               />
             </ Modal>
           <Modal
             style={{
-              backgroundColor: "white"
+              backgroundColor: "rgba(33, 33, 33, .4)"
 
             }}
-            isVisible={this.state.CreateModalIsOpen}
-            backdropColor="rgb(255, 255, 255)"
+            isVisible={this.state.EditModalIsOpen}
+            backdropColor="rgb(33, 33, 33)"
 
             >
 
             <SceneFormContainer
+              editScene={this.editScene}
+              formType="edit"
               hideModal={this.hideModal}
               />
             </ Modal>
             <Button
-              color="#383838"
+              color="white"
               onPress={() => this.openModal("index")}
               title="Scenes"
 
               />
             <Button
-              color="#383838"
+              color="white"
               onPress={() => this.openModal("create")}
               title="Create Scene"
 
