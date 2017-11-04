@@ -5,7 +5,6 @@ import { AsyncStorage } from "react-native";
 class Discover extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       user: false
     }
@@ -14,39 +13,34 @@ class Discover extends React.Component {
 
   componentWillMount() {
     this.props.fetchBridges()
-      AsyncStorage.getItem("users").then((users) => {
-        users = JSON.parse(users);
-         if (users && !!Object.keys(users)[0]) {
-           this.setState({user: true})
-           setTimeout(() => {
-             this.props.hideModal();
-             users = Object.keys(users).map((user) => this.props.bridge.user(user))
-             this.props.setUser(users[0])
-             this.props.fetchLights(users[0])
-           }, 3000)
-        }
-      })
-
+    if (this.props.user) {
+      this.hideModal()
+    }
     };
 
 
   userOptions() {
 
-    if (this.state.user) {
+    if (this.props.user) {
       this.props.fetchLights(this.props.user)
       setTimeout(() => this.props.hideModal(), 1500);
       return (
-        <Text style={{fontSize: 50}}>Welcome back</Text>
+        <Text style={{
+            color: "white",
+            fontSize: 50
+          }}>Welcome back</Text>
       )
     } else {
       return (
         <View style={{alignItems: 'center', alignContent: "space-between"}}>
-          <Text style={{padding: 50, fontSize: 20}}>Press button on the Philips Hue bridge, then click create user</Text>
-          <Image source={require("../../docs/icons/icon_pack_v2.02/Push-link/PDF/pushlink_bridgev2-1.png")}
+
+          <Text style={{padding: 50, fontSize: 20, color: "white"}}>Press button on the Philips Hue bridge, then press Done.</Text>
+          <Image source={require("../../docs/click.png")}
             style={{width: 300, height: 300}}
             />
-          <Button color="black"
-            title={"create user"}
+          <Button color="white"
+            style={{fontSize: 30}}
+            title={"Done"}
             onPress={() => {
               this.props.createUser(this.props.bridge);
               this.props.hideModal();
@@ -64,9 +58,16 @@ class Discover extends React.Component {
   }
 
   render() {
+    if (!this.props.user) {
+      return (
+        <Text style={{color: "white", fontSize: 30}}>
+          please wait
+        </ Text>
+      )
+    }
     return (
       <View>
-
+        <Text>Butt</Text>
         {this.userOptions()}
       </View>
     )
@@ -75,7 +76,9 @@ class Discover extends React.Component {
 
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: "rgba(255, 255, 255, .9)",
+    backgroundColor: "rgba(33, 33, 33, .4)",
+    color: "white"
+
 
   }
 })

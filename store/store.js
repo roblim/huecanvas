@@ -32,6 +32,34 @@ let testStore = {
     bridgeIP: homeIP
   },
   entities:{
+    scenes: {
+	"4e1c6b20e-on-0": {
+		"name": "Kathy on 1449133269486",
+		"lights": ["2", "3"],
+		"owner": "ffffffffe0341b1b376a2389376a2389",
+		"recycle": true,
+		"locked": false,
+		"appdata": {},
+		"picture": "",
+		"lastupdated": "2015-12-03T08:57:13",
+		"version": 1
+	},
+	"3T2SvsxvwteNNys": {
+		"name": "Cozy dinner",
+		"lights": ["1", "2"],
+		"owner": "ffffffffe0341b1b376a2389376a2389",
+		"recycle": true,
+		"locked": false,
+		"appdata": {
+			"version": 1,
+			"data": "myAppData"
+		},
+		"picture": "",
+		"lastupdated": "2015-12-03T10:09:22",
+		"version": 2
+	}
+},
+
     lights:{
       2: {
       manufacturername:"Philips",

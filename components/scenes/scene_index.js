@@ -5,12 +5,17 @@ let count = 0;
 class SceneIndex extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log(props.scenes);
+
     this.state = {
       currentScene: ""
     }
+    console.log(this.props.scenes);
     this.setScene = this.setScene.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.displayScene = this.displayScene.bind(this);
+    this.deleteScene = this.deleteScene.bind(this);
   }
 
   componentWillMount() {
@@ -22,22 +27,35 @@ class SceneIndex extends React.Component {
   }
 
   renderItem(scene) {
+    console.log(scene);
     let color;
-    if (scene.index < 15) {
-      color = itemColors[scene.index]
+    if (sceneColors[scene.item.name]) {
+      console.log("here");
+      color = sceneColors[scene.item.name]
     } else {
-      color = itemColors["default"]
+      color = "#b35858"
     }
 
       return (
       <SceneIndexItem item={scene}
+        style={{padding: 50}}
                       color={color}
-                      key={scene.index}
                       setScene={this.props.setScene}
                       displayScene={this.displayScene}
                       fetchScene={this.props.fetchScene}
+                      deleteScene={this.deleteScene}
+                      hideModal={this.props.hideModal}
+                      openModal={this.props.openModal}
                       />
     )
+  }
+
+  deleteScene(idx) {
+    console.log(idx);
+    console.log("before", this.props.scenes);
+    this.props.scenes.splice(idx, 1);
+    this.props.hideModal("index");
+    console.log("after", this.props.scenes);
   }
 
   setScene(name) {
@@ -47,19 +65,20 @@ class SceneIndex extends React.Component {
   render() {
 
     return (
-      <View>
-          <Text style={{backgroundColor:"rgba(255, 255, 255, .4)", color: "black"}}>Scenes</Text>
-          <Text style={{fontSize: 20, color: "black", backgroundColor: "rgba(255, 255, 255, .4)"}}>
+      <View
+        style={{flex: -1}}
+        >
+          <Text style={{backgroundColor:"rgba(33, 33, 33, .4)", color: "white"}}>Scenes</Text>
+          <Text style={{fontSize: 20, color: "white", backgroundColor: "rgba(33, 33, 33, .4)"}}>
             Current Scene: {this.state.currentScene}
           </Text>
         <FlatList
-          contentContainerStyle={styles.list}
           data={this.props.scenes}
           renderItem={this.renderItem}
           />
 
         <Button
-          color= "black"
+          color= "white"
           title="close"
           onPress={() => this.props.hideModal("index")}
           />
@@ -74,15 +93,10 @@ class SceneIndex extends React.Component {
 export default SceneIndex;
 
 const styles = StyleSheet.create({
-  list: {
-    flexDirection: 'row',
-    justifyContent: "space-between",
-    flexWrap: 'wrap',
-  }
 });
 
-const itemColors = {
-  0: "#FED38B",
+const sceneColors = {
+  "Margriet": "#FED38B",
   1: "#EEDB66",
   3: "#8FCADC",
   4: "#FFFFFF",

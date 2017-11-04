@@ -12,14 +12,33 @@ let bridgeIP;
 let globalUser;
 
 export const fetchBridges = () => dispatch => {
-  APIUtil.discover().then((bridges) => dispatch(receiveBridge(bridges[0].internalipaddress)))
+
+  APIUtil.discover().then((bridges) => {
+    return new Promise((resolve, reject) => {
+      dispatch(receiveBridge(bridges[0].internalipaddress))
+      resolve(bridges);
+
+
+    })
+    }).then((bridges) => {
+
+      let bridge = APIUtil.Hue.bridge(bridges[0].internalipaddress);
+      AsyncStorage.getItem("users").then((users) => {
+        users = JSON.parse(users);
+
+         if (users && !!Object.keys(users)[0]) {
+             users = Object.keys(users).map((user) => bridge.user(user))
+             dispatch(receiveUser(users[0]));
+             fetchLights(users[0])
+        }
+      })
+    })
+    //butts
 };
 
 
 export const createUser = (bridge) => dispatch => {
-
   APIUtil.createUser(bridge).then((data) => {
-    //  console.log(data);
     if (data[0].error) {
      dispatch(receiveUser(data[0].error))
     } else {
@@ -32,20 +51,19 @@ export const createUser = (bridge) => dispatch => {
             })
             dispatch(receiveUser(user))
             }
-  }
-).catch(function(error) {
-    console.log('There has been a problem with your createUser operation: ' + error.message);
+  }).catch(function(error) {
+    console.log('There has been a problem with your createUser butt operation: ' + error.message);
   })
 }
 
 export const setUser = (user) => dispatch => {
+  console.log(user);
   dispatch(receiveUser(user));
 }
 
 export const fetchLights = (thisUser) => dispatch => {
   if (thisUser) {
     thisUser.getLights().then((lights) => {
-
       dispatch(receiveAllLights(lights)
     )})
 
