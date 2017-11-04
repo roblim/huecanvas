@@ -6,7 +6,8 @@ import { selectUnassignedLights } from '../../reducers/selectors.js';
 
 const mapStateToProps = state =>({
   rooms: state.entities.rooms,
-  lights: selectUnassignedLights(state)
+  lights: selectUnassignedLights(state),
+  bridge: state.admin.bridge
 });
 
 const mapDispatchToProps = dispatch =>({

@@ -14,7 +14,8 @@ class Discover extends React.Component {
   componentWillMount() {
     this.props.fetchBridges()
     if (this.props.user) {
-      this.hideModal()
+      console.log("boooty");
+      // this.hideModal()
     }
     };
 

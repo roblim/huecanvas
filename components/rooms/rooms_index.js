@@ -7,18 +7,21 @@ import { StyleSheet,
          PanResponder,
          Animated,
          Dimensions,
-         Button,
-         Modal } from 'react-native';
+         Button} from 'react-native';
+import Modal from "react-native-modal";
 import RoomsIndexItem from './rooms_index_item';
 import { AsyncStorage } from 'react-native';
 import RoomFormContainer from './room_form_container';
 import RoomsIndexLight from './rooms_index_light';
 import merge from 'lodash/merge';
-
+import DiscoverContainer from "../discover/discover_container";
 
 class RoomsIndex extends Component{
   constructor(props){
     super(props);
+
+    console.log("porps", props);
+
     this.state={
       lightpan: new Animated.ValueXY(),
       roompan: new Animated.ValueXY(),
@@ -33,7 +36,8 @@ class RoomsIndex extends Component{
       sendToLightContainer: null,
       roomLights:null,
       droppedLights:[],
-      coordinates: null
+      coordinates: null,
+      isModalVisible: false
     };
 
     this.renderRooms = this.renderRooms.bind(this);
@@ -43,14 +47,26 @@ class RoomsIndex extends Component{
     this.resetLights = this.resetLights.bind(this);
     this.setLightDropZoneValues = this.setLightDropZoneValues.bind(this);
     this.removeRoom = this.removeRoom.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
 }
 
-  componentWillMount(){
+  componentDidMount(){
     // AsyncStorage.clear();
-    this.props.fetchRooms();
-    this.props.fetchLights();
+    this.showModal();
+      // this.props.fetchRooms();
+      // this.props.fetchLights();
 
   }
+
+  showModal() {
+    this.setState({ isModalVisible: true });
+  }
+
+  hideModal() {
+    this.setState({ isModalVisible: false });
+  }
+
   getCurrentRoom(currentRoom){
     this.setState({
       sendToLightContainer: currentRoom
@@ -206,8 +222,30 @@ class RoomsIndex extends Component{
 
   }
   render(){
+    const { navigate } = this.props.navigation;
+
+
       return(
         <View>
+
+            <Modal
+              style={{
+                      flex: 1,
+                      backgroundColor: "rgba(33, 33, 33, .6)",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      margin: "auto",
+                    }}
+              isVisible={this.state.isModalVisible}
+              backdropColor="rgba(33, 33, 33, .4)"
+            >
+              <DiscoverContainer
+                hideModal={this.hideModal}
+                navigate={navigate}
+                toggleDisplay={this.toggleDisplay}
+              />
+            </Modal>
+
           {this.renderDragArea()}
           {this.renderCreateRoom()}
           {this.renderRooms(this.state.dropZoneValuesRoom)}
