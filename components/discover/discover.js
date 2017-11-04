@@ -5,7 +5,6 @@ import { AsyncStorage } from "react-native";
 class Discover extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       user: false
     }
@@ -14,26 +13,15 @@ class Discover extends React.Component {
 
   componentWillMount() {
     this.props.fetchBridges()
-    console.log("fetched");
-      AsyncStorage.getItem("users").then((users) => {
-        users = JSON.parse(users);
-         if (users && !!Object.keys(users)[0]) {
-           this.setState({user: true})
-           setTimeout(() => {
-             this.props.hideModal();
-             users = Object.keys(users).map((user) => this.props.bridge.user(user))
-             this.props.setUser(users[0])
-             this.props.fetchLights(users[0])
-           }, 3000)
-        }
-      })
-
+    if (this.props.user) {
+      this.hideModal()
+    }
     };
 
 
   userOptions() {
 
-    if (this.state.user) {
+    if (this.props.user) {
       this.props.fetchLights(this.props.user)
       setTimeout(() => this.props.hideModal(), 1500);
       return (
@@ -70,6 +58,13 @@ class Discover extends React.Component {
   }
 
   render() {
+    if (!this.props.user) {
+      return (
+        <Text style={{color: "white", fontSize: 30}}>
+          please wait
+        </ Text>
+      )
+    }
     return (
       <View>
         <Text>Butt</Text>

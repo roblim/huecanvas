@@ -12,12 +12,28 @@ let bridgeIP;
 let globalUser;
 
 export const fetchBridges = () => dispatch => {
-  console.log("here");
-  console.log("i love butts");
+
   APIUtil.discover().then((bridges) => {
-    console.log(bridges);
+    return new Promise((resolve, reject) => {
+      dispatch(receiveBridge(bridges[0].internalipaddress))
+      resolve(bridges);
+
+
+    })
+    }).then((bridges) => {
+
+      let bridge = APIUtil.Hue.bridge(bridges[0].internalipaddress);
+      AsyncStorage.getItem("users").then((users) => {
+        users = JSON.parse(users);
+
+         if (users && !!Object.keys(users)[0]) {
+             users = Object.keys(users).map((user) => bridge.user(user))
+             dispatch(receiveUser(users[0]));
+             fetchLights(users[0])
+        }
+      })
+    })
     //butts
-    dispatch(receiveBridge(bridges[0].internalipaddress))})
 };
 
 
@@ -41,6 +57,7 @@ export const createUser = (bridge) => dispatch => {
 }
 
 export const setUser = (user) => dispatch => {
+  console.log(user);
   dispatch(receiveUser(user));
 }
 
