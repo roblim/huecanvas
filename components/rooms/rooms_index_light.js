@@ -190,22 +190,22 @@ class RoomsIndexLight extends Component {
 
 export default RoomsIndexLight;
 let Window = Dimensions.get('window');
-let CIRCLE_RADIUS = Window.height/12;
+let CIRCLE_RADIUS = Window.width/17;
 let styles = StyleSheet.create({
     circle      : {
         backgroundColor     : '#ffd677',
         width               : CIRCLE_RADIUS*2,
         height              : CIRCLE_RADIUS*2,
         borderRadius        : CIRCLE_RADIUS,
-        position            : "absolute"
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     text        : {
-        marginTop   : 52,
         marginLeft  : 5,
         marginRight : 5,
         textAlign   : 'center',
         color       : 'black',
-        fontSize    : 20
+        fontSize    : 18
 
     }
 });
