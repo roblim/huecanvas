@@ -53,9 +53,10 @@ class RoomsIndex extends Component{
 
   componentDidMount(){
     // AsyncStorage.clear();
-    this.showModal();
-      // this.props.fetchRooms();
-      // this.props.fetchLights();
+    if (!this.props.bridge) {
+      this.showModal();
+    }
+      this.props.fetchRooms();
 
   }
 
