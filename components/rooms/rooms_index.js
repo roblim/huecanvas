@@ -177,6 +177,7 @@ class RoomsIndex extends Component{
   renderLights(dropZoneValues){
     // console.log("roomLights", this.state.roomLights);
     const lights = this.props.lights;
+    console.log("this.props", this.props);
     console.log("this.props.lights", this.props.lights);
       return(
         <View style={styles.draggableLight}>
