@@ -1,4 +1,5 @@
 import jsHue from "jshue";
+
 import * as APIUtil from "../util/admin_api_util";
 import { AsyncStorage } from "react-native";
 import {merge} from "lodash";
@@ -19,14 +20,16 @@ export const fetchBridges = () => dispatch => {
 export const createUser = (bridge) => dispatch => {
 
   APIUtil.createUser(bridge).then((data) => {
-    //  console.log(data);
+     console.log(data);
     if (data[0].error) {
      dispatch(receiveUser(data[0].error))
     } else {
             user = bridge.user(data[0].success.username);
             AsyncStorage.getItem("users").then((users) => {
               users = JSON.parse(users);
+              console.log(users);
               let allUsers = merge({}, users);
+              console.log(allUsers);
               allUsers[data[0].success.username] = bridge.user(data[0].success.username);
               AsyncStorage.mergeItem("users", JSON.stringify(allUsers));
             })
@@ -43,13 +46,14 @@ export const setUser = (user) => dispatch => {
 }
 
 export const fetchLights = (thisUser) => dispatch => {
-  if (thisUser) {
-    thisUser.getLights().then((lights) => {
-
-      dispatch(receiveAllLights(lights)
-    )})
-
-  }
+  return "butt"
+  // if (thisUser) {
+  //   thisUser.getLights().then((lights) => {
+  //
+  //     dispatch(receiveAllLights(lights)
+  //   )})
+  //
+  // }
 }
 
 

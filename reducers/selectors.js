@@ -14,7 +14,6 @@ export const selectRoomLights = (state, roomId) => {
   if (!roomId) { return selectLights(state); }
   let lights = state.entities.lights;
   if (Object.keys(lights).length < 1) { return []; }
-  debugger;
   let roomLightIds = Object.keys(state.entities.rooms[roomId].lights);
   let roomLights = [];
   roomLightIds.forEach(id => roomLights.push(lights[id]));
@@ -53,14 +52,17 @@ export const selectUnassignedLights = state => {
     let assignedLights = []
     rooms.forEach(room => {
       if (room.lights) {
-        assignedLights = assignedLights.concat(room.lights)
+        assignedLights = assignedLights.concat(Object.values(room.lights))
       }
     });
+    let assignedIds = [];
     if (assignedLights.length > 0) {
-      return Object.values(state.entities.lights).filter(light => {
-          return assignedLights.some(assignedLight => {
-            return assignedLight.lightId == light.lightId
-          })
+      assignedIds = assignedLights.map(light =>{
+        return light.lightId;
+      });
+      console.log("assignedIds", assignedIds);
+      return Object.values(state.entities.lights).filter(light =>{
+          return !assignedIds.includes(light.lightId)
       })
     } else {
       return Object.values(state.entities.lights)
