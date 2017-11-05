@@ -152,11 +152,12 @@ class RoomsIndexLight extends Component {
           return null;
         }
         // console.log("greater than", coord.coords.absoluteY);
-        // console.log("gesture.moveY", gesture.moveY + 50);
+        // console.log("gesture.moveY", event.nativeEvent.pageY + 50);
+        // console.log("PageY", event.nativeEvent.pageY);
         // console.log("less than", coord.coords.absoluteY + coord.coords.height);
-        // console.log(gesture.moveY + 50 > coord.coords.absoluteY);
-        // console.log(gesture.moveY + 50 < coord.coords.absoluteY + coord.coords.height);
-        if (gesture.moveY + 50 > coord.coords.absoluteY && gesture.moveY + 50 < coord.coords.absoluteY + coord.coords.height){
+        console.log(event.nativeEvent.pageY + 50 > coord.coords.absoluteY);
+        console.log(event.nativeEvent.pageY + 50 < coord.coords.absoluteY + coord.coords.height);
+        if (event.nativeEvent.pageY + 50 > coord.coords.absoluteY && event.nativeEvent.pageY + 50 < coord.coords.absoluteY + coord.coords.height){
           if ((Math.abs(coord.coords.x) < gesture.moveX) && (Math.abs(coord.coords.x)+coord.coords.width > gesture.moveX)){
             console.log(coord.id);
             return coord.id;
