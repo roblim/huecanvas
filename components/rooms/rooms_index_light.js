@@ -16,8 +16,6 @@ import merge from 'lodash/merge';
 
 class RoomsIndexLight extends Component {
   _panResponder = {};
-	// _previousLeft = 0;
-	// _previousTop = 0;
   _circleStyles = {};
 	circle = null
 
@@ -39,114 +37,6 @@ class RoomsIndexLight extends Component {
       rooms: this.props.rooms,
       room:null,
     };
-    // let Window = Dimensions.get('window');
-    // console.log(this.props.length);
-    // let items = this.props.length || 0
-    // let startX = (Window.width/12 * items)
-    // this.state={
-    //   pan: new Animated.ValueXY({x: startX, y: 0}),
-    //   showDraggable: this.props.showDraggable,
-    //   dropZoneValues: this.props.dropZoneValues,
-    //   panResponder: null,
-    //   rooms: this.props.rooms,
-    //   room:null,
-    //   coords: {x: startX, y: 0}
-    // };
-    // this.panResponder = PanResponder.create({
-    //   onStartShouldSetPanResponder: ()=> true,
-    //   onPanResponderMove: Animated.event([null,{
-    //     dx: this.state.pan.x,
-    //     dy: this.state.pan.y
-    //   }]),
-    //   onPanResponderGrant: (e, gesture) => {
-    //     this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
-    //     this.state.pan.setValue({x: 0, y: 0});
-    //     // return true
-    //   },
-    //   onPanResponderRelease: (e, gesture) =>{
-    //     this.state.coords.x += this.state.pan.x._value;
-    //     this.state.coords.y += this.state.pan.y._value;
-    //     console.log(e.nativeEvent.pageY);
-    //     // this.state.pan.setOffset({x: this.state.coords.x, y: this.state.coords.y});
-    //     console.log("RELEASED");
-    //     let rooms = this.props.rooms;
-    //     console.log(rooms);
-        // if (Object.keys(this.props.rooms).length < 1){
-        //   Animated.spring(
-        //       this.state.pan,
-        //       {toValue:{x:startX,y:0}}
-        //   ).start();
-        //   this.state.coords = {x:startX, y:0}
-        // } else {
-        //   let coordinates = Object.values(rooms).map(room =>{
-        //       return({ id: room.id, coords: room.coordinates });
-        //   });
-        //   // console.log("coordinates", coordinates);
-        //   // console.log("gesturex", gesture.moveX);
-        //
-        //   let whichCoordinates = coordinates.map((coord,idx) => {
-        //     if(!coord.coords || Object.keys(coord.coords).length < 1){
-        //       console.log('null');
-        //       return null;
-        //     }
-        //
-        //     // console.log(gesture.moveY - 330);
-        //     // console.log(Math.abs(this.state.coords.y));
-        //     // gesture.moveY = gesture.moveY > 600 ? gesture.moveY - 300 : gesture.moveY
-        //     console.log("pan coords", this.state.coords.y);
-        //     console.log("greater than", coord.coords.absoluteY);
-        //     console.log("gesture.moveY", gesture.moveY + 50);
-        //     console.log("less than", coord.coords.absoluteY + coord.coords.height);
-        //     // console.log(gesture.moveY > coord.coords.absoluteY);
-        //     // console.log(gesture.moveY < coord.coords.absoluteY + coord.coords.height);
-        //     // this.state.coords.y = this.state.coords.y <
-        //     if (gesture.moveY + 50 > coord.coords.absoluteY && gesture.moveY + 50 < coord.coords.absoluteY + coord.coords.height){
-        //       // console.log("gesture", gesture.moveX);
-        //       // console.log("width", coord.coords.width);
-        //       // console.log("dz", coord.coords.x);
-        //       // console.log(((coord.coords.x) < gesture.moveX));
-        //       // console.log(((coord.coords.x)+coord.coords.width > gesture.moveX));
-        //       if ((Math.abs(coord.coords.x) < gesture.moveX) && (Math.abs(coord.coords.x)+coord.coords.width > gesture.moveX)){
-        //         console.log(coord.id);
-        //         return coord.id;
-        //       }
-        //       console.log(coord.id, "outside width");
-        //       return null
-        //     } else {
-        //       console.log(coord.id, "outside height");
-        //       return null;
-        //     }
-        //   });
-        //   console.log(whichCoordinates);
-        //   if(whichCoordinates.every(id => id === null)){
-        //       Animated.spring(
-        //           this.state.pan,
-        //           {toValue:{x:xStart,y:0}}
-        //       ).start();
-        //   } else {
-        //     // console.log("whichCoordinates", whichCoordinates);
-        //     let roomId = whichCoordinates.filter(function(id) {
-        //       console.log(id);
-        //       return id !== null;
-        //     });
-        //     console.log(roomId);
-        //     let newRoom = merge({}, this.props.rooms[roomId], {lights: {[this.props.light.lightId]:{lightId: this.props.light.lightId, canvasPosition: null}}});
-        //     this.setState({
-        //       room: newRoom
-        //     });
-        //     this.props.getCurrentRoom(newRoom);
-        //     this.props.getDroppedLights(this.props.light);
-        //     // console.log("this.state.room", newRoom);
-        //     this.props.parentProps.updateRoom(newRoom);
-        //       this.setState({
-        //         showDraggable: false
-        //       });
-        //   }
-        // }
-    //   this.state.coords = {x:startX, y:0}
-    //   // this.state.pan.setValue({x: 0, y: 0});
-    //   }
-    // });
   }
 
   componentWillMount() {
@@ -175,41 +65,7 @@ class RoomsIndexLight extends Component {
     let coordinates = Object.values(rooms).map(room =>{
         return(room.coordinates);
     });
-
-
-
-      // const dz = this.props.dropZoneValues;
-      // // const thisZone = this.props.dropZones.map(dropZone =>{
-      // //     return(
-      // //       dropZone
-      // //     );
-      // //
-      // // });
-      // // const fixedDropZones = thisZone.forEach(dropZone =>{
-      // //   dropZone.height = 100;
-      // // });
-      // // console.log(fixedDropZones);
-      // // const last = thisZone.find(dropZone =>{
-      // //   console.log("dropZone-y",dropZone.y);
-      // //   console.log("dropZoney+height", dropZone.y+dropZone.height);
-      // //   console.log("gesture.moveY", gesture.moveY);
-      // //   console.log();
-      // //   if((dropZone.y < gesture.moveY) && (dropZone.y+dropZone.height > gesture.moveY)){
-      // //     return(
-      // //       dropZone
-      // //     );
-      // //   }
-      // // });
-      // //
-      // // console.log("last", last);
-      //
-      // dz.height += 200;
-      // dz.y = 200;
-      // this.setState({
-      //   dropZoneValues: dz
-      // });
-      // return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
-      return true;
+    return true;
   }
 
   _updatePosition = () => {
@@ -295,23 +151,12 @@ class RoomsIndexLight extends Component {
           console.log('null');
           return null;
         }
-
-        // console.log(gesture.moveY - 330);
-        // console.log(Math.abs(this.state.coords.y));
-        // gesture.moveY = gesture.moveY > 600 ? gesture.moveY - 300 : gesture.moveY
-        // console.log("pan coords", this.state.coords.y);
         // console.log("greater than", coord.coords.absoluteY);
         // console.log("gesture.moveY", gesture.moveY + 50);
         // console.log("less than", coord.coords.absoluteY + coord.coords.height);
-        // console.log(gesture.moveY > coord.coords.absoluteY);
-        // console.log(gesture.moveY < coord.coords.absoluteY + coord.coords.height);
-        // this.state.coords.y = this.state.coords.y <
+        // console.log(gesture.moveY + 50 > coord.coords.absoluteY);
+        // console.log(gesture.moveY + 50 < coord.coords.absoluteY + coord.coords.height);
         if (gesture.moveY + 50 > coord.coords.absoluteY && gesture.moveY + 50 < coord.coords.absoluteY + coord.coords.height){
-          // console.log("gesture", gesture.moveX);
-          // console.log("width", coord.coords.width);
-          // console.log("dz", coord.coords.x);
-          // console.log(((coord.coords.x) < gesture.moveX));
-          // console.log(((coord.coords.x)+coord.coords.width > gesture.moveX));
           if ((Math.abs(coord.coords.x) < gesture.moveX) && (Math.abs(coord.coords.x)+coord.coords.width > gesture.moveX)){
             console.log(coord.id);
             return coord.id;
@@ -345,12 +190,10 @@ class RoomsIndexLight extends Component {
         })
         this._circleStyles.style.left = 0;
     		this._circleStyles.style.top = 0;
-        // this._previousLeft = 0;
-        // this._previousTop = 0;
+
         this._updatePosition();
         console.log("true");
       } else {
-        // console.log("whichCoordinates", whichCoordinates);
         let roomId = whichCoordinates.filter(function(id) {
           console.log(id);
           return id !== null;
@@ -362,7 +205,6 @@ class RoomsIndexLight extends Component {
         });
         this.props.getCurrentRoom(newRoom);
         this.props.getDroppedLights(this.props.light);
-        // console.log("this.state.room", newRoom);
         this.props.parentProps.updateRoom(newRoom);
           this.setState({
             showDraggable: false

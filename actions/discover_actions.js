@@ -47,7 +47,7 @@ export const setUser = (user) => dispatch => {
 
 export const fetchLights = (thisUser) => dispatch => {
   return "butt"
-  // if (!thisUser) {
+  // if (thisUser) {
   //   thisUser.getLights().then((lights) => {
   //
   //     dispatch(receiveAllLights(lights)
