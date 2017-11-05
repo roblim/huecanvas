@@ -31,7 +31,9 @@ const RoomsReducer = (state = dummy, action) => {
 		case RECEIVE_ROOM:
 			// console.log('oldstate', state);
 			console.log('action', action);
-			newState[action.room.id] = action.room;
+			newRoom = merge({}, newState[action.room.id], action.room)
+			newState[action.room.id] = newRoom;
+			// newState[action.room.id] = action.room;
 			// console.log('newState', newState);
 			return newState;
 		case REMOVE_ROOM:

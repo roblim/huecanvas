@@ -283,6 +283,14 @@ class LightIndexItem extends React.Component {
 		this._unHighlight();
 		this._previousLeft += gestureState.dx;
 		this._previousTop += gestureState.dy;
+		let room = this.props.room
+		if (room) {
+			room.lights[this.props.light.lightId]
+				.canvasPosition = { x: this._previousLeft, y: this._previousTop };
+				debugger;
+			this.props.updateRoom(room);
+			debugger;
+		}
 	};
 }
 

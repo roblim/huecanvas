@@ -21,7 +21,8 @@ import updateRoom from '../../actions/light_actions';
 const mapStateToProps = (state, ownProps) => ({
   user: state.admin.user,
   light: ownProps.light,
-  lights: selectLights(state)
+  lights: selectLights(state),
+  room: ownProps.room
 });
 
 const mapDispatchToProps = dispatch => ({

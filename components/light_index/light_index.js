@@ -69,6 +69,7 @@ class LightIndex extends React.Component {
 									key={`light-${idx}`}
 									xPos={this.getX(light.lightId)}
 									yPos={this.getY(light.lightId)}
+									room={this.props.room}
 									/>
 							)
 						)}
