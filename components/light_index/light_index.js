@@ -19,6 +19,8 @@ class LightIndex extends React.Component {
     super(props)
 		this.state = { color: toHsv('green') }
 		this.onColorChange = this.onColorChange.bind(this)
+		this.getX = this.getX.bind(this)
+		this.getY = this.getY.bind(this)
   }
 
 	onColorChange(color) {
@@ -29,14 +31,29 @@ class LightIndex extends React.Component {
 		this.props.fetchLights(this.props.user);
 	}
 
+	getX(lightId) {
+		if (Object.keys(this.props.lightPositions).length < 1) {
+			return 0
+		}
+		if (!this.props.lightPositions[lightId]) { return 0; }
+		return this.props.lightPositions[lightId].x;
+	}
+
+	getY(lightId) {
+		if (Object.keys(this.props.lightPositions).length < 1) {
+			return 0
+		}
+		if (!this.props.lightPositions[lightId]) { return 0; }
+		return this.props.lightPositions[lightId].y;
+	}
+
   render() {
 		if (this.props.lights.length < 1) { return null;}
 		return(
 			<View style={{
 					width: '100%',
 					height: '100%',
-					backgroundColor: '#121212',
-					// justifyContent: 'space-between'
+					backgroundColor: '#121212'
 				}}>
 
 				<View style={{padding: 20,
@@ -44,19 +61,14 @@ class LightIndex extends React.Component {
 						flexWrap: 'wrap',
 						alignSelf: 'center',
 						width: '100%',
-						// margin: 'auto',
-							// height: '100%',
-						// width: '60%',
-						// position: 'absolute',
-						// justifyContent: 'space-around',
-						// alignItems: 'center',
-						// alignContent: 'center',
 						flexDirection: 'row'}}>
 						{this.props.lights.map((light, idx) =>
 							(
 								<LightIndexItemContainer
 									light={light}
 									key={`light-${idx}`}
+									xPos={this.getX(light.lightId)}
+									yPos={this.getY(light.lightId)}
 									/>
 							)
 						)}
@@ -67,14 +79,6 @@ class LightIndex extends React.Component {
     )
   }
 }
-
-// {id: 0,
-//  name: "Daddy’s",
-//  lights: {
-// 					1: {lightId: 1, canvasPosition: null},
-// 					2: {lightId: 2, canvasPosition: null},
-// 	 			 }
-// }
 
 export default LightIndex;
 

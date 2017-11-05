@@ -16,6 +16,7 @@ import { blinkLight } from '../../util/lights_util';
 import { selectLights } from '../../reducers/selectors';
 import LightIndexItem from './light_index_item';
 import Panner from './panner';
+import updateRoom from '../../actions/light_actions';
 
 const mapStateToProps = (state, ownProps) => ({
   user: state.admin.user,
@@ -24,6 +25,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateRoom: (room) => dispatch(updateRoom(room)),
   blinkLight: blinkLight,
   turnLightOn: (user, lightId) => dispatch(turnLightOn(user, lightId)),
   turnLightOff: (user, lightId) => dispatch(turnLightOff(user, lightId)),

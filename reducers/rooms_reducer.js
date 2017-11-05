@@ -6,7 +6,19 @@ import {
 	REMOVE_ROOM
 } from '../actions/room_actions';
 
-const RoomsReducer = (state = {}, action) => {
+const dummy = {
+				1: {id: 1,
+					 name: "Daddy’s",
+					 lights: {
+										2: { lightId: 2, canvasPosition: { x: 0, y: 0 } },
+										3: { lightId: 3, canvasPosition: { x: 110, y: 110 } },
+										4: { lightId: 4, canvasPosition: { x: 230, y: 110 } },
+										5: { lightId: 5, canvasPosition: { x: 110, y: 300 }},
+									 }
+						}
+				};
+
+const RoomsReducer = (state = dummy, action) => {
 	Object.freeze(state);
 	let newState = merge({}, state);
 

@@ -150,8 +150,9 @@ class LightIndexItem extends React.Component {
 			onPanResponderTerminate: this._handlePanResponderEnd
 		});
 		let Window = Dimensions.get('window');
-		this._previousLeft = 0;
-		this._previousTop = 0;
+		// debugger;
+		this._previousLeft = this.props.xPos;
+		this._previousTop = this.props.yPos;
 		this._circleStyles = {
 			style: { left: this._previousLeft, top: this._previousTop }
 		};

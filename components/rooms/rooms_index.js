@@ -47,7 +47,7 @@ class RoomsIndex extends Component{
 
   componentWillMount(){
     // AsyncStorage.clear();
-    this.props.fetchRooms();
+    // this.props.fetchRooms();
     this.props.fetchLights();
 
   }
@@ -144,7 +144,7 @@ class RoomsIndex extends Component{
                       that={this}
                       setLightDropZoneValues={this.setLightDropZoneValues}
                       parentProps={this.props}
-                      sendToLightContainer={this.state.sendToLightContainer}
+                      sendToLightContainer={room}
                       removeRoom={id => this.removeRoom(id)}
                       coordinates={this.state.coordinates}
                   />
