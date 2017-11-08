@@ -8,7 +8,8 @@ import { StyleSheet,
          Animated,
          Dimensions,
          Button,
-         Modal } from 'react-native';
+         Modal,
+         Flatlist} from 'react-native';
 import RoomsIndexItem from './rooms_index_item';
 import { AsyncStorage } from 'react-native';
 import RoomFormContainer from './room_form_container';
@@ -209,7 +210,9 @@ class RoomsIndex extends Component{
         <View style={styles.main}>
           {this.renderDragArea()}
           {this.renderCreateRoom()}
+          <View style={styles.fuck}>
           {this.renderRooms(this.state.dropZoneValuesRoom)}
+          </View>
           {this.renderLights(this.state.dropZoneValuesLight)}
         </View>
       );
@@ -228,11 +231,6 @@ let styles = StyleSheet.create({
     dropZone    : {
         height         : 100,
         backgroundColor: '#9e9e9e'
-    },
-    list:{
-      flex: 1,
-      flexWrap: 'wrap',
-      flexDirection: 'column',
     },
     text        : {
         marginTop   : 25,
