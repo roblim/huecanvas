@@ -180,24 +180,29 @@ class RoomsIndex extends Component{
     const lights = this.props.lights;
     console.log("this.props", this.props);
     console.log("this.props.lights", this.props.lights);
+    let length = lights.length
       return(
         <View style={styles.draggableLight}>
           {
-            lights.map(light =>(
+            lights.map(light =>{
+              length -= 1
+              return (
 
-                  <RoomsIndexLight
-                    key={`lightId-${light.lightId}`}
-                    light={light}
-                    showDraggable={this.state.showDraggableLight}
-                    dropZoneValues={dropZoneValues}
-                    dropZones={this.state.dropZones}
-                    rooms={this.props.rooms}
-                    parentProps = {this.props}
-                    getCurrentRoom = {(currentRoom)=> this.getCurrentRoom(currentRoom)}
-                    getDroppedLights={(droppedLight)=> this.getDroppedLights(droppedLight)}
-                    />
+                <RoomsIndexLight
+                  key={`lightId-${light.lightId}`}
+                  light={light}
+                  length={length}
+                  showDraggable={this.state.showDraggableLight}
+                  dropZoneValues={dropZoneValues}
+                  dropZones={this.state.dropZones}
+                  rooms={this.props.rooms}
+                  parentProps = {this.props}
+                  getCurrentRoom = {(currentRoom)=> this.getCurrentRoom(currentRoom)}
+                  getDroppedLights={(droppedLight)=> this.getDroppedLights(droppedLight)}
+                  />
+              )
 
-            ))
+            })
           }
         </View>
       );

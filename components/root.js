@@ -14,7 +14,7 @@ import { AsyncStorage } from 'react-native';
 export default class Root extends React.Component {
   constructor(props) {
     super(props);
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
     this.state = {
       isModalVisible: false,
       displayed: false
@@ -26,7 +26,7 @@ export default class Root extends React.Component {
   }
 
   componentWillMount() {
-    // this.showModal();
+    this.showModal();
 
   }
 

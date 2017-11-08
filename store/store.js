@@ -202,7 +202,51 @@ let testStore = {
       {
       manufacturername: "Philips",
       modelid: "LCT001",
-      name: "Butt",
+      name: "Bulb",
+      state:
+        {
+          alert:"none",
+          bri:254,
+          colormode:"ct",
+          ct:366,
+          effect:"none",
+          hue:14956,
+          on:true,
+          reachable:true,
+          sat:140,
+          xy:[0.4571, 0.4097],
+        },
+      swversion: "5.23.1.13452",
+      type: "Extended color light",
+      uniqueid: "00:17:88:01:00:ef:cf:88-0b"
+    },
+    10:
+      {
+      manufacturername: "Philips",
+      modelid: "LCT001",
+      name: "Bulb",
+      state:
+        {
+          alert:"none",
+          bri:254,
+          colormode:"ct",
+          ct:366,
+          effect:"none",
+          hue:14956,
+          on:true,
+          reachable:true,
+          sat:140,
+          xy:[0.4571, 0.4097],
+        },
+      swversion: "5.23.1.13452",
+      type: "Extended color light",
+      uniqueid: "00:17:88:01:00:ef:cf:88-0b"
+    },
+    11:
+      {
+      manufacturername: "Philips",
+      modelid: "LCT001",
+      name: "Bulb",
       state:
         {
           alert:"none",
