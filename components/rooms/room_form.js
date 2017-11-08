@@ -29,16 +29,23 @@ export default class RoomForm extends React.Component {
       			return (Math.max(a, b))
       		})
           let Window = Dimensions.get('window');
-          let items = Object.keys(res.rooms).length || 0
+          let numRooms = Object.keys(res.rooms).length || 0
+          let columns = Math.floor(numRooms/2);
           // console.log(Window.height/6);
           // console.log(Window.height/6);
-          let absoluteY = (Window.height/6 * items + 320)
-          let y = absoluteY - 320
-          let updatedCoords = merge(this.state.room.coordinates, {y})
+          // let absoluteY = (Window.height/6 * numRooms + 320)
+          console.log("windowheight", Window.height);
+          let absoluteY = (Window.height/6 + 320)
+          let x = (this.state.room.coordinates.width + 60)*columns;
+          if(numRooms % 2 === 0){
+            absoluteY = 320;
+            x = (this.state.room.coordinates.width + 60)*columns
+          }
+          let y = absoluteY - 320 - (columns*-78.5)
+          let updatedCoords = merge(this.state.room.coordinates, {x,y})
           updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
 
           // let updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
-          console.log("updatedCoords", updatedCoords);
 
           let updatedRoom = merge({}, this.state.room, {id: (parseInt(maxId) + 1)})
           updatedRoom = merge(updatedRoom, {coordinates: updatedCoords})
@@ -50,14 +57,25 @@ export default class RoomForm extends React.Component {
           // console.log('hooray');
       	}
         let Window = Dimensions.get('window');
-        let items = Object.keys(res.rooms).length || 0
+        let numRooms = Object.keys(res.rooms).length || 0
+        let columns = Math.floor(numRooms/2);
         // console.log(Window.height/6);
         // console.log(Window.height/6);
-        let absoluteY = (Window.height/6 * items + 320)
+        console.log("numRooms", numRooms);
+        let absoluteY = (Window.height/6 + 320)
+        let x;
+        if(numRooms % 2 === 0){
+          console.log("here");
+          absoluteY = 320;
+          console.log("absoluteY", absoluteY);
+          x = (this.state.room.coordinates.width + 60)*columns
+        }
         let y = absoluteY - 320
-        let updatedCoords = merge(this.state.room.coordinates, {y})
-        updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
+
+        let updatedCoords = merge(this.state.room.coordinates, {x, y})
         console.log("updatedCoords", updatedCoords);
+        updatedCoords = merge({absoluteY: absoluteY}, this.state.room.coordinates)
+        console.log("updatedCoordsaftermerge", updatedCoords);
         let updatedRoom = merge({}, this.state.room)
         updatedRoom = merge(updatedRoom, {coordinates: updatedCoords})
         console.log("updatedRoom", updatedRoom);

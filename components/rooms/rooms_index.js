@@ -128,7 +128,7 @@ class RoomsIndex extends Component{
     const lights = this.props.lights;
     if(this.state.showDraggableRoom){
       return(
-        <View style={styles.list}>
+        <View>
           {
             Object.values(rooms).map(room =>{
               return(

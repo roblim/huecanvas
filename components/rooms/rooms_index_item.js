@@ -203,7 +203,7 @@ class RoomsIndexItem extends Component{
              transparent={false}
              visible={this.state.modalVisible}>
          <View >
-           <View style={styles.blah}>
+           <View>
              <LightIndexContainer room={this.props.sendToLightContainer} />
              <TouchableHighlight onPress={() => {
                this.setModalVisible(!this.state.modalVisible);
@@ -232,6 +232,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'relative'
   },
   blah:{
     alignItems:'center',
