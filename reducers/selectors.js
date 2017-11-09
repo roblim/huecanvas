@@ -53,14 +53,17 @@ export const selectUnassignedLights = state => {
     let assignedLights = []
     rooms.forEach(room => {
       if (room.lights) {
-        assignedLights = assignedLights.concat(room.lights)
+        assignedLights = assignedLights.concat(Object.values(room.lights))
       }
     });
+    let assignedIds = [];
     if (assignedLights.length > 0) {
-      return Object.values(state.entities.lights).filter(light => {
-          return assignedLights.some(assignedLight => {
-            return assignedLight.lightId == light.lightId
-          })
+      assignedIds = assignedLights.map(light =>{
+        return light.lightId;
+      });
+      console.log("assignedIds", assignedIds);
+      return Object.values(state.entities.lights).filter(light =>{
+          return !assignedIds.includes(light.lightId)
       })
     } else {
       return Object.values(state.entities.lights)
