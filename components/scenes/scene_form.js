@@ -21,6 +21,7 @@ class SceneForm extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.renderForm = this.renderForm.bind(this);
+    console.log(this.props);
   }
 
   openModal() {
@@ -38,6 +39,9 @@ class SceneForm extends React.Component {
   }
 
   renderForm() {
+
+    console.log("here");
+
     if (this.props.formType === "create") {
 
       console.log("create");
@@ -53,7 +57,6 @@ class SceneForm extends React.Component {
         style={{borderColor: "red",
           backgroundColor: "rgb(230, 230, 230)",
           paddingLeft: 5,
-          width: "50%",
           height: 50
         }}
         onChangeText={(text) => this.setState({text})}
@@ -108,7 +111,6 @@ class SceneForm extends React.Component {
       style={{borderColor: "red",
         backgroundColor: "rgb(230, 230, 230)",
         paddingLeft: 5,
-        width: "50%",
         height: 50
       }}
       onChangeText={(text) => this.setState({text})}
@@ -154,7 +156,6 @@ class SceneForm extends React.Component {
 
     return (
       <View style={styles.container}>
-      {() => this.renderForm()}
       <Modal
         isVisible={this.state.modalIsOpen}
         >
@@ -166,17 +167,17 @@ class SceneForm extends React.Component {
 
         </ Modal>
 
+        {this.renderForm()}
         <Text
           style={{
             fontSize: 50,
             color: "white"}}
           >
-          BEEEEEB
         </Text>
         <Button
           color= "white"
           title="close"
-          onPress={() => this.props.hideModal("create")}
+          onPress={() => this.props.hideModal()}
           />
     </View>
     )

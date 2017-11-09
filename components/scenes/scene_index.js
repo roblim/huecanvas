@@ -6,12 +6,10 @@ class SceneIndex extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(props.scenes);
 
     this.state = {
       currentScene: ""
     }
-    console.log(this.props.scenes);
     this.setScene = this.setScene.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.displayScene = this.displayScene.bind(this);
@@ -27,10 +25,8 @@ class SceneIndex extends React.Component {
   }
 
   renderItem(scene) {
-    console.log(scene);
     let color;
     if (sceneColors[scene.item.name]) {
-      console.log("here");
       color = sceneColors[scene.item.name]
     } else {
       color = "#b35858"
