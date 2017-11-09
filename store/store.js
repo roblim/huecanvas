@@ -15,7 +15,7 @@ const Bridge = Hue.bridge(homeIP);
 const User = Bridge.user(homeHue);
 
 
-const configureStore = (preloadedState) => (
+const configureStore = (preloadedState = testStore) => (
   createStore(
     RootReducer,
     preloadedState,
@@ -33,32 +33,580 @@ let testStore = {
   },
   entities:{
     scenes: {
-	"4e1c6b20e-on-0": {
-		"name": "Kathy on 1449133269486",
-		"lights": ["2", "3"],
-		"owner": "ffffffffe0341b1b376a2389376a2389",
-		"recycle": true,
-		"locked": false,
-		"appdata": {},
-		"picture": "",
-		"lastupdated": "2015-12-03T08:57:13",
-		"version": 1
-	},
-	"3T2SvsxvwteNNys": {
-		"name": "Cozy dinner",
-		"lights": ["1", "2"],
-		"owner": "ffffffffe0341b1b376a2389376a2389",
-		"recycle": true,
-		"locked": false,
-		"appdata": {
-			"version": 1,
-			"data": "myAppData"
-		},
-		"picture": "",
-		"lastupdated": "2015-12-03T10:09:22",
-		"version": 2
-	}
-},
+    	"FcT0-4ND1uE47Fp": {
+    		"name": "Jasper",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "fqTWN_r02_d99"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:51:54",
+    		"version": 2
+    	},
+    	"3PsGuqK3B6-R7zb": {
+    		"name": "Red",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "hLiho_r02_d99"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:57:25",
+    		"version": 2
+    	},
+    	"D35Cc9ZF-qn7pAM": {
+    		"name": "Violet",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "9vnl2_r02_d99"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:59:44",
+    		"version": 2
+    	},
+    	"sGRW87kSuuBWpIT": {
+    		"name": "Bright",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": true,
+    		"locked": true,
+    		"appdata": {
+    			"version": 1,
+    			"data": "KJ7uH_r00_d05"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T23:29:53",
+    		"version": 2
+    	},
+    	"7F8gqIEwKP1QAxC": {
+    		"name": "Wake Up end",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": true,
+    		"locked": true,
+    		"appdata": {
+    			"version": 1,
+    			"data": "9xrjL_r00"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T23:31:50",
+    		"version": 2
+    	},
+    	"tb9FhYqOx48zabP": {
+    		"name": "Wake Up init",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": true,
+    		"locked": true,
+    		"appdata": {
+    			"version": 1,
+    			"data": "lEWU7_r00"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T23:31:51",
+    		"version": 2
+    	},
+    	"4tWmKMjxRiICmXq": {
+    		"name": "Energize",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": true,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "ftIEf_r00_d04"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-22T08:36:50",
+    		"version": 2
+    	},
+    	"8iwK7jgL4eZlRcN": {
+    		"name": "Color",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3"
+    		],
+    		"owner": "odymERVKZUD1XQcUHZIlOCzqn3MOsUerkoVJHoFu",
+    		"recycle": true,
+    		"locked": false,
+    		"appdata": {},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T01:08:39",
+    		"version": 2
+    	},
+    	"IXKiNlheFI12FCb": {
+    		"name": "Relax",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "QvTFH_r02_d01"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:42:02",
+    		"version": 2
+    	},
+    	"5NP6Jb9MVsNkKvv": {
+    		"name": "Read",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "ebVCx_r02_d02"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:42:03",
+    		"version": 2
+    	},
+    	"lMIjk0BChnejBeE": {
+    		"name": "Concentrate",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "xst6T_r02_d03"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:42:03",
+    		"version": 2
+    	},
+    	"7cW9dX-ErFk5FqR": {
+    		"name": "Energize",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "9Astz_r02_d04"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:42:04",
+    		"version": 2
+    	},
+    	"Nv-TmYkYEUwQeFB": {
+    		"name": "Bright",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "QS04k_r02_d05"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:42:05",
+    		"version": 2
+    	},
+    	"zPEQwcoTYjId89f": {
+    		"name": "Dimmed",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "dY38A_r02_d06"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:42:05",
+    		"version": 2
+    	},
+    	"NrMPESFVuprNwwy": {
+    		"name": "Nightlight",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "wW26E_r02_d07"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:42:05",
+    		"version": 2
+    	},
+    	"Q5FRXKSZ4nQNfkw": {
+    		"name": "Savanna sunset",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "QiJgj_r02_d15"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:42:06",
+    		"version": 2
+    	},
+    	"FIoF3WLSN1p6EXx": {
+    		"name": "Tropical twilight",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "DQBVv_r02_d16"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:42:06",
+    		"version": 2
+    	},
+    	"qOm1A74KT6C1AQK": {
+    		"name": "Arctic aurora",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "Cs2mh_r02_d17"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:42:07",
+    		"version": 2
+    	},
+    	"2WSgDfa9XkrIdXL": {
+    		"name": "Spring blossom",
+    		"lights": [
+    			"1",
+    			"2",
+    			"3",
+    			"4",
+    			"5",
+    			"6",
+    			"7",
+    			"8",
+    			"9",
+    			"10",
+    			"11",
+    			"12",
+    			"13",
+    			"14",
+    			"15",
+    			"16"
+    		],
+    		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+    		"recycle": false,
+    		"locked": false,
+    		"appdata": {
+    			"version": 1,
+    			"data": "BttEb_r02_d18"
+    		},
+    		"picture": "",
+    		"lastupdated": "2017-10-20T03:42:08",
+    		"version": 2
+    	}
+    },
 
     lights:{
       2: {
@@ -182,4 +730,582 @@ let testStore = {
 //     type: "Extended color light",
 //     uniqueid: "00:17:88:01:00:ef:cf:88-0b"
 //     }
+// }
+
+// SCENES BRUV
+
+// {
+// 	"FcT0-4ND1uE47Fp": {
+// 		"name": "Jasper",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "fqTWN_r02_d99"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:51:54",
+// 		"version": 2
+// 	},
+// 	"3PsGuqK3B6-R7zb": {
+// 		"name": "Red",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "hLiho_r02_d99"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:57:25",
+// 		"version": 2
+// 	},
+// 	"D35Cc9ZF-qn7pAM": {
+// 		"name": "Violet",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "9vnl2_r02_d99"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:59:44",
+// 		"version": 2
+// 	},
+// 	"sGRW87kSuuBWpIT": {
+// 		"name": "Bright",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": true,
+// 		"locked": true,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "KJ7uH_r00_d05"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T23:29:53",
+// 		"version": 2
+// 	},
+// 	"7F8gqIEwKP1QAxC": {
+// 		"name": "Wake Up end",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": true,
+// 		"locked": true,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "9xrjL_r00"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T23:31:50",
+// 		"version": 2
+// 	},
+// 	"tb9FhYqOx48zabP": {
+// 		"name": "Wake Up init",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": true,
+// 		"locked": true,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "lEWU7_r00"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T23:31:51",
+// 		"version": 2
+// 	},
+// 	"4tWmKMjxRiICmXq": {
+// 		"name": "Energize",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": true,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "ftIEf_r00_d04"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-22T08:36:50",
+// 		"version": 2
+// 	},
+// 	"8iwK7jgL4eZlRcN": {
+// 		"name": "Color",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3"
+// 		],
+// 		"owner": "odymERVKZUD1XQcUHZIlOCzqn3MOsUerkoVJHoFu",
+// 		"recycle": true,
+// 		"locked": false,
+// 		"appdata": {},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T01:08:39",
+// 		"version": 2
+// 	},
+// 	"IXKiNlheFI12FCb": {
+// 		"name": "Relax",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "QvTFH_r02_d01"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:42:02",
+// 		"version": 2
+// 	},
+// 	"5NP6Jb9MVsNkKvv": {
+// 		"name": "Read",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "ebVCx_r02_d02"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:42:03",
+// 		"version": 2
+// 	},
+// 	"lMIjk0BChnejBeE": {
+// 		"name": "Concentrate",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "xst6T_r02_d03"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:42:03",
+// 		"version": 2
+// 	},
+// 	"7cW9dX-ErFk5FqR": {
+// 		"name": "Energize",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "9Astz_r02_d04"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:42:04",
+// 		"version": 2
+// 	},
+// 	"Nv-TmYkYEUwQeFB": {
+// 		"name": "Bright",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "QS04k_r02_d05"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:42:05",
+// 		"version": 2
+// 	},
+// 	"zPEQwcoTYjId89f": {
+// 		"name": "Dimmed",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "dY38A_r02_d06"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:42:05",
+// 		"version": 2
+// 	},
+// 	"NrMPESFVuprNwwy": {
+// 		"name": "Nightlight",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "wW26E_r02_d07"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:42:05",
+// 		"version": 2
+// 	},
+// 	"Q5FRXKSZ4nQNfkw": {
+// 		"name": "Savanna sunset",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "QiJgj_r02_d15"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:42:06",
+// 		"version": 2
+// 	},
+// 	"FIoF3WLSN1p6EXx": {
+// 		"name": "Tropical twilight",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "DQBVv_r02_d16"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:42:06",
+// 		"version": 2
+// 	},
+// 	"qOm1A74KT6C1AQK": {
+// 		"name": "Arctic aurora",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "Cs2mh_r02_d17"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:42:07",
+// 		"version": 2
+// 	},
+// 	"2WSgDfa9XkrIdXL": {
+// 		"name": "Spring blossom",
+// 		"lights": [
+// 			"1",
+// 			"2",
+// 			"3",
+// 			"4",
+// 			"5",
+// 			"6",
+// 			"7",
+// 			"8",
+// 			"9",
+// 			"10",
+// 			"11",
+// 			"12",
+// 			"13",
+// 			"14",
+// 			"15",
+// 			"16"
+// 		],
+// 		"owner": "aTqJem2IeIaXYShaaCC2xaqeGSwbg68hKreWr5eS",
+// 		"recycle": false,
+// 		"locked": false,
+// 		"appdata": {
+// 			"version": 1,
+// 			"data": "BttEb_r02_d18"
+// 		},
+// 		"picture": "",
+// 		"lastupdated": "2017-10-20T03:42:08",
+// 		"version": 2
+// 	}
 // }

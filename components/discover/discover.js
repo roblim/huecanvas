@@ -6,19 +6,30 @@ class Discover extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: false
+      user: false,
+      errorText: ""
     }
     this.userOptions = this.userOptions.bind(this);
+    this.checkButtonPressed = this.checkButtonPressed.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchBridges()
     if (this.props.user) {
       console.log("boooty");
-      // this.hideModal()
+      this.hideModal()
     }
     };
 
+  checkButtonPressed() {
+    if (!!this.props.user) {
+      this.props.createUser(this.props.bridge);
+
+    } else {
+      this.setState({errorText: "please press button"})
+    }
+    console.log("proooop", this.props);
+  }
 
   userOptions() {
 
@@ -42,13 +53,7 @@ class Discover extends React.Component {
           <Button color="white"
             style={{fontSize: 30}}
             title={"Done"}
-            onPress={() => {
-              this.props.createUser(this.props.bridge);
-              this.props.hideModal();
-              setTimeout(() => {
-                this.props.fetchLights(this.props.user)
-              }, 2000)
-            }}
+            onPress={this.checkButtonPressed}
             />
           </ View>
 
@@ -70,6 +75,9 @@ class Discover extends React.Component {
       <View>
         <Text>Butt</Text>
         {this.userOptions()}
+        <Text>
+        {this.state.errorText}
+        </ Text>
       </View>
     )
   }

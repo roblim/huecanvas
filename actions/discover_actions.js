@@ -12,6 +12,7 @@ let bridgeIP;
 let globalUser;
 
 export const fetchBridges = () => dispatch => {
+  let dataPromise;
 
   APIUtil.discover().then((bridges) => {
     return new Promise((resolve, reject) => {
@@ -39,22 +40,53 @@ export const fetchBridges = () => dispatch => {
 
 export const createUser = (bridge) => dispatch => {
   APIUtil.createUser(bridge).then((data) => {
-    if (data[0].error) {
-     dispatch(receiveUser(data[0].error))
+    if (data[0].success) {
+      user = bridge.user(data[0].success.username);
+      AsyncStorage.getItem("users").then((users) => {
+        users = JSON.parse(users);
+        let allUsers = merge({}, users);
+        allUsers[data[0].success.username] = bridge.user(data[0].success.username);
+        AsyncStorage.mergeItem("users", JSON.stringify(allUsers));
+      })
+      dispatch(receiveUser(user))
     } else {
-            user = bridge.user(data[0].success.username);
-            AsyncStorage.getItem("users").then((users) => {
-              users = JSON.parse(users);
-              let allUsers = merge({}, users);
-              allUsers[data[0].success.username] = bridge.user(data[0].success.username);
-              AsyncStorage.mergeItem("users", JSON.stringify(allUsers));
-            })
-            dispatch(receiveUser(user))
-            }
-  }).catch(function(error) {
-    console.log('There has been a problem with your createUser butt operation: ' + error.message);
-  })
-}
+      dispatch(receiveUser(false))
+    }
+    }
+  )}
+  //   console.log(data);
+  //   if (data[0].error) {
+  //   })
+  // } else {
+  //     user = bridge.user(data[0].success.username);
+  //     AsyncStorage.getItem("users").then((users) => {
+  //       users = JSON.parse(users);
+  //       let allUsers = merge({}, users);
+  //       allUsers[data[0].success.username] = bridge.user(data[0].success.username);
+  //       AsyncStorage.mergeItem("users", JSON.stringify(allUsers));
+  //     })
+  //     dispatch(receiveUser(user))
+  //     return new Promise((resolve, reject) => {
+  //       resolve(data);
+  //     })
+  //   }
+  //
+  // APIUtil.createUser(bridge).then((data) => {
+  //   if (data[0].error) {
+  //    dispatch(receiveUser(data[0].error))
+  //   } else {
+  //           user = bridge.user(data[0].success.username);
+  //           AsyncStorage.getItem("users").then((users) => {
+  //             users = JSON.parse(users);
+  //             let allUsers = merge({}, users);
+  //             allUsers[data[0].success.username] = bridge.user(data[0].success.username);
+  //             AsyncStorage.mergeItem("users", JSON.stringify(allUsers));
+  //           })
+  //           dispatch(receiveUser(user))
+  //           }
+  // }).catch(function(error) {
+  //   console.log('There has been a problem with your createUser butt operation: ' + error.message);
+  // })
 
 export const setUser = (user) => dispatch => {
   console.log(user);
@@ -62,6 +94,7 @@ export const setUser = (user) => dispatch => {
 }
 
 export const fetchLights = (thisUser) => dispatch => {
+  console.log(thisUser);
   if (thisUser) {
     thisUser.getLights().then((lights) => {
       dispatch(receiveAllLights(lights)

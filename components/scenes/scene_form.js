@@ -166,6 +166,13 @@ class SceneForm extends React.Component {
 
         </ Modal>
 
+        <Text
+          style={{
+            fontSize: 50,
+            color: "white"}}
+          >
+          BEEEEEB
+        </Text>
         <Button
           color= "white"
           title="close"

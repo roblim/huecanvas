@@ -242,6 +242,7 @@ class RoomsIndex extends Component{
             >
               <DiscoverContainer
                 hideModal={this.hideModal}
+                showModal={this.showModal}
                 navigate={navigate}
                 toggleDisplay={this.toggleDisplay}
               />
