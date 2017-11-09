@@ -90,6 +90,7 @@ class SceneIndexItem extends React.Component {
         >
         <SceneFormContainer
           hideModal={this.hideModal}
+          id={this.id}
           scene={scene}
           />
       </Modal>

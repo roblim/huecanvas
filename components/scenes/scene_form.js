@@ -14,14 +14,20 @@ class SceneForm extends React.Component {
     this.state = {
       text: "",
       modalIsOpen: false,
-      selectedColor: "rgb(240, 240, 240)"
-     };
+      selectedColor: "rgb(240, 240, 240)",
+      scene: {
+        "name": "",
+        "lights": "",
+        "recycle": "",
+        "picture": ""
+      }
+     }
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.renderForm = this.renderForm.bind(this);
-    console.log(this.props);
+    console.log("scene form props: ", this.props);
   }
 
   openModal() {
@@ -37,6 +43,7 @@ class SceneForm extends React.Component {
     this.setState({selectedColor: event});
     this.closeModal();
   }
+
 
   renderForm() {
 
@@ -70,6 +77,7 @@ class SceneForm extends React.Component {
         onPress={this.openModal}
         />
       <View style={{backgroundColor     : this.state.selectedColor,
+        marginLeft: 20,
         width               : 60*2,
         height              : 60*2,
         borderRadius        : 60,
@@ -124,6 +132,7 @@ class SceneForm extends React.Component {
       onPress={this.openModal}
       />
     <View style={{backgroundColor     : this.state.selectedColor,
+      marginLeft: 20,
       width               : 60*2,
       height              : 60*2,
       borderRadius        : 60,
@@ -136,10 +145,10 @@ class SceneForm extends React.Component {
 
     <Button
       color={this.state.selectedColor}
-      title="Save"
+      title="Update"
       onPress={
         () => {
-          this.props.createScene({
+          this.props.updateScene(this.props.id, {
             "name": this.state.text,
             "lights": this.props.lights,
             "recycle": true,

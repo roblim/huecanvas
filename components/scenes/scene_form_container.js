@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  createScene: (scene) => dispatch(createScene(scene))
+  createScene: (scene) => dispatch(createScene(scene)),
+  updateScene: (id) => dispatch(updateScene(id, scene))
 })
 
 export default connect(

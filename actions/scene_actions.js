@@ -21,9 +21,13 @@ export const setScene = (id) => dispatch => {
 ).then(scene => dispatch(receiveScene(scene)))
 }
 
-export const deleteScene = (id) => dispatch => (
-  APIUtil.User.deleteScene(id).then((scene) => dispatch(removeScene(scene)))
-);
+export const updateScene = (id, scene) => dispatch => {
+  APIUtil.User.deleteScene(id).then((data) => {
+    if (data[0].success) {
+      APIUtil.User.createScene(scene).then((scene) => dispatch(receiveScene(scene)))
+    }
+  })
+}
 
 export const createScene = (scene) => dispatch => (
   APIUtil.User.createScene(scene).then((scene) => dispatch(receiveScene(scene)))
