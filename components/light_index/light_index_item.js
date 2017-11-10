@@ -69,6 +69,7 @@ class LightIndexItem extends React.Component {
 		this.changeTemperature = this.props.changeTemperature.bind(this);
 		this.updateLightName = this.props.updateLightName.bind(this);
 		this.changeBrightnessAll = this.props.changeBrightnessAll.bind(this);
+		this._handlePanResponderEnd = this._handlePanResponderEnd.bind(this);
   }
 
 	hexToRgbA(hex, alpha = 1) {
@@ -132,7 +133,6 @@ class LightIndexItem extends React.Component {
 				if (delta < 200) {
 					// console.log('double tap!')
 				} else {
-					// console.log('blink');
 					this.blinkLight(user, lightId);
 				}
 				this.setState({ lastPress: new Date().getTime() });
@@ -150,7 +150,6 @@ class LightIndexItem extends React.Component {
 			onPanResponderTerminate: this._handlePanResponderEnd
 		});
 		let Window = Dimensions.get('window');
-		// debugger;
 		this._previousLeft = this.props.xPos;
 		this._previousTop = this.props.yPos;
 		this._circleStyles = {
@@ -173,7 +172,7 @@ class LightIndexItem extends React.Component {
 	            this.circle = circle;
 	          }}
 						{...this._panResponder.panHandlers}
-						onLayout={(e) => console.log(e.nativeEvent.layout)}
+						// onLayout={(e) => console.log(e.nativeEvent.layout)}
 						style={lightColor(light).container}>
 
 						<TouchableHighlight
@@ -283,14 +282,12 @@ class LightIndexItem extends React.Component {
 		this._unHighlight();
 		this._previousLeft += gestureState.dx;
 		this._previousTop += gestureState.dy;
-		debugger;
-		let room = this.props.room
+		let room = this.props.room;
 		if (room) {
 			room.lights[this.props.light.lightId]
 				.canvasPosition = { x: this._previousLeft, y: this._previousTop };
-				debugger;
+				// debugger;
 			this.props.updateRoom(room);
-			debugger;
 		}
 	};
 }
@@ -301,9 +298,9 @@ const lightColor = (light) => {
 																		  light.state.xy[1],
 																			light.state.bri,
 																			light.modelId);
-	let red  = rgb[0];
-	let green  = rgb[1];
-	let blue  = rgb[2];
+	let red = rgb[0];
+	let green = rgb[1];
+	let blue = rgb[2];
 
 	return(
 		StyleSheet.create({
@@ -319,13 +316,7 @@ const lightColor = (light) => {
 				// position: "absolute",
 				margin: 10,
 				left: 0,
-				top: 0,
-
-				// shadowColor: `rgb(${red}, ${green}, ${blue})`,
-		    // shadowOffset: { width: 1, height: 1 },
-		    // shadowOpacity: 1,
-		    // shadowRadius: 6,
-		    // elevation: 4,
+				top: 0
 			}
 		})
 	);

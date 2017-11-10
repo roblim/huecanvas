@@ -16,7 +16,7 @@ import { blinkLight } from '../../util/lights_util';
 import { selectLights } from '../../reducers/selectors';
 import LightIndexItem from './light_index_item';
 import Panner from './panner';
-import updateRoom from '../../actions/light_actions';
+import { updateRoom } from '../../actions/room_actions';
 
 const mapStateToProps = (state, ownProps) => ({
   user: state.admin.user,

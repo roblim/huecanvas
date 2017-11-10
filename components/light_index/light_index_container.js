@@ -7,7 +7,8 @@ import LightIndex from './light_index';
 import { fetchLights } from '../../actions/discover_actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  room: selectRoom(state, ownProps.room),
+  // room: selectRoom(state, ownProps.room),
+  room: ownProps.room,
   user: state.admin.user,
   lights: selectRoomLights(state, ownProps.room),
   lightPositions: selectLightPositions(state, ownProps.room)
