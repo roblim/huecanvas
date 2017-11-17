@@ -151,10 +151,10 @@ class RoomsIndexLight extends Component {
           console.log('null');
           return null;
         }
-        // console.log("greater than", coord.coords.absoluteY);
-        // console.log("gesture.moveY", event.nativeEvent.pageY + 50);
+        console.log("greater than", coord.coords.absoluteY);
+        console.log("gesture.moveY", event.nativeEvent.pageY + 50);
         // console.log("PageY", event.nativeEvent.pageY);
-        // console.log("less than", coord.coords.absoluteY + coord.coords.height);
+        console.log("less than", coord.coords.absoluteY + coord.coords.height);
         console.log(event.nativeEvent.pageY + 50 > coord.coords.absoluteY);
         console.log(event.nativeEvent.pageY + 50 < coord.coords.absoluteY + coord.coords.height);
         if (event.nativeEvent.pageY + 50 > coord.coords.absoluteY && event.nativeEvent.pageY + 50 < coord.coords.absoluteY + coord.coords.height){

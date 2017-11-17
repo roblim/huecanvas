@@ -1,14 +1,16 @@
-import React, {Component} from 'react';
-import { StyleSheet,
-         Text,
-         View,
-         ScrollView,
-         TouchableHighlight,
-         PanResponder,
-         Animated,
-         Dimensions,
-         Button,
-         Modal } from 'react-native';
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableHighlight,
+  PanResponder,
+  Animated,
+  Dimensions,
+  Button,
+  Modal
+} from 'react-native';
 import RoomsIndexItem from './rooms_index_item';
 import { AsyncStorage } from 'react-native';
 import RoomFormContainer from './room_form_container';
@@ -16,10 +18,10 @@ import RoomsIndexLight from './rooms_index_light';
 import merge from 'lodash/merge';
 
 
-class RoomsIndex extends Component{
-  constructor(props){
+class RoomsIndex extends Component {
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       lightpan: new Animated.ValueXY(),
       roompan: new Animated.ValueXY(),
       showDraggableLight: true,
@@ -29,10 +31,10 @@ class RoomsIndex extends Component{
       renderedLights: this.props.lights,
       renderedRooms: this.props.rooms,
       modalVisible: false,
-      dropZones:[],
+      dropZones: [],
       sendToLightContainer: null,
-      roomLights:null,
-      droppedLights:[],
+      roomLights: null,
+      droppedLights: [],
       coordinates: null
     };
 
@@ -42,20 +44,20 @@ class RoomsIndex extends Component{
     this.renderCreateRoom = this.renderCreateRoom.bind(this);
     this.setLightDropZoneValues = this.setLightDropZoneValues.bind(this);
     this.removeRoom = this.removeRoom.bind(this);
-}
+  }
 
-  componentWillMount(){
+  componentWillMount() {
     this.props.fetchRooms();
     this.props.fetchLights();
 
   }
-  getCurrentRoom(currentRoom){
+  getCurrentRoom(currentRoom) {
     this.setState({
       sendToLightContainer: currentRoom
     });
   }
 
-  getDroppedLights(droppedLight){
+  getDroppedLights(droppedLight) {
     this.setState({
       droppedLights: [...this.state.droppedLights, droppedLight]
     });
@@ -69,7 +71,7 @@ class RoomsIndex extends Component{
 
 
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({ modalVisible: visible });
   }
 
   // isLightDropZone(gesture){
@@ -77,34 +79,34 @@ class RoomsIndex extends Component{
   //   return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   // }
 
-  isRoomDropZone(gesture){
+  isRoomDropZone(gesture) {
     const dz = this.state.dropZoneValuesRoom;
     // console.log(this.state.dropZoneValuesRoom);
     // console.log(gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height);
     return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
   }
 
-  setLightDropZoneValues(event){
+  setLightDropZoneValues(event) {
     this.setState({
-        dropZoneValuesLight: event.nativeEvent.layout,
-        dropZones: [...this.state.dropZones, event.nativeEvent.layout]
+      dropZoneValuesLight: event.nativeEvent.layout,
+      dropZones: [...this.state.dropZones, event.nativeEvent.layout]
     });
   }
 
-  setRoomDropZoneValues(event){
+  setRoomDropZoneValues(event) {
     this.setState({
       dropZoneValuesRoom: event.nativeEvent.layout
     });
   }
 
-  removeRoom(id){
+  removeRoom(id) {
     this.props.deleteRoom(id);
   }
 
-  renderCreateRoom(){
+  renderCreateRoom() {
     const { navigate } = this.props.navigation;
     const rooms = this.props.rooms;
-    return(
+    return (
       <View>
         <TouchableHighlight onPress={() => navigate('roomsNew')} style={styles.button}>
           <Text style={styles.text}>Create New Room</Text>
@@ -113,44 +115,44 @@ class RoomsIndex extends Component{
     );
   }
 
-  renderDragArea(){
-    return(
+  renderDragArea() {
+    return (
       <View style={styles.dropZone} onLayout={this.setRoomDropZoneValues.bind(this)}>
         <Text style={styles.text}>Drag Here To Delete Room</Text>
       </View>
     );
   }
 
-  renderRooms(dropZoneValues){
+  renderRooms(dropZoneValues) {
     if (!this.props.rooms || Object.keys(this.props.rooms).length < 1) { return null; }
     const rooms = this.props.rooms;
     const lights = this.props.lights;
-    if(this.state.showDraggableRoom){
-      return(
+    if (this.state.showDraggableRoom) {
+      return (
         <View style={styles.list}>
           {
-            Object.values(rooms).map(room =>{
-              return(
+            Object.values(rooms).map(room => {
+              return (
 
-                    <RoomsIndexItem
-                      room={room}
-                      rooms={rooms}
-                      lights={lights}
-                      showDraggable={this.state.showDraggableRoom}
-                      dropZoneValues = {dropZoneValues}
-                      key={room.id}
-                      that={this}
-                      setLightDropZoneValues={this.setLightDropZoneValues}
-                      parentProps={this.props}
-                      sendToLightContainer={this.state.sendToLightContainer}
-                      removeRoom={id => this.removeRoom(id)}
-                      coordinates={this.state.coordinates}
-                  />
+                <RoomsIndexItem
+                  room={room}
+                  rooms={rooms}
+                  lights={lights}
+                  showDraggable={this.state.showDraggableRoom}
+                  dropZoneValues={dropZoneValues}
+                  key={room.id}
+                  that={this}
+                  setLightDropZoneValues={this.setLightDropZoneValues}
+                  parentProps={this.props}
+                  sendToLightContainer={this.state.sendToLightContainer}
+                  removeRoom={id => this.removeRoom(id)}
+                  coordinates={this.state.coordinates}
+                />
 
 
-             );
+              );
             }
-          )
+            )
           }
         </View>
       );
@@ -174,112 +176,112 @@ class RoomsIndex extends Component{
   //   ).start();
   // }
 
-  renderLights(dropZoneValues){
+  renderLights(dropZoneValues) {
     // console.log("roomLights", this.state.roomLights);
     const lights = this.props.lights;
     console.log("this.props", this.props);
     console.log("this.props.lights", this.props.lights);
     let length = lights.length
-      return(
-        <View style={styles.draggableLight}>
-          {
-            lights.map(light =>{
-              length -= 1
-              return (
+    return (
+      <View style={styles.draggableLight}>
+        {
+          lights.map(light => {
+            length -= 1
+            return (
 
-                <RoomsIndexLight
-                  key={`lightId-${light.lightId}`}
-                  light={light}
-                  length={length}
-                  showDraggable={this.state.showDraggableLight}
-                  dropZoneValues={dropZoneValues}
-                  dropZones={this.state.dropZones}
-                  rooms={this.props.rooms}
-                  parentProps = {this.props}
-                  getCurrentRoom = {(currentRoom)=> this.getCurrentRoom(currentRoom)}
-                  getDroppedLights={(droppedLight)=> this.getDroppedLights(droppedLight)}
-                  />
-              )
+              <RoomsIndexLight
+                key={`lightId-${light.lightId}`}
+                light={light}
+                length={length}
+                showDraggable={this.state.showDraggableLight}
+                dropZoneValues={dropZoneValues}
+                dropZones={this.state.dropZones}
+                rooms={this.props.rooms}
+                parentProps={this.props}
+                getCurrentRoom={(currentRoom) => this.getCurrentRoom(currentRoom)}
+                getDroppedLights={(droppedLight) => this.getDroppedLights(droppedLight)}
+              />
+            )
 
-            })
-          }
-        </View>
-      );
+          })
+        }
+      </View>
+    );
 
 
 
   }
-  render(){
-      return(
-        <View style={styles.main}>
-          {this.renderDragArea()}
-          {this.renderCreateRoom()}
-          {this.renderRooms(this.state.dropZoneValuesRoom)}
-          {this.renderLights(this.state.dropZoneValuesLight)}
-        </View>
-      );
-}
+  render() {
+    return (
+      <View style={styles.main}>
+        {this.renderDragArea()}
+        {this.renderCreateRoom()}
+        {this.renderRooms(this.state.dropZoneValuesRoom)}
+        {this.renderLights(this.state.dropZoneValuesLight)}
+      </View>
+    );
+  }
 }
 let Window = Dimensions.get('window');
-let CIRCLE_RADIUS = Window.height/10;
+let CIRCLE_RADIUS = Window.height / 10;
 let styles = StyleSheet.create({
-    main:{
-      flex: 1,
-      backgroundColor: 'black'
-    },
-    mainContainer: {
-        flex    : 1
-    },
-    dropZone    : {
-        height         : 100,
-        backgroundColor: '#9e9e9e'
-    },
-    list:{
-      flex: 1,
-      flexWrap: 'wrap',
-      flexDirection: 'column',
-    },
-    text        : {
-        marginTop   : 25,
-        marginLeft  : 5,
-        marginRight : 5,
-        textAlign   : 'center',
-        color       : '#fff',
-        fontSize: 20
-    },
-    room : {
-      backgroundColor: '#e29a9a',
-      height: 75,
-      width: Window.width/3
-    },
-    draggableLight: {
-        flex:1,
-        position    : 'absolute',
-        top         : Window.height/3*2,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap'
-    },
-    draggableRoom:{
-        position    : 'absolute',
-        top         : (Window.height/3)*2,
-        left        : Window.width/2 - CIRCLE_RADIUS,
+  main: {
+    flex: 1,
+    backgroundColor: 'black'
+  },
+  mainContainer: {
+    flex: 1
+  },
+  dropZone: {
+    height: 100,
+    backgroundColor: '#9e9e9e'
+  },
+  list: {
+    flex: 1,
+    flexWrap: 'wrap',
+    flexDirection: 'column',
+  },
+  text: {
+    marginTop: 25,
+    marginLeft: 5,
+    marginRight: 5,
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 20
+  },
+  room: {
+    backgroundColor: '#e29a9a',
+    height: 75,
+    width: Window.width / 3
+  },
+  draggableLight: {
+    flex: 1,
+    position: 'absolute',
+    top: Window.height / 3 * 2,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap'
+  },
+  draggableRoom: {
+    position: 'absolute',
+    top: (Window.height / 3) * 2,
+    left: Window.width / 2 - CIRCLE_RADIUS,
 
-    },
-    circle      : {
-        backgroundColor     : 'yellow',
-        width               : CIRCLE_RADIUS*2,
-        height              : CIRCLE_RADIUS*2,
-        borderRadius        : CIRCLE_RADIUS
-    },
-    view :{
-      height: 100
-    },
-    roomContainer:{
-      width: Window.height/5,
-      height: Window.height/6,
-    }
+  },
+  circle: {
+    backgroundColor: 'yellow',
+    width: CIRCLE_RADIUS * 2,
+    height: CIRCLE_RADIUS * 2,
+    borderRadius: CIRCLE_RADIUS
+  },
+  view: {
+    height: 100
+  },
+  roomContainer: {
+    width: Window.height / 5,
+    height: Window.height / 6,
+  }
 });
 
 

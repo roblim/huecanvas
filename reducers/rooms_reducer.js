@@ -16,7 +16,7 @@ const RoomsReducer = (state = {}, action) => {
 		case RECEIVE_ROOMS:
 		let rooms = {}
 		Object.values(action.rooms).forEach(room => {
-			if (room.coordinates.height !== Window.height/6 || room.coordinates.width !== 205) {
+			if (room.coordinates && room.coordinates.height !== Window.height/6 || room.coordinates && room.coordinates.width !== 205) {
 				room.coordinates.height = Window.height/6;
 				room.coordinates.width = 205;
 				rooms[room.id] = room
