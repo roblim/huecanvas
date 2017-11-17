@@ -104,7 +104,7 @@ class RoomsIndex extends Component {
   }
 
   renderCreateRoom() {
-    const { navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation || false;
     const rooms = this.props.rooms;
     return (
       <View>
