@@ -8,7 +8,7 @@ import NavSlidersContainer from './nav/nav_sliders_container';
 import { Text, View } from "react-native";
 
 const TabNavigator = StackNavigator({
-	home: {screen: Root},
+	home: { screen: Root},
 	roomsNew: {screen: RoomFormContainer},
 	roomsIndex: {screen: RoomsIndexContainer},
 	// roomTemp: {screen: RoomTemp}

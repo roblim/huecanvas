@@ -134,20 +134,9 @@ export default class Root extends React.Component {
 
 
         </View>
-        <View>
-          <Button
-            onPress={() => navigate('roomsNew')}
-            title="Navigate to RoomsNew"
-          />
-        </View>
-        <View>
-          <Button
-            onPress={() => navigate('roomsIndex')}
-            title="Navigate to RoomsIndex"
-          />
-        </View>
-        <LightIndexContainer />
-        <SceneFooter />
+      
+        <RoomsIndexContainer navigation={this.props.navigation} />
+
       </View>
     );
   }
@@ -172,3 +161,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+
